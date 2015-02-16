@@ -50,15 +50,16 @@ public class APIResource extends OmiseObject {
 	 * @throws IOException
 	 * @throws OmiseException
 	 */
-	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, String> params, Class<?> clazz) throws IOException, OmiseException {
+	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
 		
+		// POSTパラメータがある場合送信
 		if(params != null) {
 			StringBuilder sb = new StringBuilder();
-			for(Map.Entry<String, String> e : params.entrySet()) {
+			for(Map.Entry<String, Object> e : params.entrySet()) {
 				sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
 					append("=").
-					append(URLEncoder.encode(e.getValue(), CHARSET)).
+					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
 					append("&");
 			}
 			sb.deleteCharAt(sb.lastIndexOf("&"));
@@ -76,6 +77,7 @@ public class APIResource extends OmiseObject {
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
 		try {
+			// レスポンスコードが400番以降ならerrorオブジェクトが帰ってきていると決め打ちでExceptionを発生させる
 			if(con.getResponseCode() >= 400) {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 				
