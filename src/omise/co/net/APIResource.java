@@ -12,7 +12,9 @@ import java.util.Map;
 import org.apache.commons.codec.binary.Base64;
 
 import omise.co.Omise;
+import omise.co.exeption.OmiseAPIException;
 import omise.co.exeption.OmiseException;
+import omise.co.model.OmiseError;
 import omise.co.model.OmiseObject;
 
 public class APIResource extends OmiseObject {
@@ -37,7 +39,17 @@ public class APIResource extends OmiseObject {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param omiseUrl
+	 * @param endPoint
+	 * @param method
+	 * @param params
+	 * @param clazz
+	 * @return
+	 * @throws IOException
+	 * @throws OmiseException
+	 */
 	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, String> params, Class<?> clazz) throws IOException, OmiseException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
 		
@@ -64,16 +76,30 @@ public class APIResource extends OmiseObject {
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
 		try {
-			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String buf;
-			while((buf = br.readLine()) != null) {
-				sb.append(buf);
+			if(con.getResponseCode() >= 400) {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+				
+				String buf;
+				while((buf = br.readLine()) != null) {
+					sb.append(buf);
+				}
+				
+				OmiseError omiseError = null;
+				omiseError = (OmiseError)GSON.fromJson(sb.toString(), OmiseError.class);
+				throw new OmiseAPIException(omiseError.getMessage(), omiseError);
+			} else {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				
+				String buf;
+				while((buf = br.readLine()) != null) {
+					sb.append(buf);
+				}
 			}
-			
 		} finally {
 			if(br != null) br.close();
 			con.disconnect();
 		}
+		
 		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
 	
