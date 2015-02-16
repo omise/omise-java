@@ -74,7 +74,6 @@ public class APIResource extends OmiseObject {
 			if(br != null) br.close();
 			con.disconnect();
 		}
-		
 		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
 	
