@@ -6,13 +6,13 @@ import java.util.Date;
 import omise.co.exeption.OmiseException;
 import omise.co.net.APIResource;
 
-public class Account extends APIResource{
-	private static String ENDPOINT = "account";
+public class Account extends APIResource {
+	private static final String ENDPOINT = "account";
 	
-	private String object;
-	private String id;
-	private String email;
-	private Date created;
+	private String object = null;
+	private String id = null;
+	private String email = null;
+	private Date created = null;
 	
 	public String getObject() {
 		return object;
