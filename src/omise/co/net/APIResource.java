@@ -1,8 +1,14 @@
 package omise.co.net;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -33,7 +39,43 @@ public class APIResource extends OmiseObject {
 	}
 	
 	
-	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method) {
+	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, String> params, Class<?> clazz) throws IOException, OmiseException {
+		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
+		
+		if(params != null) {
+			StringBuilder sb = new StringBuilder();
+			for(Map.Entry<String, String> e : params.entrySet()) {
+				sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
+					append("=").
+					append(URLEncoder.encode(e.getValue(), CHARSET)).
+					append("&");
+			}
+			sb.deleteCharAt(sb.lastIndexOf("&"));
+			
+			PrintWriter pw = null;
+			try {
+				pw = new PrintWriter(con.getOutputStream());
+				pw.println(sb.toString());
+				pw.close();
+			} finally {
+				if(pw != null) pw.close();
+			}
+		}
+		
+		BufferedReader br = null;
+		StringBuilder sb = new StringBuilder();
+		try {
+			br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String buf;
+			while((buf = br.readLine()) != null) {
+				sb.append(buf);
+			}
+			
+		} finally {
+			if(br != null) br.close();
+			con.disconnect();
+		}
+		System.out.println(sb.toString());
 		
 		return null;
 	}
@@ -43,9 +85,10 @@ public class APIResource extends OmiseObject {
 	 * @param omiseUrl
 	 * @param endPoint
 	 * @param method
+	 * @param params
 	 * @return
-	 * @throws IOException
 	 * @throws OmiseException 
+	 * @throws IOException 
 	 */
 	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
 		HttpURLConnection con =  createOmiseConnection(omiseUrl, endPoint);
@@ -60,7 +103,7 @@ public class APIResource extends OmiseObject {
 	 * @param omiseUrl
 	 * @param endPoint
 	 * @return
-	 * @throws IOException
+	 * @throws IOException 
 	 * @throws OmiseException 
 	 */
 	private static HttpURLConnection createOmiseConnection(OmiseURL omiseUrl, String endPoint) throws IOException, OmiseException {
