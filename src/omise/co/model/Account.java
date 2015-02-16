@@ -1,6 +1,8 @@
 package omise.co.model;
 
-public class Account {
+import omise.co.net.APIResource;
+
+public class Account extends APIResource{
 	public static Account retrieve(){
 		return null;
 	}
