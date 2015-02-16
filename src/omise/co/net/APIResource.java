@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -75,9 +74,8 @@ public class APIResource extends OmiseObject {
 			if(br != null) br.close();
 			con.disconnect();
 		}
-		System.out.println(sb.toString());
 		
-		return null;
+		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
 	
 	/**
