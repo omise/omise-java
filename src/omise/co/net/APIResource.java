@@ -8,6 +8,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import omise.co.Omise;
 import omise.co.Omise.OmiseURL;
+import omise.co.exeption.OmiseException;
 
 public class APIResource {
 	private static final String CHARSET = "UTF-8";
@@ -24,10 +25,12 @@ public class APIResource {
 	 * @param method
 	 * @return
 	 * @throws IOException
+	 * @throws OmiseException 
 	 */
-	protected static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, String method) throws IOException {
+	protected static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
 		HttpURLConnection con =  createOmiseConnection(omiseUrl, endPoint);
 		con.setRequestProperty("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION);
+		con.setRequestMethod(method.name());
 		
 		return null;
 	}
@@ -38,20 +41,20 @@ public class APIResource {
 	 * @param endPoint
 	 * @return
 	 * @throws IOException
+	 * @throws OmiseException 
 	 */
-	private static HttpURLConnection createOmiseConnection(OmiseURL omiseUrl, String endPoint) throws IOException {
+	private static HttpURLConnection createOmiseConnection(OmiseURL omiseUrl, String endPoint) throws IOException, OmiseException {
 		HttpURLConnection con = (HttpURLConnection)(new URL(omiseUrl.toString() + endPoint)).openConnection();
 		String auth = "";
 		switch (omiseUrl) {
 		case API:
-			auth = Omise.secretKey + ":";
+			auth = Omise.getSecretKey() + ":";
 			break;
 		case VAULT:
-			auth = Omise.publicKey + ":";
+			auth = Omise.getPublicKey() + ":";
 			break;
 		default:
 			break;
-		
 		}
 		
 		con.setUseCaches(false);
