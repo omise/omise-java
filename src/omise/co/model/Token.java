@@ -12,9 +12,9 @@ public class Token extends APIResource {
 	
 	protected String object = null;
 	protected String id = null;
-	protected boolean livemode = false;
+	protected Boolean livemode = null;
 	protected String location = null;
-	protected boolean used = false;
+	protected Boolean used = null;
 	protected Card card = null;
 	protected Date created = null;
 	
