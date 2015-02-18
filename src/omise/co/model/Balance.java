@@ -9,9 +9,9 @@ public class Balance extends APIResource {
 	private static final String ENDPOINT = "balance";
 	
 	private String object = null;
-	private boolean livemode = false;
-	private int available = 0;
-	private int total = 0;
+	private Boolean livemode = null;
+	private Integer available = null;
+	private Integer total = null;
 	private String currency = null;
 	
 	private static Balance _balance = null;
@@ -22,22 +22,22 @@ public class Balance extends APIResource {
 	public void setObject(String object) {
 		this.object = object;
 	}
-	public boolean isLivemode() {
+	public Boolean isLivemode() {
 		return livemode;
 	}
-	public void setLivemode(boolean livemode) {
+	public void setLivemode(Boolean livemode) {
 		this.livemode = livemode;
 	}
-	public int getAvailable() {
+	public Integer getAvailable() {
 		return available;
 	}
-	public void setAvailable(int available) {
+	public void setAvailable(Integer available) {
 		this.available = available;
 	}
-	public int getTotal() {
+	public Integer getTotal() {
 		return total;
 	}
-	public void setTotal(int total) {
+	public void setTotal(Integer total) {
 		this.total = total;
 	}
 	public String getCurrency() {
