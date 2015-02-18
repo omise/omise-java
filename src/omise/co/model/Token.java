@@ -43,4 +43,8 @@ public class Token extends APIResource {
 	public static Token create(Map<String, Object> params) throws IOException, OmiseException {
 		return (Token)request(OmiseURL.VAULT, ENDPOINT, RequestMethod.POST, params, Token.class);
 	}
+	
+	public static Token retrieve(String id) throws IOException, OmiseException {
+		return (Token)request(OmiseURL.VAULT, ENDPOINT + "/" + id, RequestMethod.GET, null, Token.class);
+	}
 }
