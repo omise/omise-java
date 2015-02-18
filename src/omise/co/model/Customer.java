@@ -1,11 +1,14 @@
 package omise.co.model;
 
+import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
+import omise.co.exeption.OmiseException;
 import omise.co.net.APIResource;
 
 public class Customer extends APIResource {
+	private static final String ENDPOINT = "customers";
+	
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
@@ -14,7 +17,7 @@ public class Customer extends APIResource {
 	protected String email = null;
 	protected String description = null;
 	protected Date created = null;
-	protected List<Card> cards = null;
+	protected Cards cards = null;
 	
 	public String getObject() {
 		return object;
@@ -40,7 +43,11 @@ public class Customer extends APIResource {
 	public Date getCreated() {
 		return created;
 	}
-	public List<Card> getCards() {
+	public Cards getCards() {
 		return cards;
+	}
+	
+	public static Customers retrieve() throws IOException, OmiseException {
+		return (Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class);
 	}
 }
