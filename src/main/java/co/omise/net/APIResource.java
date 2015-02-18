@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import main.java.co.omise.Omise;
@@ -16,11 +18,18 @@ import main.java.co.omise.model.OmiseError;
 import main.java.co.omise.model.OmiseObject;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.http.Header;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
 
 public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
-	private static final int CONNECT_TIMEOUT = 10 * 1000;
-	private static final int READ_TIMEOUT = 10 * 1000;
+	private static final int CONNECT_TIMEOUT = 10;
+	private static final int REQUEST_TIMEOUT = 10;
+	private static final int SOCKET_TIMEOUT = 10;
 	protected enum RequestMethod {
 		GET, POST, PATCH, DELETE
 	}
@@ -37,6 +46,31 @@ public class APIResource extends OmiseObject {
 				return "https://vault.omise.co/";
 			}
 		}
+	}
+	
+	protected void requestGet() {
+		
+	}
+	
+	private static HttpClient bulidHttpClient() {
+		RequestConfig requestConfig =  RequestConfig.custom()
+				.setConnectTimeout(CONNECT_TIMEOUT)
+				.setConnectionRequestTimeout(REQUEST_TIMEOUT)
+				.setSocketTimeout(SOCKET_TIMEOUT)
+				.setCircularRedirectsAllowed(false)
+				.setRedirectsEnabled(false)
+				.build();
+		
+		List<Header> headers = new ArrayList<Header>();
+		headers.add(new BasicHeader("Accept-Charset", "UTF-8"));
+		headers.add(new BasicHeader("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION));
+		
+		HttpClient httpClient = HttpClientBuilder.create()
+				.setDefaultRequestConfig(requestConfig)
+				.setDefaultHeaders(headers)
+				.build();
+		
+		return httpClient;
 	}
 	
 	/**
@@ -148,7 +182,7 @@ public class APIResource extends OmiseObject {
 		con.setDoOutput(true);
 		con.setRequestProperty("Authorization", "Basic " + Base64.encodeBase64String(auth.getBytes(CHARSET)));
 		con.setConnectTimeout(CONNECT_TIMEOUT);
-		con.setReadTimeout(READ_TIMEOUT);
+		//con.setReadTimeout(READ_TIMEOUT);
 		
 		return con;
 	}
