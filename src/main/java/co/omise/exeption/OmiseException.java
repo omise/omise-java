@@ -1,4 +1,4 @@
-package omise.co.exeption;
+package main.java.co.omise.exeption;
 
 @SuppressWarnings("serial")
 public class OmiseException extends Exception {

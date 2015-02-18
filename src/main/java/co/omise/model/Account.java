@@ -1,10 +1,10 @@
-package omise.co.model;
+package main.java.co.omise.model;
 
 import java.io.IOException;
 import java.util.Date;
 
-import omise.co.exeption.OmiseException;
-import omise.co.net.APIResource;
+import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.net.APIResource;
 
 public class Account extends APIResource {
 	private static final String ENDPOINT = "account";

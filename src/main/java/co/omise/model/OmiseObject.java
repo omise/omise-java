@@ -1,4 +1,4 @@
-package omise.co.model;
+package main.java.co.omise.model;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;

@@ -1,11 +1,11 @@
-package omise.co.model;
+package main.java.co.omise.model;
 
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 
-import omise.co.exeption.OmiseException;
-import omise.co.net.APIResource;
+import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.net.APIResource;
 
 public class Customer extends APIResource {
 	private static final String ENDPOINT = "customers";

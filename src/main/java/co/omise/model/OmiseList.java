@@ -1,6 +1,6 @@
-package omise.co.model;
+package main.java.co.omise.model;
 
-import omise.co.net.APIResource;
+import main.java.co.omise.net.APIResource;
 
 public abstract class OmiseList extends APIResource {
 	protected String object = null;

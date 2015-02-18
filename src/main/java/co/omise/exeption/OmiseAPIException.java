@@ -1,6 +1,6 @@
-package omise.co.exeption;
+package main.java.co.omise.exeption;
 
-import omise.co.model.OmiseError;
+import main.java.co.omise.model.OmiseError;
 
 @SuppressWarnings("serial")
 public class OmiseAPIException extends OmiseException {

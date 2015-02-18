@@ -1,4 +1,4 @@
-package omise.co.model;
+package main.java.co.omise.model;
 
 public class OmiseError extends OmiseObject {
 	private String object;

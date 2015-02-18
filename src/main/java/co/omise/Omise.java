@@ -1,6 +1,6 @@
-package omise.co;
+package main.java.co.omise;
 
-import omise.co.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseException;
 
 public class Omise {
 	public static final String OMISE_API_VERSION = "2014-07-27";

@@ -1,4 +1,4 @@
-package omise.co.net;
+package main.java.co.omise.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,20 +9,20 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import org.apache.commons.codec.binary.Base64;
+import main.java.co.omise.Omise;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.model.OmiseError;
+import main.java.co.omise.model.OmiseObject;
 
-import omise.co.Omise;
-import omise.co.exeption.OmiseAPIException;
-import omise.co.exeption.OmiseException;
-import omise.co.model.OmiseError;
-import omise.co.model.OmiseObject;
+import org.apache.commons.codec.binary.Base64;
 
 public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
 	private static final int CONNECT_TIMEOUT = 10 * 1000;
 	private static final int READ_TIMEOUT = 10 * 1000;
 	protected enum RequestMethod {
-		GET, POST, PATCH, DELETE 
+		GET, POST, PATCH, DELETE
 	}
 	protected enum OmiseURL {
 		API {
@@ -52,7 +52,6 @@ public class APIResource extends OmiseObject {
 	 */
 	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
-		
 		// POSTパラメータがある場合送信
 		if(params != null) {
 			StringBuilder sb = new StringBuilder();
@@ -62,7 +61,12 @@ public class APIResource extends OmiseObject {
 					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
 					append("&");
 			}
-			sb.deleteCharAt(sb.lastIndexOf("&"));
+			if(method.equals(RequestMethod.PATCH)) {
+				sb.append("_HttpMethod=PATCH");
+			} else {
+				sb.deleteCharAt(sb.lastIndexOf("&"));
+			}
+			System.out.println(sb.toString());
 			
 			PrintWriter pw = null;
 			try {
@@ -101,7 +105,6 @@ public class APIResource extends OmiseObject {
 			if(br != null) br.close();
 			con.disconnect();
 		}
-		System.out.println(con.getHeaderFields().toString());
 		
 		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
@@ -118,7 +121,11 @@ public class APIResource extends OmiseObject {
 	 */
 	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
 		HttpURLConnection con =  createOmiseConnection(omiseUrl, endPoint);
-		con.setRequestMethod(method.name());
+		if(method.equals(RequestMethod.PATCH)) {
+			con.setRequestMethod(RequestMethod.POST.name());
+		} else {
+			con.setRequestMethod(method.name());
+		}
 		con.setRequestProperty("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION);
 		
 		return con;
