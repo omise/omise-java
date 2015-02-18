@@ -13,6 +13,8 @@ public class Balance extends APIResource {
 	private int available = 0;
 	private int total = 0;
 	private String currency = null;
+	
+	private static Balance _balance = null;
 
 	public String getObject() {
 		return object;
@@ -21,6 +23,9 @@ public class Balance extends APIResource {
 		this.object = object;
 	}
 	public boolean isLivemode() {
+		return livemode;
+	}
+	public boolean getLivemode() {
 		return livemode;
 	}
 	public void setLivemode(boolean livemode) {
@@ -46,6 +51,17 @@ public class Balance extends APIResource {
 	}
 	
 	public static Balance retrieve() throws IOException, OmiseException {
-		return (Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class);
+		Balance balance = (Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class);
+		if(Balance._balance != null) {
+			Balance._balance.setObject(balance.getObject());
+			Balance._balance.setAvailable(balance.getAvailable());
+			Balance._balance.setCurrency(balance.getCurrency());
+			Balance._balance.setLivemode(balance.getLivemode());
+			Balance._balance.setTotal(balance.getTotal());
+		} else {
+			Balance._balance = balance;
+		}
+		
+		return Balance._balance;
 	}
 }
