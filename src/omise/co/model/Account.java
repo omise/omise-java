@@ -14,6 +14,8 @@ public class Account extends APIResource {
 	private String email = null;
 	private Date created = null;
 	
+	private static Account _account = null;
+	
 	public String getObject() {
 		return object;
 	}
@@ -43,6 +45,16 @@ public class Account extends APIResource {
 	}
 
 	public static Account retrieve() throws IOException, OmiseException {
-		return (Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class);
+		Account account = (Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class);
+		if(Account._account != null) {
+			Account._account.setCreated(account.getCreated());
+			Account._account.setEmail(account.getEmail());
+			Account._account.setId(account.getId());
+			Account._account.setObject(account.getObject());
+		} else {
+			Account._account = account;
+		}
+		
+		return Account._account;
 	}
 }
