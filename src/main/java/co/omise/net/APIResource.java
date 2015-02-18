@@ -19,17 +19,24 @@ import main.java.co.omise.model.OmiseObject;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.Header;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpPatch;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 
 public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
-	private static final int CONNECT_TIMEOUT = 10;
-	private static final int REQUEST_TIMEOUT = 10;
-	private static final int SOCKET_TIMEOUT = 10;
+	private static final int CONNECT_TIMEOUT = 10 * 1000;
+	private static final int REQUEST_TIMEOUT = 10 * 1000;
+	private static final int SOCKET_TIMEOUT = 10 * 1000;
+	private static final String AUTH_HOST = null;
+	private static final int AUTH_PORT = -1;
+	
 	protected enum RequestMethod {
 		GET, POST, PATCH, DELETE
 	}
@@ -48,29 +55,59 @@ public class APIResource extends OmiseObject {
 		}
 	}
 	
-	protected void requestGet() {
+	protected static APIResource requestGet(OmiseURL omiseUrl, String endPoint, Class<?> clazz) throws OmiseException, IllegalStateException, IOException {
+		HttpClient httpClient = buildHttpClient(getUseKey(omiseUrl));
+		HttpGet request = new HttpGet(omiseUrl.toString() + endPoint);
 		
+		HttpResponse response = httpClient.execute(request);
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		
+		StringBuilder sb = new StringBuilder();
+		String buf = null;
+		while((buf = br.readLine()) != null) {
+			sb.append(buf);
+		}
+		System.out.println(sb.toString());
+		
+		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
 	
-	private static HttpClient bulidHttpClient() {
+	private static HttpClient buildHttpClient(String key) {
 		RequestConfig requestConfig =  RequestConfig.custom()
 				.setConnectTimeout(CONNECT_TIMEOUT)
 				.setConnectionRequestTimeout(REQUEST_TIMEOUT)
 				.setSocketTimeout(SOCKET_TIMEOUT)
 				.setCircularRedirectsAllowed(false)
 				.setRedirectsEnabled(false)
+				.setAuthenticationEnabled(true)
 				.build();
 		
 		List<Header> headers = new ArrayList<Header>();
 		headers.add(new BasicHeader("Accept-Charset", "UTF-8"));
 		headers.add(new BasicHeader("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION));
+
+		BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+		credentialsProvider.setCredentials(new AuthScope(AUTH_HOST, AUTH_PORT), new UsernamePasswordCredentials(key, ""));
 		
 		HttpClient httpClient = HttpClientBuilder.create()
 				.setDefaultRequestConfig(requestConfig)
+				.setDefaultCredentialsProvider(credentialsProvider)
 				.setDefaultHeaders(headers)
 				.build();
 		
 		return httpClient;
+	}
+	
+	private static String getUseKey(OmiseURL omiseUrl) throws OmiseException {
+		switch(omiseUrl){
+			case API:
+				return Omise.getSecretKey();
+			case VAULT:
+				return Omise.getPublicKey();
+			default:
+				return null;
+		}
 	}
 	
 	/**

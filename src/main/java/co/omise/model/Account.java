@@ -30,7 +30,8 @@ public class Account extends APIResource {
 	}
 
 	public static Account retrieve() throws IOException, OmiseException {
-		Account account = (Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class);
+		Account account = (Account)requestGet(OmiseURL.API, ENDPOINT, Account.class);
+		//Account account = (Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class);
 		if(Account._account != null) {
 			Account._account.created = account.getCreated();
 			Account._account.email = account.getEmail();
