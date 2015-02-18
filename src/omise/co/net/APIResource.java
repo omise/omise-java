@@ -67,7 +67,7 @@ public class APIResource extends OmiseObject {
 			PrintWriter pw = null;
 			try {
 				pw = new PrintWriter(con.getOutputStream());
-				pw.println(sb.toString());
+				pw.print(sb.toString());
 				pw.close();
 			} finally {
 				if(pw != null) pw.close();

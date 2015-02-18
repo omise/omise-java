@@ -2,6 +2,7 @@ package omise.co.model;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 
 import omise.co.exeption.OmiseException;
 import omise.co.net.APIResource;
@@ -49,5 +50,9 @@ public class Customer extends APIResource {
 	
 	public static Customers retrieve() throws IOException, OmiseException {
 		return (Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class);
+	}
+	
+	public static Customer create(HashMap<String, Object> params) throws IOException, OmiseException {
+		return (Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class);
 	}
 }

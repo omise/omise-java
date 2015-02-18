@@ -1,6 +1,6 @@
 package omise.co.model;
 
-public class OmiseError {
+public class OmiseError extends OmiseObject {
 	private String object;
 	private String location;
 	private String code;
