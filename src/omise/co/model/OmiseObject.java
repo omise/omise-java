@@ -10,4 +10,9 @@ public abstract class OmiseObject {
 			setDateFormat(DATE_FORMAT).
 			setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).
 			create();
+	
+	@Override
+	public String toString() {
+		return GSON.toJson(this);
+	}
 }
