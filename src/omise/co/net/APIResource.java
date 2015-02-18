@@ -101,6 +101,7 @@ public class APIResource extends OmiseObject {
 			if(br != null) br.close();
 			con.disconnect();
 		}
+		System.out.println(con.getHeaderFields().toString());
 		
 		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}

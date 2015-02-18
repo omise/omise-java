@@ -59,4 +59,19 @@ public class Customer extends APIResource {
 	public static Customer create(HashMap<String, Object> params) throws IOException, OmiseException {
 		return (Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class);
 	}
+	
+	public Customer update(HashMap<String, Object> params) throws IOException, OmiseException {
+		Customer customer = (Customer)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.PATCH, params, Customer.class);
+		this.object = customer.getObject();
+		this.id = customer.getId();
+		this.livemode = customer.getLivemode();
+		this.location = customer.getLocation();
+		this.default_card = customer.getDefault_card();
+		this.email = customer.getEmail();
+		this.description = customer.getDescription();
+		this.created = customer.getCreated();
+		this.cards = customer.getCards();
+		
+		return this;
+	}
 }
