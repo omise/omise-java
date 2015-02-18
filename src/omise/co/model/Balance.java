@@ -25,9 +25,6 @@ public class Balance extends APIResource {
 	public boolean isLivemode() {
 		return livemode;
 	}
-	public boolean getLivemode() {
-		return livemode;
-	}
 	public void setLivemode(boolean livemode) {
 		this.livemode = livemode;
 	}
@@ -56,7 +53,7 @@ public class Balance extends APIResource {
 			Balance._balance.setObject(balance.getObject());
 			Balance._balance.setAvailable(balance.getAvailable());
 			Balance._balance.setCurrency(balance.getCurrency());
-			Balance._balance.setLivemode(balance.getLivemode());
+			Balance._balance.setLivemode(balance.isLivemode());
 			Balance._balance.setTotal(balance.getTotal());
 		} else {
 			Balance._balance = balance;
