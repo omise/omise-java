@@ -61,12 +61,7 @@ public class APIResource extends OmiseObject {
 					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
 					append("&");
 			}
-			if(method.equals(RequestMethod.PATCH)) {
-				sb.append("_HttpMethod=PATCH");
-			} else {
-				sb.deleteCharAt(sb.lastIndexOf("&"));
-			}
-			System.out.println(sb.toString());
+			sb.deleteCharAt(sb.lastIndexOf("&"));
 			
 			PrintWriter pw = null;
 			try {
@@ -121,11 +116,7 @@ public class APIResource extends OmiseObject {
 	 */
 	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
 		HttpURLConnection con =  createOmiseConnection(omiseUrl, endPoint);
-		if(method.equals(RequestMethod.PATCH)) {
-			con.setRequestMethod(RequestMethod.POST.name());
-		} else {
-			con.setRequestMethod(method.name());
-		}
+		con.setRequestMethod(method.name());
 		con.setRequestProperty("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION);
 		
 		return con;
