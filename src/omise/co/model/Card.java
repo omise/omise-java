@@ -6,6 +6,7 @@ public class Card {
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
+	protected String location = null;
 	protected String country = null;
 	protected String city = null;
 	protected String postal_code = null;
@@ -26,6 +27,9 @@ public class Card {
 	}
 	public Boolean getLivemode() {
 		return livemode;
+	}
+	public String getLocation() {
+		return location;
 	}
 	public String getCountry() {
 		return country;

@@ -19,7 +19,7 @@ public class Balance extends APIResource {
 	public String getObject() {
 		return object;
 	}
-	public Boolean isLivemode() {
+	public Boolean getLivemode() {
 		return livemode;
 	}
 	public Integer getAvailable() {
@@ -38,7 +38,7 @@ public class Balance extends APIResource {
 			Balance._balance.object = balance.getObject();
 			Balance._balance.available = balance.getAvailable();
 			Balance._balance.currency = balance.getCurrency();
-			Balance._balance.livemode = balance.isLivemode();
+			Balance._balance.livemode = balance.getLivemode();
 			Balance._balance.total = balance.getTotal();
 		} else {
 			Balance._balance = balance;

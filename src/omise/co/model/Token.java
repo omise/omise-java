@@ -24,13 +24,13 @@ public class Token extends APIResource {
 	public String getId() {
 		return id;
 	}
-	public boolean isLivemode() {
+	public boolean getLivemode() {
 		return livemode;
 	}
 	public String getLocation() {
 		return location;
 	}
-	public boolean isUsed() {
+	public boolean getUsed() {
 		return used;
 	}
 	public Card getCard() {
