@@ -61,30 +61,12 @@ public class APIResource extends OmiseObject {
 	 */
 	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
-		// POSTパラメータがある場合送信
-		if(params != null) {
-			StringBuilder sb = new StringBuilder();
-			for(Map.Entry<String, Object> e : params.entrySet()) {
-				sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
-					append("=").
-					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
-					append("&");
-			}
-			sb.deleteCharAt(sb.lastIndexOf("&"));
-			
-			PrintWriter pw = null;
-			try {
-				pw = new PrintWriter(con.getOutputStream());
-				pw.print(sb.toString());
-				pw.close();
-			} finally {
-				if(pw != null) pw.close();
-			}
-		}
+		writeParams(con, params);
 		
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
 		try {
+			con.connect();
 			// レスポンスコードが400番以降ならerrorオブジェクトが帰ってきていると決め打ちでExceptionを発生させる
 			if(con.getResponseCode() >= 400) {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
@@ -114,7 +96,36 @@ public class APIResource extends OmiseObject {
 	}
 	
 	/**
-	 * OmiseAPIへのHttpUrlConnectionの接続情報を設定していく
+	 * 送信する値の書き込み
+	 * @param con
+	 * @param params
+	 * @throws IOException
+	 */
+	private static void writeParams(HttpURLConnection con, Map<String, Object> params) throws IOException {
+		// POSTパラメータがある場合送信
+		if(params != null) {
+			StringBuilder sb = new StringBuilder();
+			for(Map.Entry<String, Object> e : params.entrySet()) {
+				sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
+					append("=").
+					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
+					append("&");
+			}
+			sb.deleteCharAt(sb.lastIndexOf("&"));
+			
+			PrintWriter pw = null;
+			try {
+				pw = new PrintWriter(con.getOutputStream());
+				pw.print(sb.toString());
+				pw.close();
+			} finally {
+				if(pw != null) pw.close();
+			}
+		}
+	}
+	
+	/**
+	 * OmiseAPIへのHttpUrlConnectionを生成する
 	 * @param omiseUrl
 	 * @param endPoint
 	 * @param method
@@ -124,33 +135,20 @@ public class APIResource extends OmiseObject {
 	 * @throws IOException 
 	 */
 	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
-		HttpURLConnection con =  createOmiseConnection(omiseUrl, endPoint);
-		con.setRequestMethod(method.toString());
-		con.setRequestProperty("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION);
-		if(method == RequestMethod.PATCH) {
-			con.setRequestProperty("X-HTTP-Method-Override", "PATCH");
-		}
-		
-		return con;
-	}
-	
-	/**
-	 * OmiseAPIへのHttpUrlConnectionを生成する
-	 * @param omiseUrl
-	 * @param endPoint
-	 * @return
-	 * @throws IOException 
-	 * @throws OmiseException 
-	 */
-	private static HttpURLConnection createOmiseConnection(OmiseURL omiseUrl, String endPoint) throws IOException, OmiseException {
 		HttpURLConnection con = (HttpURLConnection)(new URL(omiseUrl.toString() + endPoint)).openConnection();
 		
 		con.setUseCaches(false);
 		con.setDoOutput(true);
 		con.setDoInput(true);
-		con.setRequestProperty("Authorization", "Basic " + Base64.encodeBase64String(getBasicAuthString(omiseUrl).getBytes(CHARSET)));
 		con.setConnectTimeout(CONNECT_TIMEOUT);
 		con.setReadTimeout(READ_TIMEOUT);
+		con.setRequestMethod(method.toString());
+		con.setRequestProperty("User-Agent", "OmiseJava/" + Omise.OMISE_JAVA_LIB_VERSION + " OmiseAPI/" + Omise.OMISE_API_VERSION);
+		con.setRequestProperty("Authorization", "Basic " + Base64.encodeBase64String(getBasicAuthString(omiseUrl).getBytes(CHARSET)));
+		con.setRequestProperty("Keep-Alive", "close");
+		if(method == RequestMethod.PATCH) {
+			con.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+		}
 		
 		return con;
 	}

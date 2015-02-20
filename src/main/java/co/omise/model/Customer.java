@@ -19,6 +19,7 @@ public class Customer extends APIResource {
 	protected String description = null;
 	protected Date created = null;
 	protected Cards cards = null;
+	protected Boolean deleted = null;
 	
 	public String getObject() {
 		return object;
@@ -47,6 +48,9 @@ public class Customer extends APIResource {
 	public Cards getCards() {
 		return cards;
 	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
 	
 	public static Customers retrieve() throws IOException, OmiseException {
 		return (Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class);
@@ -73,5 +77,13 @@ public class Customer extends APIResource {
 		this.cards = customer.getCards();
 		
 		return this;
+	}
+	
+	public DeleteCustomer destroy() throws IOException, OmiseException {
+		DeleteCustomer deleteCustomer = (DeleteCustomer)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.DELETE, null, DeleteCustomer.class);
+		this.deleted = deleteCustomer.getDeleted();
+		this.livemode = deleteCustomer.getLivemode();
+		
+		return deleteCustomer;
 	}
 }
