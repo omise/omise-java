@@ -12,9 +12,9 @@
   		<version>2.2.4</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.apache.httpcomponents</groupId>
-  		<artifactId>httpclient</artifactId>
-  		<version>4.3.6</version>
+  		<groupId>commons-codec</groupId>
+  		<artifactId>commons-codec</artifactId>
+  		<version>1.10</version>
   	</dependency>
   </dependencies>
   <organization>
