@@ -17,4 +17,8 @@ public class Refunds extends OmiseList {
 	public Refund create(HashMap<String, Object> params) throws IOException, OmiseException {
 		return (Refund)request(OmiseURL.API, String.format("%s/%s/%s", Charge.ENDPOINT, charge_id, Refund.ENDPOINT), RequestMethod.POST, params, Refund.class);
 	}
+	
+	public Refund retrieve(String id) throws IOException, OmiseException {
+		return (Refund)request(OmiseURL.API, String.format("%s/%s/%s/%s", Charge.ENDPOINT, charge_id, Refund.ENDPOINT, id), RequestMethod.GET, null, Refund.class);
+	}
 }
