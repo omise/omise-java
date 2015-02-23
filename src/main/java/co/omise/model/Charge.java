@@ -119,7 +119,10 @@ public class Charge extends APIResource {
 	}
 	
 	public Refunds refunds() throws IOException, OmiseException {
-		return (Refunds)request(OmiseURL.API, String.format("%s/%s/%s", ENDPOINT, id, Refund.ENDPOINT), RequestMethod.GET, null, Refunds.class);
+		Refunds refunds = (Refunds)request(OmiseURL.API, String.format("%s/%s/%s", ENDPOINT, id, Refund.ENDPOINT), RequestMethod.GET, null, Refunds.class);
+		refunds.charge_id = id;
+		
+		return refunds;
 	}
 	
 	private Charge updateMyself(Charge charge) {

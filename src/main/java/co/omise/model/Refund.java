@@ -2,7 +2,9 @@ package main.java.co.omise.model;
 
 import java.util.Date;
 
-public class Refund {
+import main.java.co.omise.net.APIResource;
+
+public class Refund extends APIResource {
 	protected static final String ENDPOINT = "refunds";
 	
 	protected String object = null;
