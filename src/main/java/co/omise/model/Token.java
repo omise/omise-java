@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.Map;
 
 import main.java.co.omise.exeption.OmiseException;
@@ -16,7 +15,7 @@ public class Token extends APIResource {
 	protected String location = null;
 	protected Boolean used = null;
 	protected Card card = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -36,7 +35,7 @@ public class Token extends APIResource {
 	public Card getCard() {
 		return card;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	

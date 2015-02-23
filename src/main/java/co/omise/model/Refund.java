@@ -1,7 +1,5 @@
 package main.java.co.omise.model;
 
-import java.util.Date;
-
 import main.java.co.omise.net.APIResource;
 
 public class Refund extends APIResource {
@@ -14,7 +12,7 @@ public class Refund extends APIResource {
 	protected Integer amount = null;
 	protected String currency = null;
 	protected String charge = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -37,7 +35,7 @@ public class Refund extends APIResource {
 	public String getCharge() {
 		return charge;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 }

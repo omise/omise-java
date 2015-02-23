@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import main.java.co.omise.exeption.OmiseException;
@@ -21,7 +20,7 @@ public class Transfer extends APIResource {
 	protected String failure_code = null;
 	protected String failure_message = null;
 	protected String transaction = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -59,7 +58,7 @@ public class Transfer extends APIResource {
 	public String getTransaction() {
 		return transaction;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	

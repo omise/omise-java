@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import main.java.co.omise.exeption.OmiseException;
@@ -25,7 +24,7 @@ public class Card extends APIResource {
 	protected Integer expiration_year = null;
 	protected String fingerprint = null;
 	protected String name = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -69,7 +68,7 @@ public class Card extends APIResource {
 	public String getName() {
 		return name;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	

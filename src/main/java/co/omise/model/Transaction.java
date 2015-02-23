@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 
 import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.net.APIResource;
@@ -14,7 +13,7 @@ public class Transaction extends APIResource {
 	protected String type = null;
 	protected Integer amount = null;
 	protected String currency = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -31,7 +30,7 @@ public class Transaction extends APIResource {
 	public String getCurrency() {
 		return currency;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	

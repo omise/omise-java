@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 
 import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.net.APIResource;
@@ -12,7 +11,7 @@ public class Account extends APIResource {
 	protected String object = null;
 	protected String id = null;
 	protected String email = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	private static Account _account = null;
 	
@@ -25,7 +24,7 @@ public class Account extends APIResource {
 	public String getEmail() {
 		return email;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 

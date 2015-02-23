@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import main.java.co.omise.exeption.OmiseException;
@@ -17,7 +16,7 @@ public class Customer extends APIResource {
 	protected String default_card = null;
 	protected String email = null;
 	protected String description = null;
-	protected Date created = null;
+	protected String created = null;
 	protected Cards cards = null;
 	protected Boolean deleted = null;
 	
@@ -42,7 +41,7 @@ public class Customer extends APIResource {
 	public String getDescription() {
 		return description;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	public Cards getCards() {

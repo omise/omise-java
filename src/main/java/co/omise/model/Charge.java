@@ -1,7 +1,6 @@
 package main.java.co.omise.model;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 
 import main.java.co.omise.exeption.OmiseException;
@@ -32,7 +31,7 @@ public class Charge extends APIResource {
 	protected Card card = null;
 	protected String customer = null;
 	protected String ip = null;
-	protected Date created = null;
+	protected String created = null;
 	
 	public String getObject() {
 		return object;
@@ -94,7 +93,7 @@ public class Charge extends APIResource {
 	public String getIp() {
 		return ip;
 	}
-	public Date getCreated() {
+	public String getCreated() {
 		return created;
 	}
 	
