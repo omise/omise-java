@@ -45,6 +45,6 @@ public class Token extends APIResource {
 	}
 	
 	public static Token retrieve(String id) throws IOException, OmiseException {
-		return (Token)request(OmiseURL.VAULT, ENDPOINT + "/" + id, RequestMethod.GET, null, Token.class);
+		return (Token)request(OmiseURL.VAULT, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Token.class);
 	}
 }

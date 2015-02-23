@@ -57,7 +57,7 @@ public class Customer extends APIResource {
 	}
 	
 	public static Customer retrieve(String id) throws IOException, OmiseException {
-		return setCustomerID((Customer)request(OmiseURL.API, ENDPOINT + "/" + id, RequestMethod.GET, null, Customer.class));
+		return setCustomerID((Customer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Customer.class));
 	}
 	
 	public static Customer create(HashMap<String, Object> params) throws IOException, OmiseException {
