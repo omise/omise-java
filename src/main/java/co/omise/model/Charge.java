@@ -114,6 +114,10 @@ public class Charge extends APIResource {
 		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Charge.class));
 	}
 	
+	public Charge capture() throws IOException, OmiseException {
+		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s/capture", ENDPOINT, id), RequestMethod.POST, null, Charge.class));
+	}
+	
 	private Charge updateMyself(Charge charge) {
 		this.object = charge.getObject();
 		this.id = charge.getId();
