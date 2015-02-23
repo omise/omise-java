@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
+import main.java.co.omise.Omise;
 import main.java.co.omise.exeption.OmiseAPIException;
 import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.model.Balance;
@@ -18,6 +19,7 @@ public class BalanceTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Omise.setKeys("pkey", "skey");
 	}
 
 	@AfterClass
