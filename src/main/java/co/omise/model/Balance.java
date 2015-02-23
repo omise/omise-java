@@ -6,7 +6,7 @@ import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.net.APIResource;
 
 public class Balance extends APIResource {
-	private static final String ENDPOINT = "balance";
+	protected static final String ENDPOINT = "balance";
 	
 	protected String object = null;
 	protected Boolean livemode = null;

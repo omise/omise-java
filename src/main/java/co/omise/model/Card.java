@@ -3,6 +3,8 @@ package main.java.co.omise.model;
 import java.util.Date;
 
 public class Card {
+	private static final String ENDPOINT = "card";
+	
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
@@ -63,5 +65,11 @@ public class Card {
 	}
 	public Date getCreated() {
 		return created;
+	}
+	
+	public Card reload() {
+		
+		
+		return this;
 	}
 }
