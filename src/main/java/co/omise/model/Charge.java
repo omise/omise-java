@@ -1,11 +1,13 @@
 package main.java.co.omise.model;
 
+import java.io.IOException;
 import java.util.Date;
 
+import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.net.APIResource;
 
 public class Charge extends APIResource {
-	protected String ENDPOINT = "charges";
+	protected static final String ENDPOINT = "charges";
 
 	protected String charge = null;
 	protected String id = null;
@@ -78,5 +80,9 @@ public class Charge extends APIResource {
 	}
 	public Date getCreated() {
 		return created;
+	}
+	
+	public static Charges retrieve() throws IOException, OmiseException {
+		return (Charges)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Charges.class);
 	}
 }
