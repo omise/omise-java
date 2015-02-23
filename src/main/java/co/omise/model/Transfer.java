@@ -75,6 +75,10 @@ public class Transfer extends APIResource {
 		return (Transfer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Transfer.class);
 	}
 	
+	public DeleteTransfer destroy() throws IOException, OmiseException {
+		return (DeleteTransfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.DELETE, null, DeleteTransfer.class);
+	}
+	
 	@SuppressWarnings("serial")
 	public Transfer save() throws IOException, OmiseException {
 		return update(new HashMap<String, Object>() {
