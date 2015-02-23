@@ -35,7 +35,7 @@ public class AccountTest {
 	}
 
 	@Test
-	public void retrieveTest() {
+	public void testRetrieve() {
 		try {
 			Account account = Account.retrieve();
 			
