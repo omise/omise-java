@@ -53,15 +53,15 @@ public class Customer extends APIResource {
 	}
 	
 	public static Customers retrieve() throws IOException, OmiseException {
-		return (Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class);
+		return setCustomerID((Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class));
 	}
 	
 	public static Customer retrieve(String id) throws IOException, OmiseException {
-		return (Customer)request(OmiseURL.API, ENDPOINT + "/" + id, RequestMethod.GET, null, Customer.class);
+		return setCustomerID((Customer)request(OmiseURL.API, ENDPOINT + "/" + id, RequestMethod.GET, null, Customer.class));
 	}
 	
 	public static Customer create(HashMap<String, Object> params) throws IOException, OmiseException {
-		return (Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class);
+		return setCustomerID((Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class));
 	}
 	
 	public Customer update(HashMap<String, Object> params) throws IOException, OmiseException {
@@ -85,5 +85,21 @@ public class Customer extends APIResource {
 		this.livemode = deleteCustomer.getLivemode();
 		
 		return deleteCustomer;
+	}
+	
+	private static Customers setCustomerID(Customers customers) {
+		for(Customer customer : customers.data) {
+			setCustomerID(customer);
+		}
+		
+		return customers;
+	}
+	
+	private static Customer setCustomerID(Customer customer) {
+		for(Card card : customer.cards.data) {
+			card.customer_id = customer.id;
+		}
+		
+		return customer;
 	}
 }
