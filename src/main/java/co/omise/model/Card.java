@@ -56,10 +56,10 @@ public class Card extends APIResource {
 	public String getBrand() {
 		return brand;
 	}
-	public Integer getExpiration_month() {
+	public Integer getExpirationMonth() {
 		return expiration_month;
 	}
-	public Integer getExpiration_year() {
+	public Integer getExpirationYear() {
 		return expiration_year;
 	}
 	public String getFingerprint() {
@@ -95,8 +95,8 @@ public class Card extends APIResource {
 		this.financing = card.getFinancing();
 		this.last_digits = card.getLastDigits();
 		this.brand = card.getBrand();
-		this.expiration_month = card.getExpiration_month();
-		this.expiration_year = card.getExpiration_year();
+		this.expiration_month = card.getExpirationMonth();
+		this.expiration_year = card.getExpirationYear();
 		this.fingerprint = card.getFingerprint();
 		this.name = card.getName();
 		this.created = card.getCreated();
