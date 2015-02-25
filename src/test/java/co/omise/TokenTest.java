@@ -62,5 +62,4 @@ public class TokenTest {
 			fail(e.getMessage());
 		}
 	}
-
 }
