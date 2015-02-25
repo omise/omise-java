@@ -95,9 +95,7 @@ public class Customer extends APIResource {
 	}
 	
 	private static Customer setCustomerID(Customer customer) {
-		for(Card card : customer.cards.data) {
-			card.customer_id = customer.id;
-		}
+		customer.cards.setCustomerID(customer.id);
 		
 		return customer;
 	}
