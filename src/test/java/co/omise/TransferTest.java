@@ -41,6 +41,10 @@ public class TransferTest {
 			Transfers transfers = Transfer.retrieve();
 			assertNotNull("Transfer.retrieve（List ALL）の失敗：リソースが取得できません", transfers.getObject());
 			assertEquals("Transfer.retrieve（List ALL）の失敗：取得したリソースがlistではありません", transfers.getObject(), "list");
+			for (int i = 0; i < transfers.getData().size(); i++) {
+				System.out.println(transfers.getData().get(i).toString());
+			}
+			//transfers.getData().get(0).destroy();
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -67,10 +71,17 @@ public class TransferTest {
 			transfer.setAmount(50000);
 			transfer.save();
 			assertTrue("Transfer.updateの失敗：Transferが更新できません", transfer.getAmount().intValue() == 50000);
+			
+			// Transfer.destroyのテスト
+			assertTrue("Transfer.destroyの失敗：Transferが削除できません", transfer.destroy().isDestroyed());
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
-			fail(e.getOmiseError().toString());
+			if("no available balance amount".equals(e.getOmiseError().getMessage())) {
+				System.out.println("********** no available balance amount. TransferTest is not complete. **********");
+			} else {
+				fail(e.getOmiseError().toString());
+			}
 		} catch (OmiseException e) {
 			fail(e.getMessage());
 		}
