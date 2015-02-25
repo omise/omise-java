@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import main.java.co.omise.exeption.OmiseAPIException;
 import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.model.Balance;
 import main.java.co.omise.model.Transfer;
 import main.java.co.omise.model.Transfers;
 
@@ -58,30 +59,31 @@ public class TransferTest {
 	@Test
 	public void testOther() {
 		try {
-			// Transfer.createのテスト
-			Transfer transfer = Transfer.create(new HashMap<String, Object>() {
-					{put("amount", 100000);}
-				});
-			assertEquals("Transfer.createの失敗：Transferが生成できません", transfer.getObject(), "transfer");
-			
-			// Transfer.retrieve(id)のテスト
-			assertEquals("Transfer.retrieve(id)の失敗：Transferが取得できません", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
-			
-			// Transfer.updateのテスト
-			transfer.setAmount(50000);
-			transfer.save();
-			assertTrue("Transfer.updateの失敗：Transferが更新できません", transfer.getAmount().intValue() == 50000);
-			
-			// Transfer.destroyのテスト
-			assertTrue("Transfer.destroyの失敗：Transferが削除できません", transfer.destroy().isDestroyed());
+			Balance balance = Balance.retrieve();
+			if(balance.getAvailable() >= 100000) {
+				// Transfer.createのテスト
+				Transfer transfer = Transfer.create(new HashMap<String, Object>() {
+						{put("amount", 100000);}
+					});
+				assertEquals("Transfer.createの失敗：Transferが生成できません", transfer.getObject(), "transfer");
+				
+				// Transfer.retrieve(id)のテスト
+				assertEquals("Transfer.retrieve(id)の失敗：Transferが取得できません", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
+				
+				// Transfer.updateのテスト
+				transfer.setAmount(50000);
+				transfer.save();
+				assertTrue("Transfer.updateの失敗：Transferが更新できません", transfer.getAmount().intValue() == 50000);
+				
+				// Transfer.destroyのテスト
+				assertTrue("Transfer.destroyの失敗：Transferが削除できません", transfer.destroy().isDestroyed());
+			} else {
+				System.out.println("********** no available balance amount. TransferTest is not run. **********");
+			}
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
-			if("no available balance amount".equals(e.getOmiseError().getMessage())) {
-				System.out.println("********** no available balance amount. TransferTest is not complete. **********");
-			} else {
-				fail(e.getOmiseError().toString());
-			}
+			fail(e.getOmiseError().toString());
 		} catch (OmiseException e) {
 			fail(e.getMessage());
 		}
