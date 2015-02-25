@@ -23,6 +23,9 @@ public class Cards extends OmiseList {
 	}
 	
 	public Card retrieve(String id) throws IOException, OmiseException {
-		return (Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, Card.ENDPOINT, id), RequestMethod.GET, null, Card.class);
+		Card card = (Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, Card.ENDPOINT, id), RequestMethod.GET, null, Card.class);
+		card.customer_id = customer_id;
+		
+		return card;
 	}
 }
