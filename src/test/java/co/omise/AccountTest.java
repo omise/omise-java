@@ -42,7 +42,7 @@ public class AccountTest {
 			assertEquals("取得したリソースがAccountではありません", account.getObject(), "account");
 			
 			account.reload();
-			assertEquals("reloadで取得したオブジェクトが不正です", account.getObject(), "balance");
+			assertEquals("reloadで取得したオブジェクトが不正です", account.getObject(), "account");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
