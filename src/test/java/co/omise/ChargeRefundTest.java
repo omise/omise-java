@@ -9,6 +9,8 @@ import main.java.co.omise.exeption.OmiseAPIException;
 import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.model.Charge;
 import main.java.co.omise.model.Charges;
+import main.java.co.omise.model.Refund;
+import main.java.co.omise.model.Refunds;
 import main.java.co.omise.model.Token;
 
 import org.junit.After;
@@ -17,7 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ChargeTest {
+public class ChargeRefundTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -39,6 +41,7 @@ public class ChargeTest {
 	@Test
 	public void testListAll() {
 		try {
+			// Charge.retrieveのテスト
 			Charges charges = Charge.retrieve();
 			
 			assertNotNull("Charge.retrieve（List ALL）の失敗：リソースが取得できません", charges.getObject());
@@ -89,6 +92,20 @@ public class ChargeTest {
 			// Charge.captureのテスト
 			charge.capture();
 			assertTrue("Charge.captureの失敗：キャプチャーできません", charge.getCaptured());
+			
+			// Refund.retrieve（List ALL）のテスト
+			Refunds refunds = charge.refunds();
+			assertNotNull("Refund.retrieve（List ALL）の失敗：リソースが取得できません", refunds.getObject());
+			assertEquals("Refund.retrieve（List ALL）の失敗：取得したリソースがlist(Refund)ではありません", refunds.getObject(), "list");
+			
+			// Refund.createのテスト
+			Refund refund = refunds.create(new HashMap<String, Object>() {
+					{put("amount", 10000);}
+				});
+			assertEquals("Refund.createの失敗：リファウンドを生成できません", refund.getObject(), "refund");
+
+			// Refund.retrieve(id)のテスト
+			assertEquals("Refund.retrieve(id)の失敗：リファウンドの取得に失敗しました", refund.getId(), refunds.retrieve(refund.getId()).getId());
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
