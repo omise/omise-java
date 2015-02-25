@@ -32,7 +32,7 @@ public class Customer extends APIResource {
 	public String getLocation() {
 		return location;
 	}
-	public String getDefault_card() {
+	public String getDefaultCard() {
 		return default_card;
 	}
 	public String getEmail() {
@@ -69,7 +69,7 @@ public class Customer extends APIResource {
 		this.id = customer.getId();
 		this.livemode = customer.getLivemode();
 		this.location = customer.getLocation();
-		this.default_card = customer.getDefault_card();
+		this.default_card = customer.getDefaultCard();
 		this.email = customer.getEmail();
 		this.description = customer.getDescription();
 		this.created = customer.getCreated();
