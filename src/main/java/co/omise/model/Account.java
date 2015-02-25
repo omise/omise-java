@@ -29,7 +29,14 @@ public class Account extends APIResource {
 	}
 
 	public static Account retrieve() throws IOException, OmiseException {
-		Account account = (Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class);
+		return updateMyself((Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class));
+	}
+	
+	public Account reload() throws IOException, OmiseException{
+		return retrieve();
+	}
+	
+	public static Account updateMyself(Account account) {
 		if(Account._account != null) {
 			Account._account.created = account.getCreated();
 			Account._account.email = account.getEmail();

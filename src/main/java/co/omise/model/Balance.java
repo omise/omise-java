@@ -33,7 +33,14 @@ public class Balance extends APIResource {
 	}
 	
 	public static Balance retrieve() throws IOException, OmiseException {
-		Balance balance = (Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class);
+		return updateMyself((Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class));
+	}
+	
+	public Balance reload() throws IOException, OmiseException {
+		return retrieve();
+	}
+	
+	public static Balance updateMyself(Balance balance) throws IOException, OmiseException {
 		if(Balance._balance != null) {
 			Balance._balance.object = balance.getObject();
 			Balance._balance.available = balance.getAvailable();
