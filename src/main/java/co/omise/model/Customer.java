@@ -74,8 +74,7 @@ public class Customer extends APIResource {
 		this.description = customer.getDescription();
 		this.created = customer.getCreated();
 		this.cards = customer.getCards();
-		
-		return this;
+		return setCustomerID(this);
 	}
 	
 	public DeleteCustomer destroy() throws IOException, OmiseException {
