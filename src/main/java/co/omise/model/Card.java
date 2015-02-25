@@ -7,7 +7,7 @@ import main.java.co.omise.exeption.OmiseException;
 import main.java.co.omise.net.APIResource;
 
 public class Card extends APIResource {
-	protected static final String ENDPOINT = "card";
+	protected static final String ENDPOINT = "cards";
 	
 	protected String customer_id = null;
 	protected String object = null;
