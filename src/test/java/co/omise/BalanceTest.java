@@ -35,12 +35,15 @@ public class BalanceTest {
 	}
 
 	@Test
-	public void testRetrieve() {
+	public void testRetrieveAndReload() {
 		try {
 			Balance balance = Balance.retrieve();
 			
 			assertNotNull("リソースが取得できません", balance.getObject());
 			assertEquals("取得したリソースがBalanceではありません", balance.getObject(), "balance");
+
+			balance.reload();
+			assertEquals("reloadで取得したオブジェクトが不正です", balance.getObject(), "balance");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -49,5 +52,20 @@ public class BalanceTest {
 			fail(e.getMessage());
 		}
 	}
-
+	
+	@Test
+	public void testSameInstance() {
+		try {
+			Balance balanceA = Balance.retrieve();
+			Balance balanceB = Balance.retrieve();
+			
+			assertTrue("複数のインスタンスが生成されています", balanceA == balanceB);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		} catch (OmiseAPIException e) {
+			fail(e.getOmiseError().toString());
+		} catch (OmiseException e) {
+			fail(e.getMessage());
+		}
+	}
 }
