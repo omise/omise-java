@@ -12,6 +12,8 @@ import main.java.co.omise.model.Charges;
 import main.java.co.omise.model.Refund;
 import main.java.co.omise.model.Refunds;
 import main.java.co.omise.model.Token;
+import main.java.co.omise.model.Transaction;
+import main.java.co.omise.model.Transactions;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,7 +21,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ChargeRefundTest {
+public class ChargeRefundTransactionTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -106,6 +108,14 @@ public class ChargeRefundTest {
 
 			// Refund.retrieve(id)のテスト
 			assertEquals("Refund.retrieve(id)の失敗：リファウンドの取得に失敗しました", refund.getId(), refunds.retrieve(refund.getId()).getId());
+			
+			// Transaction.retrieve(ListAll)のテスト
+			Transactions transactions = Transaction.retrieve();
+			assertEquals("Transaction.retrieve（List ALL）の失敗：取得したリソースがlistではありません", transactions.getObject(), "list");
+
+			// Transaction.retrieve(id)のテスト
+			Transaction transaction = Transaction.retrieve(charge.getTransaction());
+			assertEquals("Transaction.retrieve（id）の失敗：Transactionの取得ができません", transaction.getObject(), "transaction");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
