@@ -41,6 +41,9 @@ public class AccountTest {
 			
 			assertNotNull("リソースが取得できません", account.getObject());
 			assertEquals("取得したリソースがAccountではありません", account.getObject(), "account");
+			
+			account.reload();
+			assertEquals("reloadで取得したオブジェクトが不正です", account.getObject(), "balance");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -50,4 +53,19 @@ public class AccountTest {
 		}
 	}
 
+	@Test
+	public void testSameInstance() {
+		try {
+			Account accountA = Account.retrieve();
+			Account accountB = Account.retrieve();
+			
+			assertTrue("複数のインスタンスが生成されています", accountA == accountB);
+		} catch (IOException e) {
+			fail(e.getMessage());
+		} catch (OmiseAPIException e) {
+			fail(e.getOmiseError().toString());
+		} catch (OmiseException e) {
+			fail(e.getMessage());
+		}
+	}
 }
