@@ -4,4 +4,6 @@ http://commons.apache.org/proper/commons-codec/
 GSONも必要です。（2.2.4で動作確認）
 https://code.google.com/p/google-gson/
 
-Java1.7以上で動作します。
+Java1.6以上で動作します。
+
+mvn testでテストが実行できます。
