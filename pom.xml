@@ -2,9 +2,17 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>co.omise</groupId>
   <artifactId>omise-java</artifactId>
+  <packaging>jar</packaging>
   <url>https://github.com/omise/omise-java</url>
   <name>omise-java</name>
-  <version>1.0.0</version>
+  <description>A Java library for the Omise API</description>
+  <version>1.0.0-SNAPSHOT</version>
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>https://github.com/omise/omise-java/blob/master/LICENSE</url>
+    </license>
+  </licenses>
   <dependencies>
   	<dependency>
   		<groupId>com.google.code.gson</groupId>
@@ -29,4 +37,20 @@
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+         </executions>
+       </plugin>
+     </plugins>
+  </build>
 </project>
