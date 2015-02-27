@@ -26,4 +26,7 @@
   	<name>Omise</name>
   	<url>https://www.omise.co/</url>
   </organization>
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>
