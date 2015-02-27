@@ -53,4 +53,9 @@
        </plugin>
      </plugins>
   </build>
+  <scm>
+  	<url>https://github.com/omise/omise-java</url>
+  	<connection>scm:git:git://github.com/omise/omise-java.git</connection>
+  	<developerConnection>scm:git:git://github.com/omise/omise-java.git</developerConnection>
+  </scm>
 </project>
