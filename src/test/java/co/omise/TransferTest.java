@@ -38,10 +38,10 @@ public class TransferTest {
 	@Test
 	public void testListAll() {
 		try {
-			// Transfer.retrieveのテスト
+			// Transfer.retrieve
 			Transfers transfers = Transfer.retrieve();
-			assertNotNull("Transfer.retrieve（List ALL）の失敗：リソースが取得できません", transfers.getObject());
-			assertEquals("Transfer.retrieve（List ALL）の失敗：取得したリソースがlistではありません", transfers.getObject(), "list");
+			assertNotNull("Transfer.retrieve (list all) failed: could not retrieve the resource", transfers.getObject());
+			assertEquals("Transfer.retrieve (list all) failed: the retrieved object is not a list of transfers", transfers.getObject(), "list");
 			for (int i = 0; i < transfers.getData().size(); i++) {
 				System.out.println(transfers.getData().get(i).toString());
 			}
@@ -61,24 +61,24 @@ public class TransferTest {
 		try {
 			Balance balance = Balance.retrieve();
 			if(balance.getAvailable() >= 100000) {
-				// Transfer.createのテスト
+				// Transfer.create
 				Transfer transfer = Transfer.create(new HashMap<String, Object>() {
 						{put("amount", 100000);}
 					});
-				assertEquals("Transfer.createの失敗：Transferが生成できません", transfer.getObject(), "transfer");
-				
-				// Transfer.retrieve(id)のテスト
-				assertEquals("Transfer.retrieve(id)の失敗：Transferが取得できません", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
-				
-				// Transfer.updateのテスト
+				assertEquals("Transfer.create failed: could not create a transfer", transfer.getObject(), "transfer");
+
+				// Transfer.retrieve(id)
+				assertEquals("Transfer.retrieve(id) failed: could not retrieve a transfer", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
+
+				// Transfer.update
 				transfer.setAmount(50000);
 				transfer.save();
-				assertTrue("Transfer.updateの失敗：Transferが更新できません", transfer.getAmount().intValue() == 50000);
-				
-				// Transfer.destroyのテスト
-				assertTrue("Transfer.destroyの失敗：Transferが削除できません", transfer.destroy().isDestroyed());
+				assertTrue("Transfer.update failed: could not update a transfer", transfer.getAmount().intValue() == 50000);
+
+				// Transfer.destroy
+				assertTrue("Transfer.destroy failed: could not delete a transfer", transfer.destroy().isDestroyed());
 			} else {
-				System.out.println("********** no available balance amount. TransferTest is not run. **********");
+				System.out.println("********** the balance is not available. TransferTest could not be run. **********");
 			}
 		} catch (IOException e) {
 			fail(e.getMessage());

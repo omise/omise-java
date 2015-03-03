@@ -43,11 +43,11 @@ public class ChargeRefundTransactionTest {
 	@Test
 	public void testListAll() {
 		try {
-			// Charge.retrieveのテスト
+			// Charge.retrieve
 			Charges charges = Charge.retrieve();
-			
-			assertNotNull("Charge.retrieve（List ALL）の失敗：リソースが取得できません", charges.getObject());
-			assertEquals("Charge.retrieve（List ALL）の失敗：取得したリソースがlist(Charge)ではありません", charges.getObject(), "list");
+
+			assertNotNull("Charge.retrieve (list all) failed: could not retrieve the resource", charges.getObject());
+			assertEquals("Charge.retrieve (list all) failed: the retrieved resource is not a list of charges", charges.getObject(), "list");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -56,12 +56,12 @@ public class ChargeRefundTransactionTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("serial")
 	@Test
 	public void testOther() {
 		try {
-			// Charge.createのテスト
+			// Charge.create
 			final Token token = Token.create(new HashMap<String, Object>() {
 					{put("card[name]", "Somchai Prasert");}
 					{put("card[number]", 4242424242424242L);}
@@ -80,42 +80,42 @@ public class ChargeRefundTransactionTest {
 					{put("card", token.getId());}
 					{put("capture", false);}
 				});
-			assertEquals("Charge.createの失敗：チャージを生成できません", charge.getObject(), "charge");
-			
-			// Charge.retrieveのテスト
-			assertEquals("Charge.retrieve(id)の失敗：チャージを取得できません", charge.getId(), Charge.retrieve(charge.getId()).getId());
+			assertEquals("Charge.create failed: could not create a charge", charge.getObject(), "charge");
 
-			// Charge.updateのテスト
+			// Charge.retrieve
+			assertEquals("Charge.retrieve(id) failed: could not retrieve a charge", charge.getId(), Charge.retrieve(charge.getId()).getId());
+
+			// Charge.update
 			charge.update(new HashMap<String, Object>() {
 					{put("description", "Another description");}
 				});
-			assertEquals("Charge.updateの失敗：チャージを更新できません", charge.getDescription(), "Another description");
-			
-			// Charge.captureのテスト
+			assertEquals("Charge.update failed: could not update a charge", charge.getDescription(), "Another description");
+
+			// Charge.capture
 			charge.capture();
-			assertTrue("Charge.captureの失敗：キャプチャーできません", charge.getCaptured());
-			
-			// Refund.retrieve（List ALL）のテスト
+			assertTrue("Charge.capture failed: could not capture a charge", charge.getCaptured());
+
+			// Refund.retrieve (list all)
 			Refunds refunds = charge.refunds();
-			assertNotNull("Refund.retrieve（List ALL）の失敗：リソースが取得できません", refunds.getObject());
-			assertEquals("Refund.retrieve（List ALL）の失敗：取得したリソースがlist(Refund)ではありません", refunds.getObject(), "list");
-			
-			// Refund.createのテスト
+			assertNotNull("Refund.retrieve (list all) failed: could not retrieve the resource", refunds.getObject());
+			assertEquals("Refund.retrieve (list all) failed: the retrieved object is not a list of refunds", refunds.getObject(), "list");
+
+			// Refund.create
 			Refund refund = refunds.create(new HashMap<String, Object>() {
 					{put("amount", 10000);}
 				});
-			assertEquals("Refund.createの失敗：リファウンドを生成できません", refund.getObject(), "refund");
+			assertEquals("Refund.create failed: could not create a refund", refund.getObject(), "refund");
 
-			// Refund.retrieve(id)のテスト
-			assertEquals("Refund.retrieve(id)の失敗：リファウンドの取得に失敗しました", refund.getId(), refunds.retrieve(refund.getId()).getId());
-			
-			// Transaction.retrieve(ListAll)のテスト
+			// Refund.retrieve(id)
+			assertEquals("Refund.retrieve(id) failed: could not retrieve a refund", refund.getId(), refunds.retrieve(refund.getId()).getId());
+
+			// Transaction.retrieve (list all)
 			Transactions transactions = Transaction.retrieve();
-			assertEquals("Transaction.retrieve（List ALL）の失敗：取得したリソースがlistではありません", transactions.getObject(), "list");
+			assertEquals("Transaction.retrieve (list all) failed: the retrieved object is not a list of transactions", transactions.getObject(), "list");
 
-			// Transaction.retrieve(id)のテスト
+			// Transaction.retrieve(id)
 			Transaction transaction = Transaction.retrieve(charge.getTransaction());
-			assertEquals("Transaction.retrieve（id）の失敗：Transactionの取得ができません", transaction.getObject(), "transaction");
+			assertEquals("Transaction.retrieve(id) failed: could not retrieve a transaction", transaction.getObject(), "transaction");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {

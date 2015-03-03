@@ -37,12 +37,12 @@ public class AccountTest {
 	public void testRetrieve() {
 		try {
 			Account account = Account.retrieve();
-			
-			assertNotNull("リソースが取得できません", account.getObject());
-			assertEquals("取得したリソースがAccountではありません", account.getObject(), "account");
-			
+
+			assertNotNull("Could not retrieve the resource", account.getObject());
+			assertEquals("The retrieved resource is not an account", account.getObject(), "account");
+
 			account.reload();
-			assertEquals("reloadで取得したオブジェクトが不正です", account.getObject(), "account");
+			assertEquals("The object retrieved from reload is invalid", account.getObject(), "account");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -57,8 +57,8 @@ public class AccountTest {
 		try {
 			Account accountA = Account.retrieve();
 			Account accountB = Account.retrieve();
-			
-			assertTrue("複数のインスタンスが生成されています", accountA == accountB);
+
+			assertTrue("Multiple instances were created", accountA == accountB);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {

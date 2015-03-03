@@ -37,12 +37,12 @@ public class BalanceTest {
 	public void testRetrieveAndReload() {
 		try {
 			Balance balance = Balance.retrieve();
-			
-			assertNotNull("リソースが取得できません", balance.getObject());
-			assertEquals("取得したリソースがBalanceではありません", balance.getObject(), "balance");
+
+			assertNotNull("Could not retrieve the resource", balance.getObject());
+			assertEquals("The retrieved resource is not a balance", balance.getObject(), "balance");
 
 			balance.reload();
-			assertEquals("reloadで取得したオブジェクトが不正です", balance.getObject(), "balance");
+			assertEquals("The object retrieved from reload is invalid", balance.getObject(), "balance");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -51,14 +51,14 @@ public class BalanceTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testSameInstance() {
 		try {
 			Balance balanceA = Balance.retrieve();
 			Balance balanceB = Balance.retrieve();
-			
-			assertTrue("複数のインスタンスが生成されています", balanceA == balanceB);
+
+			assertTrue("Multiple instances are created", balanceA == balanceB);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
