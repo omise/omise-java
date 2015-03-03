@@ -10,7 +10,7 @@ import main.java.co.omise.net.APIResource;
 
 public class Customer extends APIResource {
 	protected static final String ENDPOINT = "customers";
-	
+
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
@@ -21,7 +21,7 @@ public class Customer extends APIResource {
 	protected String created = null;
 	protected Cards cards = null;
 	protected Boolean deleted = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -52,7 +52,7 @@ public class Customer extends APIResource {
 	public Boolean getDeleted() {
 		return deleted;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -63,9 +63,9 @@ public class Customer extends APIResource {
 	public static Customers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return setCustomerID((Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class));
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null}.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -75,9 +75,9 @@ public class Customer extends APIResource {
 	public static Customer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return setCustomerID((Customer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Customer.class));
 	}
-	
+
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -87,9 +87,9 @@ public class Customer extends APIResource {
 	public static Customer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return setCustomerID((Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class));
 	}
-	
+
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -109,7 +109,7 @@ public class Customer extends APIResource {
 		this.cards = customer.getCards();
 		return setCustomerID(this);
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -121,12 +121,12 @@ public class Customer extends APIResource {
 		DeleteCustomer deleteCustomer = (DeleteCustomer)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.DELETE, null, DeleteCustomer.class);
 		this.deleted = deleteCustomer.getDeleted();
 		this.livemode = deleteCustomer.getLivemode();
-		
+
 		return deleteCustomer;
 	}
-	
+
 	/**
-	 * Customersを生成するタイミングで、data(個々のCustomer.cards)の内容にcustomer idを追加する
+	 * Set the customer ID to all card data when Customers is created.
 	 * @param customers
 	 * @return
 	 */
@@ -134,18 +134,18 @@ public class Customer extends APIResource {
 		for(Customer customer : customers.data) {
 			setCustomerID(customer);
 		}
-		
+
 		return customers;
 	}
-	
+
 	/**
-	 * Customerを生成するタイミングで、cardsの内容にcustomer idを追加する
+	 * Set the customer ID to the card data when Customer is created.
 	 * @param customer
 	 * @return
 	 */
 	private static Customer setCustomerID(Customer customer) {
 		customer.cards.setCustomerID(customer.id);
-		
+
 		return customer;
 	}
 }

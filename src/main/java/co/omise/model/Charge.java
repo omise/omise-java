@@ -34,7 +34,7 @@ public class Charge extends APIResource {
 	protected String customer = null;
 	protected String ip = null;
 	protected String created = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -98,7 +98,7 @@ public class Charge extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -109,9 +109,9 @@ public class Charge extends APIResource {
 	public static Charges retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Charges)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Charges.class);
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null}.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -121,9 +121,9 @@ public class Charge extends APIResource {
 	public static Charge retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Charge)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Charge.class);
 	}
-	
+
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -135,7 +135,7 @@ public class Charge extends APIResource {
 	}
 
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -145,7 +145,7 @@ public class Charge extends APIResource {
 	public Charge update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Charge.class));
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -156,7 +156,7 @@ public class Charge extends APIResource {
 	public Charge capture() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s/capture", ENDPOINT, id), RequestMethod.POST, null, Charge.class));
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -167,12 +167,12 @@ public class Charge extends APIResource {
 	public Refunds refunds() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		Refunds refunds = (Refunds)request(OmiseURL.API, String.format("%s/%s/%s", ENDPOINT, id, Refund.ENDPOINT), RequestMethod.GET, null, Refunds.class);
 		refunds.charge_id = id;
-		
+
 		return refunds;
 	}
-	
+
 	/**
-	 * 更新系の処理の場合に必ず呼び、自分自身のインスタンスの内容を最新に更新する。
+	 * Update attributes of this instance with the given charge in parameter. Should be called when the charge is updated.
 	 * @param charge
 	 * @return
 	 */
@@ -195,7 +195,7 @@ public class Charge extends APIResource {
 		this.customer = charge.getCustomer();
 		this.ip = charge.getIp();
 		this.created = charge.getCreated();
-		
+
 		return this;
 	}
 }

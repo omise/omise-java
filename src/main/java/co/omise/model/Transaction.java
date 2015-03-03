@@ -9,14 +9,14 @@ import main.java.co.omise.net.APIResource;
 
 public class Transaction extends APIResource {
 	protected static final String ENDPOINT = "transactions";
-	
+
 	protected String object = null;
 	protected String id = null;
 	protected String type = null;
 	protected Integer amount = null;
 	protected String currency = null;
 	protected String created = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -35,7 +35,7 @@ public class Transaction extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -46,7 +46,7 @@ public class Transaction extends APIResource {
 	public static Transactions retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transactions)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Transactions.class);
 	}
-	
+
 	/**
 	 * @param id
 	 * @return

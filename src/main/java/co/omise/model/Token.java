@@ -10,7 +10,7 @@ import main.java.co.omise.net.APIResource;
 
 public class Token extends APIResource {
 	protected static final String ENDPOINT = "tokens";
-	
+
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
@@ -18,7 +18,7 @@ public class Token extends APIResource {
 	protected Boolean used = null;
 	protected Card card = null;
 	protected String created = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -40,9 +40,9 @@ public class Token extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -52,9 +52,9 @@ public class Token extends APIResource {
 	public static Token create(Map<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Token)request(OmiseURL.VAULT, ENDPOINT, RequestMethod.POST, params, Token.class);
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null}.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException

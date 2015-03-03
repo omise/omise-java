@@ -9,13 +9,13 @@ import main.java.co.omise.net.APIResource;
 
 public class Balance extends APIResource {
 	protected static final String ENDPOINT = "balance";
-	
+
 	protected String object = null;
 	protected Boolean livemode = null;
 	protected Integer available = null;
 	protected Integer total = null;
 	protected String currency = null;
-	
+
 	private static Balance _balance = null;
 
 	public String getObject() {
@@ -33,7 +33,7 @@ public class Balance extends APIResource {
 	public String getCurrency() {
 		return currency;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -44,7 +44,7 @@ public class Balance extends APIResource {
 	public static Balance retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class));
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -55,10 +55,10 @@ public class Balance extends APIResource {
 	public Balance reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return retrieve();
 	}
-	
+
 	/**
-	 * シングルトンパターンになるよう、Accountオブジェクトが再生成された場合にはこの必ずこのメソッドを通して戻り値のAccount返却すること。
-	 * @param balance {@code null}を渡してはいけない
+	 * Return a balance passed to balance parameter. In order to make the class a singleton, a balance should be passed to this method when it is re-created.
+	 * @param balance Cannot be {@code null}.
 	 * @return Balance
 	 */
 	public static Balance updateMyself(Balance balance) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
@@ -71,7 +71,7 @@ public class Balance extends APIResource {
 		} else {
 			Balance._balance = balance;
 		}
-		
+
 		return Balance._balance;
 	}
 }

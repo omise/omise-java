@@ -10,22 +10,22 @@ import main.java.co.omise.exeption.OmiseUnknownException;
 public class Cards extends OmiseList {
 	protected String customer_id = null;
 	protected List<Card> data = null;
-	
+
 	public List<Card> getData() {
 		return data;
 	}
-	
+
 	protected Cards setCustomerID(String id) {
 		customer_id = id;
 		for(Card card : data) {
 			card.customer_id = id;
 		}
-		
+
 		return this;
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null}.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -35,7 +35,7 @@ public class Cards extends OmiseList {
 	public Card retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		Card card = (Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, Card.ENDPOINT, id), RequestMethod.GET, null, Card.class);
 		card.customer_id = customer_id;
-		
+
 		return card;
 	}
 }

@@ -3,9 +3,9 @@ package main.java.co.omise.exeption;
 import main.java.co.omise.model.OmiseError;
 
 /**
- * 定義されていない例外が発生した場合に返却される。
- * 主に、APIを叩いたが期待されるerrorオブジェクト以外が返却された場合等に発生する。
- * 詳細はStacktraceを参照してください。
+ * An exception that will get thrown when an unexpected error occurred.
+ * Mainly when a non-error and non-response is returned from the API.
+ * Please refer to stacktrace for more information.
  */
 @SuppressWarnings("serial")
 public class OmiseUnknownException extends OmiseException {

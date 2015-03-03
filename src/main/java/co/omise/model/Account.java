@@ -9,14 +9,14 @@ import main.java.co.omise.net.APIResource;
 
 public class Account extends APIResource {
 	protected static final String ENDPOINT = "account";
-	
+
 	protected String object = null;
 	protected String id = null;
 	protected String email = null;
 	protected String created = null;
-	
+
 	private static Account _account = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -40,7 +40,7 @@ public class Account extends APIResource {
 	public static Account retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class));
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -51,10 +51,10 @@ public class Account extends APIResource {
 	public Account reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return retrieve();
 	}
-	
+
 	/**
-	 * シングルトンパターンになるよう、Accountオブジェクトが再生成された場合にはこの必ずこのメソッドを通して戻り値のAccount返却すること
-	 * @param account
+	 * Return an account passed to account parameter. In order to make the class a singleton, an account should be passed to this method when it is re-created.
+	 * @param account Cannot be {@code null}.
 	 * @return Account
 	 */
 	private static Account updateMyself(Account account) {
@@ -66,7 +66,7 @@ public class Account extends APIResource {
 		} else {
 			Account._account = account;
 		}
-		
+
 		return Account._account;
 	}
 }

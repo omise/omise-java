@@ -10,7 +10,7 @@ import main.java.co.omise.net.APIResource;
 
 public class Transfer extends APIResource {
 	protected static final String ENDPOINT = "transfers";
-	
+
 	protected String object = null;
 	protected String id = null;
 	protected Boolean livemode = null;
@@ -23,7 +23,7 @@ public class Transfer extends APIResource {
 	protected String failure_message = null;
 	protected String transaction = null;
 	protected String created = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -63,7 +63,7 @@ public class Transfer extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -74,9 +74,9 @@ public class Transfer extends APIResource {
 	public static Transfers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Transfers.class);
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null}.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -86,9 +86,9 @@ public class Transfer extends APIResource {
 	public static Transfer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Transfer.class);
 	}
-	
+
 	/**
-	 * @param params {@code null}もしくは0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -98,7 +98,7 @@ public class Transfer extends APIResource {
 	public static Transfer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Transfer.class);
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -109,9 +109,9 @@ public class Transfer extends APIResource {
 	public DeleteTransfer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (DeleteTransfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.DELETE, null, DeleteTransfer.class);
 	}
-	
+
 	/**
-	 * saveを実行する前にこのインスタンスのamountを更新し、呼び出す必要がある
+	 * Update the transfer amount to the value set in this instance on save.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -124,9 +124,9 @@ public class Transfer extends APIResource {
 				{put("amount", amount);}
 			});
 	}
-	
+
 	/**
-	 * @param params {@code null}もしくは0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -134,11 +134,11 @@ public class Transfer extends APIResource {
 	 * @throws IOException
 	 */
 	private Transfer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
-		return  updateMyself((Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Transfer.class));
+		return	updateMyself((Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Transfer.class));
 	}
-	
+
 	/**
-	 * 更新系の処理の場合に必ず呼び、自分自身のインスタンスの内容を最新に更新する。
+	 * Update attributes of this instance with the given transfer in parameter. Should be called when the transfer is updated.
 	 * @param transfer
 	 * @return
 	 */
@@ -155,7 +155,7 @@ public class Transfer extends APIResource {
 		this.failure_message = transfer.getFailureMessage();
 		this.transaction = transfer.getTransaction();
 		this.created = transfer.getCreated();
-		
+
 		return this;
 	}
 }

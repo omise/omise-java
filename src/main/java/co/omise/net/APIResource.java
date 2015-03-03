@@ -22,11 +22,11 @@ public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
 	private static final int CONNECT_TIMEOUT = 10 * 1000;
 	private static final int READ_TIMEOUT = 10 * 1000;
-	
+
 	protected enum RequestMethod {
-		GET, 
-		POST, 
-		DELETE, 
+		GET,
+		POST,
+		DELETE,
 		PATCH {
 			@Override
 			public String toString() {
@@ -48,14 +48,14 @@ public class APIResource extends OmiseObject {
 			}
 		}
 	}
-	
+
 	/**
-	 * 
-	 * @param omiseUrl 接続先のプロトコル〜FQDNまでを渡す。値はOmiseURLに定義済み
-	 * @param endPoint 接続先のルートディレクトリ名以降の値を渡す
-	 * @param method POSTしたいのかGETしたいのか渡す。値はRequestMethodに定義済み
-	 * @param params POSTやPATCHする値がある場合に渡す。送信する値がない場合は{@code null}を指定する
-	 * @param clazz 戻り値として期待されるclassを渡す
+	 *
+	 * @param omiseUrl An FQDN of API endpoint, including the protocol, the domain and the trailing slash. The values are declared in OmiseURL.
+	 * @param endPoint A path of API endpoint.
+	 * @param method A HTTP method to call the API, such as GET or POST. The values are declared in RequestMethod.
+	 * @param params A request body to POST or PATCH. Can be {@code null} when the request has no body.
+	 * @param clazz A class to return.
 	 * @return
 	 * @throws IOException
 	 * @throws OmiseAPIException
@@ -65,20 +65,20 @@ public class APIResource extends OmiseObject {
 	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
 		writeParams(con, params);
-		
+
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
 		try {
 			con.connect();
-			// レスポンスコードが400番以降ならerrorオブジェクトが帰ってきていると決め打ちでExceptionを発生させる
+			// Throw the appropriate exception when the response code is above 400.
 			if(con.getResponseCode() >= 400) {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-				
+
 				String buf;
 				while((buf = br.readLine()) != null) {
 					sb.append(buf);
 				}
-				
+
 				OmiseError omiseError = null;
 				omiseError = (OmiseError)GSON.fromJson(sb.toString(), OmiseError.class);
 				if("error".equals(omiseError.getObject())) {
@@ -88,7 +88,7 @@ public class APIResource extends OmiseObject {
 				}
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-				
+
 				String buf;
 				while((buf = br.readLine()) != null) {
 					sb.append(buf);
@@ -98,18 +98,18 @@ public class APIResource extends OmiseObject {
 			if(br != null) br.close();
 			con.disconnect();
 		}
-		
+
 		return (APIResource)GSON.fromJson(sb.toString(), clazz);
 	}
-	
+
 	/**
-	 * 送信する値の書き込み
+	 * Encode and send params as request body.
 	 * @param con
 	 * @param params
 	 * @throws IOException
 	 */
 	private static void writeParams(HttpURLConnection con, Map<String, Object> params) throws IOException {
-		// POSTパラメータがある場合送信
+		// Only when params is present.
 		if(params != null) {
 			StringBuilder sb = new StringBuilder();
 			for(Map.Entry<String, Object> e : params.entrySet()) {
@@ -119,7 +119,7 @@ public class APIResource extends OmiseObject {
 					append("&");
 			}
 			sb.deleteCharAt(sb.lastIndexOf("&"));
-			
+
 			PrintWriter pw = null;
 			try {
 				pw = new PrintWriter(con.getOutputStream());
@@ -130,20 +130,20 @@ public class APIResource extends OmiseObject {
 			}
 		}
 	}
-	
+
 	/**
-	 * OmiseAPIへのHttpUrlConnectionを生成する
+	 * Make a HttpUrlConnection to Omise API.
 	 * @param omiseUrl
 	 * @param endPoint
 	 * @param method
 	 * @param params
 	 * @return
-	 * @throws OmiseKeyUnsetException 
-	 * @throws IOException 
+	 * @throws OmiseKeyUnsetException
+	 * @throws IOException
 	 */
 	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseKeyUnsetException {
 		HttpURLConnection con = (HttpURLConnection)(new URL(omiseUrl.toString() + endPoint)).openConnection();
-		
+
 		con.setUseCaches(false);
 		con.setDoOutput(true);
 		con.setDoInput(true);
@@ -156,10 +156,10 @@ public class APIResource extends OmiseObject {
 		if(method == RequestMethod.PATCH) {
 			con.setRequestProperty("X-HTTP-Method-Override", "PATCH");
 		}
-		
+
 		return con;
 	}
-	
+
 	private static String getBasicAuthString(OmiseURL omiseUrl) throws OmiseKeyUnsetException {
 		switch(omiseUrl){
 			case API:

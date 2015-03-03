@@ -10,7 +10,7 @@ import main.java.co.omise.net.APIResource;
 
 public class Card extends APIResource {
 	protected static final String ENDPOINT = "cards";
-	
+
 	protected String customer_id = null;
 	protected String object = null;
 	protected String id = null;
@@ -27,7 +27,7 @@ public class Card extends APIResource {
 	protected String fingerprint = null;
 	protected String name = null;
 	protected String created = null;
-	
+
 	public String getObject() {
 		return object;
 	}
@@ -73,7 +73,7 @@ public class Card extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -84,9 +84,9 @@ public class Card extends APIResource {
 	public Card reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, ENDPOINT, id), RequestMethod.GET, null, Card.class));
 	}
-	
+
 	/**
-	 * @param params nullまたは0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -96,7 +96,7 @@ public class Card extends APIResource {
 	public Card update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, ENDPOINT, id), RequestMethod.PATCH, params, Card.class));
 	}
-	
+
 	/**
 	 * @return
 	 * @throws OmiseAPIException
@@ -109,8 +109,8 @@ public class Card extends APIResource {
 	}
 
 	/**
-	 * 更新系の処理の場合に必ず呼び、自分自身のインスタンスの内容を最新に更新する。
-	 * @param card {@code null}を渡してはいけない
+	 * Update attributes of this instance with the given card in parameter. Should be called when the card is updated.
+	 * @param card Cannot be {@code null}.
 	 * @return Card
 	 */
 	private Card updateMyself(Card card) {
@@ -129,7 +129,7 @@ public class Card extends APIResource {
 		this.fingerprint = card.getFingerprint();
 		this.name = card.getName();
 		this.created = card.getCreated();
-		
+
 		return this;
 	}
 }

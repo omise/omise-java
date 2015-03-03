@@ -11,13 +11,13 @@ import main.java.co.omise.exeption.OmiseUnknownException;
 public class Refunds extends OmiseList {
 	protected List<Refund> data = null;
 	protected String charge_id = null;
-	
+
 	public List<Refund> getData() {
 		return data;
 	}
-	
+
 	/**
-	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @param params Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
@@ -27,9 +27,9 @@ public class Refunds extends OmiseList {
 	public Refund create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Refund)request(OmiseURL.API, String.format("%s/%s/%s", Charge.ENDPOINT, charge_id, Refund.ENDPOINT), RequestMethod.POST, params, Refund.class);
 	}
-	
+
 	/**
-	 * @param id {@code null}を渡してはならない
+	 * @param id Cannot be {@code null} or an empty HashMap.
 	 * @return
 	 * @throws OmiseAPIException
 	 * @throws OmiseKeyUnsetException
