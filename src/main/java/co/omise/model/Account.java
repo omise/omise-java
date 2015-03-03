@@ -2,7 +2,9 @@ package main.java.co.omise.model;
 
 import java.io.IOException;
 
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.net.APIResource;
 
 public class Account extends APIResource {
@@ -29,22 +31,24 @@ public class Account extends APIResource {
 	}
 
 	/**
-	 * retrieve a Account
-	 * @return Account
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
 	 * @throws IOException
-	 * @throws OmiseException
 	 */
-	public static Account retrieve() throws IOException, OmiseException {
+	public static Account retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class));
 	}
 	
 	/**
-	 * reload a Account
-	 * @return Account
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
 	 * @throws IOException
-	 * @throws OmiseException
 	 */
-	public Account reload() throws IOException, OmiseException{
+	public Account reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return retrieve();
 	}
 	

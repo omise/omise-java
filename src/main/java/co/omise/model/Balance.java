@@ -2,7 +2,9 @@ package main.java.co.omise.model;
 
 import java.io.IOException;
 
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.net.APIResource;
 
 public class Balance extends APIResource {
@@ -32,27 +34,34 @@ public class Balance extends APIResource {
 		return currency;
 	}
 	
-	public static Balance retrieve() throws IOException, OmiseException {
+	/**
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Balance retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class));
 	}
 	
 	/**
-	 * 
-	 * @return 
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
 	 * @throws IOException
-	 * @throws OmiseException
 	 */
-	public Balance reload() throws IOException, OmiseException {
+	public Balance reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return retrieve();
 	}
 	
 	/**
 	 * シングルトンパターンになるよう、Accountオブジェクトが再生成された場合にはこの必ずこのメソッドを通して戻り値のAccount返却すること。
-	 * 引数に{@code null}を渡してはいけない
-	 * @param account
-	 * @return Account
+	 * @param balance {@code null}を渡してはいけない
+	 * @return Balance
 	 */
-	public static Balance updateMyself(Balance balance) throws IOException, OmiseException {
+	public static Balance updateMyself(Balance balance) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		if(Balance._balance != null) {
 			Balance._balance.object = balance.getObject();
 			Balance._balance.available = balance.getAvailable();

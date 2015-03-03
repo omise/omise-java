@@ -3,7 +3,9 @@ package main.java.co.omise.model;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.net.APIResource;
 
 public class Transfer extends APIResource {
@@ -62,33 +64,84 @@ public class Transfer extends APIResource {
 		return created;
 	}
 	
-	public static Transfers retrieve() throws IOException, OmiseException {
+	/**
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Transfers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Transfers.class);
 	}
 	
-	public static Transfer retrieve(String id) throws IOException, OmiseException {
+	/**
+	 * @param id {@code null}を渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Transfer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Transfer.class);
 	}
 	
-	public static Transfer create(HashMap<String, Object> params) throws IOException, OmiseException {
+	/**
+	 * @param params {@code null}もしくは0要素のHashMapを渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Transfer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Transfer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Transfer.class);
 	}
 	
-	public DeleteTransfer destroy() throws IOException, OmiseException {
+	/**
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public DeleteTransfer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (DeleteTransfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.DELETE, null, DeleteTransfer.class);
 	}
 	
+	/**
+	 * saveを実行する前にこのインスタンスのamountを更新し、呼び出す必要がある
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("serial")
-	public Transfer save() throws IOException, OmiseException {
+	public Transfer save() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return update(new HashMap<String, Object>() {
 				{put("amount", amount);}
 			});
 	}
 	
-	private Transfer update(HashMap<String, Object> params) throws IOException, OmiseException {
+	/**
+	 * @param params {@code null}もしくは0要素のHashMapを渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	private Transfer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return  updateMyself((Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Transfer.class));
 	}
 	
+	/**
+	 * 更新系の処理の場合に必ず呼び、自分自身のインスタンスの内容を最新に更新する。
+	 * @param transfer
+	 * @return
+	 */
 	private Transfer updateMyself(Transfer transfer) {
 		this.object = transfer.getObject();
 		this.id = transfer.getId();

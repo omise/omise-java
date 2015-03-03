@@ -3,7 +3,9 @@ package main.java.co.omise.model;
 import java.io.IOException;
 import java.util.Map;
 
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.net.APIResource;
 
 public class Token extends APIResource {
@@ -39,11 +41,27 @@ public class Token extends APIResource {
 		return created;
 	}
 	
-	public static Token create(Map<String, Object> params) throws IOException, OmiseException {
+	/**
+	 * @param params {@code null}または0要素のHashMapを渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Token create(Map<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Token)request(OmiseURL.VAULT, ENDPOINT, RequestMethod.POST, params, Token.class);
 	}
 	
-	public static Token retrieve(String id) throws IOException, OmiseException {
+	/**
+	 * @param id {@code null}を渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Token retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Token)request(OmiseURL.VAULT, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Token.class);
 	}
 }

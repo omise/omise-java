@@ -3,7 +3,9 @@ package main.java.co.omise.model;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseAPIException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.net.APIResource;
 
 public class Card extends APIResource {
@@ -72,18 +74,45 @@ public class Card extends APIResource {
 		return created;
 	}
 	
-	public Card reload() throws IOException, OmiseException {
+	/**
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public Card reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, ENDPOINT, id), RequestMethod.GET, null, Card.class));
 	}
 	
-	public Card update(HashMap<String, Object> params) throws IOException, OmiseException {
+	/**
+	 * @param params nullまたは0要素のHashMapを渡してはならない
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public Card update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return updateMyself((Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, ENDPOINT, id), RequestMethod.PATCH, params, Card.class));
 	}
 	
-	public DeleteCard destroy() throws IOException, OmiseException {
+	/**
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public DeleteCard destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (DeleteCard)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, ENDPOINT, id), RequestMethod.DELETE, null, DeleteCard.class);
 	}
-	
+
+	/**
+	 * 更新系の処理の場合に必ず呼び、自分自身のインスタンスの内容を最新に更新する。
+	 * @param card {@code null}を渡してはいけない
+	 * @return Card
+	 */
 	private Card updateMyself(Card card) {
 		this.object = card.getObject();
 		this.id = card.getId();
