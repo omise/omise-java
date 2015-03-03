@@ -36,10 +36,22 @@ public class Balance extends APIResource {
 		return updateMyself((Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class));
 	}
 	
+	/**
+	 * 
+	 * @return 
+	 * @throws IOException
+	 * @throws OmiseException
+	 */
 	public Balance reload() throws IOException, OmiseException {
 		return retrieve();
 	}
 	
+	/**
+	 * シングルトンパターンになるよう、Accountオブジェクトが再生成された場合にはこの必ずこのメソッドを通して戻り値のAccount返却すること。
+	 * 引数に{@code null}を渡してはいけない
+	 * @param account
+	 * @return Account
+	 */
 	public static Balance updateMyself(Balance balance) throws IOException, OmiseException {
 		if(Balance._balance != null) {
 			Balance._balance.object = balance.getObject();

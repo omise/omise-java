@@ -28,15 +28,32 @@ public class Account extends APIResource {
 		return created;
 	}
 
+	/**
+	 * retrieve a Account
+	 * @return Account
+	 * @throws IOException
+	 * @throws OmiseException
+	 */
 	public static Account retrieve() throws IOException, OmiseException {
 		return updateMyself((Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class));
 	}
 	
+	/**
+	 * reload a Account
+	 * @return Account
+	 * @throws IOException
+	 * @throws OmiseException
+	 */
 	public Account reload() throws IOException, OmiseException{
 		return retrieve();
 	}
 	
-	public static Account updateMyself(Account account) {
+	/**
+	 * シングルトンパターンになるよう、Accountオブジェクトが再生成された場合にはこの必ずこのメソッドを通して戻り値のAccount返却すること
+	 * @param account
+	 * @return Account
+	 */
+	private static Account updateMyself(Account account) {
 		if(Account._account != null) {
 			Account._account.created = account.getCreated();
 			Account._account.email = account.getEmail();

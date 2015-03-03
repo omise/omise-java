@@ -11,7 +11,8 @@ import java.util.Map;
 
 import main.java.co.omise.Omise;
 import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseException;
+import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import main.java.co.omise.exeption.OmiseUnknownException;
 import main.java.co.omise.model.OmiseError;
 import main.java.co.omise.model.OmiseObject;
 
@@ -50,16 +51,18 @@ public class APIResource extends OmiseObject {
 	
 	/**
 	 * 
-	 * @param omiseUrl
-	 * @param endPoint
-	 * @param method
-	 * @param params
-	 * @param clazz
+	 * @param omiseUrl 接続先のプロトコル〜FQDNまでを渡す。値はOmiseURLに定義済み
+	 * @param endPoint 接続先のルートディレクトリ名以降の値を渡す
+	 * @param method POSTしたいのかGETしたいのか渡す。値はRequestMethodに定義済み
+	 * @param params POSTやPATCHする値がある場合に渡す。送信する値がない場合は{@code null}を指定する
+	 * @param clazz 戻り値として期待されるclassを渡す
 	 * @return
 	 * @throws IOException
-	 * @throws OmiseException
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
 	 */
-	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseException {
+	protected static APIResource request(OmiseURL omiseUrl, String endPoint, RequestMethod method, Map<String, Object> params, Class<?> clazz) throws IOException, OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException {
 		HttpURLConnection con = createConnection(omiseUrl, endPoint, method);
 		writeParams(con, params);
 		
@@ -78,7 +81,11 @@ public class APIResource extends OmiseObject {
 				
 				OmiseError omiseError = null;
 				omiseError = (OmiseError)GSON.fromJson(sb.toString(), OmiseError.class);
-				throw new OmiseAPIException(omiseError.getMessage(), omiseError);
+				if("error".equals(omiseError.getObject())) {
+					throw new OmiseAPIException(omiseError.getMessage(), omiseError);
+				} else {
+					throw new OmiseUnknownException(sb.toString(), omiseError);
+				}
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 				
@@ -131,10 +138,10 @@ public class APIResource extends OmiseObject {
 	 * @param method
 	 * @param params
 	 * @return
-	 * @throws OmiseException 
+	 * @throws OmiseKeyUnsetException 
 	 * @throws IOException 
 	 */
-	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseException {
+	private static HttpURLConnection createConnection(OmiseURL omiseUrl, String endPoint, RequestMethod method) throws IOException, OmiseKeyUnsetException {
 		HttpURLConnection con = (HttpURLConnection)(new URL(omiseUrl.toString() + endPoint)).openConnection();
 		
 		con.setUseCaches(false);
@@ -153,7 +160,7 @@ public class APIResource extends OmiseObject {
 		return con;
 	}
 	
-	private static String getBasicAuthString(OmiseURL omiseUrl) throws OmiseException {
+	private static String getBasicAuthString(OmiseURL omiseUrl) throws OmiseKeyUnsetException {
 		switch(omiseUrl){
 			case API:
 				return Omise.getSecretKey() + ":";
