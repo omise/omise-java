@@ -6,7 +6,7 @@
 * [Apache Commons Codecs](http://commons.apache.org/proper/commons-codec/) 1.10 and up.
 * [GSON](https://code.google.com/p/google-gson/) version 2.2.4 and up.
 
-Using older version of Apache Commons Codecs and GSON may work, but it is not officially supported.
+Using older version of the requirements may work, but it is not officially supported.
 
 ## Installation
 

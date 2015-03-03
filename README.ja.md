@@ -2,12 +2,11 @@
 
 ## Requirements
 
-Java1.6以上で動作します。
-Apache Commons Codecが必要です。（1.10で動作確認）
-http://commons.apache.org/proper/commons-codec/
+* Java1.6以上で動作します。
+* [Apache Commons Codec](http://commons.apache.org/proper/commons-codec/)が必要です。（1.10で動作確認）
+* [GSON](https://code.google.com/p/google-gson/)も必要です。（2.2.4で動作確認）
 
-GSONも必要です。（2.2.4で動作確認）
-https://code.google.com/p/google-gson/
+上記の推奨バーション以下を利用した場合の問題についてはサポートしかねますので、ご了承ください。
 
 ## Installation
 
@@ -55,13 +54,13 @@ deleteCustomer.isDestroyed(); // => true
 
 ## Testing
 
-To run an automated test suite, first replace your keys in `test.java.co.omise.OmiseSetting.java`:
+ユニットテストを実行するためには、まず`test.java.co.omise.OmiseSettings.java`の秘密鍵と公開鍵を書き換えください。
 
 ```java
 Omise.setKeys("pkey_test_XXXXXXXXXXXXXXXXX", "skey_test_XXXXXXXXXXXXXXXXX");
 ```
 
-Then run the JUnit:
+鍵を書き換えたあと、MavenでJUnitを実行させます。
 
 ```
 mvn test
@@ -69,4 +68,4 @@ mvn test
 
 ## License
 
-See LICENSE.txt
+LICENSE.txtを参照してください。
