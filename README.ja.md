@@ -9,11 +9,19 @@
 上記の推奨バーション以下を利用した場合の問題についてはサポートしかねますので、ご了承ください。
 
 ## Installation
-
+Mavenを使った場合
+<dependency>
+     <groupId>co.omise</groupId>
+     <artifactId>omise-java</artifactId>
+     <version>1.0.0</version>
+ </dependency>
 
 ### Manually
 
-
+Mavenを使わなかった場合
+```
+git clone https://github.com/omise/omise-java
+```
 
 ## Usage
 
