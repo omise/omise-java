@@ -10,11 +10,13 @@
 
 ## Installation
 Mavenを使った場合
+```
 <dependency>
-     <groupId>co.omise</groupId>
-     <artifactId>omise-java</artifactId>
-     <version>1.0.0</version>
- </dependency>
+  <groupId>co.omise</groupId>
+  <artifactId>omise-java</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 
 ### Manually
 
