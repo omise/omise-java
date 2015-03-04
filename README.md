@@ -10,7 +10,23 @@ Using older version of the requirements may work, but it is not officially suppo
 
 ## Installation
 
+If you use Maven, you can add Omise as a dependency.
+
+```
+<dependency>
+  <groupId>co.omise</groupId>
+  <artifactId>omise-java</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ### Manually
+
+If you don't use Maven, you can simply clone the library into your project directory:
+
+```
+git clone https://github.com/omise/omise-java
+```
 
 ## Usage
 
