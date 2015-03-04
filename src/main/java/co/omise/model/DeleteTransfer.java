@@ -1,4 +1,4 @@
-package main.java.co.omise.model;
+package co.omise.model;
 
 public class DeleteTransfer extends Delete {
 

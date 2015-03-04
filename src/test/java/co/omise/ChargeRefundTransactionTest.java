@@ -5,15 +5,15 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseException;
-import main.java.co.omise.model.Charge;
-import main.java.co.omise.model.Charges;
-import main.java.co.omise.model.Refund;
-import main.java.co.omise.model.Refunds;
-import main.java.co.omise.model.Token;
-import main.java.co.omise.model.Transaction;
-import main.java.co.omise.model.Transactions;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import co.omise.model.Charge;
+import co.omise.model.Charges;
+import co.omise.model.Refund;
+import co.omise.model.Refunds;
+import co.omise.model.Token;
+import co.omise.model.Transaction;
+import co.omise.model.Transactions;
 
 import org.junit.After;
 import org.junit.AfterClass;

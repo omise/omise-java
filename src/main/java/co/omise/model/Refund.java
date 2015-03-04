@@ -1,6 +1,6 @@
-package main.java.co.omise.model;
+package co.omise.model;
 
-import main.java.co.omise.net.APIResource;
+import co.omise.net.APIResource;
 
 public class Refund extends APIResource {
 	protected static final String ENDPOINT = "refunds";

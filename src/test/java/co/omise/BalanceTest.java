@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseException;
-import main.java.co.omise.model.Balance;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import co.omise.model.Balance;
 
 import org.junit.After;
 import org.junit.AfterClass;

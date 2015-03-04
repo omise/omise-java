@@ -1,6 +1,6 @@
-package main.java.co.omise;
+package co.omise;
 
-import main.java.co.omise.exeption.OmiseKeyUnsetException;
+import co.omise.exception.OmiseKeyUnsetException;
 
 public class Omise {
 	public static final String OMISE_API_VERSION = "2014-07-27";

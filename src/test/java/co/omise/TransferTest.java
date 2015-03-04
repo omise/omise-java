@@ -5,11 +5,11 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseException;
-import main.java.co.omise.model.Balance;
-import main.java.co.omise.model.Transfer;
-import main.java.co.omise.model.Transfers;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import co.omise.model.Balance;
+import co.omise.model.Transfer;
+import co.omise.model.Transfers;
 
 import org.junit.After;
 import org.junit.AfterClass;

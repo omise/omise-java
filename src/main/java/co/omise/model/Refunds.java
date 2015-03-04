@@ -1,12 +1,12 @@
-package main.java.co.omise.model;
+package co.omise.model;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseKeyUnsetException;
-import main.java.co.omise.exeption.OmiseUnknownException;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseKeyUnsetException;
+import co.omise.exception.OmiseUnknownException;
 
 public class Refunds extends OmiseList {
 	protected List<Refund> data = null;

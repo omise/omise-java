@@ -1,6 +1,6 @@
-package main.java.co.omise.exeption;
+package co.omise.exception;
 
-import main.java.co.omise.model.OmiseError;
+import co.omise.model.OmiseError;
 
 @SuppressWarnings("serial")
 public class OmiseException extends Exception {
@@ -10,7 +10,7 @@ public class OmiseException extends Exception {
 		super(message);
 		this.omiseError = omiseError;
 	}
-	
+
 	public OmiseError getOmiseError() {
 		return omiseError;
 	}

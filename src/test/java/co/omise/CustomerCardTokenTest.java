@@ -5,12 +5,12 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.HashMap;
 
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseException;
-import main.java.co.omise.model.Card;
-import main.java.co.omise.model.Cards;
-import main.java.co.omise.model.Customer;
-import main.java.co.omise.model.Token;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import co.omise.model.Card;
+import co.omise.model.Cards;
+import co.omise.model.Customer;
+import co.omise.model.Token;
 
 import org.junit.After;
 import org.junit.AfterClass;

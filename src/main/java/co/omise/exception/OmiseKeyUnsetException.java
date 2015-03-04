@@ -1,9 +1,9 @@
-package main.java.co.omise.exeption;
+package co.omise.exception;
 
-import main.java.co.omise.model.OmiseError;
+import co.omise.model.OmiseError;
 
 /**
- * An exception that will get thrown when either secret and public key is unset in main.java.co.omise.Omise.
+ * An exception that will get thrown when either secret and public key is unset in co.omise.Omise.
  */
 @SuppressWarnings("serial")
 public class OmiseKeyUnsetException extends OmiseException {

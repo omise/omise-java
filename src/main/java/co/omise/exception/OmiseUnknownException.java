@@ -1,6 +1,6 @@
-package main.java.co.omise.exeption;
+package co.omise.exception;
 
-import main.java.co.omise.model.OmiseError;
+import co.omise.model.OmiseError;
 
 /**
  * An exception that will get thrown when an unexpected error occurred.

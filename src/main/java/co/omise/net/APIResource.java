@@ -1,4 +1,4 @@
-package main.java.co.omise.net;
+package co.omise.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,12 +9,12 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import main.java.co.omise.Omise;
-import main.java.co.omise.exeption.OmiseAPIException;
-import main.java.co.omise.exeption.OmiseKeyUnsetException;
-import main.java.co.omise.exeption.OmiseUnknownException;
-import main.java.co.omise.model.OmiseError;
-import main.java.co.omise.model.OmiseObject;
+import co.omise.Omise;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseKeyUnsetException;
+import co.omise.exception.OmiseUnknownException;
+import co.omise.model.OmiseError;
+import co.omise.model.OmiseObject;
 
 import org.apache.commons.codec.binary.Base64;
 

@@ -1,6 +1,6 @@
 package test.java.co.omise;
 
-import main.java.co.omise.Omise;
+import co.omise.Omise;
 
 public class OmiseSetting {
 	public static void setKeys() {
