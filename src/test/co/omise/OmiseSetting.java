@@ -1,4 +1,4 @@
-package test.java.co.omise;
+package test.co.omise;
 
 import co.omise.Omise;
 
