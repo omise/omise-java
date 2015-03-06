@@ -6,7 +6,7 @@
   <url>https://github.com/omise/omise-java</url>
   <name>omise-java</name>
   <description>A Java library for the Omise API</description>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <licenses>
     <license>
       <name>MIT</name>
