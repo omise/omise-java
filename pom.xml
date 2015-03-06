@@ -6,7 +6,7 @@
   <url>https://github.com/omise/omise-java</url>
   <name>omise-java</name>
   <description>A Java library for the Omise API</description>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <licenses>
     <license>
       <name>MIT</name>
@@ -84,20 +84,7 @@
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>1.6</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+      
     </plugins>
   </build>
   <scm>
@@ -106,3 +93,32 @@
     <developerConnection>scm:git:git://github.com/omise/omise-java.git</developerConnection>
   </scm>
 </project>
+<profiles>
+    <profile>
+        <id>release-sign-artifacts</id>
+        <activation>
+            <property>
+                <name>performRelease</name>
+                <value>true</value>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>1.4</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
