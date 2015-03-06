@@ -4,7 +4,7 @@ import co.omise.exception.OmiseKeyUnsetException;
 
 public class Omise {
 	public static final String OMISE_API_VERSION = "2014-07-27";
-	public static final String OMISE_JAVA_LIB_VERSION = "1.0.0";
+	public static final String OMISE_JAVA_LIB_VERSION = "1.0.1";
 
 	private static volatile String publicKey = null;
 	private static volatile String secretKey = null;
