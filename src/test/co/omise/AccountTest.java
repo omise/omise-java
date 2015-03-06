@@ -1,4 +1,4 @@
-package test.java.co.omise;
+package test.co.omise;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import co.omise.exception.OmiseAPIException;
 import co.omise.exception.OmiseException;
-import co.omise.model.Balance;
+import co.omise.model.Account;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -14,8 +14,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class BalanceTest {
-
+public class AccountTest {
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		OmiseSetting.setKeys();
@@ -34,15 +34,15 @@ public class BalanceTest {
 	}
 
 	@Test
-	public void testRetrieveAndReload() {
+	public void testRetrieve() {
 		try {
-			Balance balance = Balance.retrieve();
+			Account account = Account.retrieve();
 
-			assertNotNull("Could not retrieve the resource", balance.getObject());
-			assertEquals("The retrieved resource is not a balance", balance.getObject(), "balance");
+			assertNotNull("Could not retrieve the resource", account.getObject());
+			assertEquals("The retrieved resource is not an account", account.getObject(), "account");
 
-			balance.reload();
-			assertEquals("The object retrieved from reload is invalid", balance.getObject(), "balance");
+			account.reload();
+			assertEquals("The object retrieved from reload is invalid", account.getObject(), "account");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -55,10 +55,10 @@ public class BalanceTest {
 	@Test
 	public void testSameInstance() {
 		try {
-			Balance balanceA = Balance.retrieve();
-			Balance balanceB = Balance.retrieve();
+			Account accountA = Account.retrieve();
+			Account accountB = Account.retrieve();
 
-			assertTrue("Multiple instances are created", balanceA == balanceB);
+			assertTrue("Multiple instances were created", accountA == accountB);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
