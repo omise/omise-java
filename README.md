@@ -20,6 +20,12 @@ If you use Maven, you can add Omise as a dependency.
 </dependency>
 ```
 
+If you use Gradle, you can add Omise as a dependency.
+
+```
+compile 'co.omise:omise-java:1.0.0'
+```
+
 ### Manually
 
 If you don't use Maven, you can simply clone the library into your project directory:

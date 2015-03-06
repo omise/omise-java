@@ -20,6 +20,12 @@ Mavenを使った場合
 </dependency>
 ```
 
+Gradleを使った場合
+
+```
+compile 'co.omise:omise-java:1.0.0'
+```
+
 ### Manually
 
 Mavenを使わなかった場合
