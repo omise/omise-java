@@ -113,5 +113,6 @@
     <url>https://github.com/omise/omise-java</url>
     <connection>scm:git:git://github.com/omise/omise-java.git</connection>
     <developerConnection>scm:git:git://github.com/omise/omise-java.git</developerConnection>
+    <tag>v1.0.1</tag>
   </scm>
 </project>
