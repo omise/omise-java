@@ -24,7 +24,7 @@ public class Omise {
 	
 	/**
 	 * To use if you want to change the read timeout of API(APIResource)
-	 * default value is 10 * 1000 (ms)
+	 * default value is 60 * 1000 (ms)
 	 * @param readTimeout
 	 */
 	public static void setReadTimeout(int readTimeout) {
@@ -35,7 +35,7 @@ public class Omise {
 	}
 	/**
 	 * To use if you want to change the connect timeout of API(APIResource)
-	 * default value is 60 * 1000 (ms)
+	 * default value is 10 * 1000 (ms)
 	 * @param readTimeout
 	 */
 	public static void setConnectTimeout(int connectTimeout) {

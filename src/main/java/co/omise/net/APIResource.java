@@ -20,8 +20,8 @@ import org.apache.commons.codec.binary.Base64;
 
 public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
-	private static int CONNECT_TIMEOUT = 60 * 1000;
-	private static int READ_TIMEOUT = 10 * 1000;
+	private static int CONNECT_TIMEOUT = 10 * 1000;
+	private static int READ_TIMEOUT = 60 * 1000;
 	
 	public static int getConnectTimeout() {
 		return CONNECT_TIMEOUT;
