@@ -16,14 +16,14 @@ If you use Maven, you can add Omise as a dependency.
 <dependency>
   <groupId>co.omise</groupId>
   <artifactId>omise-java</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
 If you use Gradle, you can add Omise as a dependency.
 
 ```
-compile 'co.omise:omise-java:1.0.1'
+compile 'co.omise:omise-java:1.0.2'
 ```
 
 ### Manually
