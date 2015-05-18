@@ -1,7 +1,5 @@
 package co.omise;
 
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter.DEFAULT;
-
 import co.omise.exception.OmiseKeyUnsetException;
 import co.omise.net.APIResource;
 
