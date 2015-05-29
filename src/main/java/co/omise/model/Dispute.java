@@ -1,5 +1,11 @@
 package co.omise.model;
 
+import java.io.IOException;
+import java.util.HashMap;
+
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseKeyUnsetException;
+import co.omise.exception.OmiseUnknownException;
 import co.omise.net.APIResource;
 
 public class Dispute extends APIResource {
@@ -47,4 +53,50 @@ public class Dispute extends APIResource {
 		return created;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Disputes retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+		return (Disputes)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Disputes.class);
+	}
+	
+	/**
+	 * @param id Cannot be {@code null}.
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Dispute retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+		return (Dispute)request(OmiseURL.API, ENDPOINT + "/" + id, RequestMethod.GET, null, Dispute.class);
+	}
+	
+	/**
+	 * @param params Cannot be {@code null} or an empty HashMap.
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public Dispute update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+		Dispute dispute = (Dispute)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.PATCH, params, Dispute.class);
+		this.object = dispute.getObject();
+		this.id = dispute.getId();
+		this.livemode = dispute.getLivemode();
+		this.location = dispute.getLocation();
+		this.amount = dispute.getAmount();
+		this.currency = dispute.getCurrency();
+		this.status = dispute.getStatus();
+		this.message = dispute.getMessage();
+		this.charge = dispute.getCharge();
+		this.created = dispute.getCreated();
+		return this;
+	}
 }
