@@ -10,6 +10,7 @@ import co.omise.exception.OmiseException;
 import co.omise.model.Balance;
 import co.omise.model.Transfer;
 import co.omise.model.Transfers;
+import co.omise.Omise;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,11 +21,13 @@ import org.junit.Test;
 public class TransferTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Omise.setMode(Omise.MODE_STAGING);
 		OmiseSetting.setKeys();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		Omise.setMode(Omise.MODE_RELEASE);
 	}
 
 	@Before

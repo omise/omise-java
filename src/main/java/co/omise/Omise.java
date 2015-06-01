@@ -9,6 +9,11 @@ public class Omise {
 
 	private static volatile String publicKey = null;
 	private static volatile String secretKey = null;
+	
+	public static final int MODE_STAGING = 0;
+	public static final int MODE_RELEASE = 1;
+	private static int mode = Omise.MODE_RELEASE;
+	
 
 	/**
 	 * Set the private and secret keys. You may pass {@code null} for an unused key.
@@ -59,5 +64,23 @@ public class Omise {
 		if(secretKey == null) throw new OmiseKeyUnsetException("secret key is required.", null);
 
 		return secretKey;
+	}
+	
+	public static void setMode(int mode) {
+		switch (mode) {
+		case Omise.MODE_RELEASE:
+			Omise.mode = mode;
+			
+			break;
+		case Omise.MODE_STAGING:
+			Omise.mode = mode;
+			
+			break;
+		default:
+			throw new IllegalArgumentException("Unsupported value. mode="+mode);
+		}
+	}
+	public static int getMode() {
+		return Omise.mode;
 	}
 }

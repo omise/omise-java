@@ -14,6 +14,7 @@ import co.omise.model.Refunds;
 import co.omise.model.Token;
 import co.omise.model.Transaction;
 import co.omise.model.Transactions;
+import co.omise.Omise;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -25,11 +26,13 @@ public class ChargeRefundTransactionTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Omise.setMode(Omise.MODE_STAGING);
 		OmiseSetting.setKeys();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		Omise.setMode(Omise.MODE_RELEASE);
 	}
 
 	@Before

@@ -51,13 +51,33 @@ public class APIResource extends OmiseObject {
 		API {
 			@Override
 			public String toString() {
-				return "https://api.omise.co/";
+				switch (Omise.getMode()) {
+				case Omise.MODE_RELEASE:
+					return "https://api.omise.co/";
+					
+				case Omise.MODE_STAGING:
+					System.out.println("*** staging(debug) mode ***");
+					return "https://api-staging.omise.co/";
+
+				default:
+					return null;
+				}
 			}
 		},
 		VAULT {
 			@Override
 			public String toString() {
-				return "https://vault.omise.co/";
+				switch (Omise.getMode()) {
+				case Omise.MODE_RELEASE:
+					return "https://vault.omise.co/";
+					
+				case Omise.MODE_STAGING:
+					System.out.println("*** staging(debug) mode ***");
+					return "https://vault-staging.omise.co/";
+
+				default:
+					return null;
+				}
 			}
 		}
 	}

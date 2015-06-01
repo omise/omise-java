@@ -7,6 +7,7 @@ import java.io.IOException;
 import co.omise.exception.OmiseAPIException;
 import co.omise.exception.OmiseException;
 import co.omise.model.Account;
+import co.omise.Omise;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,11 +19,13 @@ public class AccountTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		Omise.setMode(Omise.MODE_STAGING);
 		OmiseSetting.setKeys();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		Omise.setMode(Omise.MODE_RELEASE);
 	}
 
 	@Before
