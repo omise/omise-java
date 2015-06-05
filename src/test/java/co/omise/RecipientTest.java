@@ -64,7 +64,7 @@ public class RecipientTest {
 			assertEquals("Recipient.retrieve failed: the retrieved object is not a recipient list", recipients.getData().get(0).getObject(), "recipient");
 			
 			//Recipient.retrieve(id)
-			assertEquals("Recipient.retrieve(id) failed: the retrieved object is not a list", Recipient.retrieve(recipient.getId()), "recipient");
+			assertEquals("Recipient.retrieve(id) failed: the retrieved object is not a recipient", Recipient.retrieve(recipient.getId()).getObject(), "recipient");
 			
 			
 			//Recipient.update
@@ -77,7 +77,7 @@ public class RecipientTest {
 				});}
 			});
 			assertEquals("Recipient.update failed: could not update Recipient", recipient.getName(), "somchai@prasert.com");
-			assertEquals("Recipient.update failed: could not update Recipient", recipient.getBank_account().getBrand(), "brand");
+			assertEquals("Recipient.update failed: could not update Recipient", recipient.getBank_account().getBrand(), "kbank");
 			assertEquals("Recipient.update failed: could not update Recipient", recipient.getBank_account().getLast_digits(), "7890");
 			assertEquals("Recipient.update failed: could not update Recipient", recipient.getBank_account().getName(), "SOMCHAI PRASERT");
 			
@@ -89,7 +89,6 @@ public class RecipientTest {
 		} catch (OmiseAPIException e) {
 			fail(e.getOmiseError().toString());
 		} catch (OmiseException e) {
-			e.printStackTrace();
 			fail(e.getMessage());
 		}
 	}
