@@ -22,6 +22,28 @@ public class Dispute extends APIResource {
 	protected String charge = null;
 	protected String created = null;
 
+	public enum DisputeStatus {
+		OPEN {
+			@Override
+			public String toString() {
+				return "open";
+			}
+		}, 
+		PENDING {
+			@Override
+			public String toString() {
+				return "pending";
+			}
+		}, 
+		CLOSED {
+			@Override
+			public String toString() {
+				return "closed";
+			}
+		}
+	}
+	
+
 	public String getObject() {
 		return object;
 	}
@@ -52,7 +74,7 @@ public class Dispute extends APIResource {
 	public String getCreated() {
 		return created;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -64,6 +86,18 @@ public class Dispute extends APIResource {
 	public static Disputes retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
 		return (Disputes)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Disputes.class);
 	}
+
+	/**
+	 * 
+	 * @return
+	 * @throws OmiseAPIException
+	 * @throws OmiseKeyUnsetException
+	 * @throws OmiseUnknownException
+	 * @throws IOException
+	 */
+	public static Disputes retrieve(DisputeStatus status) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+		return (Disputes)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, status.toString()), RequestMethod.GET, null, Disputes.class);
+	}
 	
 	/**
 	 * @param id Cannot be {@code null}.
@@ -74,7 +108,7 @@ public class Dispute extends APIResource {
 	 * @throws IOException
 	 */
 	public static Dispute retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
-		return (Dispute)request(OmiseURL.API, ENDPOINT + "/" + id, RequestMethod.GET, null, Dispute.class);
+		return (Dispute)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Dispute.class);
 	}
 	
 	/**
@@ -86,7 +120,7 @@ public class Dispute extends APIResource {
 	 * @throws IOException
 	 */
 	public Dispute update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
-		Dispute dispute = (Dispute)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.PATCH, params, Dispute.class);
+		Dispute dispute = (Dispute)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, getId()), RequestMethod.PATCH, params, Dispute.class);
 		this.object = dispute.getObject();
 		this.id = dispute.getId();
 		this.livemode = dispute.getLivemode();
