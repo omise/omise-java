@@ -51,13 +51,33 @@ public class APIResource extends OmiseObject {
 		API {
 			@Override
 			public String toString() {
-				return "https://api.omise.co/";
+				switch (Omise.getMode()) {
+				case Omise.MODE_RELEASE:
+					return "https://api.omise.co/";
+					
+				case Omise.MODE_STAGING:
+					System.out.println("*** staging(debug) mode ***");
+					return "https://api-staging.omise.co/";
+
+				default:
+					return null;
+				}
 			}
 		},
 		VAULT {
 			@Override
 			public String toString() {
-				return "https://vault.omise.co/";
+				switch (Omise.getMode()) {
+				case Omise.MODE_RELEASE:
+					return "https://vault.omise.co/";
+					
+				case Omise.MODE_STAGING:
+					System.out.println("*** staging(debug) mode ***");
+					return "https://vault-staging.omise.co/";
+
+				default:
+					return null;
+				}
 			}
 		}
 	}
@@ -126,10 +146,22 @@ public class APIResource extends OmiseObject {
 		if(params != null) {
 			StringBuilder sb = new StringBuilder();
 			for(Map.Entry<String, Object> e : params.entrySet()) {
-				sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
-					append("=").
-					append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
-					append("&");
+				if(e.getValue() instanceof Map) {
+					for(Map.Entry<String, Object> e2 : ((Map<String, Object>)e.getValue()).entrySet()) {
+						sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
+							append("[").
+							append(URLEncoder.encode(e2.getKey(), CHARSET)).
+							append("]").
+							append("=").
+							append(URLEncoder.encode(e2.getValue().toString(), CHARSET)).
+							append("&");
+					}
+				} else {
+					sb.append(URLEncoder.encode(e.getKey(), CHARSET)).
+						append("=").
+						append(URLEncoder.encode(e.getValue().toString(), CHARSET)).
+						append("&");
+				}
 			}
 			sb.deleteCharAt(sb.lastIndexOf("&"));
 
