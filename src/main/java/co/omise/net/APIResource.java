@@ -22,7 +22,7 @@ public class APIResource extends OmiseObject {
 	private static final String CHARSET = "UTF-8";
 	private static int CONNECT_TIMEOUT = 10 * 1000;
 	private static int READ_TIMEOUT = 60 * 1000;
-	
+
 	public static int getConnectTimeout() {
 		return CONNECT_TIMEOUT;
 	}
@@ -51,33 +51,13 @@ public class APIResource extends OmiseObject {
 		API {
 			@Override
 			public String toString() {
-				switch (Omise.getMode()) {
-				case Omise.MODE_RELEASE:
-					return "https://api.omise.co/";
-					
-				case Omise.MODE_STAGING:
-					System.out.println("*** staging(debug) mode ***");
-					return "https://api-staging.omise.co/";
-
-				default:
-					return null;
-				}
+				return "https://api.omise.co/";
 			}
 		},
 		VAULT {
 			@Override
 			public String toString() {
-				switch (Omise.getMode()) {
-				case Omise.MODE_RELEASE:
-					return "https://vault.omise.co/";
-					
-				case Omise.MODE_STAGING:
-					System.out.println("*** staging(debug) mode ***");
-					return "https://vault-staging.omise.co/";
-
-				default:
-					return null;
-				}
+				return "https://vault.omise.co/";
 			}
 		}
 	}

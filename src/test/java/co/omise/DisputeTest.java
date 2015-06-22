@@ -21,13 +21,11 @@ import co.omise.Omise;
 public class DisputeTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Omise.setMode(Omise.MODE_STAGING);
 		OmiseSetting.setKeys();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		Omise.setMode(Omise.MODE_RELEASE);
 	}
 
 	@Before
@@ -67,7 +65,7 @@ public class DisputeTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testRetrieveClosed() {
 		try {
@@ -82,7 +80,7 @@ public class DisputeTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testRetrieveOpen() {
 		try {
@@ -97,7 +95,7 @@ public class DisputeTest {
 			fail(e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testRetrieveAndUpdate() {
 		try {
@@ -106,7 +104,7 @@ public class DisputeTest {
 				Dispute dispute = Dispute.retrieve(disputes.getData().get(0).getId());
 				assertNotNull("Dispute.retrieve (id) failed: could not retrieve the resource", dispute.getObject());
 				assertEquals("Dispute.retrieve (id) failed: the retrieved object is not a list of dispute", dispute.getObject(), "dispute");
-				
+
 				dispute.update(new HashMap<String, Object>() {
 					{put("message", "Proofs and other information regarding the disputed charge ...");}
 				});
