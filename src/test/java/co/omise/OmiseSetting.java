@@ -4,6 +4,6 @@ import co.omise.Omise;
 
 public class OmiseSetting {
 	public static void setKeys() {
-		Omise.setKeys("pkey_test_507qd0a9utxf5vopisn", "skey_test_507qd0a9t4iz3vhb5cq");
+		Omise.setKeys("pkey_test_50g0m0wnmdcn33u8f33", "skey_test_50g0m0wnmrilpvjlw68");
 	}
 }
