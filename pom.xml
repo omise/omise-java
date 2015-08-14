@@ -6,7 +6,7 @@
   <url>https://github.com/omise/omise-java</url>
   <name>omise-java</name>
   <description>A Java library for the Omise API</description>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <licenses>
     <license>
       <name>MIT</name>
@@ -70,6 +70,9 @@
             <goals>
               <goal>jar</goal>
             </goals>
+            <configuration>
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
           </execution>
         </executions>
       </plugin>
