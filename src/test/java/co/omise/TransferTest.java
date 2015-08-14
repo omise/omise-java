@@ -21,13 +21,11 @@ import org.junit.Test;
 public class TransferTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Omise.setMode(Omise.MODE_STAGING);
 		OmiseSetting.setKeys();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		Omise.setMode(Omise.MODE_RELEASE);
 	}
 
 	@Before
