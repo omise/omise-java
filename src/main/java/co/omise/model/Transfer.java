@@ -1,12 +1,12 @@
 package co.omise.model;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import co.omise.exception.OmiseAPIException;
 import co.omise.exception.OmiseKeyUnsetException;
 import co.omise.exception.OmiseUnknownException;
 import co.omise.net.APIResource;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Transfer extends APIResource {
 	protected static final String ENDPOINT = "transfers";
@@ -15,6 +15,8 @@ public class Transfer extends APIResource {
 	protected String id = null;
 	protected Boolean livemode = null;
 	protected String location = null;
+	protected String recipient = null;
+	protected BankAccount bank_account = null;
 	protected Boolean sent = false;
 	protected Boolean paid = false;
 	protected Integer amount = null;
@@ -24,18 +26,16 @@ public class Transfer extends APIResource {
 	protected String transaction = null;
 	protected String created = null;
 
-	public String getObject() {
-		return object;
-	}
-	public String getId() {
-		return id;
-	}
+	public String getObject() {return object;}
+	public String getId() {return id;}
 	public Boolean getLivemode() {
 		return livemode;
 	}
 	public String getLocation() {
 		return location;
 	}
+	public BankAccount getBank_account() {return bank_account;}
+	public String getRecipient() {return recipient;}
 	public Boolean getSent() {
 		return sent;
 	}
@@ -155,6 +155,8 @@ public class Transfer extends APIResource {
 		this.failure_message = transfer.getFailureMessage();
 		this.transaction = transfer.getTransaction();
 		this.created = transfer.getCreated();
+		this.recipient = transfer.getRecipient();
+		this.bank_account = transfer.getBank_account();
 
 		return this;
 	}

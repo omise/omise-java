@@ -4,14 +4,11 @@ import co.omise.exception.OmiseKeyUnsetException;
 import co.omise.net.APIResource;
 
 public class Omise {
-	public static final String OMISE_API_VERSION = "2014-07-27";
-	public static final String OMISE_JAVA_LIB_VERSION = "1.0.2";
+	public static final String OMISE_API_VERSION = "2015-08-28";
+	public static final String OMISE_JAVA_LIB_VERSION = "1.0.4";
 
 	private static volatile String publicKey = null;
 	private static volatile String secretKey = null;
-
-	public static final int MODE_STAGING = 0;
-	public static final int MODE_RELEASE = 1;
 
 
 	/**
@@ -55,7 +52,7 @@ public class Omise {
 	}
 
 	public static String getPublicKey() throws OmiseKeyUnsetException {
-		if(publicKey == null) throw new OmiseKeyUnsetException("secret key is required.", null);
+		if(publicKey == null) throw new OmiseKeyUnsetException("public key is required.", null);
 
 		return publicKey;
 	}
