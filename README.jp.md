@@ -58,7 +58,7 @@ Customer customer = Customer.create(new HashMap<String, Object>() {
 
 customerのretrieve、update、destroyのサンプル
 
-```php
+```java
 import co.omise.model.Customer;
 import co.omise.model.DeleteCustomer;
 
