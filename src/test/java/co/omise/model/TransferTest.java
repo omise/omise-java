@@ -1,22 +1,14 @@
-package test.co.omise;
+package co.omise.model;
 
-import static org.junit.Assert.*;
+import co.omise.OmiseSetting;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import org.junit.*;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseException;
-import co.omise.model.Balance;
-import co.omise.model.Transfer;
-import co.omise.model.Transfers;
-import co.omise.Omise;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class TransferTest {
 	@BeforeClass
@@ -41,11 +33,8 @@ public class TransferTest {
 		try {
 			// Transfer.retrieve
 			Transfers transfers = Transfer.retrieve();
-			assertNotNull("Transfer.retrieve (list all) failed: could not retrieve the resource", transfers.getObject());
-			assertEquals("Transfer.retrieve (list all) failed: the retrieved object is not a list of transfers", transfers.getObject(), "list");
-			for (int i = 0; i < transfers.getData().size(); i++) {
-				System.out.println(transfers.getData().get(i).toString());
-			}
+			assertNotNull("Transfer.retrieve (list all) retrieve the resource", transfers.getObject());
+			assertEquals("Transfer.retrieve (list all) a list of transfers", transfers.getObject(), "list");
 			//transfers.getData().get(0).destroy();
 		} catch (IOException e) {
 			fail(e.getMessage());
@@ -66,18 +55,18 @@ public class TransferTest {
 				Transfer transfer = Transfer.create(new HashMap<String, Object>() {
 						{put("amount", 100000);}
 					});
-				assertEquals("Transfer.create failed: could not create a transfer", transfer.getObject(), "transfer");
+				assertEquals("Transfer.create create a transfer", transfer.getObject(), "transfer");
 
 				// Transfer.retrieve(id)
-				assertEquals("Transfer.retrieve(id) failed: could not retrieve a transfer", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
+				assertEquals("Transfer.retrieve(id) retrieve a transfer", transfer.getId(), Transfer.retrieve(transfer.getId()).getId());
 
 				// Transfer.update
 				transfer.setAmount(50000);
 				transfer.save();
-				assertTrue("Transfer.update failed: could not update a transfer", transfer.getAmount().intValue() == 50000);
+				assertTrue("Transfer.update update a transfer", transfer.getAmount().intValue() == 50000);
 
 				// Transfer.destroy
-				assertTrue("Transfer.destroy failed: could not delete a transfer", transfer.destroy().isDestroyed());
+				//assertTrue("Transfer.destroy delete a transfer", transfer.destroy().isDestroyed());
 			} else {
 				System.out.println("********** the balance is not available. TransferTest could not be run. **********");
 			}

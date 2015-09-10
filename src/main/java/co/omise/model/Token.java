@@ -1,12 +1,10 @@
 package co.omise.model;
 
+import co.omise.exception.*;
+import co.omise.net.APIResource;
+
 import java.io.IOException;
 import java.util.Map;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
-import co.omise.net.APIResource;
 
 public class Token extends APIResource {
 	protected static final String ENDPOINT = "tokens";
@@ -49,7 +47,7 @@ public class Token extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Token create(Map<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Token create(Map<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Token)request(OmiseURL.VAULT, ENDPOINT, RequestMethod.POST, params, Token.class);
 	}
 
@@ -61,7 +59,7 @@ public class Token extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Token retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Token retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Token)request(OmiseURL.VAULT, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Token.class);
 	}
 }

@@ -1,5 +1,7 @@
 package co.omise.model;
 
+import co.omise.net.OmiseObject;
+
 public class OmiseError extends OmiseObject {
 	private String object;
 	private String location;

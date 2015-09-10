@@ -3,7 +3,6 @@
 ## ความต้องการขั้นต่ำ
 
 * Java 1.6 หรือ สูงกว่า.
-* [Apache Commons Codecs](http://commons.apache.org/proper/commons-codec/) 1.10 หรือ สูงกว่า.
 * [GSON](https://code.google.com/p/google-gson/) version 2.2.4 หรือสูงกว่า.
 
 Using older version of the requirements may work, but it is not officially supported.
@@ -16,14 +15,14 @@ Using older version of the requirements may work, but it is not officially suppo
 <dependency>
   <groupId>co.omise</groupId>
   <artifactId>omise-java</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
 </dependency>
 ```
 
 กรณี ใช้ Gradle, สามารถเพิ่ม Omise lib เข้าไปในไฟล์ build.gradle ตามด้านล่าง.
 
 ```
-compile 'co.omise:omise-java:1.0.4'
+compile 'co.omise:omise-java:1.0.5'
 ```
 
 ### ใช้ jar file

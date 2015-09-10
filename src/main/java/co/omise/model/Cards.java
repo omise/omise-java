@@ -1,11 +1,9 @@
 package co.omise.model;
 
+import co.omise.exception.*;
+
 import java.io.IOException;
 import java.util.List;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
 
 public class Cards extends OmiseList {
 	protected String customer_id = null;
@@ -31,8 +29,10 @@ public class Cards extends OmiseList {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Card retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Card retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException ,IOException {
 		Card card = (Card)request(OmiseURL.API, String.format("%s/%s/%s/%s", Customer.ENDPOINT, customer_id, Card.ENDPOINT, id), RequestMethod.GET, null, Card.class);
 		card.customer_id = customer_id;
 

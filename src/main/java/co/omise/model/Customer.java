@@ -1,12 +1,10 @@
 package co.omise.model;
 
+import co.omise.exception.*;
+import co.omise.net.APIResource;
+
 import java.io.IOException;
 import java.util.HashMap;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
-import co.omise.net.APIResource;
 
 public class Customer extends APIResource {
 	protected static final String ENDPOINT = "customers";
@@ -60,7 +58,7 @@ public class Customer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Customers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Customers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return setCustomerID((Customers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Customers.class));
 	}
 
@@ -72,7 +70,7 @@ public class Customer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Customer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Customer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return setCustomerID((Customer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Customer.class));
 	}
 
@@ -84,7 +82,7 @@ public class Customer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Customer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Customer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return setCustomerID((Customer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Customer.class));
 	}
 
@@ -96,7 +94,7 @@ public class Customer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public Customer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Customer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		Customer customer = (Customer)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.PATCH, params, Customer.class);
 		this.object = customer.getObject();
 		this.id = customer.getId();
@@ -117,7 +115,7 @@ public class Customer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public DeleteCustomer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public DeleteCustomer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		DeleteCustomer deleteCustomer = (DeleteCustomer)request(OmiseURL.API, ENDPOINT + "/" + this.getId(), RequestMethod.DELETE, null, DeleteCustomer.class);
 		this.deleted = deleteCustomer.getDeleted();
 		this.livemode = deleteCustomer.getLivemode();

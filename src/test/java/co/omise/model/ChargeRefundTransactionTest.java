@@ -1,26 +1,14 @@
-package test.co.omise;
+package co.omise.model;
 
-import static org.junit.Assert.*;
+import co.omise.*;
+import co.omise.exception.OmiseAPIException;
+import co.omise.exception.OmiseException;
+import org.junit.*;
 
 import java.io.IOException;
 import java.util.HashMap;
 
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseException;
-import co.omise.model.Charge;
-import co.omise.model.Charges;
-import co.omise.model.Refund;
-import co.omise.model.Refunds;
-import co.omise.model.Token;
-import co.omise.model.Transaction;
-import co.omise.model.Transactions;
-import co.omise.Omise;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ChargeRefundTransactionTest {
 
@@ -47,8 +35,8 @@ public class ChargeRefundTransactionTest {
 			// Charge.retrieve
 			Charges charges = Charge.retrieve();
 
-			assertNotNull("Charge.retrieve (list all) failed: could not retrieve the resource", charges.getObject());
-			assertEquals("Charge.retrieve (list all) failed: the retrieved resource is not a list of charges", charges.getObject(), "list");
+			assertNotNull("Charge.retrieve (list all) the resource", charges.getObject());
+			assertEquals("Charge.retrieve (list all) list of charges", charges.getObject(), "list");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {
@@ -81,42 +69,42 @@ public class ChargeRefundTransactionTest {
 					{put("card", token.getId());}
 					{put("capture", false);}
 				});
-			assertEquals("Charge.create failed: could not create a charge", charge.getObject(), "charge");
+			assertEquals("Charge.create ", charge.getObject(), "charge");
 
 			// Charge.retrieve
-			assertEquals("Charge.retrieve(id) failed: could not retrieve a charge", charge.getId(), Charge.retrieve(charge.getId()).getId());
+			assertEquals("Charge.retrieve(id) ", charge.getId(), Charge.retrieve(charge.getId()).getId());
 
 			// Charge.update
 			charge.update(new HashMap<String, Object>() {
 					{put("description", "Another description");}
 				});
-			assertEquals("Charge.update failed: could not update a charge", charge.getDescription(), "Another description");
+			assertEquals("Charge.update ", charge.getDescription(), "Another description");
 
 			// Charge.capture
 			charge.capture();
-			assertTrue("Charge.capture failed: could not capture a charge", charge.getCaptured());
+			assertTrue("Charge.capture ", charge.getCaptured());
 
 			// Refund.retrieve (list all)
 			Refunds refunds = charge.refunds();
-			assertNotNull("Refund.retrieve (list all) failed: could not retrieve the resource", refunds.getObject());
-			assertEquals("Refund.retrieve (list all) failed: the retrieved object is not a list of refunds", refunds.getObject(), "list");
+			assertNotNull("Refund.retrieve (list all) ", refunds.getObject());
+			assertEquals("Refund.retrieve (list all) ", refunds.getObject(), "list");
 
 			// Refund.create
 			Refund refund = refunds.create(new HashMap<String, Object>() {
 					{put("amount", 10000);}
 				});
-			assertEquals("Refund.create failed: could not create a refund", refund.getObject(), "refund");
+			assertEquals("Refund.create ", refund.getObject(), "refund");
 
 			// Refund.retrieve(id)
-			assertEquals("Refund.retrieve(id) failed: could not retrieve a refund", refund.getId(), refunds.retrieve(refund.getId()).getId());
+			assertEquals("Refund.retrieve(id) ", refund.getId(), refunds.retrieve(refund.getId()).getId());
 
 			// Transaction.retrieve (list all)
 			Transactions transactions = Transaction.retrieve();
-			assertEquals("Transaction.retrieve (list all) failed: the retrieved object is not a list of transactions", transactions.getObject(), "list");
+			assertEquals("Transaction.retrieve (list all) ", transactions.getObject(), "list");
 
 			// Transaction.retrieve(id)
 			Transaction transaction = Transaction.retrieve(charge.getTransaction());
-			assertEquals("Transaction.retrieve(id) failed: could not retrieve a transaction", transaction.getObject(), "transaction");
+			assertEquals("Transaction.retrieve(id) ", transaction.getObject(), "transaction");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {

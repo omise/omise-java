@@ -1,9 +1,8 @@
-package test.co.omise;
+package co.omise;
 
-import co.omise.Omise;
 
 public class OmiseSetting {
 	public static void setKeys() {
-		Omise.setKeys("pkey_test_50g0m0wnmdcn33u8f33", "skey_test_50g0m0wnmrilpvjlw68");
+		Omise.setKeys("pkey_test_515sxqadnwjpwawmus6", "skey_test_515sxqkqhn3ao9b93lz");
 	}
 }

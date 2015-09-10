@@ -1,12 +1,14 @@
 package co.omise.model;
 
-import java.io.IOException;
-import java.util.HashMap;
-
+import co.omise.exception.OmiseAPIConnectionException;
 import co.omise.exception.OmiseAPIException;
 import co.omise.exception.OmiseKeyUnsetException;
 import co.omise.exception.OmiseUnknownException;
+import co.omise.exception.OmiseInvalidRequestException;
 import co.omise.net.APIResource;
+
+import java.io.IOException;
+import java.util.HashMap;
 
 public class Recipient extends APIResource {
 	protected static final String ENDPOINT = "recipients";
@@ -76,7 +78,7 @@ public class Recipient extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Recipients retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Recipients retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Recipients)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Recipients.class);
 	}
 	
@@ -89,7 +91,7 @@ public class Recipient extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Recipient retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Recipient retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Recipient)request(OmiseURL.API, String.format("%s/%s",  ENDPOINT, id), RequestMethod.GET, null, Recipient.class);
 	}
 	
@@ -102,7 +104,7 @@ public class Recipient extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Recipient create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Recipient create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Recipient)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Recipient.class);
 	}
 	
@@ -115,7 +117,7 @@ public class Recipient extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public Recipient update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Recipient update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return updateMyself((Recipient)request(OmiseURL.API, String.format("%s/%s",  ENDPOINT, getId()), RequestMethod.PATCH, params, Recipient.class));
 	}
 	
@@ -127,7 +129,7 @@ public class Recipient extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public DeleteRecipient destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public DeleteRecipient destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (DeleteRecipient)request(OmiseURL.API, String.format("%s/%s",  ENDPOINT, getId()), RequestMethod.DELETE, null, DeleteRecipient.class);
 	}
 	

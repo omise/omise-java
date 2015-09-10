@@ -1,11 +1,9 @@
 package co.omise.model;
 
-import java.io.IOException;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
+import co.omise.exception.*;
 import co.omise.net.APIResource;
+
+import java.io.IOException;
 
 public class Transaction extends APIResource {
 	protected static final String ENDPOINT = "transactions";
@@ -43,7 +41,7 @@ public class Transaction extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Transactions retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Transactions retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Transactions)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Transactions.class);
 	}
 
@@ -55,7 +53,7 @@ public class Transaction extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Transaction retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Transaction retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Transaction)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Transaction.class);
 	}
 }

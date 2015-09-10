@@ -1,12 +1,10 @@
 package co.omise.model;
 
+import co.omise.exception.*;
+import co.omise.net.APIResource;
+
 import java.io.IOException;
 import java.util.HashMap;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
-import co.omise.net.APIResource;
 
 public class Dispute extends APIResource {
 	protected static final String ENDPOINT = "disputes";
@@ -83,7 +81,7 @@ public class Dispute extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Disputes retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Disputes retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Disputes)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Disputes.class);
 	}
 
@@ -95,7 +93,7 @@ public class Dispute extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Disputes retrieve(DisputeStatus status) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Disputes retrieve(DisputeStatus status) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Disputes)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, status.toString()), RequestMethod.GET, null, Disputes.class);
 	}
 	
@@ -107,7 +105,7 @@ public class Dispute extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Dispute retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Dispute retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Dispute)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Dispute.class);
 	}
 	
@@ -119,7 +117,7 @@ public class Dispute extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public Dispute update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Dispute update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		Dispute dispute = (Dispute)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, getId()), RequestMethod.PATCH, params, Dispute.class);
 		this.object = dispute.getObject();
 		this.id = dispute.getId();

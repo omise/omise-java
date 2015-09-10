@@ -1,11 +1,9 @@
 package co.omise.model;
 
-import java.io.IOException;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
+import co.omise.exception.*;
 import co.omise.net.APIResource;
+
+import java.io.IOException;
 
 public class Balance extends APIResource {
 	protected static final String ENDPOINT = "balance";
@@ -40,8 +38,10 @@ public class Balance extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public static Balance retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Balance retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException,OmiseAPIConnectionException, OmiseInvalidRequestException {
 		return updateMyself((Balance)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Balance.class));
 	}
 
@@ -51,8 +51,10 @@ public class Balance extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Balance reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Balance reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException,OmiseAPIConnectionException, OmiseInvalidRequestException {
 		return retrieve();
 	}
 

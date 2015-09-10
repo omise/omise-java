@@ -1,11 +1,9 @@
 package co.omise.model;
 
-import java.io.IOException;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
+import co.omise.exception.*;
 import co.omise.net.APIResource;
+
+import java.io.IOException;
 
 public class Account extends APIResource {
 	protected static final String ENDPOINT = "account";
@@ -36,8 +34,10 @@ public class Account extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public static Account retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Account retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException, OmiseAPIConnectionException, OmiseInvalidRequestException {
 		return updateMyself((Account)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Account.class));
 	}
 
@@ -47,8 +47,10 @@ public class Account extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Account reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Account reload() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException, OmiseAPIConnectionException, OmiseInvalidRequestException {
 		return retrieve();
 	}
 

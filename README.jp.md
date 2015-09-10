@@ -3,7 +3,6 @@
 ## Requirements
 
 * Java1.6以上で動作します。
-* [Apache Commons Codec](http://commons.apache.org/proper/commons-codec/)が必要です。（1.10で動作確認）
 * [GSON](https://code.google.com/p/google-gson/)も必要です。（2.2.4で動作確認）
 
 上記の推奨バーション以下を利用した場合の問題についてはサポートしかねますので、ご了承ください。

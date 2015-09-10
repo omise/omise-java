@@ -1,12 +1,10 @@
 package co.omise.model;
 
+import co.omise.exception.*;
+import co.omise.net.APIResource;
+
 import java.io.IOException;
 import java.util.HashMap;
-
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
-import co.omise.net.APIResource;
 
 public class Charge extends APIResource {
 	protected static final String ENDPOINT = "charges";
@@ -105,8 +103,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public static Charges retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Charges retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Charges)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Charges.class);
 	}
 
@@ -117,8 +117,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public static Charge retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Charge retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Charge)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Charge.class);
 	}
 
@@ -129,8 +131,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public static Charge create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Charge create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Charge)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Charge.class);
 	}
 
@@ -141,8 +145,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Charge update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Charge update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Charge.class));
 	}
 
@@ -152,8 +158,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Charge capture() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Charge capture() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return updateMyself((Charge)request(OmiseURL.API, String.format("%s/%s/capture", ENDPOINT, id), RequestMethod.POST, null, Charge.class));
 	}
 
@@ -163,8 +171,10 @@ public class Charge extends APIResource {
 	 * @throws OmiseKeyUnsetException
 	 * @throws OmiseUnknownException
 	 * @throws IOException
+	 * @throws OmiseAPIConnectionException
+	 * @throws OmiseInvalidRequestException
 	 */
-	public Refunds refunds() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Refunds refunds() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		Refunds refunds = (Refunds)request(OmiseURL.API, String.format("%s/%s/%s", ENDPOINT, id, Refund.ENDPOINT), RequestMethod.GET, null, Refunds.class);
 		refunds.charge_id = id;
 

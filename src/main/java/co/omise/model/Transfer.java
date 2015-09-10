@@ -1,8 +1,6 @@
 package co.omise.model;
 
-import co.omise.exception.OmiseAPIException;
-import co.omise.exception.OmiseKeyUnsetException;
-import co.omise.exception.OmiseUnknownException;
+import co.omise.exception.*;
 import co.omise.net.APIResource;
 
 import java.io.IOException;
@@ -71,7 +69,7 @@ public class Transfer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Transfers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Transfers retrieve() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Transfers)request(OmiseURL.API, ENDPOINT, RequestMethod.GET, null, Transfers.class);
 	}
 
@@ -83,7 +81,7 @@ public class Transfer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Transfer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Transfer retrieve(String id) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.GET, null, Transfer.class);
 	}
 
@@ -95,7 +93,7 @@ public class Transfer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public static Transfer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public static Transfer create(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (Transfer)request(OmiseURL.API, ENDPOINT, RequestMethod.POST, params, Transfer.class);
 	}
 
@@ -106,7 +104,7 @@ public class Transfer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	public DeleteTransfer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public DeleteTransfer destroy() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return (DeleteTransfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.DELETE, null, DeleteTransfer.class);
 	}
 
@@ -119,7 +117,7 @@ public class Transfer extends APIResource {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("serial")
-	public Transfer save() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	public Transfer save() throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return update(new HashMap<String, Object>() {
 				{put("amount", amount);}
 			});
@@ -133,7 +131,7 @@ public class Transfer extends APIResource {
 	 * @throws OmiseUnknownException
 	 * @throws IOException
 	 */
-	private Transfer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, IOException {
+	private Transfer update(HashMap<String, Object> params) throws OmiseAPIException, OmiseKeyUnsetException, OmiseUnknownException, OmiseAPIConnectionException, OmiseInvalidRequestException, IOException {
 		return	updateMyself((Transfer)request(OmiseURL.API, String.format("%s/%s", ENDPOINT, id), RequestMethod.PATCH, params, Transfer.class));
 	}
 
