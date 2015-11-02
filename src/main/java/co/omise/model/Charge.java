@@ -18,7 +18,7 @@ public class Charge extends APIResource {
 	protected String description = null;
 	protected Boolean capture = null;
 	protected Boolean authorized = null;
-	protected Boolean captured = null;
+	protected Boolean paid = null;
 	protected String transaction = null;
 	protected String failure_code = null;
 	protected String failure_message = null;
@@ -32,6 +32,29 @@ public class Charge extends APIResource {
 	protected String customer = null;
 	protected String ip = null;
 	protected String created = null;
+	protected String status = null;
+
+
+	public enum ChargeStatus {
+		SUCCESS {
+			@Override
+			public String toString() {
+				return "success";
+			}
+		},
+		PENDING {
+			@Override
+			public String toString() {
+				return "pending";
+			}
+		},
+		FAILURE {
+			@Override
+			public String toString() {
+				return "failure";
+			}
+		}
+	}
 
 	public String getObject() {
 		return object;
@@ -60,8 +83,8 @@ public class Charge extends APIResource {
 	public Boolean getAuthorized() {
 		return authorized;
 	}
-	public Boolean getCaptured() {
-		return captured;
+	public Boolean getPaid() {
+		return paid;
 	}
 	public String getTransaction() {
 		return transaction;
@@ -96,6 +119,7 @@ public class Charge extends APIResource {
 	public String getCreated() {
 		return created;
 	}
+	public String getStatus() {return status;}
 
 	/**
 	 * @return
@@ -196,7 +220,7 @@ public class Charge extends APIResource {
 		this.description = charge.getDescription();
 		this.capture = charge.getCapture();
 		this.authorized = charge.getAuthorized();
-		this.captured = charge.getCaptured();
+		this.paid = charge.getPaid();
 		this.transaction = charge.getTransaction();
 		this.return_uri = charge.getReturnUri();
 		this.reference = charge.getReference();

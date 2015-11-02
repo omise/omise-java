@@ -25,6 +25,7 @@ public class Card extends APIResource {
 	protected String fingerprint = null;
 	protected String name = null;
 	protected String created = null;
+	protected String bank = null;
 
 	public String getObject() {
 		return object;
@@ -71,6 +72,7 @@ public class Card extends APIResource {
 	public String getCreated() {
 		return created;
 	}
+	public String getBank() {return bank;}
 
 	/**
 	 * @return
@@ -133,6 +135,7 @@ public class Card extends APIResource {
 		this.fingerprint = card.getFingerprint();
 		this.name = card.getName();
 		this.created = card.getCreated();
+		this.bank = card.getBank();
 
 		return this;
 	}

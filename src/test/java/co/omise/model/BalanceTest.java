@@ -34,11 +34,11 @@ public class BalanceTest {
 		try {
 			Balance balance = Balance.retrieve();
 
-			assertNotNull("Retrieve the resource", balance.getObject());
-			assertEquals("The retrieved resource is a balance", balance.getObject(), "balance");
+			assertNotNull("Could not retrieve the resource", balance.getObject());
+			assertEquals("The retrieved resource is not a balance", balance.getObject(), "balance");
 
 			balance.reload();
-			assertEquals("The object retrieved from reload is", balance.getObject(), "balance");
+			assertEquals("The object retrieved from reload is invalid", balance.getObject(), "balance");
 		} catch (IOException e) {
 			fail(e.getMessage());
 		} catch (OmiseAPIException e) {

@@ -256,9 +256,9 @@ public class OmiseConnectionImpl implements OmiseConnection {
     private static String getBasicAuthString(OmiseURL omiseUrl) throws OmiseKeyUnsetException {
         switch(omiseUrl){
             case API:
-                return APIResource.getSecretKey()+ ":";
+                return APIResource.getSecretKey()+ ":" + "password";
             case VAULT:
-                return APIResource.getPublicKey()+ ":";
+                return APIResource.getPublicKey()+ ":" + "password";
             default:
                 return ":";
         }
