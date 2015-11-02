@@ -229,6 +229,7 @@ public class Charge extends APIResource {
 		this.customer = charge.getCustomer();
 		this.ip = charge.getIp();
 		this.created = charge.getCreated();
+		this.status = charge.getStatus();
 
 		return this;
 	}
