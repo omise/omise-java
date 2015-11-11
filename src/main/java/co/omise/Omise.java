@@ -7,7 +7,7 @@ import co.omise.net.APIResource;
  */
 public class Omise {
     private static final String _OMISE_JAVA_LIB_VERSION = "1.0.6";
-    private static  String _OMISE_API_VERSION = "2014-07-02";
+    private static  String _OMISE_API_VERSION = "";
     public static void setKeys(String _publicKey, String _secretKey) {
         APIResource.setPublicKey(_publicKey);
         APIResource.setSecretKey(_secretKey);

@@ -1,5 +1,6 @@
 package co.omise.model;
 
+import co.omise.Omise;
 import co.omise.OmiseSetting;
 import co.omise.exception.OmiseAPIException;
 import co.omise.exception.OmiseException;
@@ -16,6 +17,7 @@ public class AccountTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		OmiseSetting.setKeys();
+		Omise.setOmiseAPIVersion("2014-07-27");
 	}
 
 	@AfterClass

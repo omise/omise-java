@@ -18,6 +18,7 @@ public class Charge extends APIResource {
 	protected String description = null;
 	protected Boolean capture = null;
 	protected Boolean authorized = null;
+	protected Boolean captured = null;
 	protected Boolean paid = null;
 	protected String transaction = null;
 	protected String failure_code = null;
@@ -120,6 +121,7 @@ public class Charge extends APIResource {
 		return created;
 	}
 	public String getStatus() {return status;}
+	public Boolean getCaptured() {return captured;}
 
 	/**
 	 * @return
@@ -221,6 +223,7 @@ public class Charge extends APIResource {
 		this.capture = charge.getCapture();
 		this.authorized = charge.getAuthorized();
 		this.paid = charge.getPaid();
+		this.captured = charge.getCaptured();
 		this.transaction = charge.getTransaction();
 		this.return_uri = charge.getReturnUri();
 		this.reference = charge.getReference();
