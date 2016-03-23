@@ -10,6 +10,10 @@ repositories {
     mavenCentral()
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
+
 dependencies {
     // base
     compile 'joda-time:joda-time:2.9.2'
