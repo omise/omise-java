@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SerializerTest extends OmiseTest {
-    private static final String DUMMY_JSON = "{\"object\":\"dummy\",\"id\":\"dummymodel\",\"location\":\"/404\",\"deleted\":false,\"hello\":\"world\",\"livemode\":false,\"created_at\":null}";
+    private static final String DUMMY_JSON = "{\"object\":\"dummy\",\"id\":\"dummymodel\",\"location\":\"/404\",\"hello\":\"world\",\"livemode\":false,\"created\":null}";
 
     @Test
     public void testSharedInstance() {
