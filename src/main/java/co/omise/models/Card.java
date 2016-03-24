@@ -123,4 +123,37 @@ public class Card extends Model {
     public void setSecurityCodeCheck(boolean securityCodeCheck) {
         this.securityCodeCheck = securityCodeCheck;
     }
+
+    public static class Update extends Params {
+        public Update name(String name) {
+            add("name", name);
+            return this;
+        }
+
+        public Update city(String city) {
+            add("city", city);
+            return this;
+        }
+
+        public Update postalCode(String postalCode) {
+            add("postal_code", postalCode);
+            return this;
+        }
+
+        public Update expiration(YearMonth expiration) {
+            add("expiration_month", expiration.getMonthOfYear());
+            add("expiration_year", expiration.getYear());
+            return this;
+        }
+
+        public Update expirationMonth(int month) {
+            add("expiration_month", month);
+            return this;
+        }
+
+        public Update expirationYear(int year) {
+            add("expiration_year", year);
+            return this;
+        }
+    }
 }

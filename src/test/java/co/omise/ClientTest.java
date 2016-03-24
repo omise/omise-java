@@ -13,11 +13,12 @@ public class ClientTest extends OmiseTest {
 
         client = new Client("new-shiny-version", "pkey_test_123", "skey_test_123");
         assertConfig(client, "new-shiny-version", "pkey_test_123", "skey_test_123");
-    }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testCtor_Null() {
-        new Client(null);
+        try {
+            new Client(null);
+            fail("exception expected");
+        } catch (NullPointerException e) {
+        }
     }
 
     private void assertConfig(Client client, String apiVersion, String publicKey, String secretKey) {
