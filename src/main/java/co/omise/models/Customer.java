@@ -1,6 +1,9 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Customer extends Model {
+    @JsonProperty("default_card")
     private String defaultCard;
     private String email;
     private String description;

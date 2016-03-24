@@ -1,18 +1,26 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.YearMonth;
 
 public class Card extends Model {
     private String country;
     private String city;
     private String bank;
+    @JsonProperty("postal_code")
     private String postalCode;
     private String financing;
+    @JsonProperty("last_digits")
     private String lastDigits;
     private String brand;
-    private YearMonth expiration;
+    @JsonProperty("expiration_month")
+    private int expirationMonth;
+    @JsonProperty("expiration_year")
+    private int expirationYear;
     private String fingerprint;
     private String name;
+    @JsonProperty("security_code_check")
     private boolean securityCodeCheck;
 
     public String getCountry() {
@@ -71,38 +79,25 @@ public class Card extends Model {
         this.brand = brand;
     }
 
+    @JsonIgnore
     public YearMonth getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(YearMonth expiration) {
-        this.expiration = expiration;
-    }
-
-    public int getExpirationYear() {
-        return getExpiration().getYear();
-    }
-
-    public void setExpirationYear(int year) {
-        YearMonth expiration = getExpiration();
-        if (expiration == null) {
-            expiration = YearMonth.now();
-        }
-
-        setExpiration(expiration.withYear(year));
+        return new YearMonth(expirationYear, expirationMonth);
     }
 
     public int getExpirationMonth() {
-        return getExpiration().getMonthOfYear();
+        return expirationMonth;
     }
 
-    public void setExpirationMonth(int month) {
-        YearMonth expiration = getExpiration();
-        if (expiration == null) {
-            expiration = YearMonth.now();
-        }
+    public void setExpirationMonth(int expirationMonth) {
+        this.expirationMonth = expirationMonth;
+    }
 
-        setExpiration(expiration.withMonthOfYear(month));
+    public int getExpirationYear() {
+        return expirationYear;
+    }
+
+    public void setExpirationYear(int expirationYear) {
+        this.expirationYear = expirationYear;
     }
 
     public String getFingerprint() {

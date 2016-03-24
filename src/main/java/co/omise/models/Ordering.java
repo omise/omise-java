@@ -1,7 +1,8 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum Ordering {
-    Unspecified,
-    Chronological,
-    ReverseChronological,
+    @JsonProperty("chronological")Chronological,
+    @JsonProperty("reverse_chronological")ReverseChronological,
 }

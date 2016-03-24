@@ -9,8 +9,9 @@ public abstract class Model {
     @JsonProperty("livemode")
     private boolean liveMode;
     private String location;
-    @JsonProperty("created_at")
-    private DateTime createdAt;
+    @JsonProperty("created")
+    private DateTime created;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
 
     public String getObject() {
@@ -45,12 +46,12 @@ public abstract class Model {
         this.location = location;
     }
 
-    public DateTime getCreatedAt() {
-        return createdAt;
+    public DateTime getCreated() {
+        return created;
     }
 
-    public void setCreatedAt(DateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated(DateTime created) {
+        this.created = created;
     }
 
     public boolean isDeleted() {

@@ -1,6 +1,8 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum RecipientType {
-    Individual,
-    Corporation,
+    @JsonProperty("individual")Individual,
+    @JsonProperty("corporation")Corporation,
 }

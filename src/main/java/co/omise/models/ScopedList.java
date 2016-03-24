@@ -5,13 +5,13 @@ import org.joda.time.DateTime;
 
 public class ScopedList<T extends Model> {
     private String object;
+    private String location;
     private DateTime from;
     private DateTime to;
     private int offset;
     private int limit;
     private int total;
     private Ordering order;
-    private int count;
     private ImmutableList<T> data;
 
     public String getObject() {
@@ -20,6 +20,14 @@ public class ScopedList<T extends Model> {
 
     public void setObject(String object) {
         this.object = object;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public DateTime getFrom() {
@@ -68,14 +76,6 @@ public class ScopedList<T extends Model> {
 
     public void setOrder(Ordering order) {
         this.order = order;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public ImmutableList<T> getData() {

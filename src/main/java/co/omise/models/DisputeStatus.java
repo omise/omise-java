@@ -1,9 +1,11 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum DisputeStatus {
-    Open,
-    Pending,
-    Won,
-    Lost,
-    Closed,
+    @JsonProperty("open")Open,
+    @JsonProperty("pending")Pending,
+    @JsonProperty("won")Won,
+    @JsonProperty("lost")Lost,
+    @JsonProperty("closed")Closed,
 }

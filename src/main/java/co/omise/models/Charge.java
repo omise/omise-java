@@ -1,6 +1,6 @@
 package co.omise.models;
 
-public class Charge {
+public class Charge extends Model {
     private ChargeStatus status;
     private long amount;
     private String currency;
@@ -14,7 +14,7 @@ public class Charge {
     private ScopedList<Refund> refunds;
     private String failureCode;
     private String failureMessage;
-    private Customer customer;
+    private String customer;
     private String ip;
     private Dispute dispute;
     private String returnUri;
@@ -124,11 +124,11 @@ public class Charge {
         this.failureMessage = failureMessage;
     }
 
-    public Customer getCustomer() {
+    public String getCustomer() {
         return customer;
     }
 
-    public void setCustomer(Customer customer) {
+    public void setCustomer(String customer) {
         this.customer = customer;
     }
 
