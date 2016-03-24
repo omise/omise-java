@@ -1,14 +1,19 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Transfer extends Model {
     private String recipient;
+    @JsonProperty("bank_account")
     private BankAccount bankAccount;
     private boolean sent;
     private boolean paid;
     private long fee;
     private long amount;
     private String currency;
+    @JsonProperty("failure_code")
     private String failureCode;
+    @JsonProperty("failure_message")
     private String failureMessage;
     private String transaction;
 

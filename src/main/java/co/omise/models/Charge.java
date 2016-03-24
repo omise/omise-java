@@ -1,5 +1,7 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Charge extends Model {
     private ChargeStatus status;
     private long amount;
@@ -12,7 +14,9 @@ public class Charge extends Model {
     private Card card;
     private long refunded;
     private ScopedList<Refund> refunds;
+    @JsonProperty("failure_code")
     private String failureCode;
+    @JsonProperty("failure_message")
     private String failureMessage;
     private String customer;
     private String ip;

@@ -13,29 +13,10 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SerializationTest extends OmiseTest {
-    private Map<String, Class> models = Maps.newHashMapWithExpectedSize(32);
-
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        models.put("account", Account.class);
-        models.put("balance", Balance.class);
-        models.put("bank_account", BankAccount.class);
-        models.put("card", Card.class);
-        models.put("charge", Charge.class);
-        models.put("customer", Customer.class);
-        models.put("dispute", Dispute.class);
-        // models.put("event", Event.class);
-        models.put("recipient", Recipient.class);
-        models.put("token", Token.class);
-        models.put("transaction", Transaction.class);
-        models.put("transfer", Transfer.class);
-    }
-
     @Test
     public void testModelSerializability() throws IOException, IllegalAccessException, InstantiationException {
         Serializer serializer = Serializer.defaultSerializer();
-        for (Map.Entry<String, Class> testcase : models.entrySet()) {
+        for (Map.Entry<String, Class> testcase : ModelTypeResolver.KNOWN_TYPES.entrySet()) {
             byte[] sampleBytes = getResourceBytes(objectJsonName(testcase.getValue()));
             Model instance = serializer.deserialize(new ByteArrayInputStream(sampleBytes), testcase.getValue());
 
@@ -47,24 +28,34 @@ public class SerializationTest extends OmiseTest {
         }
     }
 
-    private void assertMapEquals(String message, Map<String, Object> expectedMap, Map<String, Object> actualMap) {
-        Map<String, MapDifference.ValueDifference<Object>> differences = Maps.difference(expectedMap, actualMap).entriesDiffering();
-        if (differences.size() == 0) {
+    private void assertMapEquals(String prefix, Map<String, Object> expectedMap, Map<String, Object> actualMap) {
+        MapDifference<String, Object> differences = Maps.difference(expectedMap, actualMap);
+        if (differences.entriesDiffering().size() == 0 && differences.entriesOnlyOnLeft().size() == 0) {
             return; // all good : )
         }
 
-        for (Map.Entry<String, MapDifference.ValueDifference<Object>> entry : differences.entrySet()) {
+        for (Map.Entry<String, Object> entry : differences.entriesOnlyOnLeft().entrySet()) {
+            if (entry.getKey().equals("deleted")) {
+                continue; // "deleted" key are never serialized.
+            }
+
+            fail(prefix + "." + entry.getKey() + " is missing");
+            return;
+        }
+
+        for (Map.Entry<String, MapDifference.ValueDifference<Object>> entry : differences.entriesDiffering().entrySet()) {
             Object expected = entry.getValue().leftValue();
             Object actual = entry.getValue().rightValue();
 
             // nested maps
-            if (actual instanceof Map && expected instanceof Map) {
-                assertMapEquals(message + "." + entry.getKey(), (Map<String, Object>) expected, (Map<String, Object>) actual);
+            if (expected instanceof Map) {
+                assertTrue(actual instanceof Map);
+                assertMapEquals(prefix + "." + entry.getKey(), (Map<String, Object>) expected, (Map<String, Object>) actual);
                 continue;
             }
 
             // ruby server serializes `+00:00` instead of `Z` for default time zone, which is non-standard.
-            if (actual instanceof String && expected instanceof String && ((String) expected).endsWith("+00:00")) {
+            if (expected instanceof String && ((String) expected).endsWith("+00:00")) {
                 expected = ((String) expected).replace("+00:00", "Z");
             }
 
@@ -73,8 +64,14 @@ public class SerializationTest extends OmiseTest {
                 expected = (long) (Integer) expected;
             }
 
-            assertEquals(message + "." + entry.getKey(), expected.getClass(), actual.getClass());
-            assertEquals(message + "." + entry.getKey(), expected, actual);
+            if (expected == null) {
+                assertNull(prefix + "." + entry.getKey(), actual);
+            } else {
+                assertNotNull(prefix + "." + entry.getKey(), actual);
+            }
+
+            assertEquals(prefix + "." + entry.getKey(), expected.getClass(), actual.getClass());
+            assertEquals(prefix + "." + entry.getKey(), expected, actual);
         }
     }
 

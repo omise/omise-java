@@ -1,5 +1,7 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Recipient extends Model {
     private boolean verified;
     private boolean active;
@@ -7,8 +9,11 @@ public class Recipient extends Model {
     private String email;
     private String description;
     private RecipientType type;
+    @JsonProperty("tax_id")
     private String taxId;
+    @JsonProperty("bank_account")
     private BankAccount bankAccount;
+    @JsonProperty("failure_code")
     private String failureCode;
 
     public boolean isVerified() {

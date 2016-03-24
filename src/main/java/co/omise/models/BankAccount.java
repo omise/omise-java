@@ -1,8 +1,11 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BankAccount extends Model {
     private String brand;
     private String number;
+    @JsonProperty("last_digits")
     private String lastDigits;
     private String name;
 
