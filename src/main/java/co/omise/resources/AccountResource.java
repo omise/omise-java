@@ -11,6 +11,6 @@ public class AccountResource extends Resource {
     }
 
     public Account get() throws IOException {
-        return httpGet("/account").returns(Account.class);
+        return httpGet(apiUrl("/account").build()).returns(Account.class);
     }
 }

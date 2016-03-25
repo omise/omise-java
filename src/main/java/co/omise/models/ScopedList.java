@@ -1,7 +1,11 @@
 package co.omise.models;
 
+import co.omise.Serializer;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import okhttp3.RequestBody;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
 
 public class ScopedList<T extends Model> extends OmiseObjectBase {
     private DateTime from;
@@ -11,6 +15,7 @@ public class ScopedList<T extends Model> extends OmiseObjectBase {
     private int total;
     private Ordering order;
     private ImmutableList<T> data;
+
     public DateTime getFrom() {
         return from;
     }
@@ -65,5 +70,73 @@ public class ScopedList<T extends Model> extends OmiseObjectBase {
 
     public void setData(ImmutableList<T> data) {
         this.data = data;
+    }
+
+    public static class Options extends Params {
+        private Integer offset;
+        private Integer limit;
+        private DateTime from;
+        private DateTime to;
+        private Ordering order;
+
+        public Options offset(int offset) {
+            this.offset = offset;
+            return this;
+        }
+
+        public Options limit(int limit) {
+            this.limit = limit;
+            return this;
+        }
+
+        public Options from(DateTime from) {
+            this.from = from;
+            return this;
+        }
+
+        public Options to(DateTime to) {
+            this.to = to;
+            return this;
+        }
+
+        public Options order(Ordering order) {
+            this.order = order;
+            return this;
+        }
+
+        @Override
+        public ImmutableMap<String, String> query() {
+            ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
+            DateTimeFormatter formatter = Serializer.defaultSerializer().dateTimeFormatter();
+
+            if (offset != null) {
+                builder = builder.put("offset", offset.toString());
+            }
+            if (limit != null) {
+                builder = builder.put("limit", limit.toString());
+            }
+            if (from != null) {
+                builder = builder.put("from", formatter.print(from));
+            }
+            if (to != null) {
+                builder = builder.put("to", formatter.print(to));
+            }
+
+            switch (order) {
+                case Chronological:
+                    builder = builder.put("order", "chronological");
+                    break;
+                case ReverseChronological:
+                    builder = builder.put("order", "reverse_chronological");
+                    break;
+            }
+
+            return builder.build();
+        }
+
+        @Override
+        public RequestBody body() {
+            return null;
+        }
     }
 }

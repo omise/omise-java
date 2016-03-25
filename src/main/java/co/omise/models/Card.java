@@ -134,27 +134,27 @@ public class Card extends Model {
         private String expirationMonth;
         private String expirationYear;
 
-        public Update setName(String name) {
+        public Update name(String name) {
             this.name = name;
             return this;
         }
 
-        public Update setCity(String city) {
+        public Update city(String city) {
             this.city = city;
             return this;
         }
 
-        public Update setPostalCode(String postalCode) {
+        public Update postalCode(String postalCode) {
             this.postalCode = postalCode;
             return this;
         }
 
-        public Update setExpirationMonth(String expirationMonth) {
+        public Update expirationMonth(String expirationMonth) {
             this.expirationMonth = expirationMonth;
             return this;
         }
 
-        public Update setExpirationYear(String expirationYear) {
+        public Update expirationYear(String expirationYear) {
             this.expirationYear = expirationYear;
             return this;
         }

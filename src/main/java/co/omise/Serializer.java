@@ -10,6 +10,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 import java.io.IOException;
@@ -30,12 +31,15 @@ public final class Serializer {
 
 
     private final ObjectMapper objectMapper;
+    private final DateTimeFormatter dateTimeFormatter;
 
     private Serializer() {
+        dateTimeFormatter = ISODateTimeFormat.dateTimeNoMillis();
+
         objectMapper = new ObjectMapper();
         JodaModule joda = new JodaModule();
         joda.addSerializer(DateTime.class, new DateTimeSerializer()
-                .withFormat(new JacksonJodaDateFormat(ISODateTimeFormat.dateTimeNoMillis())));
+                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter)));
 
         objectMapper.registerModule(new GuavaModule());
         objectMapper.registerModule(joda);
@@ -49,12 +53,24 @@ public final class Serializer {
         return objectMapper;
     }
 
+    public DateTimeFormatter dateTimeFormatter() {
+        return dateTimeFormatter;
+    }
+
     public <T extends OmiseObject> T deserialize(InputStream input, Class<T> klass) throws IOException {
         return objectMapper.readerFor(klass).readValue(input);
     }
 
+    public <T extends OmiseObject> T deserialize(InputStream input, TypeReference<T> ref) throws IOException {
+        return objectMapper.readerFor(ref).readValue(input);
+    }
+
     public <T extends OmiseObject> T deserializeFromMap(Map<String, Object> map, Class<T> klass) {
         return objectMapper.convertValue(map, klass);
+    }
+
+    public <T extends OmiseObject> T deserializeFromMap(Map<String, Object> map, TypeReference<T> ref) {
+        return objectMapper.convertValue(map, ref);
     }
 
     public <T extends OmiseObject> void serialize(OutputStream output, T model) throws IOException {

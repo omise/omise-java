@@ -1,6 +1,7 @@
 package co.omise;
 
 import co.omise.models.OmiseObjectBase;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SerializerTest extends OmiseTest {
-    private static final String DUMMY_JSON = "{\"object\":\"dummy\",\"id\":\"dummymodel\",\"location\":\"/404\",\"hello\":\"world\",\"livemode\":false,\"created\":null}";
+    private static final String DUMMY_JSON = "{\"object\":\"dummy\",\"location\":\"/404\",\"hello\":\"world\"}";
 
     @Test
     public void testSharedInstance() {
@@ -39,6 +40,18 @@ public class SerializerTest extends OmiseTest {
     }
 
     @Test
+    public void testDeserializeTypeRef() throws IOException {
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(DUMMY_JSON.getBytes());
+        Dummy dummy = getSerializer().deserialize(inputStream, new TypeReference<Dummy>() {
+        });
+
+        assertNotNull(dummy);
+        assertEquals("/404", dummy.getLocation());
+        assertEquals("dummy", dummy.getObject());
+        assertEquals("world", dummy.getHello());
+    }
+
+    @Test
     public void testSerializeMap() {
         Map<String, Object> map = getSerializer().serializeToMap(new Dummy());
 
@@ -59,6 +72,22 @@ public class SerializerTest extends OmiseTest {
         assertEquals("/404", dummy.getLocation());
         assertEquals("dummy", dummy.getObject());
         assertEquals("world", dummy.getHello());
+    }
+
+    @Test
+    public void testDeserializeMapTypeRef() {
+        Map<String, Object> map = Maps.newHashMapWithExpectedSize(4);
+        map.put("location", "/404");
+        map.put("object", "dummy");
+        map.put("hello", "world");
+
+        Dummy dummy = getSerializer().deserializeFromMap(map, new TypeReference<Dummy>() {
+        });
+
+        assertEquals("/404", dummy.getLocation());
+        assertEquals("dummy", dummy.getObject());
+        assertEquals("world", dummy.getHello());
+
     }
 
 

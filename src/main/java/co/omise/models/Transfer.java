@@ -1,6 +1,9 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableMap;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 public class Transfer extends Model {
     private String recipient;
@@ -96,4 +99,63 @@ public class Transfer extends Model {
     public void setTransaction(String transaction) {
         this.transaction = transaction;
     }
+
+    /*    public class CreateTransferRequest : Request {
+        public long Amount { get; set; }
+        public string Recipient { get; set; }
+    }
+
+    public class UpdateTransferRequest : Request {
+        public long Amount { get; set; }
+    }*/
+
+    public static class Create extends Params {
+        private long amount;
+        private String recipient;
+
+        public Create amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public Create recipient(String recipient) {
+            this.recipient = recipient;
+            return this;
+        }
+
+        @Override
+        public ImmutableMap<String, String> query() {
+            return null;
+        }
+
+        @Override
+        public RequestBody body() {
+            return new FormBody.Builder()
+                    .add("amount", Long.toString(amount))
+                    .add("recipient", recipient)
+                    .build();
+        }
+    }
+
+    public static class Update extends Params {
+        private long amount;
+
+        public Update amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        @Override
+        public ImmutableMap<String, String> query() {
+            return null;
+        }
+
+        @Override
+        public RequestBody body() {
+            return new FormBody.Builder()
+                    .add("amount", Long.toString(amount))
+                    .build();
+        }
+    }
 }
+

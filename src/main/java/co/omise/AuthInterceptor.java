@@ -19,7 +19,7 @@ class AuthInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        String key = request.url().host().contains("vault.omise.co") ?
+        String key = request.url().host().contains(Endpoint.VAULT.host()) ?
                 config.getPublicKey() :
                 config.getSecretKey();
 

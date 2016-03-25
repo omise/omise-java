@@ -1,5 +1,9 @@
 package co.omise.models;
 
+import com.google.common.collect.ImmutableMap;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+
 public class Refund extends Model {
     private long amount;
     private String currency;
@@ -36,5 +40,26 @@ public class Refund extends Model {
 
     public void setTransaction(String transaction) {
         this.transaction = transaction;
+    }
+
+    public static class Create extends Params {
+        private long amount;
+
+        public Create amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        @Override
+        public ImmutableMap<String, String> query() {
+            return null;
+        }
+
+        @Override
+        public RequestBody body() {
+            return new FormBody.Builder()
+                    .add("amount", Long.toString(amount))
+                    .build();
+        }
     }
 }

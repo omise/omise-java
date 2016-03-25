@@ -18,7 +18,7 @@ public class SerializationTest extends OmiseTest {
         Serializer serializer = Serializer.defaultSerializer();
         for (Map.Entry<String, Class> testcase : ModelTypeResolver.KNOWN_TYPES.entrySet()) {
             byte[] sampleBytes = getResourceBytes(objectJsonName(testcase.getValue()));
-            Model instance = serializer.deserialize(new ByteArrayInputStream(sampleBytes), testcase.getValue());
+            OmiseObject instance = serializer.deserialize(new ByteArrayInputStream(sampleBytes), testcase.getValue());
 
             Map<String, Object> map = serializer.serializeToMap(instance);
             Map<String, Object> comparison = serializer.objectMapper().readValue(sampleBytes, new TypeReference<Map<String, Object>>() {

@@ -1,8 +1,8 @@
 package co.omise;
 
 public enum Endpoint {
-    VAULT("https://vault.omise.co"),
-    API("https://api.omise.co");
+    VAULT("vault.omise.co"),
+    API("api.omise.co");
 
     private final String host;
 

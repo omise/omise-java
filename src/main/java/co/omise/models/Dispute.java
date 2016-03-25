@@ -1,5 +1,9 @@
 package co.omise.models;
 
+import com.google.common.collect.ImmutableMap;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+
 public class Dispute extends Model {
     private long amount;
     private String currency;
@@ -45,5 +49,26 @@ public class Dispute extends Model {
 
     public void setCharge(String charge) {
         this.charge = charge;
+    }
+
+    public static class Update extends Params {
+        private String message;
+
+        public Update message(String message) {
+            this.message = message;
+            return this;
+        }
+
+        @Override
+        public ImmutableMap<String, String> query() {
+            return null;
+        }
+
+        @Override
+        public RequestBody body() {
+            return new FormBody.Builder()
+                    .add("message", message)
+                    .build();
+        }
     }
 }

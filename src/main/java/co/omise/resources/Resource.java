@@ -5,6 +5,7 @@ import co.omise.Serializer;
 import co.omise.models.OmiseError;
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.*;
 
@@ -19,36 +20,48 @@ public abstract class Resource {
         this.httpClient = httpClient;
     }
 
-    protected Operation httpGet(String path) {
-        return new Operation().method("GET").path(path);
+    protected OkHttpClient httpClient() {
+        return httpClient;
     }
 
-    protected Operation httpPost(String path) {
-        return new Operation().method("POST").path(path);
+    protected Operation httpGet(HttpUrl httpUrl) {
+        return new Operation().method("GET").httpUrl(httpUrl);
     }
 
-    protected Operation httpDelete(String path) {
-        return new Operation().method("DELETE").path(path);
+    protected Operation httpPost(HttpUrl httpUrl) {
+        return new Operation().method("POST").httpUrl(httpUrl);
+    }
+
+    protected Operation httpDelete(HttpUrl httpUrl) {
+        return new Operation().method("DELETE").httpUrl(httpUrl);
+    }
+
+    protected HttpUrl.Builder apiUrl(String path) {
+        return new HttpUrl.Builder()
+                .scheme("https")
+                .host(Endpoint.API.host())
+                .addPathSegment(path);
+    }
+
+    protected HttpUrl.Builder vaultUrl(String path) {
+        return new HttpUrl.Builder()
+                .scheme("https")
+                .host(Endpoint.VAULT.host())
+                .addPathSegment(path);
     }
 
     protected final class Operation {
-        private Endpoint endpoint;
         private String method;
-        private String path;
+        private HttpUrl httpUrl;
         private Params params;
-
-        public Operation endpoint(Endpoint endpoint) {
-            this.endpoint = endpoint;
-            return this;
-        }
 
         public Operation method(String method) {
             this.method = method;
             return this;
         }
 
-        public Operation path(String path) {
-            this.path = path;
+        public Operation httpUrl(HttpUrl httpUrl) {
+            this.httpUrl = httpUrl;
             return this;
         }
 
@@ -58,10 +71,28 @@ public abstract class Resource {
         }
 
         public <T extends OmiseObject> T returns(Class<T> resultKlass) throws IOException {
+            Response response = roundtrip();
+            InputStream stream = response.body().byteStream();
+            if (200 <= response.code() && response.code() < 300) {
+                return serializer.deserialize(stream, resultKlass);
+            } else {
+                throw serializer.deserialize(stream, OmiseError.class);
+            }
+        }
+
+        public <T extends OmiseObject> T returns(TypeReference<T> resultRef) throws IOException {
+            Response response = roundtrip();
+            InputStream stream = response.body().byteStream();
+            if (200 <= response.code() && response.code() < 300) {
+                return serializer.deserialize(stream, resultRef);
+            } else {
+                throw serializer.deserialize(stream, OmiseError.class);
+            }
+        }
+
+        private Response roundtrip() throws IOException {
             RequestBody body = null;
-            HttpUrl.Builder urlBuilder = new HttpUrl.Builder()
-                    .host(endpoint.host())
-                    .addPathSegments(path);
+            HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
 
             if (params != null) {
                 ImmutableMap<String, String> queries = params.query();
@@ -74,18 +105,12 @@ public abstract class Resource {
                 body = params.body();
             }
 
-            Call call = httpClient.newCall(new Request.Builder()
+            Request request = new Request.Builder()
                     .method(method, body)
                     .url(urlBuilder.build())
-                    .build());
+                    .build();
 
-            Response response = call.execute();
-            InputStream stream = response.body().byteStream();
-            if (200 <= response.code() && response.code() < 300) {
-                return serializer.deserialize(stream, resultKlass);
-            } else {
-                throw serializer.deserialize(stream, OmiseError.class);
-            }
+            return httpClient.newCall(request).execute();
         }
     }
 }

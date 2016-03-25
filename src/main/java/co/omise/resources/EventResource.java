@@ -1,0 +1,33 @@
+package co.omise.resources;
+
+import co.omise.models.Event;
+import co.omise.models.ScopedList;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+
+import java.io.IOException;
+
+public class EventResource extends Resource {
+    public EventResource(OkHttpClient httpClient) {
+        super(httpClient);
+    }
+
+    public ScopedList<Event> list() throws IOException {
+        return list(new ScopedList.Options());
+    }
+
+    public ScopedList<Event> list(ScopedList.Options options) throws IOException {
+        return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Event>>() {
+        });
+    }
+
+    public Event get(String eventId) throws IOException {
+        return httpGet(urlFor(eventId)).returns(new TypeReference<Event>() {
+        });
+    }
+
+    private HttpUrl urlFor(String eventId) {
+        return apiUrl("/events").addPathSegment(eventId).build();
+    }
+}
