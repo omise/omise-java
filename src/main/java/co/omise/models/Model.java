@@ -3,24 +3,14 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
-public abstract class Model {
-    private String object;
+public abstract class Model extends OmiseObjectBase {
     private String id;
     @JsonProperty("livemode")
     private boolean liveMode;
-    private String location;
     @JsonProperty("created")
     private DateTime created;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
 
     public String getId() {
         return id;
@@ -36,14 +26,6 @@ public abstract class Model {
 
     public void setLiveMode(boolean liveMode) {
         this.liveMode = liveMode;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public DateTime getCreated() {

@@ -1,6 +1,6 @@
 package co.omise;
 
-import co.omise.models.Model;
+import co.omise.models.OmiseObject;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,19 +49,19 @@ public final class Serializer {
         return objectMapper;
     }
 
-    public <T extends Model> T deserialize(InputStream input, Class<T> klass) throws IOException {
+    public <T extends OmiseObject> T deserialize(InputStream input, Class<T> klass) throws IOException {
         return objectMapper.readerFor(klass).readValue(input);
     }
 
-    public <T extends Model> T deserializeFromMap(Map<String, Object> map, Class<T> klass) {
+    public <T extends OmiseObject> T deserializeFromMap(Map<String, Object> map, Class<T> klass) {
         return objectMapper.convertValue(map, klass);
     }
 
-    public <T extends Model> void serialize(OutputStream output, T model) throws IOException {
+    public <T extends OmiseObject> void serialize(OutputStream output, T model) throws IOException {
         objectMapper.writerFor(model.getClass()).writeValue(output, model);
     }
 
-    public <T extends Model> Map<String, Object> serializeToMap(T model) {
+    public <T extends OmiseObject> Map<String, Object> serializeToMap(T model) {
         return objectMapper.convertValue(model, new TypeReference<Map<String, Object>>() {
         });
     }

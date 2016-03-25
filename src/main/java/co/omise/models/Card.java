@@ -2,6 +2,9 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableMap;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 import org.joda.time.YearMonth;
 
 public class Card extends Model {
@@ -125,35 +128,51 @@ public class Card extends Model {
     }
 
     public static class Update extends Params {
-        public Update name(String name) {
-            add("name", name);
+        private String name;
+        private String city;
+        private String postalCode;
+        private String expirationMonth;
+        private String expirationYear;
+
+        public Update setName(String name) {
+            this.name = name;
             return this;
         }
 
-        public Update city(String city) {
-            add("city", city);
+        public Update setCity(String city) {
+            this.city = city;
             return this;
         }
 
-        public Update postalCode(String postalCode) {
-            add("postal_code", postalCode);
+        public Update setPostalCode(String postalCode) {
+            this.postalCode = postalCode;
             return this;
         }
 
-        public Update expiration(YearMonth expiration) {
-            add("expiration_month", expiration.getMonthOfYear());
-            add("expiration_year", expiration.getYear());
+        public Update setExpirationMonth(String expirationMonth) {
+            this.expirationMonth = expirationMonth;
             return this;
         }
 
-        public Update expirationMonth(int month) {
-            add("expiration_month", month);
+        public Update setExpirationYear(String expirationYear) {
+            this.expirationYear = expirationYear;
             return this;
         }
 
-        public Update expirationYear(int year) {
-            add("expiration_year", year);
-            return this;
+        @Override
+        public ImmutableMap<String, String> query() {
+            return ImmutableMap.of();
+        }
+
+        @Override
+        public RequestBody body() {
+            return new FormBody.Builder()
+                    .add("name", name)
+                    .add("city", city)
+                    .add("postal_code", postalCode)
+                    .add("expiration_month", expirationMonth)
+                    .add("expiration_year", expirationYear)
+                    .build();
         }
     }
 }

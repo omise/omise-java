@@ -3,9 +3,7 @@ package co.omise.models;
 import com.google.common.collect.ImmutableList;
 import org.joda.time.DateTime;
 
-public class ScopedList<T extends Model> {
-    private String object;
-    private String location;
+public class ScopedList<T extends Model> extends OmiseObjectBase {
     private DateTime from;
     private DateTime to;
     private int offset;
@@ -13,23 +11,6 @@ public class ScopedList<T extends Model> {
     private int total;
     private Ordering order;
     private ImmutableList<T> data;
-
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public DateTime getFrom() {
         return from;
     }

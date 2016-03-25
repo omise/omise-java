@@ -20,18 +20,18 @@ public class CardResource extends Resource {
     }
 
     public Card get(String cardId) throws IOException {
-        return request("GET", urlFor(cardId), null, Card.class);
+        return httpGet(pathFor(cardId)).returns(Card.class);
     }
 
     public Card update(String cardId, Card.Update update) throws IOException {
-        return request("POST", urlFor(cardId), update, Card.class);
+        return httpPost(pathFor(cardId)).params(update).returns(Card.class);
     }
 
     public Card destroy(String cardId) throws IOException {
-        return request("DELETE", urlFor(cardId), null, Card.class);
+        return httpDelete(pathFor(cardId)).returns(Card.class);
     }
 
-    private String urlFor(String cardId) {
+    private String pathFor(String cardId) {
         String url = "/customers/" + customerId + "/cards";
         if (cardId != null) {
             url += "/" + cardId;

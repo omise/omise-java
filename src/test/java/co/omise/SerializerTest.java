@@ -1,6 +1,6 @@
 package co.omise;
 
-import co.omise.models.Model;
+import co.omise.models.OmiseObjectBase;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 
@@ -33,7 +33,6 @@ public class SerializerTest extends OmiseTest {
         Dummy dummy = getSerializer().deserialize(inputStream, Dummy.class);
 
         assertNotNull(dummy);
-        assertEquals("dummymodel", dummy.getId());
         assertEquals("/404", dummy.getLocation());
         assertEquals("dummy", dummy.getObject());
         assertEquals("world", dummy.getHello());
@@ -44,7 +43,6 @@ public class SerializerTest extends OmiseTest {
         Map<String, Object> map = getSerializer().serializeToMap(new Dummy());
 
         assertNotNull(map);
-        assertEquals("dummymodel", map.get("id"));
         assertEquals("/404", map.get("location"));
         assertEquals("dummy", map.get("object"));
         assertEquals("world", map.get("hello"));
@@ -53,13 +51,11 @@ public class SerializerTest extends OmiseTest {
     @Test
     public void testDeserializeMap() {
         Map<String, Object> map = Maps.newHashMapWithExpectedSize(4);
-        map.put("id", "dummymodel");
         map.put("location", "/404");
         map.put("object", "dummy");
         map.put("hello", "world");
 
         Dummy dummy = getSerializer().deserializeFromMap(map, Dummy.class);
-        assertEquals("dummymodel", dummy.getId());
         assertEquals("/404", dummy.getLocation());
         assertEquals("dummy", dummy.getObject());
         assertEquals("world", dummy.getHello());
@@ -70,11 +66,10 @@ public class SerializerTest extends OmiseTest {
         return Serializer.defaultSerializer();
     }
 
-    public static final class Dummy extends Model {
+    public static final class Dummy extends OmiseObjectBase {
         private String hello;
 
         public Dummy() {
-            setId("dummymodel");
             setLocation("/404");
             setObject("dummy");
             setHello("world");

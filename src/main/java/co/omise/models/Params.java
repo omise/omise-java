@@ -1,20 +1,10 @@
 package co.omise.models;
 
-import okhttp3.FormBody;
+import com.google.common.collect.ImmutableMap;
 import okhttp3.RequestBody;
 
 public abstract class Params {
-    private FormBody.Builder builder = new FormBody.Builder();
+    public abstract ImmutableMap<String, String> query();
 
-    protected final void add(String key, String value) {
-        builder = builder.add(key, value);
-    }
-
-    protected final void add(String key, int value) {
-        builder = builder.add(key, Integer.toString(value));
-    }
-
-    public final RequestBody build() {
-        return builder.build();
-    }
+    public abstract RequestBody body();
 }

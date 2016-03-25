@@ -11,6 +11,6 @@ public class BalanceResource extends Resource {
     }
 
     public Balance get() throws IOException {
-        return request("GET", "/balance", null, Balance.class);
+        return httpGet("/balance").returns(Balance.class);
     }
 }
