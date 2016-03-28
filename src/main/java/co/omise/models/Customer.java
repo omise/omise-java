@@ -1,9 +1,6 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 
 public class Customer extends Model {
     @JsonProperty("default_card")
@@ -51,37 +48,19 @@ public class Customer extends Model {
     }
 
     public static abstract class CustomerParams extends Params {
-        private String email;
-        private String description;
-        private String card;
-
         public CustomerParams email(String email) {
-            this.email = email;
+            add("email", email);
             return this;
         }
 
         public CustomerParams description(String description) {
-            this.description = description;
+            add("description", description);
             return this;
         }
 
         public CustomerParams card(String card) {
-            this.card = card;
+            add("card", card);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("email", email)
-                    .add("description", description)
-                    .add("card", card)
-                    .build();
         }
     }
 }

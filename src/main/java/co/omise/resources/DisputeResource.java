@@ -38,7 +38,7 @@ public class DisputeResource extends Resource {
     }
 
     public Dispute update(String disputeId, Dispute.Update params) throws IOException {
-        return httpPost(urlFor(disputeId)).params(params).returns(Dispute.class);
+        return httpPatch(urlFor(disputeId)).params(params).returns(Dispute.class);
     }
 
     private HttpUrl urlFor(String disputeId) {

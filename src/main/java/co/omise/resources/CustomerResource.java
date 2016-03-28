@@ -31,12 +31,12 @@ public class CustomerResource extends Resource {
         return httpGet(urlFor(customerId)).returns(Customer.class);
     }
 
-    public Customer create(Customer.Create params) throws IOException {
+    public Customer create(Customer.CustomerParams params) throws IOException {
         return httpPost(urlFor("")).params(params).returns(Customer.class);
     }
 
-    public Customer update(String customerId, Customer.Update params) throws IOException {
-        return httpPost(urlFor(customerId)).params(params).returns(Customer.class);
+    public Customer update(String customerId, Customer.CustomerParams params) throws IOException {
+        return httpPatch(urlFor(customerId)).params(params).returns(Customer.class);
     }
 
     public Customer destroy(String customerId) throws IOException {
