@@ -6,6 +6,7 @@ import co.omise.models.OmiseError;
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.*;
 
@@ -32,22 +33,27 @@ public abstract class Resource {
         return new Operation().method("POST").httpUrl(httpUrl);
     }
 
+    protected Operation httpPatch(HttpUrl httpUrl) {
+        return new Operation().method("PATCH").httpUrl(httpUrl);
+    }
+
     protected Operation httpDelete(HttpUrl httpUrl) {
         return new Operation().method("DELETE").httpUrl(httpUrl);
     }
 
-    protected HttpUrl.Builder apiUrl(String path) {
-        return new HttpUrl.Builder()
-                .scheme("https")
-                .host(Endpoint.API.host())
-                .addPathSegment(path);
-    }
+    protected HttpUrl buildUrl(Endpoint endpoint, String... pathSegments) {
+        Preconditions.checkNotNull(endpoint);
 
-    protected HttpUrl.Builder vaultUrl(String path) {
-        return new HttpUrl.Builder()
-                .scheme("https")
-                .host(Endpoint.VAULT.host())
-                .addPathSegment(path);
+        HttpUrl.Builder builder = endpoint.buildUrl();
+        for (String segment : pathSegments) {
+            if (segment == null || segment.isEmpty()) {
+                continue;
+            }
+
+            builder = builder.addPathSegment(segment);
+        }
+
+        return builder.build();
     }
 
     protected final class Operation {
@@ -70,24 +76,35 @@ public abstract class Resource {
             return this;
         }
 
+        // TODO: DRY both these 2 variants
         public <T extends OmiseObject> T returns(Class<T> resultKlass) throws IOException {
             Response response = roundtrip();
-            InputStream stream = response.body().byteStream();
-            if (200 <= response.code() && response.code() < 300) {
-                return serializer.deserialize(stream, resultKlass);
-            } else {
+            ResponseBody body = response.body();
+            if (body == null) {
+                return null;
+            }
+
+            InputStream stream = body.byteStream();
+            if (200 < response.code() || response.code() >= 300) {
                 throw serializer.deserialize(stream, OmiseError.class);
             }
+
+            return serializer.deserialize(stream, resultKlass);
         }
 
         public <T extends OmiseObject> T returns(TypeReference<T> resultRef) throws IOException {
             Response response = roundtrip();
-            InputStream stream = response.body().byteStream();
-            if (200 <= response.code() && response.code() < 300) {
-                return serializer.deserialize(stream, resultRef);
-            } else {
+            ResponseBody body = response.body();
+            if (body == null) {
+                return null;
+            }
+
+            InputStream stream = body.byteStream();
+            if (200 < response.code() || response.code() >= 300) {
                 throw serializer.deserialize(stream, OmiseError.class);
             }
+
+            return serializer.deserialize(stream, resultRef);
         }
 
         private Response roundtrip() throws IOException {

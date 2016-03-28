@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.ScopedList;
 import co.omise.models.Transaction;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,6 +28,6 @@ public class TransactionResource extends Resource {
     }
 
     private HttpUrl urlFor(String transactionId) {
-        return apiUrl("/transactions").addPathSegment(transactionId).build();
+        return buildUrl(Endpoint.API, "transactions", transactionId);
     }
 }

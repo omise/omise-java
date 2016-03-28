@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Account;
 import okhttp3.OkHttpClient;
 
@@ -11,6 +12,6 @@ public class AccountResource extends Resource {
     }
 
     public Account get() throws IOException {
-        return httpGet(apiUrl("/account").build()).returns(Account.class);
+        return httpGet(buildUrl(Endpoint.API, "account")).returns(Account.class);
     }
 }

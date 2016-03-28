@@ -1,9 +1,6 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 
 public class Charge extends Model {
     private ChargeStatus status;
@@ -172,86 +169,46 @@ public class Charge extends Model {
     }
 
     public static class Create extends Params {
-        private String customer;
-        private String card;
-        private long amount;
-        private String currency;
-        private String description;
-        private boolean capture = true;
-        private String returnUri;
-
         public Create customer(String customer) {
-            this.customer = customer;
+            add("customer", customer);
             return this;
         }
 
         public Create card(String card) {
-            this.card = card;
+            add("card", card);
             return this;
         }
 
         public Create amount(long amount) {
-            this.amount = amount;
+            add("amount", Long.toString(amount));
             return this;
         }
 
         public Create currency(String currency) {
-            this.currency = currency;
+            add("currency", currency);
             return this;
         }
 
         public Create description(String description) {
-            this.description = description;
+            add("description", description);
             return this;
         }
 
         public Create capture(boolean capture) {
-            this.capture = capture;
+            add("capture", Boolean.toString(capture));
             return this;
         }
 
         public Create returnUri(String returnUri) {
-            this.returnUri = returnUri;
+            add("return_uri", returnUri);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("customer", customer)
-                    .add("card", card)
-                    .add("amount", Long.toString(amount))
-                    .add("currency", currency)
-                    .add("description", description)
-                    .add("capture", Boolean.toString(capture))
-                    .add("return_uri", returnUri)
-                    .build();
         }
     }
 
     public static class Update extends Params {
-        private String description;
-
         public Update description(String description) {
-            this.description = description;
+            add("description", description);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("description", description)
-                    .build();
         }
     }
 }

@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Dispute;
 import co.omise.models.DisputeStatus;
 import co.omise.models.ScopedList;
@@ -41,6 +42,6 @@ public class DisputeResource extends Resource {
     }
 
     private HttpUrl urlFor(String disputeId) {
-        return apiUrl("/disputes").addPathSegment(disputeId).build();
+        return buildUrl(Endpoint.API, "disputes", disputeId);
     }
 }

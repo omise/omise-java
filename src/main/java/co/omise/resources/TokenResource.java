@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Token;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -20,6 +21,6 @@ public class TokenResource extends Resource {
     }
 
     private HttpUrl urlFor(String tokenId) {
-        return vaultUrl("/tokens").addPathSegment(tokenId).build();
+        return buildUrl(Endpoint.VAULT, "tokens", tokenId);
     }
 }

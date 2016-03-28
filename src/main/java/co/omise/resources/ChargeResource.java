@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Charge;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -31,14 +32,10 @@ public class ChargeResource extends Resource {
     }
 
     public Charge update(String chargeId, Charge.Update params) throws IOException {
-        return httpPost(urlFor(chargeId)).params(params).returns(Charge.class);
-    }
-
-    public Charge destroy(String chargeId) throws IOException {
-        return httpDelete(urlFor(chargeId)).returns(Charge.class);
+        return httpPatch(urlFor(chargeId)).params(params).returns(Charge.class);
     }
 
     private HttpUrl urlFor(String chargeId) {
-        return apiUrl("/charges").addPathSegment(chargeId).build();
+        return buildUrl(Endpoint.API, "charges", chargeId);
     }
 }

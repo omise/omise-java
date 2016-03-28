@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Card;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,7 +31,7 @@ public class CardResource extends Resource {
     }
 
     public Card update(String cardId, Card.Update update) throws IOException {
-        return httpPost(urlFor(cardId)).params(update).returns(Card.class);
+        return httpPatch(urlFor(cardId)).params(update).returns(Card.class);
     }
 
     public Card destroy(String cardId) throws IOException {
@@ -38,10 +39,6 @@ public class CardResource extends Resource {
     }
 
     private HttpUrl urlFor(String cardId) {
-        return apiUrl("/customers")
-                .addPathSegment(customerId)
-                .addPathSegment("/cards")
-                .addPathSegment(cardId)
-                .build();
+        return buildUrl(Endpoint.API, "customers", customerId);
     }
 }

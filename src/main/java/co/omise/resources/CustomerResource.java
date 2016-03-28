@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Customer;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -43,8 +44,6 @@ public class CustomerResource extends Resource {
     }
 
     private HttpUrl urlFor(String customerId) {
-        return apiUrl("/customers")
-                .addPathSegment(customerId)
-                .build();
+        return buildUrl(Endpoint.API, "customers", customerId);
     }
 }

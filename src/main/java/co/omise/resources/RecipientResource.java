@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Recipient;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -39,6 +40,6 @@ public class RecipientResource extends Resource {
     }
 
     private HttpUrl urlFor(String recipientId) {
-        return apiUrl("/recipients").addPathSegment(recipientId).build();
+        return buildUrl(Endpoint.API, "recipients");
     }
 }

@@ -122,13 +122,15 @@ public class ScopedList<T extends Model> extends OmiseObjectBase {
                 builder = builder.put("to", formatter.print(to));
             }
 
-            switch (order) {
-                case Chronological:
-                    builder = builder.put("order", "chronological");
-                    break;
-                case ReverseChronological:
-                    builder = builder.put("order", "reverse_chronological");
-                    break;
+            if (order != null) {
+                switch (order) {
+                    case Chronological:
+                        builder = builder.put("order", "chronological");
+                        break;
+                    case ReverseChronological:
+                        builder = builder.put("order", "reverse_chronological");
+                        break;
+                }
             }
 
             return builder.build();

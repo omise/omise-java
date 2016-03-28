@@ -2,9 +2,6 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 import org.joda.time.YearMonth;
 
 public class Card extends Model {
@@ -128,51 +125,29 @@ public class Card extends Model {
     }
 
     public static class Update extends Params {
-        private String name;
-        private String city;
-        private String postalCode;
-        private String expirationMonth;
-        private String expirationYear;
-
         public Update name(String name) {
-            this.name = name;
+            add("name", name);
             return this;
         }
 
         public Update city(String city) {
-            this.city = city;
+            add("city", city);
             return this;
         }
 
         public Update postalCode(String postalCode) {
-            this.postalCode = postalCode;
+            add("postal_code", postalCode);
             return this;
         }
 
         public Update expirationMonth(String expirationMonth) {
-            this.expirationMonth = expirationMonth;
+            add("expiration_month", expirationMonth);
             return this;
         }
 
         public Update expirationYear(String expirationYear) {
-            this.expirationYear = expirationYear;
+            add("expiration_year", expirationYear);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return ImmutableMap.of();
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("name", name)
-                    .add("city", city)
-                    .add("postal_code", postalCode)
-                    .add("expiration_month", expirationMonth)
-                    .add("expiration_year", expirationYear)
-                    .build();
         }
     }
 }

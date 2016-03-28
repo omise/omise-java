@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Event;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -28,6 +29,6 @@ public class EventResource extends Resource {
     }
 
     private HttpUrl urlFor(String eventId) {
-        return apiUrl("/events").addPathSegment(eventId).build();
+        return buildUrl(Endpoint.API, "events", eventId);
     }
 }

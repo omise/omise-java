@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Balance;
 import okhttp3.OkHttpClient;
 
@@ -11,6 +12,6 @@ public class BalanceResource extends Resource {
     }
 
     public Balance get() throws IOException {
-        return httpGet(apiUrl("/balance").build()).returns(Balance.class);
+        return httpGet(buildUrl(Endpoint.API, "balance")).returns(Balance.class);
     }
 }

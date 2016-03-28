@@ -1,7 +1,9 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum ChargeStatus {
-    Failed,
-    Pending,
-    Successful,
+    @JsonProperty("failed")Failed,
+    @JsonProperty("pending")Pending,
+    @JsonProperty("successful")Successful,
 }

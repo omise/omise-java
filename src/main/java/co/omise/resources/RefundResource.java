@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -34,10 +35,6 @@ public class RefundResource extends Resource {
     }
 
     private HttpUrl urlFor(String refundId) {
-        return apiUrl("/charges")
-                .addPathSegment(chargeId)
-                .addPathSegment("/refunds")
-                .addPathSegment(refundId)
-                .build();
+        return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
     }
 }

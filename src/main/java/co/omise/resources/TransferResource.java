@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.Endpoint;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -39,6 +40,6 @@ public class TransferResource extends Resource {
     }
 
     private HttpUrl urlFor(String transferId) {
-        return apiUrl("/transfers").addPathSegment(transferId).build();
+        return buildUrl(Endpoint.API, "transfer", transferId);
     }
 }
