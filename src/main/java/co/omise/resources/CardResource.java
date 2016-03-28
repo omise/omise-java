@@ -39,6 +39,6 @@ public class CardResource extends Resource {
     }
 
     private HttpUrl urlFor(String cardId) {
-        return buildUrl(Endpoint.API, "customers", customerId);
+        return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
     }
 }
