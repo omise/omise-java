@@ -32,7 +32,7 @@ public class TransferResource extends Resource {
     }
 
     public Transfer update(String transferId, Transfer.Update params) throws IOException {
-        return httpPost(urlFor(transferId)).params(params).returns(Transfer.class);
+        return httpPatch(urlFor(transferId)).params(params).returns(Transfer.class);
     }
 
     public Transfer destroy(String transferId) throws IOException {
@@ -40,6 +40,6 @@ public class TransferResource extends Resource {
     }
 
     private HttpUrl urlFor(String transferId) {
-        return buildUrl(Endpoint.API, "transfer", transferId);
+        return buildUrl(Endpoint.API, "transfers", transferId);
     }
 }

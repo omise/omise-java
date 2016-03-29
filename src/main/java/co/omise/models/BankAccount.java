@@ -1,7 +1,6 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import okhttp3.FormBody;
 
 public class BankAccount extends Model {
     private String brand;
@@ -62,10 +61,18 @@ public class BankAccount extends Model {
             return this;
         }
 
-        public FormBody.Builder addTo(FormBody.Builder builder) {
-            return builder.add("bank_account[brand]", brand)
-                    .add("bank_account[number]", number)
-                    .add("bank_account[name]", name);
+        public void addTo(Params params) {
+            if (brand != null) {
+                params.add("bank_account[brand]", brand);
+            }
+
+            if (number != null) {
+                params.add("bank_account[number]", number);
+            }
+
+            if (name != null) {
+                params.add("bank_account[name]", name);
+            }
         }
     }
 }

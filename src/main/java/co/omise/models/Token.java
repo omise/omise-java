@@ -1,8 +1,6 @@
 package co.omise.models;
 
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
+import org.joda.time.YearMonth;
 
 public class Token extends Model {
     boolean used;
@@ -25,65 +23,45 @@ public class Token extends Model {
     }
 
     public static class Create extends Params {
-        private String name;
-        private String number;
-        private int expirationMonth;
-        private int expirationYear;
-        private String securityCode;
-        private String city;
-        private String postalCode;
-
         public Create name(String name) {
-            this.name = name;
+            add("card[name]", name);
             return this;
         }
 
         public Create number(String number) {
-            this.number = number;
+            add("card[number]", number);
             return this;
         }
 
         public Create expirationMonth(int expirationMonth) {
-            this.expirationMonth = expirationMonth;
+            add("card[expiration_month]", Integer.toString(expirationMonth));
             return this;
         }
 
         public Create expirationYear(int expirationYear) {
-            this.expirationYear = expirationYear;
+            add("card[expiration_year]", Integer.toString(expirationYear));
+            return this;
+        }
+
+        public Create expiration(YearMonth expiration) {
+            add("card[expiration_month]", Integer.toString(expiration.getMonthOfYear()));
+            add("card[expiration_year]", Integer.toString(expiration.getYear()));
             return this;
         }
 
         public Create securityCode(String securityCode) {
-            this.securityCode = securityCode;
+            add("card[security_code]", securityCode);
             return this;
         }
 
         public Create city(String city) {
-            this.city = city;
+            add("card[city]", city);
             return this;
         }
 
         public Create postalCode(String postalCode) {
-            this.postalCode = postalCode;
+            add("card[postal_code]", postalCode);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("card[name]", name)
-                    .add("card[number]", number)
-                    .add("card[expiration_month]", Integer.toString(expirationMonth))
-                    .add("card[expiration_year]", Integer.toString(expirationYear))
-                    .add("card[security_code]", securityCode)
-                    .add("card[city]", city)
-                    .add("card[postal_code]", postalCode)
-                    .build();
         }
     }
 }

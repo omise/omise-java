@@ -1,9 +1,6 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 
 public class Recipient extends Model {
     private boolean verified;
@@ -98,62 +95,38 @@ public class Recipient extends Model {
     }
 
     public static class RecipientParams extends Params {
-        private String name;
-        private String email;
-        private String description;
-        private RecipientType type;
-        private String taxId;
         private BankAccount.BankAccountParams bankAccount;
 
         public RecipientParams name(String name) {
-            this.name = name;
+            add("name", name);
             return this;
         }
 
         public RecipientParams email(String email) {
-            this.email = email;
+            add("email", email);
             return this;
         }
 
         public RecipientParams description(String description) {
-            this.description = description;
+            add("description", description);
             return this;
         }
 
         public RecipientParams type(RecipientType type) {
-            this.type = type;
+            add("type", type.name().toLowerCase());
             return this;
         }
 
         public RecipientParams taxId(String taxId) {
-            this.taxId = taxId;
+            add("tax_id", taxId);
             return this;
         }
 
         public RecipientParams bankAccount(BankAccount.BankAccountParams bankAccount) {
-            this.bankAccount = bankAccount;
-            return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            FormBody.Builder builder = new FormBody.Builder()
-                    .add("name", name)
-                    .add("email", email)
-                    .add("description", description)
-                    .add("tax_id", taxId)
-                    .add("type", type.name().toLowerCase());
-
             if (bankAccount != null) {
-                builder = bankAccount.addTo(builder);
+                bankAccount.addTo(this);
             }
-
-            return builder.build();
+            return this;
         }
     }
 }

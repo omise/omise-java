@@ -27,12 +27,12 @@ public class RecipientResource extends Resource {
         return httpGet(urlFor(recipientId)).returns(Recipient.class);
     }
 
-    public Recipient create(Recipient.Create params) throws IOException {
+    public Recipient create(Recipient.RecipientParams params) throws IOException {
         return httpPost(urlFor("")).params(params).returns(Recipient.class);
     }
 
-    public Recipient update(String recipientId, Recipient.Update params) throws IOException {
-        return httpPost(urlFor(recipientId)).params(params).returns(Recipient.class);
+    public Recipient update(String recipientId, Recipient.RecipientParams params) throws IOException {
+        return httpPatch(urlFor(recipientId)).params(params).returns(Recipient.class);
     }
 
     public Recipient destroy(String recipientId) throws IOException {
@@ -40,6 +40,6 @@ public class RecipientResource extends Resource {
     }
 
     private HttpUrl urlFor(String recipientId) {
-        return buildUrl(Endpoint.API, "recipients");
+        return buildUrl(Endpoint.API, "recipients", recipientId);
     }
 }

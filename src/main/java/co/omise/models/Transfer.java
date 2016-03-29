@@ -100,40 +100,15 @@ public class Transfer extends Model {
         this.transaction = transaction;
     }
 
-    /*    public class CreateTransferRequest : Request {
-        public long Amount { get; set; }
-        public string Recipient { get; set; }
-    }
-
-    public class UpdateTransferRequest : Request {
-        public long Amount { get; set; }
-    }*/
-
     public static class Create extends Params {
-        private long amount;
-        private String recipient;
-
         public Create amount(long amount) {
-            this.amount = amount;
+            add("amount", Long.toString(amount));
             return this;
         }
 
         public Create recipient(String recipient) {
-            this.recipient = recipient;
+            add("recipient", recipient);
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("amount", Long.toString(amount))
-                    .add("recipient", recipient)
-                    .build();
         }
     }
 
@@ -141,20 +116,8 @@ public class Transfer extends Model {
         private long amount;
 
         public Update amount(long amount) {
-            this.amount = amount;
+            add("amount", Long.toString(amount));
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("amount", Long.toString(amount))
-                    .build();
         }
     }
 }
