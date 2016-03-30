@@ -8,12 +8,22 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-class AuthInterceptor implements Interceptor {
+class Configurer implements Interceptor {
     private final Config config;
+    private final String userAgent;
 
-    AuthInterceptor(Config config) {
+    Configurer(Config config) {
         Preconditions.checkNotNull(config);
         this.config = config;
+
+        String ua = "OmiseJava/" + Client.class.getPackage().getImplementationVersion();
+        if (config.getApiVersion() != null && !config.getApiVersion().isEmpty()) {
+            ua += " OmiseAPI/" + config.getApiVersion();
+        }
+
+        ua += " Java/" + System.getProperty("java.version");
+        this.userAgent = ua;
+
     }
 
     @Override
@@ -23,10 +33,9 @@ class AuthInterceptor implements Interceptor {
                 config.getPublicKey() :
                 config.getSecretKey();
 
-        return chain.proceed(request
-                .newBuilder()
+        return chain.proceed(request.newBuilder()
+                .addHeader("User-Agent", userAgent)
                 .addHeader("Authorization", Credentials.basic(key, "x"))
-                .build()
-        );
+                .build());
     }
 }

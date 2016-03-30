@@ -1,10 +1,11 @@
 package co.omise.models;
 
-import co.omise.OmiseTest;
 import org.joda.time.YearMonth;
 import org.junit.Test;
 
-public class CardTest extends OmiseTest {
+import static org.junit.Assert.assertEquals;
+
+public class CardTest {
     @Test
     public void testGetExpiration() {
         Card card = new Card();

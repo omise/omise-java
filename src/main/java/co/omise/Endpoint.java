@@ -8,7 +8,7 @@ public class Endpoint {
 
     private final String host;
 
-    public Endpoint(String host) {
+    protected Endpoint(String host) {
         this.host = host;
     }
 

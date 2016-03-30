@@ -1,7 +1,10 @@
-group 'co.omise'
-version '2.0'
-
 apply plugin: 'java'
+apply plugin: 'java-library-distribution'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group 'co.omise'
+version '2.0.0'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
@@ -12,6 +15,74 @@ repositories {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+distributions {
+    main {
+        baseName = 'omise-java'
+    }
+}
+
+signing {
+    sign configurations.archives
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+// REF: http://central.sonatype.org/pages/gradle.html
+uploadArchives {
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        pom.project {
+            name 'Omise Java'
+            description 'Java bindings for the Omise API'
+            packaging 'jar'
+            artifactId 'omise-java'
+            url 'https://www.omise.co'
+
+            scm {
+                connection 'scm:git:git://git.github.com/omise/omise-java'
+                developerConnection 'scm:git:git://git.github.com/omise/omise-java'
+                url 'https://github.com/omise/omise-java'
+            }
+
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'chakrit'
+                    name 'Chakrit Wichian'
+                    email 'chakrit@omise.co'
+                }
+            }
+        }
+    }
 }
 
 dependencies {

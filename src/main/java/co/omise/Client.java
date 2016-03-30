@@ -32,7 +32,7 @@ public class Client {
 
         config = new Config(apiVersion, publicKey, secretKey);
         httpClient = new OkHttpClient.Builder()
-                .addInterceptor(new AuthInterceptor(config))
+                .addInterceptor(new Configurer(config))
                 .build();
 
         account = new AccountResource(httpClient);
