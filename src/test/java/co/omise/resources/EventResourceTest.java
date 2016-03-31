@@ -33,7 +33,7 @@ public class EventResourceTest extends ResourceTest {
         assertTrue(transfer.isDeleted());
     }
 
-    protected EventResource resource() {
+    private EventResource resource() {
         return new EventResource(testClient());
     }
 }

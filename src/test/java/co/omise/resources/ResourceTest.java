@@ -5,22 +5,18 @@ import co.omise.testutils.TestInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.junit.Before;
 
 public abstract class ResourceTest extends OmiseTest {
     private TestInterceptor interceptor;
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @Before
+    public void setup() throws Exception {
         interceptor = new TestInterceptor(this);
     }
 
-    protected Request lastRequest() {
-        return interceptor().lastRequest();
-    }
-
-    protected TestInterceptor interceptor() {
-        return interceptor;
+    Request lastRequest() {
+        return interceptor.lastRequest();
     }
 
     protected OkHttpClient testClient() {
@@ -30,12 +26,12 @@ public abstract class ResourceTest extends OmiseTest {
     }
 
     protected void assertRequested(String method, String path, int code) {
-        Request request = interceptor().lastRequest();
+        Request request = interceptor.lastRequest();
         assertNotNull(request);
         assertEquals(method, request.method());
         assertEquals(path, request.url().encodedPath());
 
-        Response response = interceptor().lastResponse();
+        Response response = interceptor.lastResponse();
         assertNotNull(response);
         assertEquals(code, response.code());
     }

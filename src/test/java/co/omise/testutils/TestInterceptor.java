@@ -49,7 +49,7 @@ public class TestInterceptor implements Interceptor {
         return lastResponse;
     }
 
-    protected byte[] fixtureResourceBytes(String method, String host, String path) {
+    private byte[] fixtureResourceBytes(String method, String host, String path) {
         try {
             return test.getResourceBytes(fixtureResourcePath(method, host, path));
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public class TestInterceptor implements Interceptor {
         }
     }
 
-    protected byte[] fixtureNotFoundBytes(String method, String host, String path) {
+    private byte[] fixtureNotFoundBytes(String method, String host, String path) {
         try {
             return test.getResourceBytes(fixtureNotFoundPath(method, host, path));
         } catch (IOException e1) {
@@ -65,7 +65,7 @@ public class TestInterceptor implements Interceptor {
         }
     }
 
-    protected String fixtureResourcePath(String method, String host, String path) {
+    private String fixtureResourcePath(String method, String host, String path) {
         if (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }
@@ -73,7 +73,7 @@ public class TestInterceptor implements Interceptor {
         return "/testdata/fixtures/" + host + path + "-" + method.toLowerCase() + ".json";
     }
 
-    protected String fixtureNotFoundPath(String method, String host, String path) {
+    private String fixtureNotFoundPath(String method, String host, String path) {
         if (path.endsWith("/")) {
             path = path.substring(0, path.length() - 1);
         }

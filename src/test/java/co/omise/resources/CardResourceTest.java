@@ -59,7 +59,7 @@ public class CardResourceTest extends ResourceTest {
         assertEquals("card_test_4yq6tuucl9h4erukfl0", card.getId());
     }
 
-    protected CardResource resource() {
+    private CardResource resource() {
         return new CardResource(testClient(), CUSTOMER_ID);
     }
 }

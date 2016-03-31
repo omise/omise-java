@@ -22,7 +22,7 @@ public class SerializerTest extends OmiseTest {
     @Test
     public void testSerialize() throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        getSerializer().serialize(outputStream, new Dummy());
+        serializer().serialize(outputStream, new Dummy());
 
         byte[] bytes = outputStream.toByteArray();
         assertEquals(DUMMY_JSON, new String(bytes, 0, bytes.length));
@@ -31,7 +31,7 @@ public class SerializerTest extends OmiseTest {
     @Test
     public void testDeserialize() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(DUMMY_JSON.getBytes());
-        Dummy dummy = getSerializer().deserialize(inputStream, Dummy.class);
+        Dummy dummy = serializer().deserialize(inputStream, Dummy.class);
 
         assertNotNull(dummy);
         assertEquals("/404", dummy.getLocation());
@@ -42,7 +42,7 @@ public class SerializerTest extends OmiseTest {
     @Test
     public void testDeserializeTypeRef() throws IOException {
         ByteArrayInputStream inputStream = new ByteArrayInputStream(DUMMY_JSON.getBytes());
-        Dummy dummy = getSerializer().deserialize(inputStream, new TypeReference<Dummy>() {
+        Dummy dummy = serializer().deserialize(inputStream, new TypeReference<Dummy>() {
         });
 
         assertNotNull(dummy);
@@ -53,7 +53,7 @@ public class SerializerTest extends OmiseTest {
 
     @Test
     public void testSerializeMap() {
-        Map<String, Object> map = getSerializer().serializeToMap(new Dummy());
+        Map<String, Object> map = serializer().serializeToMap(new Dummy());
 
         assertNotNull(map);
         assertEquals("/404", map.get("location"));
@@ -68,7 +68,7 @@ public class SerializerTest extends OmiseTest {
         map.put("object", "dummy");
         map.put("hello", "world");
 
-        Dummy dummy = getSerializer().deserializeFromMap(map, Dummy.class);
+        Dummy dummy = serializer().deserializeFromMap(map, Dummy.class);
         assertEquals("/404", dummy.getLocation());
         assertEquals("dummy", dummy.getObject());
         assertEquals("world", dummy.getHello());
@@ -81,7 +81,7 @@ public class SerializerTest extends OmiseTest {
         map.put("object", "dummy");
         map.put("hello", "world");
 
-        Dummy dummy = getSerializer().deserializeFromMap(map, new TypeReference<Dummy>() {
+        Dummy dummy = serializer().deserializeFromMap(map, new TypeReference<Dummy>() {
         });
 
         assertEquals("/404", dummy.getLocation());
@@ -91,7 +91,7 @@ public class SerializerTest extends OmiseTest {
     }
 
 
-    private Serializer getSerializer() {
+    private Serializer serializer() {
         return Serializer.defaultSerializer();
     }
 

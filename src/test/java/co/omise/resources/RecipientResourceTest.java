@@ -68,7 +68,7 @@ public class RecipientResourceTest extends ResourceTest {
         assertTrue(recipient.isDeleted());
     }
 
-    protected RecipientResource resource() {
+    private RecipientResource resource() {
         return new RecipientResource(testClient());
     }
 }
