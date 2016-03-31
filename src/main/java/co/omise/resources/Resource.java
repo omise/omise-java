@@ -26,26 +26,33 @@ public abstract class Resource {
     }
 
     protected Operation httpGet(HttpUrl httpUrl) {
-        return new Operation().method("GET").httpUrl(httpUrl);
+        return httpOp("GET", httpUrl);
     }
 
     protected Operation httpPost(HttpUrl httpUrl) {
-        return new Operation().method("POST").httpUrl(httpUrl);
+        return httpOp("POST", httpUrl);
     }
 
     protected Operation httpPatch(HttpUrl httpUrl) {
-        return new Operation().method("PATCH").httpUrl(httpUrl);
+        return httpOp("PATCH", httpUrl);
     }
 
     protected Operation httpDelete(HttpUrl httpUrl) {
-        return new Operation().method("DELETE").httpUrl(httpUrl);
+        return httpOp("DELETE", httpUrl);
     }
 
-    protected HttpUrl buildUrl(Endpoint endpoint, String... pathSegments) {
-        Preconditions.checkNotNull(endpoint);
+    protected Operation httpOp(String method, HttpUrl url) {
+        return new Operation().method(method).httpUrl(url);
+    }
 
-        HttpUrl.Builder builder = endpoint.buildUrl();
-        for (String segment : pathSegments) {
+    protected HttpUrl buildUrl(Endpoint endpoint, String path, String... additionalPathSegments) {
+        Preconditions.checkNotNull(endpoint);
+        Preconditions.checkNotNull(path);
+
+        HttpUrl.Builder builder = endpoint.buildUrl()
+                .addPathSegment(path);
+
+        for (String segment : additionalPathSegments) {
             if (segment == null || segment.isEmpty()) {
                 continue;
             }

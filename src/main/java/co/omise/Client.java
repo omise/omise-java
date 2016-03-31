@@ -47,18 +47,6 @@ public class Client {
         transfers = new TransferResource(httpClient);
     }
 
-    public String getApiVersion() {
-        return config.getApiVersion();
-    }
-
-    public String getPublicKey() {
-        return config.getPublicKey();
-    }
-
-    public String getSecretKey() {
-        return config.getSecretKey();
-    }
-
     public AccountResource account() {
         return account;
     }

@@ -11,15 +11,15 @@ final class Config {
         this.secretKey = secretKey;
     }
 
-    public String getApiVersion() {
+    String apiVersion() {
         return apiVersion;
     }
 
-    public String getPublicKey() {
+    String publicKey() {
         return publicKey;
     }
 
-    public String getSecretKey() {
+    String secretKey() {
         return secretKey;
     }
 }

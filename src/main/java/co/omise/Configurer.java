@@ -8,7 +8,7 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-class Configurer implements Interceptor {
+final class Configurer implements Interceptor {
     private final Config config;
     private final String userAgent;
 
@@ -17,8 +17,8 @@ class Configurer implements Interceptor {
         this.config = config;
 
         String ua = "OmiseJava/" + Client.class.getPackage().getImplementationVersion();
-        if (config.getApiVersion() != null && !config.getApiVersion().isEmpty()) {
-            ua += " OmiseAPI/" + config.getApiVersion();
+        if (config.apiVersion() != null && !config.apiVersion().isEmpty()) {
+            ua += " OmiseAPI/" + config.apiVersion();
         }
 
         ua += " Java/" + System.getProperty("java.version");
@@ -30,8 +30,8 @@ class Configurer implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         String key = request.url().host().contains(Endpoint.VAULT.host()) ?
-                config.getPublicKey() :
-                config.getSecretKey();
+                config.publicKey() :
+                config.secretKey();
 
         return chain.proceed(request.newBuilder()
                 .addHeader("User-Agent", userAgent)
