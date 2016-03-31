@@ -43,10 +43,10 @@ artifacts {
 
 // REF: http://central.sonatype.org/pages/gradle.html
 uploadArchives {
-    if (hasProperty('ossrhUsername') && hasProperty('ossrhPassword')) {
-        repositories.mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
+        if (hasProperty('ossrhUsername') && hasProperty('ossrhPassword')) {
             repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
@@ -54,33 +54,33 @@ uploadArchives {
             snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
             }
+        }
 
-            pom.project {
-                name 'Omise Java'
-                description 'Java bindings for the Omise API'
-                packaging 'jar'
-                artifactId 'omise-java'
-                url 'https://www.omise.co'
+        pom.project {
+            name 'Omise Java'
+            description 'Java bindings for the Omise API'
+            packaging 'jar'
+            artifactId 'omise-java'
+            url 'https://www.omise.co'
 
-                scm {
-                    connection 'scm:git:git://git.github.com/omise/omise-java'
-                    developerConnection 'scm:git:git://git.github.com/omise/omise-java'
-                    url 'https://github.com/omise/omise-java'
+            scm {
+                connection 'scm:git:git://git.github.com/omise/omise-java'
+                developerConnection 'scm:git:git://git.github.com/omise/omise-java'
+                url 'https://github.com/omise/omise-java'
+            }
+
+            licenses {
+                license {
+                    name 'The MIT License (MIT)'
+                    url 'https://opensource.org/licenses/MIT'
                 }
+            }
 
-                licenses {
-                    license {
-                        name 'The MIT License (MIT)'
-                        url 'https://opensource.org/licenses/MIT'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id 'chakrit'
-                        name 'Chakrit Wichian'
-                        email 'chakrit@omise.co'
-                    }
+            developers {
+                developer {
+                    id 'chakrit'
+                    name 'Chakrit Wichian'
+                    email 'chakrit@omise.co'
                 }
             }
         }
