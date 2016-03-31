@@ -51,6 +51,7 @@ public class Client {
     protected OkHttpClient buildHttpClient(Config config) {
         return new OkHttpClient.Builder()
                 .addInterceptor(new Configurer(config))
+                .readTimeout(60, TimeUnit.SECONDS)
                 .certificatePinner(new CertificatePinner.Builder()
                         .add("api.omise.co", "sha256/maqNsxEnwszR+xCmoGUiV636PvSM5zvBIBuupBn9AB8=")
                         .add("api.omise.co", "sha256/XT9zbxeAYOl+K6JJ3CkAN42+HiQf9vdIY57+yn3mTNk=")
