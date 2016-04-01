@@ -120,10 +120,10 @@ public class Client {
 
     /**
      * Returns {@link AccountResource} for accessing the
-     * <a href="https://www.omise.co/account-api">Account API</a>.
+     * <a href="https://www.omise.co/account-api">Account API</a>
      *
      * @return An {@link AccountResource} instance.
-     * @see <a href="https://www.omise.co/account-api">Account API</a>.
+     * @see <a href="https://www.omise.co/account-api">Account API</a>
      */
     public AccountResource account() {
         return account;

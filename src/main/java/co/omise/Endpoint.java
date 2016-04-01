@@ -15,7 +15,6 @@ import okhttp3.HttpUrl;
  * <li>The certificate hash to pin against.</li>
  * <li>Wether to use the public key or the secret key.</li>
  * </ul>
- * </p>
  *
  * @see Resource
  */

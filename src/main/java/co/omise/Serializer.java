@@ -92,7 +92,7 @@ public final class Serializer {
      * @param klass The {@link Class} to deserialize the result into.
      * @param <T>   The type to deserialize the result into.
      * @return An instance of type T deserialized from the input stream.
-     * @throws IOException
+     * @throws IOException on general I/O error.
      */
     public <T extends OmiseObject> T deserialize(InputStream input, Class<T> klass) throws IOException {
         return objectMapper.readerFor(klass).readValue(input);
@@ -105,7 +105,7 @@ public final class Serializer {
      * @param ref   The {@link TypeReference} of the type to deserialize the result into.
      * @param <T>   The type to deserialize the result into.
      * @return An instance of the given type T deserialized from the input stream.
-     * @throws IOException
+     * @throws IOException on general I/O error.
      */
     public <T extends OmiseObject> T deserialize(InputStream input, TypeReference<T> ref) throws IOException {
         return objectMapper.readerFor(ref).readValue(input);
@@ -141,7 +141,7 @@ public final class Serializer {
      * @param output The {@link OutputStream} to serializes the model into.
      * @param model  The {@link OmiseObject} to serialize.
      * @param <T>    The type of the model to serialize.
-     * @throws IOException
+     * @throws IOException on general I/O error.
      */
     public <T extends OmiseObject> void serialize(OutputStream output, T model) throws IOException {
         objectMapper.writerFor(model.getClass()).writeValue(output, model);
