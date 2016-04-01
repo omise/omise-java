@@ -29,13 +29,27 @@ final class Configurer implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
-        String key = request.url().host().contains(Endpoint.VAULT.host()) ?
-                config.publicKey() :
-                config.secretKey();
+        String apiVersion = config.apiVersion();
 
-        return chain.proceed(request.newBuilder()
+        // TODO: Avoid this loop.
+        String key = null;
+        for (Endpoint endpoint : Endpoint.all()) {
+            if (!request.url().host().equals(endpoint.host())) {
+                continue;
+            }
+
+            key = endpoint.authenticationKey(config);
+            break;
+        }
+
+        Request.Builder builder = request.newBuilder()
                 .addHeader("User-Agent", userAgent)
-                .addHeader("Authorization", Credentials.basic(key, "x"))
-                .build());
+                .addHeader("Authorization", Credentials.basic(key, "x"));
+
+        if (apiVersion != null && !apiVersion.isEmpty()) {
+            builder = builder.addHeader("Omise-Version", apiVersion);
+        }
+
+        return chain.proceed(builder.build());
     }
 }

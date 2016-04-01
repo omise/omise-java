@@ -49,15 +49,15 @@ public class Client {
     }
 
     protected OkHttpClient buildHttpClient(Config config) {
+        CertificatePinner.Builder pinner = new CertificatePinner.Builder();
+        for (Endpoint endpoint : Endpoint.all()) {
+            pinner = pinner.add(endpoint.host(), endpoint.certificateHash());
+        }
+
         return new OkHttpClient.Builder()
                 .addInterceptor(new Configurer(config))
                 .readTimeout(60, TimeUnit.SECONDS)
-                .certificatePinner(new CertificatePinner.Builder()
-                        .add("api.omise.co", "sha256/maqNsxEnwszR+xCmoGUiV636PvSM5zvBIBuupBn9AB8=")
-                        .add("api.omise.co", "sha256/XT9zbxeAYOl+K6JJ3CkAN42+HiQf9vdIY57+yn3mTNk=")
-                        .add("vault.omise.co", "sha256/maqNsxEnwszR+xCmoGUiV636PvSM5zvBIBuupBn9AB8=")
-                        .add("vault.omise.co", "sha256/XT9zbxeAYOl+K6JJ3CkAN42+HiQf9vdIY57+yn3mTNk=")
-                        .build())
+                .certificatePinner(pinner.build())
                 .build();
     }
 
