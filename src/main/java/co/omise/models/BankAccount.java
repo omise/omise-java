@@ -2,6 +2,11 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents Omise Bank Account object.
+ *
+ * @see <a href="https://www.omise.co/bank-account-api">Bank Account API</a>
+ */
 public class BankAccount extends Model {
     private String brand;
     private String number;

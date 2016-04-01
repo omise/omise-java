@@ -2,6 +2,11 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents Omise Charge object.
+ *
+ * @see <a href="https://www.omise.co/charges-api">Charges API</a>
+ */
 public class Charge extends Model {
     private ChargeStatus status;
     private long amount;

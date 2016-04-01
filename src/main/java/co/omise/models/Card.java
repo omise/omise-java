@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.YearMonth;
 
+/**
+ * Represents Omise Card object.
+ *
+ * @see <a href="https://www.omise.co/cards-api">Cards API</a>
+ */
 public class Card extends Model {
     private String country;
     private String city;

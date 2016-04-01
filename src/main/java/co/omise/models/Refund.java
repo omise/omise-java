@@ -4,6 +4,11 @@ import com.google.common.collect.ImmutableMap;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+/**
+ * Represents Omise Refund object.
+ *
+ * @see <a href="https://www.omise.co/refunds-api">Refunds API</a>
+ */
 public class Refund extends Model {
     private long amount;
     private String currency;

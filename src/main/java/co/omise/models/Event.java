@@ -3,6 +3,11 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
+/**
+ * Represents Omise Event object.
+ *
+ * @see <a href="https://www.omise.co/events-api">Events API</a>
+ */
 public class Event<T extends Model> extends Model {
     private String key;
 

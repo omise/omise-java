@@ -1,10 +1,12 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 
+/**
+ * Represents Omise Token object.
+ *
+ * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
+ */
 public class Transfer extends Model {
     private String recipient;
     @JsonProperty("bank_account")

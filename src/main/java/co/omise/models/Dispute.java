@@ -4,6 +4,11 @@ import com.google.common.collect.ImmutableMap;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
+/**
+ * Represents Omise Dispute object.
+ *
+ * @see <a href="https://www.omise.co/disputes-api">Disputes API</a>
+ */
 public class Dispute extends Model {
     private long amount;
     private String currency;

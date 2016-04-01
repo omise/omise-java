@@ -2,9 +2,14 @@ package co.omise.models;
 
 import org.joda.time.YearMonth;
 
+/**
+ * Represents Omise Transfer object.
+ *
+ * @see <a href="https://www.omise.co/transfers-api">Transfers API</a>
+ */
 public class Token extends Model {
-    boolean used;
-    Card card;
+    private boolean used;
+    private Card card;
 
     public boolean isUsed() {
         return used;

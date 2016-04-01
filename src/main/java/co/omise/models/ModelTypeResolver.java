@@ -6,8 +6,8 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
 import com.google.common.collect.ImmutableBiMap;
 
-public class ModelTypeResolver extends TypeIdResolverBase {
-    public static final ImmutableBiMap<String, Class> KNOWN_TYPES = new ImmutableBiMap.Builder<String, Class>()
+class ModelTypeResolver extends TypeIdResolverBase {
+    static final ImmutableBiMap<String, Class> KNOWN_TYPES = new ImmutableBiMap.Builder<String, Class>()
             .put("account", Account.class)
             .put("balance", Balance.class)
             .put("bank_account", BankAccount.class)

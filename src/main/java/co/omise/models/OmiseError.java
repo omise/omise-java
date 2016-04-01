@@ -1,5 +1,10 @@
 package co.omise.models;
 
+/**
+ * Represents Omise Error object.
+ *
+ * @see <a href="https://www.omise.co/api-errors">Errors</a>
+ */
 public class OmiseError extends Error implements OmiseObject {
     private String object;
     private String location;

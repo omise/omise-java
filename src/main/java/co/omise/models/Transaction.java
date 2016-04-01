@@ -2,6 +2,11 @@ package co.omise.models;
 
 import org.joda.time.DateTime;
 
+/**
+ * Represents Omise Transaction object.
+ *
+ * @see <a href="https://www.omise.co/transactions-api">Transactions API</a>
+ */
 public class Transaction extends Model {
     private long amount;
     private String currency;

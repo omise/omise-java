@@ -2,6 +2,11 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents Omise Customer object.
+ *
+ * @see <a href="https://www.omise.co/customers-api">Charges API</a>
+ */
 public class Customer extends Model {
     @JsonProperty("default_card")
     private String defaultCard;

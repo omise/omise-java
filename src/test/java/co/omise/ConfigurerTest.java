@@ -36,6 +36,15 @@ public class ConfigurerTest extends OmiseTest {
     }
 
     @Test
+    public void testApiVersion() throws IOException {
+        Request req = intercept(new Request.Builder()
+                .url("https://www.example.com")
+                .build()).request();
+
+        assertEquals(API_VERSION, req.header("Omise-Version"));
+    }
+
+    @Test
     public void testVaultRequest() throws IOException {
         Request req = intercept(new Request.Builder()
                 .url("https://vault.omise.co/tokens")

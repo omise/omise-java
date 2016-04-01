@@ -2,6 +2,11 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents Omise Recipient object.
+ *
+ * @see <a href="https://www.omise.co/recipients-api">Recipients API</a>
+ */
 public class Recipient extends Model {
     private boolean verified;
     private boolean active;
