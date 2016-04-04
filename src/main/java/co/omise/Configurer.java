@@ -8,27 +8,26 @@ import okhttp3.Response;
 
 import java.io.IOException;
 
-final class Configurer implements Interceptor {
+/**
+ * Configurer handles HTTP requests configuration. You can use the {@link #configure(Config, Request)} method
+ * to setup your own {@link okhttp3.OkHttpClient} and avoid using the {@link Client} directly, for example.
+ */
+public final class Configurer implements Interceptor {
     private final Config config;
-    private final String userAgent;
 
     Configurer(Config config) {
         Preconditions.checkNotNull(config);
         this.config = config;
-
-        String ua = "OmiseJava/" + Client.class.getPackage().getImplementationVersion();
-        if (config.apiVersion() != null && !config.apiVersion().isEmpty()) {
-            ua += " OmiseAPI/" + config.apiVersion();
-        }
-
-        ua += " Java/" + System.getProperty("java.version");
-        this.userAgent = ua;
-
     }
 
-    @Override
-    public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
+    /**
+     * Configures a {@link Request} according to the given {@link Config}.
+     *
+     * @param config  A {@link Config} to use for configuration.
+     * @param request An HTTP {@link Request} to configure.
+     * @return A new {@link Request} instance with configurations from {@link Config} applied.
+     */
+    public static Request configure(Config config, Request request) {
         String apiVersion = config.apiVersion();
 
         // TODO: Avoid this loop.
@@ -43,13 +42,18 @@ final class Configurer implements Interceptor {
         }
 
         Request.Builder builder = request.newBuilder()
-                .addHeader("User-Agent", userAgent)
+                .addHeader("User-Agent", config.userAgent())
                 .addHeader("Authorization", Credentials.basic(key, "x"));
 
         if (apiVersion != null && !apiVersion.isEmpty()) {
             builder = builder.addHeader("Omise-Version", apiVersion);
         }
 
-        return chain.proceed(builder.build());
+        return builder.build();
+    }
+
+    @Override
+    public Response intercept(Chain chain) throws IOException {
+        return chain.proceed(configure(config, chain.request()));
     }
 }
