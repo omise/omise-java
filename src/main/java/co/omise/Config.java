@@ -10,11 +10,27 @@ public final class Config {
     private final String apiVersion;
     private final String publicKey;
     private final String secretKey;
+    private final String userAgent;
 
     Config(String apiVersion, String publicKey, String secretKey) {
         this.apiVersion = apiVersion;
         this.publicKey = publicKey;
         this.secretKey = secretKey;
+        this.userAgent = buildUserAgent();
+    }
+
+    private String buildUserAgent() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("OmiseJava/");
+        builder.append(Client.class.getPackage().getImplementationVersion());
+        if (apiVersion != null && !apiVersion.isEmpty()) {
+            builder.append(" OmiseAPI/");
+            builder.append(apiVersion);
+        }
+
+        builder.append(" Java/");
+        builder.append(System.getProperty("java.version"));
+        return builder.toString();
     }
 
     /**
@@ -43,5 +59,14 @@ public final class Config {
      */
     public String secretKey() {
         return secretKey;
+    }
+
+    /**
+     * Returns a valid user agent string for use with HTTP clients.
+     *
+     * @return A {@link String} containing the user agent.
+     */
+    public String userAgent() {
+        return userAgent;
     }
 }
