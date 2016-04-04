@@ -12,7 +12,14 @@ public final class Config {
     private final String secretKey;
     private final String userAgent;
 
-    Config(String apiVersion, String publicKey, String secretKey) {
+    /**
+     * Creates a new {@link Config} instance.
+     *
+     * @param apiVersion The API version to use.
+     * @param publicKey  The key with the {@code pkey_} prefix.
+     * @param secretKey  The key with the {@code skey_} prefix.
+     */
+    public Config(String apiVersion, String publicKey, String secretKey) {
         this.apiVersion = apiVersion;
         this.publicKey = publicKey;
         this.secretKey = secretKey;
