@@ -12,7 +12,7 @@ import java.io.IOException;
 public class RefundResource extends Resource {
     private final String chargeId;
 
-    protected RefundResource(OkHttpClient httpClient, String chargeId) {
+    public RefundResource(OkHttpClient httpClient, String chargeId) {
         super(httpClient);
         this.chargeId = chargeId;
     }
