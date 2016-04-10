@@ -17,6 +17,10 @@ public class RefundResource extends Resource {
         this.chargeId = chargeId;
     }
 
+    public String chargeId() {
+        return chargeId;
+    }
+
     public ScopedList<Refund> list() throws IOException {
         return list(new ScopedList.Options());
     }

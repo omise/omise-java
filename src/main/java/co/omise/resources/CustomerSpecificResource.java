@@ -13,6 +13,10 @@ public class CustomerSpecificResource extends Resource {
         cards = new CardResource(httpClient, customerId);
     }
 
+    public String customerId() {
+        return customerId;
+    }
+
     public CardResource cards() {
         return cards;
     }

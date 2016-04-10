@@ -10,6 +10,10 @@ public class ChargeSpecificResource extends Resource {
         this.chargeId = chargeId;
     }
 
+    public String chargeId() {
+        return chargeId;
+    }
+
     public RefundResource refunds() {
         return new RefundResource(httpClient(), chargeId);
     }

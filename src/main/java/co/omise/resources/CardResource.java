@@ -17,6 +17,10 @@ public class CardResource extends Resource {
         this.customerId = customerId;
     }
 
+    public String customerId() {
+        return customerId;
+    }
+
     public ScopedList<Card> list() throws IOException {
         return list(new ScopedList.Options());
     }
