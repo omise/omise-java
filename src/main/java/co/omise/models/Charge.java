@@ -14,6 +14,7 @@ public class Charge extends Model {
     private String description;
     private boolean capture;
     private boolean authorized;
+    private boolean reversed;
     private boolean paid;
     private String transaction;
     private Card card;
@@ -75,6 +76,14 @@ public class Charge extends Model {
 
     public void setAuthorized(boolean authorized) {
         this.authorized = authorized;
+    }
+
+    public boolean isReversed() {
+        return reversed;
+    }
+
+    public void setReversed(boolean reversed) {
+        this.reversed = reversed;
     }
 
     public boolean isPaid() {

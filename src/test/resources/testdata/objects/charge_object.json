@@ -11,6 +11,7 @@
   "paid": true,
   "transaction": "trxn_test_5086xltqqbv4qpmu0ri",
   "refunded": 0,
+  "reversed": false,
   "refunds": {
     "object": "list",
     "from": "1970-01-01T00:00:00+00:00",
