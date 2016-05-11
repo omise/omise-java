@@ -52,6 +52,9 @@ public abstract class Params {
             formBuilder = new FormBody.Builder();
         }
 
-        formBuilder = formBuilder.add(name, value);
+        // TODO: test
+        if (value != null) {
+            formBuilder = formBuilder.add(name, value);
+        }
     }
 }
