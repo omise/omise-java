@@ -35,7 +35,19 @@ public class ChargeResource extends Resource {
         return httpPatch(urlFor(chargeId)).params(params).returns(Charge.class);
     }
 
+    public Charge capture(String chargeId) throws IOException {
+        return httpPost(urlFor(chargeId, "capture")).returns(Charge.class);
+    }
+
+    public Charge reverse(String chargeId) throws IOException {
+        return httpPost(urlFor(chargeId, "reverse")).returns(Charge.class);
+    }
+
     private HttpUrl urlFor(String chargeId) {
         return buildUrl(Endpoint.API, "charges", chargeId);
+    }
+
+    private HttpUrl urlFor(String chargeId, String resource) {
+        return buildUrl(Endpoint.API, "charges", chargeId, resource);
     }
 }
