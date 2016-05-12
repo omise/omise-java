@@ -10,8 +10,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.Period;
-import org.joda.time.Years;
 import org.junit.Before;
 import org.junit.Test;
 

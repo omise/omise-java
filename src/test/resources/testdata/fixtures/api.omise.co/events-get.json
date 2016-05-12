@@ -32,7 +32,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/customers/cust_test_5232t5thveg40ali15h/cards"
         }
@@ -284,7 +283,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/customers/cust_test_5232t5thveg40ali15h/cards"
         }
@@ -334,7 +332,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/charges/chrg_test_5232t6h7dzu8e5rmnqv/refunds"
         },
@@ -394,7 +391,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/charges/chrg_test_5232t6h7dzu8e5rmnqv/refunds"
         },
@@ -454,7 +450,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/charges/chrg_test_5232t6rvomzcnnmq2xy/refunds"
         },
@@ -514,7 +509,6 @@
           "total": 0,
           "order": null,
           "data": [
-
           ],
           "location": "/charges/chrg_test_5232t6rvomzcnnmq2xy/refunds"
         },
@@ -759,7 +753,6 @@
           "limit": 20,
           "total": 0,
           "data": [
-
           ],
           "location": "/charges/chrg_test_5232t7frh0sz71fpx69/refunds"
         },

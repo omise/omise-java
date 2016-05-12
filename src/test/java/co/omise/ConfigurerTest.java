@@ -1,13 +1,12 @@
 package co.omise;
 
-import okhttp3.*;
+import okhttp3.Credentials;
+import okhttp3.Request;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static co.omise.ConfigTest.API_VERSION;
-import static co.omise.ConfigTest.PKEY;
-import static co.omise.ConfigTest.SKEY;
+import static co.omise.ConfigTest.*;
 
 public class ConfigurerTest extends OmiseTest {
     @Test

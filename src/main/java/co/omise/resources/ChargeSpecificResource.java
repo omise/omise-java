@@ -17,5 +17,4 @@ public class ChargeSpecificResource extends Resource {
     public RefundResource refunds() {
         return new RefundResource(httpClient(), chargeId);
     }
-
 }
