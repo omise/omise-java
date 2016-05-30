@@ -145,14 +145,24 @@ public class Card extends Model {
             return this;
         }
 
-        public Update expirationMonth(String expirationMonth) {
-            add("expiration_month", expirationMonth);
+        public Update expirationMonth(int expirationMonth) {
+            add("expiration_month", Integer.toString(expirationMonth));
             return this;
         }
 
-        public Update expirationYear(String expirationYear) {
-            add("expiration_year", expirationYear);
+        public Update expirationYear(int expirationYear) {
+            add("expiration_year", Integer.toString(expirationYear));
             return this;
+        }
+
+        public Update expiration(YearMonth expiration) {
+            return expirationMonth(expiration.getMonthOfYear())
+                    .expirationYear(expiration.getYear());
+        }
+
+        public Update expiration(int month, int year) {
+            return expirationMonth(month)
+                    .expirationYear(year);
         }
     }
 }

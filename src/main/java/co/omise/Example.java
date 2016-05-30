@@ -39,8 +39,8 @@ final class Example {
     void updateCard() throws IOException {
         Card card = client.customer("cust_test_4xsjvylia03ur542vn6")
                 .cards().update("card_test_4xsjw0t21xaxnuzi9gs", new Card.Update()
-                        .expirationMonth("11")
-                        .expirationYear("2017")
+                        .expirationMonth(11)
+                        .expirationYear(2017)
                         .name("Somchai Prasert")
                         .postalCode("10310"));
         System.out.printf("updated card: %s", card.getId());

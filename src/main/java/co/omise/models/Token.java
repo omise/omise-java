@@ -49,9 +49,13 @@ public class Token extends Model {
         }
 
         public Create expiration(YearMonth expiration) {
-            add("card[expiration_month]", Integer.toString(expiration.getMonthOfYear()));
-            add("card[expiration_year]", Integer.toString(expiration.getYear()));
-            return this;
+            return expirationMonth(expiration.getMonthOfYear())
+                    .expirationYear(expiration.getYear());
+        }
+
+        public Create expiration(int month, int year) {
+            return expirationMonth(month)
+                    .expirationYear(year);
         }
 
         public Create securityCode(String securityCode) {
