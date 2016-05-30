@@ -294,7 +294,7 @@ final class Example {
 
     void retrieveToken() throws IOException {
         Token token = client.tokens().get("tokn_test_4xs9408a642a1htto8z");
-        System.out.printf("token last digits: %s", token.getCard().getLastDigits())
+        System.out.printf("token last digits: %s", token.getCard().getLastDigits());
     }
 
     void listTransactions() throws IOException {
