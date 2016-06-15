@@ -29,8 +29,9 @@ dependencies {
 
 ### Shadow JAR
 
-A shadow JAR relocates `omise-java` dependencies into the jar itself so that you can use a
-different version of one of our dependency should there be a conflict.
+If you have dependency conflicts with `omise-java` jar you can try using the
+[shadowed JAR][11] version which has the JAR dependencies relocated to the
+`co.omise.dependencies` package.
 
 You can obtain a [`shadowed jar`][11] by manually cloing the project and running the
 `shadowJar` task:
