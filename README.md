@@ -60,7 +60,7 @@ long money = client.balance().get().getTotal();
 
 [MIT license][13]
 
-[0]: https://img.shields.io/circleci/project/omise/omise-java.Gt.svg?style=flat-square
+[0]: https://img.shields.io/circleci/project/omise/omise-java.svg?style=flat-square
 [1]: https://circleci.com/gh/omise/omise-java/tree/master
 [2]: https://img.shields.io/gitter/room/omise/omise-java.svg?style=flat-square
 [3]: https://gitter.im/omise/omise-java
