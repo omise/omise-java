@@ -10,10 +10,14 @@ library and the functionality it provides.
 
 # INSTALLATION
 
+### Android
+
 **WARNING:** Android users should check out our [omise-android][8] repository instead.
 
 This library requires Java 7 and up and is meant to be used with Java server
 implementations.
+
+### Gradle\Maven
 
 Adds to your `build.gradle` file.
 
@@ -23,7 +27,12 @@ dependencies {
 }
 ```
 
-Or you can obtain a [`shadowJar`][11] by manually cloing the project and running the
+### Shadow JAR
+
+A shadow JAR relocates `omise-java` dependencies into the jar itself so that you can use a
+different version of one of our dependency should there be a conflict.
+
+You can obtain a [`shadowed jar`][11] by manually cloing the project and running the
 `shadowJar` task:
 
 ```sh
@@ -41,7 +50,7 @@ $ ls builds/libs
 omise-java-2.0.7-all.jar
 ```
 
-# GETTING STARTED
+# USAGE
 
 Obtain a set of API keys from the [Omise Dashboard][12] and creates a `Client` object:
 
@@ -54,6 +63,23 @@ current balance:
 
 ```java
 long money = client.balance().get().getTotal();
+```
+
+Creating a charge from a token:
+
+```java
+Client client = new Client("pkey_test_123");
+
+try {
+    Charge charge = client.charges().create(new Charge.Create()
+            .amount(100000) // THB 1,000.00
+            .currency("THB")
+            .card("tokn_test_123"));
+    System.out.println("created charge: " + charge.getId());
+
+} catch (IOException e) {
+    e.printStackTrace();
+}
 ```
 
 # LICENSE
