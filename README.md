@@ -1,56 +1,76 @@
 # OMISE-JAVA
 
-[![Circle CI](https://circleci.com/gh/omise/omise-java/tree/master.svg?style=svg)](https://circleci.com/gh/omise/omise-java/tree/master)
-[![Gitter](https://badges.gitter.im/omise/omise-java.svg)](https://gitter.im/omise/omise-java?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=body_badge)
+[![Maven Central][9]][10] [![Circle CI][0]][1] [![Gitter][2]][3]
 
-This library has been updated to v2.0, check the
-[v1 branch](https://github.com/omise/omise-java/tree/v1.0)
-for the previous version.
+This library has been updated to v2.0, check the [v1 branch][4] for the previous version.
 
-Omise-java provides a set of Java bindings to the
-[Omise REST API](https://www.omise.co/docs).
-
-Please contact [chakrit@omise.co](mailto:chakrit@omise.co) or
-[support@omise.co](support@omise.co) if you have any questions regarding this library and
-the functionality it provides.
-
-# REQUIREMENTS
-
-This library supports Java 7 and up and Android version 4 and up.
+Omise-java provides a set of Java bindings to the [Omise REST API][5].  Please contact
+[chakrit@omise.co][6] or [support@omise.co][7] if you have any questions regarding this
+library and the functionality it provides.
 
 # INSTALLATION
+
+**WARNING:** Android users should check out our [omise-android][8] repository instead.
+
+This library requires Java 7 and up and is meant to be used with Java server
+implementations.
 
 Adds to your `build.gradle` file.
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:2.0.0'
+    compile 'co.omise:omise-java:2.0.7'
 }
+```
+
+Or you can obtain a [`shadowJar`][11] by manually cloing the project and running the
+`shadowJar` task:
+
+```sh
+$ git clone git://github.com/omise/omise-java
+$ cd omise-java
+$ gradle shadowJar
+:compileJava
+:processResources
+:classes
+:shadowJar
+
+BUILD SUCCESSFUL
+
+$ ls builds/libs
+omise-java-2.0.7-all.jar
 ```
 
 # GETTING STARTED
 
-Obtain a set of API keys from the
-[Omise Dashboard](https://dashboard.omise.co/test/api-keys) and creates a `Client` object:
+Obtain a set of API keys from the [Omise Dashboard][12] and creates a `Client` object:
 
 ```java
 Client client = new Client("pkey_test_123", "skey_test_123");
 ```
 
-Access the API by calling methods on the provided `Resource` classes:
+Access the API by calling methods on the provided `Resource` classes, for example to get
+current balance:
 
 ```java
 long money = client.balance().get().getTotal();
 ```
 
-# TASKS
-
-TBD
-
 # LICENSE
 
-MIT, See [LICENSE](https://github.com/omise/omise-java/blob/master/LICENSE) file for the
-full text.
+[MIT license][13]
 
-* Targets 1.6 in `build.gradle` and IntelliJ Gradle settings.
-  http://stackoverflow.com/questions/16679593/gradle-compilejava-task-warning-options-bootstrap-class-path-not-set-in-conju
+[0]: https://img.shields.io/circleci/project/omise/omise-java.Gt.svg?style=flat-square
+[1]: https://circleci.com/gh/omise/omise-java/tree/master
+[2]: https://img.shields.io/gitter/room/omise/omise-java.svg?style=flat-square
+[3]: https://gitter.im/omise/omise-java
+[4]: https://github.com/omise/omise-java/tree/v1.0
+[5]: https://www.omise.co/docs
+[6]: mailto:chakrit@omise.co
+[7]: mailto:support@omise.co
+[8]: https://github.com/omise/omise-android
+[9]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
+[10]: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22co.omise%22%20AND%20a%3A%22omise-java%22
+[11]: https://github.com/johnrengelman/shadow
+[12]: https://dashboard.omise.co/test/api-keys
+[13]: https://github.com/johnrengelman/shadow
