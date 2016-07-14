@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.*;
+import okhttp3.internal.http.HttpMethod;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -246,6 +247,9 @@ public abstract class Resource {
                 }
 
                 body = params.body();
+
+            } else if (HttpMethod.requiresRequestBody(method)) { // params == null
+                body = new FormBody.Builder().build();
             }
 
             Request request = new Request.Builder()
