@@ -23,7 +23,7 @@ Adds to your `build.gradle` file.
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:2.0.7'
+    compile 'co.omise:omise-java:2.0.8'
 }
 ```
 
