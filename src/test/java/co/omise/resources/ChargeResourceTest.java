@@ -55,6 +55,15 @@ public class ChargeResourceTest extends ResourceTest {
         assertEquals("Charge for order 3947 (XXL)", charge.getDescription());
     }
 
+    @Test
+    public void testCapture() throws IOException {
+        Charge charge = resource().capture(CHARGE_ID);
+        assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
+        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
+        assertFalse(charge.isCapture());
+        assertTrue(charge.isPaid());
+    }
+
     private ChargeResource resource() {
         return new ChargeResource(testClient());
     }
