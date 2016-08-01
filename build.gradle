@@ -114,9 +114,9 @@ dependencies {
     compile 'com.google.guava:guava:19.0'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.0'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.0'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.8.0'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.1'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.1'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.8.1'
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
