@@ -6,4 +6,5 @@ public enum ChargeStatus {
     @JsonProperty("failed")Failed,
     @JsonProperty("pending")Pending,
     @JsonProperty("successful")Successful,
+    @JsonProperty("reversed")Reversed,
 }
