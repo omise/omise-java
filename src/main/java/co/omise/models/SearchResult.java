@@ -11,7 +11,7 @@ import java.util.Map;
 public class SearchResult<T extends Model> extends OmiseList<T> {
     private SearchScope scope;
     private String query;
-    // private Map<String, String> filters;
+    private Map<String, String> filters;
     private int page;
     @JsonProperty("total_pages")
     private int totalPages;
@@ -32,13 +32,13 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         this.query = query;
     }
 
-//    public Map<String, String> getFilters() {
-//        return filters;
-//    }
-//
-//    public void setFilters(Map<String, String> filters) {
-//        this.filters = filters;
-//    }
+    public Map<String, String> getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Map<String, String> filters) {
+        this.filters = filters;
+    }
 
     public int getPage() {
         return page;
