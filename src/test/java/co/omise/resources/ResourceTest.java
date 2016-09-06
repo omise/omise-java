@@ -51,8 +51,7 @@ public class ResourceTest extends OmiseTest {
 
         Request request = lastRequest();
         for (Map.Entry<String, String> entry : expects.entrySet()) {
-            String value = request.url().queryParameterValues(entry.getKey()).get(0);
-            assertEquals(entry.getValue(), value);
+            assertEquals(entry.getValue(), request.url().queryParameter(entry.getKey()));
         }
     }
 
