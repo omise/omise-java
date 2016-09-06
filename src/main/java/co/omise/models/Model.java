@@ -1,8 +1,17 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import org.joda.time.DateTime;
 
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.CUSTOM,
+        include = JsonTypeInfo.As.EXISTING_PROPERTY,
+        property = "object",
+        visible = true
+)
+@JsonTypeIdResolver(ModelTypeResolver.class)
 public abstract class Model extends OmiseObjectBase {
     private String id;
     @JsonProperty("livemode")

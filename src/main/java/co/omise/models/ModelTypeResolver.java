@@ -16,6 +16,7 @@ class ModelTypeResolver extends TypeIdResolverBase {
             .put("customer", Customer.class)
             .put("dispute", Dispute.class)
             .put("event", Event.class)
+            .put("refund", Refund.class)
             .put("recipient", Recipient.class)
             .put("token", Token.class)
             .put("transaction", Transaction.class)
