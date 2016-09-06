@@ -158,4 +158,8 @@ public final class Serializer {
         return objectMapper.convertValue(model, new TypeReference<Map<String, Object>>() {
         });
     }
+
+    public <T extends Enum<T>> String serializeToQueryParams(T value) {
+        return (String) objectMapper.convertValue(value, String.class);
+    }
 }

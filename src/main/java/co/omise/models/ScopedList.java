@@ -1,20 +1,16 @@
 package co.omise.models;
 
 import co.omise.Serializer;
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
 
-public class ScopedList<T extends Model> extends OmiseObjectBase {
+public class ScopedList<T extends Model> extends OmiseList<T> {
     private DateTime from;
     private DateTime to;
     private int offset;
     private int limit;
-    private int total;
-    private Ordering order;
-    private ImmutableList<T> data;
 
     public DateTime getFrom() {
         return from;
@@ -46,30 +42,6 @@ public class ScopedList<T extends Model> extends OmiseObjectBase {
 
     public void setLimit(int limit) {
         this.limit = limit;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public Ordering getOrder() {
-        return order;
-    }
-
-    public void setOrder(Ordering order) {
-        this.order = order;
-    }
-
-    public ImmutableList<T> getData() {
-        return data;
-    }
-
-    public void setData(ImmutableList<T> data) {
-        this.data = data;
     }
 
     public static class Options extends Params {
@@ -123,14 +95,9 @@ public class ScopedList<T extends Model> extends OmiseObjectBase {
             }
 
             if (order != null) {
-                switch (order) {
-                    case Chronological:
-                        builder = builder.put("order", "chronological");
-                        break;
-                    case ReverseChronological:
-                        builder = builder.put("order", "reverse_chronological");
-                        break;
-                }
+                builder = builder.put("order", Serializer
+                        .defaultSerializer()
+                        .serializeToQueryParams(order));
             }
 
             return builder.build();
