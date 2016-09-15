@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.models.OmiseException;
 import co.omise.models.Recipient;
 import co.omise.models.RecipientType;
 import co.omise.models.ScopedList;
@@ -11,7 +12,7 @@ public class RecipientResourceTest extends ResourceTest {
     public static final String RECIPIENT_ID = "recp_test_50894vc13y8z4v51iuc";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Recipient> list = resource().list();
         assertRequested("GET", "/recipients", 200);
 
@@ -24,7 +25,7 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Recipient recipient = resource().get(RECIPIENT_ID);
         assertRequested("GET", "/recipients/" + RECIPIENT_ID, 200);
 
@@ -35,7 +36,7 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Recipient recipient = resource().create(new Recipient.Create()
                 .email("john.doe@example.com")
                 .description("Default recipient"));
@@ -48,7 +49,7 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Recipient recipient = resource().update(RECIPIENT_ID, new Recipient.Update()
                 .email("john@doe.com")
                 .name("john@doe.com"));
@@ -60,7 +61,7 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testDestroy() throws IOException {
+    public void testDestroy() throws IOException, OmiseException {
         Recipient recipient = resource().destroy(RECIPIENT_ID);
         assertRequested("DELETE", "/recipients/" + RECIPIENT_ID, 200);
 

@@ -1,13 +1,14 @@
 package co.omise.resources;
 
 import co.omise.models.Balance;
+import co.omise.models.OmiseException;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class BalanceResourceTest extends ResourceTest {
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Balance balance = resource().get();
         assertRequested("GET", "/balance", 200);
 

@@ -7,36 +7,36 @@ import java.io.IOException;
 final class Example {
     private static final Client client = new Client("skey_test_123");
 
-    void retrieveAccount() throws IOException {
+    void retrieveAccount() throws IOException, OmiseException {
         Account account = client.account().get();
         System.out.printf("account id: %s", account.getId());
     }
 
-    void retrieveBalance() throws IOException {
+    void retrieveBalance() throws IOException, OmiseException {
         Balance balance = client.balance().get();
         System.out.printf("available balance: %d", balance.getAvailable());
     }
 
-    void destroyCard() throws IOException {
+    void destroyCard() throws IOException, OmiseException {
         Card card = client.customer("cust_test_4xsjvylia03ur542vn6")
                 .cards().destroy("card_test_4xsjw0t21xaxnuzi9gs");
         System.out.printf("destroyed card: %s", card.getId());
     }
 
-    void listCards() throws IOException {
+    void listCards() throws IOException, OmiseException {
         ScopedList<Card> cards = client.customer("cust_test_4xsjvylia03ur542vn6")
                 .cards().list();
         System.out.printf("returned cards: %d", cards.getData().size());
         System.out.printf("total no. of cards: %d", cards.getTotal());
     }
 
-    void retrieveCard() throws IOException {
+    void retrieveCard() throws IOException, OmiseException {
         Card card = client.customer("cust_test_4xsjvylia03ur542vn6")
                 .cards().get("card_test_4xsjw0t21xaxnuzi9gs");
         System.out.printf("card last digits: %s", card.getLastDigits());
     }
 
-    void updateCard() throws IOException {
+    void updateCard() throws IOException, OmiseException {
         Card card = client.customer("cust_test_4xsjvylia03ur542vn6")
                 .cards().update("card_test_4xsjw0t21xaxnuzi9gs", new Card.Update()
                         .expirationMonth(11)
@@ -46,12 +46,12 @@ final class Example {
         System.out.printf("updated card: %s", card.getId());
     }
 
-    void captureCharge() throws IOException {
+    void captureCharge() throws IOException, OmiseException {
         Charge charge = client.charges().capture("chrg_test_4xso2s8ivdej29pqnhz");
         System.out.printf("captured charge: %s", charge.getId());
     }
 
-    void chargeWithCard() throws IOException {
+    void chargeWithCard() throws IOException, OmiseException {
         Charge charge = client.charges()
                 .create(new Charge.Create()
                         .amount(100000) // 1,000 THB
@@ -61,7 +61,7 @@ final class Example {
         System.out.printf("created charge: %s", charge.getId());
     }
 
-    void chargeWithCustomer() throws IOException {
+    void chargeWithCustomer() throws IOException, OmiseException {
         Charge charge = client.charges()
                 .create(new Charge.Create()
                         .amount(100000) // 1,000 THB
@@ -70,7 +70,7 @@ final class Example {
         System.out.printf("created charge: %s", charge.getId());
     }
 
-    void chargeWithToken() throws IOException {
+    void chargeWithToken() throws IOException, OmiseException {
         Charge charge = client.charges()
                 .create(new Charge.Create()
                         .amount(100000) // 1,000 THB
@@ -79,37 +79,37 @@ final class Example {
         System.out.printf("created charge: %s", charge.getId());
     }
 
-    void listCharges() throws IOException {
+    void listCharges() throws IOException, OmiseException {
         ScopedList<Charge> charges = client.charges().list();
         System.out.printf("returned charges: %d", charges.getData().size());
         System.out.printf("total no. of charges: %d", charges.getTotal());
     }
 
-    void retrieveCharge() throws IOException {
+    void retrieveCharge() throws IOException, OmiseException {
         Charge charge = client.charges().get("chrg_test_4xso2s8ivdej29pqnhz");
         System.out.printf("charge amount: %d", charge.getAmount());
     }
 
-    void reverseCharge() throws IOException {
+    void reverseCharge() throws IOException, OmiseException {
         Charge charge = client.charges().reverse("chrg_test_4xso2s8ivdej29pqnhz");
         System.out.printf("charge reversal: %s", Boolean.toString(charge.isReversed()));
     }
 
-    void updateCharge() throws IOException {
+    void updateCharge() throws IOException, OmiseException {
         Charge charge = client.charges()
                 .update("chrg_test_4xso2s8ivdej29pqnhz", new Charge.Update()
                         .description("updated description"));
         System.out.printf("updated description: %s", charge.getDescription());
     }
 
-    void attachCardToCustomer() throws IOException {
+    void attachCardToCustomer() throws IOException, OmiseException {
         Customer customer = client.customers()
                 .update("cust_test_4xtrb759599jsxlhkrb", new Customer.Update()
                         .card("tokn_test_4xs9408a642a1htto8z"));
         System.out.printf("updated customer: %s", customer.getId());
     }
 
-    void createCustomerSimple() throws IOException {
+    void createCustomerSimple() throws IOException, OmiseException {
         Customer customer = client.customers()
                 .create(new Customer.Create()
                         .email("john.doe@example.com")
@@ -117,7 +117,7 @@ final class Example {
         System.out.printf("created customer: %s", customer.getId());
     }
 
-    void updateCustomer() throws IOException {
+    void updateCustomer() throws IOException, OmiseException {
         Customer customer = client.customers()
                 .update("cust_test_4xtrb759599jsxlhkrb", new Customer.Update()
                         .email("john.smith@example.com")
@@ -125,71 +125,71 @@ final class Example {
         System.out.printf("updated email: %s", customer.getEmail());
     }
 
-    void destroyCustomer() throws IOException {
+    void destroyCustomer() throws IOException, OmiseException {
         Customer customer = client.customers().destroy("cust_test_4xtrb759599jsxlhkrb");
         System.out.printf("destroy customer: %s", customer.getId());
     }
 
-    void listAllDisputes() throws IOException {
+    void listAllDisputes() throws IOException, OmiseException {
         ScopedList<Dispute> disputes = client.disputes().list();
         System.out.printf("no. of disputes: %d", disputes.getTotal());
     }
 
-    void listClosedDiputes() throws IOException {
+    void listClosedDiputes() throws IOException, OmiseException {
         ScopedList<Dispute> disputes = client.disputes().list(DisputeStatus.Closed);
         System.out.printf("closed disputes: %d", disputes.getTotal());
     }
 
-    void listOpenDiputes() throws IOException {
+    void listOpenDiputes() throws IOException, OmiseException {
         ScopedList<Dispute> disputes = client.disputes().list(DisputeStatus.Open);
         System.out.printf("open disputes: %d", disputes.getTotal());
     }
 
-    void listPendingDiputes() throws IOException {
+    void listPendingDiputes() throws IOException, OmiseException {
         ScopedList<Dispute> disputes = client.disputes().list(DisputeStatus.Pending);
         System.out.printf("pending disputes: %d", disputes.getTotal());
     }
 
-    void retrieveDispute() throws IOException {
+    void retrieveDispute() throws IOException, OmiseException {
         Dispute dispute = client.disputes().get("dspt_test_4zgf15h89w8t775kcm8");
         System.out.printf("disputed amount: %d", dispute.getAmount());
     }
 
-    void updateDispute() throws IOException {
+    void updateDispute() throws IOException, OmiseException {
         Dispute dispute = client.disputes()
                 .update("dspt_test_4zgf15h89w8t775kcm8", new Dispute.Update()
                         .message("Proofs and other information..."));
         System.out.printf("updated dispute: %s", dispute.getMessage());
     }
 
-    void listEvents() throws IOException {
+    void listEvents() throws IOException, OmiseException {
         ScopedList<Event> events = client.events().list();
         System.out.printf("no. of events: %d", events.getTotal());
     }
 
-    void retrieveEvent() throws IOException {
+    void retrieveEvent() throws IOException, OmiseException {
         Event event = client.events().get("evnt_test_5vxs0ajpo78");
         System.out.printf("key of event: %s", event.getKey());
     }
 
-    void retrieveCustomer() throws IOException {
+    void retrieveCustomer() throws IOException, OmiseException {
         Customer customer = client.customers().get("cust_test_4xtrb759599jsxlhkrb");
         System.out.printf("customer email: %s", customer.getEmail());
     }
 
-    void listCustomers() throws IOException {
+    void listCustomers() throws IOException, OmiseException {
         ScopedList<Customer> customers = client.customers().list();
         System.out.printf("returned customers: %d", customers.getData().size());
         System.out.printf("total no. of customers: %d", customers.getTotal());
     }
 
-    void createTransfer() throws IOException {
+    void createTransfer() throws IOException, OmiseException {
         Transfer transfer = client.transfers()
                 .create(new Transfer.Create().amount(100000));
         System.out.printf("created transfer: %s", transfer.getId());
     }
 
-    void createTransferWithRecipient() throws IOException {
+    void createTransferWithRecipient() throws IOException, OmiseException {
         Transfer transfer = client.transfers()
                 .create(new Transfer.Create()
                         .amount(100000)
@@ -197,30 +197,30 @@ final class Example {
         System.out.printf("created transfer: %s", transfer.getId());
     }
 
-    void destroyTransfer() throws IOException {
+    void destroyTransfer() throws IOException, OmiseException {
         Transfer transfer = client.transfers().destroy("trsf_test_4xs5px8c36dsanuwztf");
         System.out.printf("destroyed transfer: %s", transfer.getId());
     }
 
-    void listTransfers() throws IOException {
+    void listTransfers() throws IOException, OmiseException {
         ScopedList<Transfer> transfers = client.transfers().list();
         System.out.printf("returned transfers: %d", transfers.getData().size());
         System.out.printf("total no. of transfers: %d", transfers.getTotal());
     }
 
-    void retrieveTransfer() throws IOException {
+    void retrieveTransfer() throws IOException, OmiseException {
         Transfer transfer = client.transfers().get("trsf_test_4xs5px8c36dsanuwztf");
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 
-    void updateTransfer() throws IOException {
+    void updateTransfer() throws IOException, OmiseException {
         Transfer transfer = client.transfers()
                 .update("trsf_test_4xs5px8c36dsanuwztf", new Transfer.Update()
                         .amount(100000));
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 
-    void createRecipient() throws IOException {
+    void createRecipient() throws IOException, OmiseException {
         Recipient recipient = client.recipients()
                 .create(new Recipient.Create()
                         .name("Somchai Prasert")
@@ -233,23 +233,23 @@ final class Example {
         System.out.printf("created recipient: %s", recipient.getId());
     }
 
-    void destroyRecipient() throws IOException {
+    void destroyRecipient() throws IOException, OmiseException {
         Recipient recipient = client.recipients().destroy("recp_test_4z6p7e0m4k40txecj5o");
         System.out.printf("destroyed recipient: %s", recipient.getId());
     }
 
-    void listRecipients() throws IOException {
+    void listRecipients() throws IOException, OmiseException {
         ScopedList<Recipient> recipients = client.recipients().list();
         System.out.printf("returned recipients: %d", recipients.getData().size());
         System.out.printf("total no. of recipients: %d", recipients.getTotal());
     }
 
-    void retrieveRecipient() throws IOException {
+    void retrieveRecipient() throws IOException, OmiseException {
         Recipient recipient = client.recipients().get("recp_test_4z6p7e0m4k40txecj5o");
         System.out.printf("recipient's email: %s", recipient.getEmail());
     }
 
-    void updateRecipient() throws IOException {
+    void updateRecipient() throws IOException, OmiseException {
         Recipient recipient = client.recipients()
                 .update("recp_test_4z6p7e0m4k40txecj5", new Recipient.Update()
                         .email("somchai@prasert.com")
@@ -260,26 +260,26 @@ final class Example {
         System.out.printf("updated recipient: %s", recipient.getId());
     }
 
-    void createRefund() throws IOException {
+    void createRefund() throws IOException, OmiseException {
         Refund refund = client.charge("chrg_test_4xso2s8ivdej29pqnhz")
                 .refunds().create(new Refund.Create()
                         .amount(10000));
         System.out.printf("created refund: %s", refund.getId());
     }
 
-    void listRefunds() throws IOException {
+    void listRefunds() throws IOException, OmiseException {
         ScopedList<Refund> refunds = client.charge("chrg_test_4xso2s8ivdej29pqnhz")
                 .refunds().list();
         System.out.printf("total no. of refunds: %d", refunds.getTotal());
     }
 
-    void retrieveRefund() throws IOException {
+    void retrieveRefund() throws IOException, OmiseException {
         Refund refund = client.charge("chrg_test_4xso2s8ivdej29pqnhz")
                 .refunds().get("rfnd_test_4ypebtxon6oye5o8myu");
         System.out.printf("refunded amount: %d", refund.getAmount());
     }
 
-    void createToken() throws IOException {
+    void createToken() throws IOException, OmiseException {
         Token token = client.tokens()
                 .create(new Token.Create()
                         .name("Somchai Prasert")
@@ -292,17 +292,17 @@ final class Example {
         System.out.printf("created token: %s", token.getId());
     }
 
-    void retrieveToken() throws IOException {
+    void retrieveToken() throws IOException, OmiseException {
         Token token = client.tokens().get("tokn_test_4xs9408a642a1htto8z");
         System.out.printf("token last digits: %s", token.getCard().getLastDigits());
     }
 
-    void listTransactions() throws IOException {
+    void listTransactions() throws IOException, OmiseException {
         ScopedList<Transaction> transactions = client.transactions().list();
         System.out.printf("no. of transactions: %d", transactions.getTotal());
     }
 
-    void retrieveTransactions() throws IOException {
+    void retrieveTransactions() throws IOException, OmiseException {
         Transaction transaction = client.transactions().get("trxn_test_4xuy2z4w5vmvq4x5pfs");
         System.out.printf("transaction amount: %d", transaction.getAmount());
     }

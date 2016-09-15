@@ -1,7 +1,7 @@
 package co.omise.resources;
 
 import co.omise.models.Charge;
-import co.omise.models.SearchResource;
+import co.omise.models.OmiseException;
 import co.omise.models.SearchResult;
 import co.omise.models.SearchScope;
 import com.google.common.collect.ImmutableMap;
@@ -15,7 +15,7 @@ public class SearchResourceTest extends ResourceTest {
     public static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
 
     @Test
-    public void testSearch() throws IOException {
+    public void testSearch() throws IOException, OmiseException {
         SearchResult<Charge> result = resource().search(new SearchResult.Options()
                 .scope(SearchScope.Charge)
                 .filter("amount", "4096.69")

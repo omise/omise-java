@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transaction;
 import co.omise.models.TransactionType;
@@ -11,7 +12,7 @@ public class TransactionResourceTest extends ResourceTest {
     private static final String TRANSACTION_ID = "trxn_test_4yq7duwb9jts1vxgqua";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Transaction> list = resource().list();
         assertRequested("GET", "/transactions", 200);
 
@@ -26,7 +27,7 @@ public class TransactionResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Transaction transaction = resource().get(TRANSACTION_ID);
         assertRequested("GET", "/transactions/" + TRANSACTION_ID, 200);
 

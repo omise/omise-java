@@ -2,6 +2,7 @@ package co.omise.resources;
 
 import co.omise.Endpoint;
 import co.omise.models.Customer;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -18,28 +19,28 @@ public class CustomerResource extends Resource {
         return new CustomerSpecificResource(httpClient(), customerId);
     }
 
-    public ScopedList<Customer> list() throws IOException {
+    public ScopedList<Customer> list() throws IOException, OmiseException {
         return list(new ScopedList.Options());
     }
 
-    public ScopedList<Customer> list(ScopedList.Options options) throws IOException {
+    public ScopedList<Customer> list(ScopedList.Options options) throws IOException, OmiseException {
         return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Customer>>() {
         });
     }
 
-    public Customer get(String customerId) throws IOException {
+    public Customer get(String customerId) throws IOException, OmiseException {
         return httpGet(urlFor(customerId)).returns(Customer.class);
     }
 
-    public Customer create(Customer.CustomerParams params) throws IOException {
+    public Customer create(Customer.CustomerParams params) throws IOException, OmiseException {
         return httpPost(urlFor("")).params(params).returns(Customer.class);
     }
 
-    public Customer update(String customerId, Customer.CustomerParams params) throws IOException {
+    public Customer update(String customerId, Customer.CustomerParams params) throws IOException, OmiseException {
         return httpPatch(urlFor(customerId)).params(params).returns(Customer.class);
     }
 
-    public Customer destroy(String customerId) throws IOException {
+    public Customer destroy(String customerId) throws IOException, OmiseException {
         return httpDelete(urlFor(customerId)).returns(Customer.class);
     }
 

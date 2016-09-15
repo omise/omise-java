@@ -3,7 +3,7 @@ package co.omise.resources;
 import co.omise.Client;
 import co.omise.Endpoint;
 import co.omise.Serializer;
-import co.omise.models.OmiseError;
+import co.omise.models.OmiseException;
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -191,9 +191,9 @@ public abstract class Resource {
          * @param <T>   The type of the result to return.
          * @return An instance of the type T deserialized from the response body.
          * @throws IOException when encountering general network communications problem.
-         * @throws OmiseError  when receiving an error object from the Omise API.
+         * @throws OmiseException  when receiving an error object from the Omise API.
          */
-        public <T extends OmiseObject> T returns(Class<T> klass) throws IOException {
+        public <T extends OmiseObject> T returns(Class<T> klass) throws IOException, OmiseException {
             Response response = roundtrip();
             ResponseBody body = response.body();
             if (body == null) {
@@ -202,7 +202,9 @@ public abstract class Resource {
 
             InputStream stream = body.byteStream();
             if (200 < response.code() || response.code() >= 300) {
-                throw serializer.deserialize(stream, OmiseError.class);
+                OmiseException ex = serializer.deserialize(stream, OmiseException.class);
+                ex.setHttpStatusCode(response.code());
+                throw ex;
             }
 
             return serializer.deserialize(stream, klass);
@@ -217,9 +219,9 @@ public abstract class Resource {
          * @param <T>     The type of the result to return.
          * @return An instance of the type T deserialized from the response body.
          * @throws IOException when encountering general network communications problem.
-         * @throws OmiseError  when receiving an error object from the Omise API.
+         * @throws OmiseException  when receiving an error object from the Omise API.
          */
-        public <T extends OmiseObject> T returns(TypeReference<T> typeRef) throws IOException {
+        public <T extends OmiseObject> T returns(TypeReference<T> typeRef) throws IOException, OmiseException {
             Response response = roundtrip();
             ResponseBody body = response.body();
             if (body == null) {
@@ -228,7 +230,9 @@ public abstract class Resource {
 
             InputStream stream = body.byteStream();
             if (200 < response.code() || response.code() >= 300) {
-                throw serializer.deserialize(stream, OmiseError.class);
+                OmiseException ex = serializer.deserialize(stream, OmiseException.class);
+                ex.setHttpStatusCode(response.code());
+                throw ex;
             }
 
             return serializer.deserialize(stream, typeRef);

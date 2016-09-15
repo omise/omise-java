@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.Endpoint;
+import co.omise.models.OmiseException;
 import co.omise.models.Token;
 import org.joda.time.Period;
 import org.joda.time.YearMonth;
@@ -12,7 +13,7 @@ public class TokenResourceTest extends ResourceTest {
     private static final String TOKEN_ID = "tokn_test_4yq8lbecl0q6dsjzxr5";
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Token token = resource().get(TOKEN_ID);
         assertRequested("GET", "/tokens/" + TOKEN_ID, 200);
         assertVaultRequest();
@@ -23,7 +24,7 @@ public class TokenResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Token token = resource().create(new Token.Create()
                 .name("JOHN DOE")
                 .number("4242424242424242")

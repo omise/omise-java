@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.models.Customer;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class CustomerResourceTest extends ResourceTest {
     private static final String CUSTOMER_ID = "cust_test_4yq6txdpfadhbaqnwp3";
 
     @Test
-    public void testGetList() throws IOException {
+    public void testGetList() throws IOException, OmiseException {
         ScopedList<Customer> list = resource().list();
         assertRequested("GET", "/customers", 200);
 
@@ -25,7 +26,7 @@ public class CustomerResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Customer customer = resource().get(CUSTOMER_ID);
         assertRequested("GET", "/customers/" + CUSTOMER_ID, 200);
 
@@ -36,7 +37,7 @@ public class CustomerResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Customer customer = resource().create(new Customer.Create()
                 .email("john.doe@example.com")
                 .description("John Doe (id: 30)"));
@@ -49,7 +50,7 @@ public class CustomerResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Customer customer = resource().update(CUSTOMER_ID, new Customer.Update()
                 .email("john.doe.the.second@example.com"));
         assertRequested("PATCH", "/customers/" + CUSTOMER_ID, 200);
@@ -59,7 +60,7 @@ public class CustomerResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testDestroy() throws IOException {
+    public void testDestroy() throws IOException, OmiseException {
         Customer customer = resource().destroy(CUSTOMER_ID);
         assertRequested("DELETE", "/customers/" + CUSTOMER_ID, 200);
 

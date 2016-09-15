@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.Endpoint;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transaction;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -14,16 +15,16 @@ public class TransactionResource extends Resource {
         super(httpClient);
     }
 
-    public ScopedList<Transaction> list() throws IOException {
+    public ScopedList<Transaction> list() throws IOException, OmiseException {
         return list(new ScopedList.Options());
     }
 
-    public ScopedList<Transaction> list(ScopedList.Options options) throws IOException {
+    public ScopedList<Transaction> list(ScopedList.Options options) throws IOException, OmiseException {
         return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Transaction>>() {
         });
     }
 
-    public Transaction get(String transactionId) throws IOException {
+    public Transaction get(String transactionId) throws IOException, OmiseException {
         return httpGet(urlFor(transactionId)).returns(Transaction.class);
     }
 

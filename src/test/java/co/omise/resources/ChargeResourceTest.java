@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.models.Charge;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class ChargeResourceTest extends ResourceTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Charge> list = resource().list();
         assertRequested("GET", "/charges", 200);
         assertEquals(2, list.getTotal());
@@ -22,7 +23,7 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Charge charge = resource().get(CHARGE_ID);
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
         assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
@@ -32,7 +33,7 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Charge charge = resource().create(new Charge.Create()
                 .amount(100000)
                 .currency("thb")
@@ -46,7 +47,7 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Charge charge = resource().update(CHARGE_ID, new Charge.Update()
                 .description("Charge for order 3947 (XXL)"));
         assertRequested("PATCH", "/charges/" + CHARGE_ID, 200);
@@ -56,7 +57,7 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCapture() throws IOException {
+    public void testCapture() throws IOException, OmiseException {
         Charge charge = resource().capture(CHARGE_ID);
         assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
         assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());

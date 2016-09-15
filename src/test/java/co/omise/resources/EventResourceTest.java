@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.models.Event;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class EventResourceTest extends ResourceTest {
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Event> list = resource().list();
         assertRequested("GET", "/events", 200);
 
@@ -22,7 +23,7 @@ public class EventResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Event event = resource().get("evnt_test_526yctupnje5mbldskd");
         assertEquals("evnt_test_526yctupnje5mbldskd", event.getId());
         assertEquals("transfer.destroy", event.getKey());

@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.models.Card;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class CardResourceTest extends ResourceTest {
     private final String CARD_ID = "card_test_4yq6tuucl9h4erukfl0";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Card> list = resource().list();
         assertEquals(1, list.getTotal());
         assertEquals(20, list.getLimit());
@@ -26,7 +27,7 @@ public class CardResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Card card = resource().get(CARD_ID);
         assertRequested("GET", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
 
@@ -37,7 +38,7 @@ public class CardResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Card.Update update = new Card.Update()
                 .name("JOHN W. DOE");
 
@@ -51,7 +52,7 @@ public class CardResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testDestroy() throws IOException {
+    public void testDestroy() throws IOException, OmiseException {
         Card card = resource().destroy(CARD_ID);
         assertRequested("DELETE", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
 

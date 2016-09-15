@@ -2,6 +2,7 @@ package co.omise.resources;
 
 import co.omise.models.Dispute;
 import co.omise.models.DisputeStatus;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class DisputeResourceTest extends ResourceTest {
     private static final String DISPUTE_ID = "dspt_test_5089off452g5m5te7xs";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Dispute> list = resource().list();
         assertRequested("GET", "/disputes", 200);
 
@@ -20,7 +21,7 @@ public class DisputeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testListWithStatus() throws IOException {
+    public void testListWithStatus() throws IOException, OmiseException {
         ScopedList<Dispute> list = resource().list(DisputeStatus.Closed);
         assertRequested("GET", "/disputes/closed", 200);
         assertEquals(DisputeStatus.Won, list.getData().get(0).getStatus());
@@ -35,7 +36,7 @@ public class DisputeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Dispute dispute = resource().get(DISPUTE_ID);
         assertRequested("GET", "/disputes/" + DISPUTE_ID, 200);
 
@@ -46,7 +47,7 @@ public class DisputeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Dispute dispute = resource().update(DISPUTE_ID, new Dispute.Update()
                 .message("Your dispute message"));
         assertRequested("PATCH", "/disputes/" + DISPUTE_ID, 200);

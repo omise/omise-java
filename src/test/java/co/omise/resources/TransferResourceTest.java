@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
 import org.junit.Test;
@@ -10,7 +11,7 @@ public class TransferResourceTest extends ResourceTest {
     private static final String TRANSFER_ID = "trsf_test_4yqacz8t3cbipcj766u";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Transfer> list = resource().list();
         assertRequested("GET", "/transfers", 200);
 
@@ -23,7 +24,7 @@ public class TransferResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Transfer transfer = resource().get(TRANSFER_ID);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
@@ -34,7 +35,7 @@ public class TransferResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Transfer transfer = resource().create(new Transfer.Create().amount(192188));
         assertRequested("POST", "/transfers", 200);
 
@@ -43,7 +44,7 @@ public class TransferResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException {
+    public void testUpdate() throws IOException, OmiseException {
         Transfer transfer = resource().update(TRANSFER_ID, new Transfer.Update().amount(192189));
         assertRequested("PATCH", "/transfers/" + TRANSFER_ID, 200);
 

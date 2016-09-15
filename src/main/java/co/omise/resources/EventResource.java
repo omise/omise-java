@@ -2,6 +2,7 @@ package co.omise.resources;
 
 import co.omise.Endpoint;
 import co.omise.models.Event;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -14,16 +15,16 @@ public class EventResource extends Resource {
         super(httpClient);
     }
 
-    public ScopedList<Event> list() throws IOException {
+    public ScopedList<Event> list() throws IOException, OmiseException {
         return list(new ScopedList.Options());
     }
 
-    public ScopedList<Event> list(ScopedList.Options options) throws IOException {
+    public ScopedList<Event> list(ScopedList.Options options) throws IOException, OmiseException {
         return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Event>>() {
         });
     }
 
-    public Event get(String eventId) throws IOException {
+    public Event get(String eventId) throws IOException, OmiseException {
         return httpGet(urlFor(eventId)).returns(new TypeReference<Event>() {
         });
     }

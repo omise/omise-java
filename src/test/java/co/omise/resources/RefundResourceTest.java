@@ -1,5 +1,6 @@
 package co.omise.resources;
 
+import co.omise.models.OmiseException;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class RefundResourceTest extends ResourceTest {
     public static final String REFUND_ID = "rfnd_test_4yqmv79ahghsiz23y3c";
 
     @Test
-    public void testList() throws IOException {
+    public void testList() throws IOException, OmiseException {
         ScopedList<Refund> list = resource().list();
         assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds", 200);
 
@@ -25,7 +26,7 @@ public class RefundResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testGet() throws IOException {
+    public void testGet() throws IOException, OmiseException {
         Refund refund = resource().get(REFUND_ID);
         assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds/" + REFUND_ID, 200);
 
@@ -36,7 +37,7 @@ public class RefundResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException {
+    public void testCreate() throws IOException, OmiseException {
         Refund refund = resource().create(new Refund.Create().amount(10000L));
         assertRequested("POST", "/charges/" + CHARGE_ID + "/refunds", 200);
 

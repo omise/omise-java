@@ -2,6 +2,7 @@ package co.omise.resources;
 
 import co.omise.Endpoint;
 import co.omise.models.Account;
+import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import okhttp3.OkHttpClient;
 
@@ -12,7 +13,7 @@ public class DummyResource extends Resource {
         super(httpClient);
     }
 
-    public Account list(ScopedList.Options options) throws IOException {
+    public Account list(ScopedList.Options options) throws IOException, OmiseException {
         return httpGet(buildUrl(Endpoint.API, "/account")).params(options).returns(Account.class);
     }
 }
