@@ -3,8 +3,20 @@ package co.omise;
 import co.omise.resources.*;
 import com.google.common.base.Preconditions;
 import okhttp3.CertificatePinner;
+import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
+import okhttp3.TlsVersion;
 
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -40,7 +52,7 @@ public class Client {
      * @param secretKey The key with {@code skey_} prefix.
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      */
-    public Client(String secretKey) {
+    public Client(String secretKey) throws ClientException {
         this(null, null, secretKey);
     }
 
@@ -51,7 +63,7 @@ public class Client {
      * @param secretKey The key with {@code skey_} prefix.
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      */
-    public Client(String publicKey, String secretKey) {
+    public Client(String publicKey, String secretKey) throws ClientException {
         this(null, publicKey, secretKey);
     }
 
@@ -65,7 +77,7 @@ public class Client {
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
-    public Client(String apiVersion, String publicKey, String secretKey) {
+    public Client(String apiVersion, String publicKey, String secretKey) throws ClientException {
         Preconditions.checkNotNull(secretKey);
 
         config = new Config(apiVersion, publicKey, secretKey);
@@ -95,17 +107,47 @@ public class Client {
      * @param config A {@link Config} object built from constructor parameters.
      * @return A new {@link OkHttpClient} object for connecting to the Omise API.
      */
-    protected OkHttpClient buildHttpClient(Config config) {
+    protected OkHttpClient buildHttpClient(Config config) throws ClientException {
         CertificatePinner.Builder pinner = new CertificatePinner.Builder();
         for (Endpoint endpoint : Endpoint.all()) {
             pinner = pinner.add(endpoint.host(), endpoint.certificateHash());
         }
 
+        SSLContext sslContext;
+        X509TrustManager trustManager;
+        try {
+            sslContext = SSLContext.getInstance("TLSv1.2");
+            sslContext.init(null, null, null);
+
+            trustManager = getX509TrustManager();
+        } catch (NoSuchAlgorithmException | KeyStoreException | KeyManagementException e) {
+            throw new ClientException(e);
+        }
+
+        ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+                .tlsVersions(TlsVersion.TLS_1_2)
+                .build();
+
         return new OkHttpClient.Builder()
+                .sslSocketFactory(sslContext.getSocketFactory(), trustManager)
                 .addInterceptor(new Configurer(config))
+                .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
                 .certificatePinner(pinner.build())
                 .build();
+    }
+
+    protected X509TrustManager getX509TrustManager() throws KeyStoreException, NoSuchAlgorithmException {
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        trustManagerFactory.init((KeyStore) null);
+
+        TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+        if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+            throw new IllegalStateException("Unexpected default trust managers:"
+                    + Arrays.toString(trustManagers));
+        }
+
+        return (X509TrustManager) trustManagers[0];
     }
 
 
