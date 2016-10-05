@@ -51,6 +51,7 @@ public class Client {
      *
      * @param secretKey The key with {@code skey_} prefix.
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     public Client(String secretKey) throws ClientException {
         this(null, null, secretKey);
@@ -62,6 +63,7 @@ public class Client {
      * @param publicKey The key with {@code pkey_} prefix.
      * @param secretKey The key with {@code skey_} prefix.
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     public Client(String publicKey, String secretKey) throws ClientException {
         this(null, publicKey, secretKey);
@@ -76,6 +78,7 @@ public class Client {
      * @param secretKey  The key with {@code skey_} prefix.
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     public Client(String apiVersion, String publicKey, String secretKey) throws ClientException {
         Preconditions.checkNotNull(secretKey);
@@ -106,6 +109,7 @@ public class Client {
      *
      * @param config A {@link Config} object built from constructor parameters.
      * @return A new {@link OkHttpClient} object for connecting to the Omise API.
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     protected OkHttpClient buildHttpClient(Config config) throws ClientException {
         CertificatePinner.Builder pinner = new CertificatePinner.Builder();
