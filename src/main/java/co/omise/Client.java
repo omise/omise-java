@@ -40,6 +40,7 @@ public class Client {
     private final CustomerResource customers;
     private final DisputeResource disputes;
     private final EventResource events;
+    private final LinkResource links;
     private final RecipientResource recipients;
     private final TokenResource tokens;
     private final TransactionResource transactions;
@@ -92,6 +93,7 @@ public class Client {
         customers = new CustomerResource(httpClient);
         disputes = new DisputeResource(httpClient);
         events = new EventResource(httpClient);
+        links = new LinkResource(httpClient);
         recipients = new RecipientResource(httpClient);
         tokens = new TokenResource(httpClient);
         transactions = new TransactionResource(httpClient);
@@ -252,6 +254,15 @@ public class Client {
     public EventResource events() {
         return events;
     }
+
+    /**
+     * Returns {@link LinkResource} for accessing the
+     * <a href="https://www.omise.co/links-api">Link API</a>
+     *
+     * @return An {@link LinkResource} instance.
+     * @see <a href="https://www.omise.co/links-api">Link API</a>
+     */
+    public LinkResource links() { return links; }
 
     /**
      * Returns {@link RecipientResource} for accessing the

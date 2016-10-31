@@ -1,8 +1,6 @@
 package co.omise;
 
-import co.omise.models.Balance;
-import co.omise.models.OmiseException;
-import co.omise.models.Token;
+import co.omise.models.*;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -39,6 +37,21 @@ public class ClientTest extends OmiseTest {
             new Client("skey_test_123").account().get();
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
+        }
+    }
+
+    @Test
+    public void testLiveCard() throws ClientException, IOException {
+        try {
+            ScopedList<Card> list = new Client("skey_test_55m9sazu79b5ir95ced")
+                    .customer("cust_test_558xjomi2zgaquajwx5")
+                    .cards()
+                    .list();
+            for (Card card : list.getData()) {
+                System.out.println(card.getId() + " : " + card.getLastDigits());
+            }
+        } catch (OmiseException e) {
+            e.printStackTrace();
         }
     }
 
