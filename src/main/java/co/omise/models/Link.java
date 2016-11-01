@@ -82,16 +82,6 @@ public class Link extends Model {
         this.paymentUri = paymentUri;
     }
 
-    /**amount	integer
-     (required) The amount in the smallest subunits of the currency used. For thb (Thai Baht) you'll need to pass the amount in satangs. #Maxmum and Minimum amount by supported currencies
-     currency	string
-     (required) The currency in which you want the charge to be done.
-     title	string
-     (required) A custom title for the link.
-     description	string
-     (required) A custom description for the link.
-     multiple	boolean
-     (optional) Whether or not you want the link to be used multiple times, when not specified it is set to false*/
     public static class Create extends Params {
         public Create amount(long amount) {
             add("amount", Long.toString(amount));
