@@ -1,5 +1,6 @@
 package co.omise.models;
 
+import co.omise.Serializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -17,6 +18,8 @@ public class Charge extends Model {
     private boolean reversed;
     private boolean paid;
     private String transaction;
+    @JsonProperty("source_of_fund")
+    private SourceOfFunds sourceOfFund;
     private Card card;
     private long refunded;
     private ScopedList<Refund> refunds;
@@ -29,6 +32,7 @@ public class Charge extends Model {
     private Dispute dispute;
     private String returnUri;
     private String authorizeUri;
+    private OffsiteTypes offsite;
 
     public ChargeStatus getStatus() {
         return status;
@@ -100,6 +104,14 @@ public class Charge extends Model {
 
     public void setTransaction(String transaction) {
         this.transaction = transaction;
+    }
+
+    public SourceOfFunds getSourceOfFund() {
+        return sourceOfFund;
+    }
+
+    public void setSourceOfFund(SourceOfFunds sourceOfFund) {
+        this.sourceOfFund = sourceOfFund;
     }
 
     public Card getCard() {
@@ -182,6 +194,14 @@ public class Charge extends Model {
         this.authorizeUri = authorizeUri;
     }
 
+    public OffsiteTypes getOffsite() {
+        return offsite;
+    }
+
+    public void setOffsite(OffsiteTypes offsite) {
+        this.offsite = offsite;
+    }
+
     public static class Create extends Params {
         public Create customer(String customer) {
             add("customer", customer);
@@ -210,6 +230,13 @@ public class Charge extends Model {
 
         public Create capture(boolean capture) {
             add("capture", Boolean.toString(capture));
+            return this;
+        }
+
+        public Create offsite(OffsiteTypes offsite) {
+            add("offsite", Serializer
+                    .defaultSerializer()
+                    .serializeToQueryParams(offsite));
             return this;
         }
 
