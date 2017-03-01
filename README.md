@@ -5,7 +5,7 @@
 This library has been updated to v2.0, check the [v1 branch][4] for the previous version.
 
 Omise-java provides a set of Java bindings to the [Omise REST API][5].  Please contact
-[chakrit@omise.co][6] or [support@omise.co][7] if you have any questions regarding this
+ [support@omise.co][7] if you have any questions regarding this
 library and the functionality it provides.
 
 # INSTALLATION
@@ -93,7 +93,6 @@ try {
 [3]: https://gitter.im/omise/omise-java
 [4]: https://github.com/omise/omise-java/tree/v1.0
 [5]: https://www.omise.co/docs
-[6]: mailto:chakrit@omise.co
 [7]: mailto:support@omise.co
 [8]: https://github.com/omise/omise-android
 [9]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
