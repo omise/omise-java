@@ -27,7 +27,7 @@ buildscript {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '3.3'
 }
 
 task javadocJar(type: Jar) {
