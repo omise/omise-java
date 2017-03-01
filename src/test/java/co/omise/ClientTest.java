@@ -41,6 +41,7 @@ public class ClientTest extends OmiseTest {
     }
 
     @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveCard() throws ClientException, IOException {
         try {
             ScopedList<Card> list = new Client("skey_test_55m9sazu79b5ir95ced")
@@ -56,7 +57,7 @@ public class ClientTest extends OmiseTest {
     }
 
     @Test
-    @Ignore("adds your skey here to do a live test.")
+    @Ignore("only hit the network when we need to.")
     public void testLiveFetch() throws ClientException, IOException, OmiseException {
         Client client = new Client("skey_test_123");
         Balance balance = client.balance().get();
