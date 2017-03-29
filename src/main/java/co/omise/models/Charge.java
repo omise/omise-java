@@ -30,7 +30,9 @@ public class Charge extends Model {
     private String customer;
     private String ip;
     private Dispute dispute;
+    @JsonProperty("return_uri")
     private String returnUri;
+    @JsonProperty("authorize_uri")
     private String authorizeUri;
     private OffsiteTypes offsite;
 
