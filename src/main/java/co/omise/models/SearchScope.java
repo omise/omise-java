@@ -7,4 +7,7 @@ public enum SearchScope {
     @JsonProperty("charge")Charge,
     @JsonProperty("customer")Customer,
     @JsonProperty("recipient")Recipient,
+    @JsonProperty("refund")Refund,
+    @JsonProperty("transfer")Transfer,
+    @JsonProperty("link")Link,
 }
