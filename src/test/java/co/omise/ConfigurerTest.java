@@ -21,7 +21,7 @@ public class ConfigurerTest extends OmiseTest {
     @Test
     public void testUserAgent() throws IOException {
         Request req = configure(new Request.Builder()
-                .url("http://www.example.com")
+                .url("http://api.omise.co")
                 .build());
 
         assertEquals(config().userAgent(), req.header("User-Agent"));
@@ -30,7 +30,7 @@ public class ConfigurerTest extends OmiseTest {
     @Test
     public void testApiVersion() throws IOException {
         Request req = configure(new Request.Builder()
-                .url("https://www.example.com")
+                .url("https://api.omise.co")
                 .build());
 
         assertEquals(API_VERSION, req.header("Omise-Version"));

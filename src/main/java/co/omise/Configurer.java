@@ -29,18 +29,12 @@ public final class Configurer implements Interceptor {
      */
     public static Request configure(Config config, Request request) {
         String apiVersion = config.apiVersion();
-
-        // TODO: Avoid this loop.
-        String key = null;
-        for (Endpoint endpoint : Endpoint.all()) {
-            if (!request.url().host().equals(endpoint.host())) {
-                continue;
-            }
-
-            key = endpoint.authenticationKey(config);
-            break;
+        Endpoint endpoint = Endpoint.byHost.get(request.url().host());
+        if (endpoint == null) {
+            throw new UnsupportedOperationException("unknown endpoint: " + request.url().host());
         }
 
+        String key = endpoint.authenticationKey(config);
         Request.Builder builder = request.newBuilder()
                 .addHeader("User-Agent", config.userAgent())
                 .addHeader("Authorization", Credentials.basic(key, "x"));

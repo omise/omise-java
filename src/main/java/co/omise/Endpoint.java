@@ -2,6 +2,7 @@ package co.omise;
 
 import co.omise.resources.Resource;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import okhttp3.CertificatePinner;
 import okhttp3.HttpUrl;
 
@@ -43,12 +44,17 @@ public abstract class Endpoint {
         }
     };
 
-    public static ImmutableList<Endpoint> all() {
-        return ImmutableList.of(
-                Endpoint.API,
-                Endpoint.VAULT
-        );
-    }
+    public static ImmutableList<Endpoint> all =
+            new ImmutableList.Builder<Endpoint>()
+                    .add(VAULT)
+                    .add(API)
+                    .build();
+
+    public static ImmutableMap<String, Endpoint> byHost =
+            new ImmutableMap.Builder<String, Endpoint>()
+                    .put(VAULT.host(), VAULT)
+                    .put(API.host(), API)
+                    .build();
 
     /**
      * The scheme to use, defaults to HTTPS.
