@@ -7,4 +7,5 @@ public enum OffsiteTypes {
     @JsonProperty("internet_banking_bbl")InternetBankingBBL,
     @JsonProperty("internet_banking_bay")InternetBankingBAY,
     @JsonProperty("internet_banking_ktb")InternetBankingKTB,
+    @JsonProperty("alipay")Alipay,
 }
