@@ -20,6 +20,7 @@ public class Schedule extends Model {
     private String inWords;
     @JsonProperty("start_date")
     private DateTime startDate;
+    @JsonProperty("end_date")
     private DateTime endDate;
 
     private ChargeScheduling charge;
