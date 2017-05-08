@@ -46,38 +46,27 @@ public class BankAccount extends Model {
         this.name = name;
     }
 
-    public static class BankAccountParams {
+    public static class Params extends co.omise.models.Params {
+        @JsonProperty
         private String brand;
+        @JsonProperty
         private String number;
+        @JsonProperty
         private String name;
 
-        public BankAccountParams brand(String brand) {
+        public Params brand(String brand) {
             this.brand = brand;
             return this;
         }
 
-        public BankAccountParams number(String number) {
+        public Params number(String number) {
             this.number = number;
             return this;
         }
 
-        public BankAccountParams name(String name) {
+        public Params name(String name) {
             this.name = name;
             return this;
-        }
-
-        public void addTo(Params params) {
-            if (brand != null) {
-                params.add("bank_account[brand]", brand);
-            }
-
-            if (number != null) {
-                params.add("bank_account[number]", number);
-            }
-
-            if (name != null) {
-                params.add("bank_account[name]", name);
-            }
         }
     }
 }

@@ -2,6 +2,7 @@ package co.omise.models;
 
 import co.omise.Serializer;
 import com.google.common.collect.ImmutableMap;
+import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -77,9 +78,13 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
         }
 
         @Override
-        public ImmutableMap<String, String> query() {
+        public ImmutableMap<String, String> query(Serializer serializer) {
+            if (serializer == null) {
+                serializer = Serializer.defaultSerializer();
+            }
+
             ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
-            DateTimeFormatter formatter = Serializer.defaultSerializer().dateTimeFormatter();
+            DateTimeFormatter formatter = serializer.dateTimeFormatter();
 
             if (offset != null) {
                 builder = builder.put("offset", offset.toString());
@@ -95,17 +100,15 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
             }
 
             if (order != null) {
-                builder = builder.put("order", Serializer
-                        .defaultSerializer()
-                        .serializeToQueryParams(order));
+                builder = builder.put("order", serializer.serializeToQueryParams(order));
             }
 
             return builder.build();
         }
 
         @Override
-        public RequestBody body() {
-            return null;
+        public RequestBody body(Serializer serializer) {
+            return new FormBody.Builder().build();
         }
     }
 }

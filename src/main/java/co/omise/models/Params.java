@@ -31,11 +31,13 @@ public abstract class Params {
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
     /**
-     * Returns the query string to add to an HTTP operation's URL.
+     * Returns a map of query string key values to add to an HTTP operation's URL.
      *
+     * @param serializer The {@link Serializer} to use to serialize parameter data.
+     *                   Or `null` to use the default serializer.
      * @return An {@link ImmutableMap} containing keys and values to adds to the URL.
      */
-    public ImmutableMap<String, String> query() {
+    public ImmutableMap<String, String> query(Serializer serializer) {
         return ImmutableMap.of();
     }
 
@@ -43,8 +45,8 @@ public abstract class Params {
      * Returns the {@link RequestBody} to send with the HTTP request. The default implementation serializes
      * the instance into JSON format and builds an HTTP {@link RequestBody} containing the serialized data.
      *
-     * @param serializer The {@link Serializer} to use to serialize parameter data. Or `null` to use the default
-     *                   serializer.
+     * @param serializer The {@link Serializer} to use to serialize parameter data.
+     *                   Or `null` to use the default serializer.
      * @return An {@link RequestBody} to send with the HTTP request.
      * @throws IOException on serialization errors.
      */

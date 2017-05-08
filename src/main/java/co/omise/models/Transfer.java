@@ -103,22 +103,28 @@ public class Transfer extends Model {
     }
 
     public static class Create extends Params {
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private String recipient;
+
         public Create amount(long amount) {
-            add("amount", Long.toString(amount));
+            this.amount = amount;
             return this;
         }
 
         public Create recipient(String recipient) {
-            add("recipient", recipient);
+            this.recipient = recipient;
             return this;
         }
     }
 
     public static class Update extends Params {
+        @JsonProperty
         private long amount;
 
         public Update amount(long amount) {
-            add("amount", Long.toString(amount));
+            this.amount = amount;
             return this;
         }
     }

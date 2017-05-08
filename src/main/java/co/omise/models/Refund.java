@@ -1,8 +1,6 @@
 package co.omise.models;
 
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents Omise Refund object.
@@ -48,23 +46,12 @@ public class Refund extends Model {
     }
 
     public static class Create extends Params {
+        @JsonProperty
         private long amount;
 
         public Create amount(long amount) {
             this.amount = amount;
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("amount", Long.toString(amount))
-                    .build();
         }
     }
 }

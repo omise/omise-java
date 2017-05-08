@@ -1,11 +1,24 @@
 package co.omise.models;
 
-import org.joda.time.YearMonth;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Represents Omise Transfer object.
+ * <p>
+ * <strong>Full Credit Card data should never go through your server.</strong>
+ * Do not send the credit card data to Omise from your servers directly.
+ * You must send the card data from the client browser via Javascript (Omise-JS).
+ * Code involving this class should only be used either with fake data in test mode
+ * (e.g.: quickly creating some fake data, testing our API from a terminal, etc.),
+ * or if you are PCI-DSS compliant.
+ * </p>
+ * <p>
+ * Sending card data from server requires a valid PCI-DSS certification.
+ * You can learn more about this in <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>.
+ * </p>
  *
- * @see <a href="https://www.omise.co/transfers-api">Transfers API</a>
+ * This class represents Omise Token object.
+ *
+ * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
  */
 public class Token extends Model {
     private boolean used;
@@ -28,48 +41,11 @@ public class Token extends Model {
     }
 
     public static class Create extends Params {
-        public Create name(String name) {
-            add("card[name]", name);
-            return this;
-        }
+        @JsonProperty
+        private Card.Create card;
 
-        public Create number(String number) {
-            add("card[number]", number);
-            return this;
-        }
-
-        public Create expirationMonth(int expirationMonth) {
-            add("card[expiration_month]", Integer.toString(expirationMonth));
-            return this;
-        }
-
-        public Create expirationYear(int expirationYear) {
-            add("card[expiration_year]", Integer.toString(expirationYear));
-            return this;
-        }
-
-        public Create expiration(YearMonth expiration) {
-            return expirationMonth(expiration.getMonthOfYear())
-                    .expirationYear(expiration.getYear());
-        }
-
-        public Create expiration(int month, int year) {
-            return expirationMonth(month)
-                    .expirationYear(year);
-        }
-
-        public Create securityCode(String securityCode) {
-            add("card[security_code]", securityCode);
-            return this;
-        }
-
-        public Create city(String city) {
-            add("card[city]", city);
-            return this;
-        }
-
-        public Create postalCode(String postalCode) {
-            add("card[postal_code]", postalCode);
+        public Create card(Card.Create card) {
+            this.card = card;
             return this;
         }
     }

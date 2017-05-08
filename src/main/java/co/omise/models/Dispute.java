@@ -1,8 +1,6 @@
 package co.omise.models;
 
-import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Represents Omise Dispute object.
@@ -57,23 +55,12 @@ public class Dispute extends Model {
     }
 
     public static class Update extends Params {
+        @JsonProperty
         private String message;
 
         public Update message(String message) {
             this.message = message;
             return this;
-        }
-
-        @Override
-        public ImmutableMap<String, String> query() {
-            return null;
-        }
-
-        @Override
-        public RequestBody body() {
-            return new FormBody.Builder()
-                    .add("message", message)
-                    .build();
         }
     }
 }

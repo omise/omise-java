@@ -93,45 +93,54 @@ public class Recipient extends Model {
         this.failureCode = failureCode;
     }
 
-    public static class Create extends RecipientParams {
+    public static class Params extends co.omise.models.Params {
+        @JsonProperty("bank_account")
+        private BankAccount.Params bankAccount;
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private RecipientType type;
+        @JsonProperty
+        private String taxId;
+
+        public Params name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Params email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Params description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Params type(RecipientType type) {
+            this.type = type;
+            return this;
+        }
+
+        public Params taxId(String taxId) {
+            this.taxId = taxId;
+            return this;
+        }
+
+        public Params bankAccount(BankAccount.Params bankAccount) {
+            this.bankAccount = bankAccount;
+            return this;
+        }
     }
 
-    public static class Update extends RecipientParams {
+    public static class Create extends Params {
     }
 
-    public static class RecipientParams extends Params {
-        private BankAccount.BankAccountParams bankAccount;
-
-        public RecipientParams name(String name) {
-            add("name", name);
-            return this;
-        }
-
-        public RecipientParams email(String email) {
-            add("email", email);
-            return this;
-        }
-
-        public RecipientParams description(String description) {
-            add("description", description);
-            return this;
-        }
-
-        public RecipientParams type(RecipientType type) {
-            add("type", type.name().toLowerCase());
-            return this;
-        }
-
-        public RecipientParams taxId(String taxId) {
-            add("tax_id", taxId);
-            return this;
-        }
-
-        public RecipientParams bankAccount(BankAccount.BankAccountParams bankAccount) {
-            if (bankAccount != null) {
-                bankAccount.addTo(this);
-            }
-            return this;
-        }
+    public static class Update extends Params {
     }
 }

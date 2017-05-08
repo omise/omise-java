@@ -129,29 +129,96 @@ public class Card extends Model {
         this.securityCodeCheck = securityCodeCheck;
     }
 
-    public static class Update extends Params {
+    // Duplicated, for now. Since we don't people trying to update card numbers.
+    public static class Create extends co.omise.models.Params {
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String number;
+        @JsonProperty
+        private String city;
+        @JsonProperty("postal_code")
+        private String postalCode;
+        @JsonProperty("expiration_month")
+        private int expirationMonth;
+        @JsonProperty("expiration_year")
+        private int expirationYear;
+
+        public Create name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Create number(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public Create city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public Create postalCode(String postalCode) {
+            this.postalCode = postalCode;
+            return this;
+        }
+
+        public Create expirationMonth(int expirationMonth) {
+            this.expirationMonth = expirationMonth;
+            return this;
+        }
+
+        public Create expirationYear(int expirationYear) {
+            this.expirationYear = expirationYear;
+            return this;
+        }
+
+        public Create expiration(YearMonth expiration) {
+            return expirationMonth(expiration.getMonthOfYear())
+                    .expirationYear(expiration.getYear());
+        }
+
+        public Create expiration(int month, int year) {
+            return expirationMonth(month)
+                    .expirationYear(year);
+        }
+    }
+
+    public static class Update extends co.omise.models.Params {
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String city;
+        @JsonProperty("postal_code")
+        private String postalCode;
+        @JsonProperty("expiration_month")
+        private int expirationMonth;
+        @JsonProperty("expiration_year")
+        private int expirationYear;
+
         public Update name(String name) {
-            add("name", name);
+            this.name = name;
             return this;
         }
 
         public Update city(String city) {
-            add("city", city);
+            this.city = city;
             return this;
         }
 
         public Update postalCode(String postalCode) {
-            add("postal_code", postalCode);
+            this.postalCode = postalCode;
             return this;
         }
 
         public Update expirationMonth(int expirationMonth) {
-            add("expiration_month", Integer.toString(expirationMonth));
+            this.expirationMonth = expirationMonth;
             return this;
         }
 
         public Update expirationYear(int expirationYear) {
-            add("expiration_year", Integer.toString(expirationYear));
+            this.expirationYear = expirationYear;
             return this;
         }
 

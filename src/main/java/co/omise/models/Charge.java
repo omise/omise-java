@@ -1,6 +1,5 @@
 package co.omise.models;
 
-import co.omise.Serializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -205,52 +204,70 @@ public class Charge extends Model {
     }
 
     public static class Create extends Params {
+        @JsonProperty
+        private String customer;
+        @JsonProperty
+        private String card;
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private String currency;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Boolean capture;
+        @JsonProperty
+        private OffsiteTypes offsite;
+        @JsonProperty("return_uri")
+        private String returnUri;
+
         public Create customer(String customer) {
-            add("customer", customer);
+            this.customer = customer;
             return this;
         }
 
         public Create card(String card) {
-            add("card", card);
+            this.card = card;
             return this;
         }
 
         public Create amount(long amount) {
-            add("amount", Long.toString(amount));
+            this.amount = amount;
             return this;
         }
 
         public Create currency(String currency) {
-            add("currency", currency);
+            this.currency = currency;
             return this;
         }
 
         public Create description(String description) {
-            add("description", description);
+            this.description = description;
             return this;
         }
 
-        public Create capture(boolean capture) {
-            add("capture", Boolean.toString(capture));
+        public Create capture(Boolean capture) {
+            this.capture = capture;
             return this;
         }
 
         public Create offsite(OffsiteTypes offsite) {
-            add("offsite", Serializer
-                    .defaultSerializer()
-                    .serializeToQueryParams(offsite));
+            this.offsite = offsite;
             return this;
         }
 
         public Create returnUri(String returnUri) {
-            add("return_uri", returnUri);
+            this.returnUri = returnUri;
             return this;
         }
     }
 
     public static class Update extends Params {
+        @JsonProperty
+        private String description;
+
         public Update description(String description) {
-            add("description", description);
+            this.description = description;
             return this;
         }
     }

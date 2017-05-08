@@ -46,27 +46,34 @@ public class Customer extends Model {
         this.cards = cards;
     }
 
-    public static class Create extends CustomerParams {
+    public static abstract class Params extends co.omise.models.Params {
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private String card;
+
+        public Params email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Params description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Params card(String card) {
+            this.card = card;
+            return this;
+        }
     }
 
-    public static class Update extends CustomerParams {
+    public static class Create extends Params {
     }
 
-    public static abstract class CustomerParams extends Params {
-        public CustomerParams email(String email) {
-            add("email", email);
-            return this;
-        }
-
-        public CustomerParams description(String description) {
-            add("description", description);
-            return this;
-        }
-
-        public CustomerParams card(String card) {
-            add("card", card);
-            return this;
-        }
+    public static class Update extends Params {
     }
 }
 

@@ -83,28 +83,39 @@ public class Link extends Model {
     }
 
     public static class Create extends Params {
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private String currency;
+        @JsonProperty
+        private String title;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Boolean multiple;
+
         public Create amount(long amount) {
-            add("amount", Long.toString(amount));
+            this.amount = amount;
             return this;
         }
 
         public Create currency(String currency) {
-            add("currency", currency);
+            this.currency = currency;
             return this;
         }
 
         public Create title(String title) {
-            add("title", title);
+            this.title = title;
             return this;
         }
 
         public Create description(String description) {
-            add("description", description);
+            this.description = description;
             return this;
         }
 
         public Create multiple(boolean multiple) {
-            add("multiple", Boolean.toString(multiple));
+            this.multiple = multiple;
             return this;
         }
     }
