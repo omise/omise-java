@@ -1,0 +1,26 @@
+{
+  "object": "link",
+  "id": "link_test_57ug5xogpuj2uuz9i3n",
+  "livemode": false,
+  "location": "/links/link_test_57ug5xogpuj2uuz9i3n",
+  "amount": 123400,
+  "currency": "thb",
+  "used": true,
+  "multiple": false,
+  "title": "hallo?",
+  "description": "dafwef",
+  "charges": {
+    "object": "list",
+    "from": "1970-01-01T00:00:00+00:00",
+    "to": "2017-05-08T08:17:29+00:00",
+    "offset": 0,
+    "limit": 20,
+    "total": 0,
+    "order": null,
+    "location": "/links/link_test_57ug5xogpuj2uuz9i3n/charges",
+    "data": [
+    ]
+  },
+  "payment_uri": "https://link.omise.co/9BE52F4F",
+  "created": "2017-05-03T10:09:51Z"
+}

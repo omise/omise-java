@@ -108,7 +108,7 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
 
         @Override
         public RequestBody body(Serializer serializer) {
-            return new FormBody.Builder().build();
+            return null;
         }
     }
 }

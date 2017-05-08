@@ -7,6 +7,9 @@ import org.junit.Test;
 import java.io.IOException;
 
 public class ClientTest extends OmiseTest {
+    private static final String LIVETEST_PKEY = "pkey_test_replaceme";
+    private static final String LIVETEST_SKEY = "skey_test_replaceme";
+
     @Test
     public void testCtor() throws ClientException {
         try {
@@ -20,11 +23,14 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveErrorVault() throws ClientException, IOException {
         try {
-            new Client("pkey_test_123", "skey_test_123").tokens().create(new Token.Create()
+            Token.Create creation = new Token.Create().card(new Card.Create()
                     .name("Omise Co., Ltd.")
                     .number("4242424242424242")
                     .expiration(10, 2020)
-                    .securityCode("123"));
+                    .securityCode("123")
+            );
+
+            new Client("pkey_test_123", "skey_test_123").tokens().create(creation);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         }
@@ -42,25 +48,47 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveCard() throws ClientException, IOException {
-        try {
-            ScopedList<Card> list = new Client("skey_test_55m9sazu79b5ir95ced")
-                    .customer("cust_test_558xjomi2zgaquajwx5")
-                    .cards()
-                    .list();
-            for (Card card : list.getData()) {
-                System.out.println(card.getId() + " : " + card.getLastDigits());
-            }
-        } catch (OmiseException e) {
-            e.printStackTrace();
+    public void testLiveCard() throws ClientException, IOException, OmiseException {
+        ScopedList<Card> list = liveTestClient()
+                .customer("cust_test_5665swqhhb3mioax1y7")
+                .cards()
+                .list();
+
+        for (Card card : list.getData()) {
+            System.out.println(card.getId() + " : " + card.getLastDigits());
         }
     }
 
     @Test
     @Ignore("only hit the network when we need to.")
+    public void testLiveCharge() throws ClientException, IOException, OmiseException {
+        Client client = liveTestClient();
+        Token token = client.tokens().create(new Token.Create()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020)));
+
+        Charge charge = client.charges().create(new Charge.Create()
+                .amount(200000) // 2,000 THB
+                .currency("thb")
+                .description("omise-java test")
+                .card(token.getId()));
+
+        System.out.println("created charge: " + charge.getId());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveFetch() throws ClientException, IOException, OmiseException {
-        Client client = new Client("skey_test_123");
-        Balance balance = client.balance().get();
-        assertEquals(16741576, balance.getTotal());
+        Balance balance = liveTestClient().balance().get();
+        assertTrue(balance.getTotal() > 100000);
+
+        System.out.println("current balance: " + Long.toString(balance.getTotal()));
+    }
+
+    private Client liveTestClient() throws ClientException {
+        return new Client(LIVETEST_PKEY, LIVETEST_SKEY);
     }
 }

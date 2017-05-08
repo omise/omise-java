@@ -49,8 +49,10 @@ public class SerializationTest extends OmiseTest {
 
             // nested maps
             if (expected instanceof Map) {
-                assertTrue(actual instanceof Map);
-                assertMapEquals(prefix + "." + entry.getKey(), (Map<String, Object>) expected, (Map<String, Object>) actual);
+                assertTrue(prefix + "." + entry.getKey() + " has mismatched type.", actual instanceof Map);
+                assertMapEquals(prefix + "." + entry.getKey(),
+                        (Map<String, Object>) expected,
+                        (Map<String, Object>) actual);
                 continue;
             }
 
@@ -70,8 +72,8 @@ public class SerializationTest extends OmiseTest {
                 assertNotNull(prefix + "." + entry.getKey(), actual);
             }
 
-            assertEquals(prefix + "." + entry.getKey(), expected.getClass(), actual.getClass());
-            assertEquals(prefix + "." + entry.getKey(), expected, actual);
+            assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected.getClass(), actual.getClass());
+            assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected, actual);
         }
     }
 

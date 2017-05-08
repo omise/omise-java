@@ -3,7 +3,6 @@ package co.omise.models;
 import co.omise.Serializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
 import okhttp3.RequestBody;
 
 import java.util.HashMap;
@@ -122,7 +121,7 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
 
         @Override
         public RequestBody body(Serializer serializer) {
-            return new FormBody.Builder().build();
+            return null;
         }
     }
 }

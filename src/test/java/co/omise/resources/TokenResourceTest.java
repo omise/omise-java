@@ -1,6 +1,7 @@
 package co.omise.resources;
 
 import co.omise.Endpoint;
+import co.omise.models.Card;
 import co.omise.models.OmiseException;
 import co.omise.models.Token;
 import org.joda.time.Period;
@@ -25,13 +26,15 @@ public class TokenResourceTest extends ResourceTest {
 
     @Test
     public void testCreate() throws IOException, OmiseException {
-        Token token = resource().create(new Token.Create()
+        Token token = resource().create(new Token.Create().card(new Card.Create()
                 .name("JOHN DOE")
                 .number("4242424242424242")
                 .expiration(YearMonth.now().withPeriodAdded(Period.years(1), 1))
                 .securityCode("123")
                 .city("Bangkok")
-                .postalCode("10240"));
+                .postalCode("10240"))
+        );
+
         assertRequested("POST", "/tokens", 200);
         assertVaultRequest();
 
