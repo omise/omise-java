@@ -1,6 +1,8 @@
 package co.omise;
 
 import co.omise.models.OmiseObjectBase;
+import co.omise.models.Params;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
 import org.junit.Test;
@@ -12,6 +14,7 @@ import java.util.Map;
 
 public class SerializerTest extends OmiseTest {
     private static final String DUMMY_JSON = "{\"object\":\"dummy\",\"location\":\"/404\",\"hello\":\"world\"}";
+    private static final String DUMMY_PARAMS_JSON = "{\"hello\":\"world\",\"what\":\"field\"}";
 
     @Test
     public void testSharedInstance() {
@@ -26,6 +29,15 @@ public class SerializerTest extends OmiseTest {
 
         byte[] bytes = outputStream.toByteArray();
         assertEquals(DUMMY_JSON, new String(bytes, 0, bytes.length));
+    }
+
+    @Test
+    public void testSerializeParams() throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        serializer().serializeParams(outputStream, new DummyParams());
+
+        byte[] bytes = outputStream.toByteArray();
+        assertEquals(DUMMY_PARAMS_JSON, new String(bytes, 0, bytes.length));
     }
 
     @Test
@@ -112,4 +124,17 @@ public class SerializerTest extends OmiseTest {
             this.hello = hello;
         }
     }
+
+    public static final class DummyParams extends Params {
+        @JsonProperty
+        private String hello;
+        @JsonProperty("what")
+        private String another;
+
+        public DummyParams() {
+            hello = "world";
+            another = "field";
+        }
+    }
+
 }

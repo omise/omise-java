@@ -1,6 +1,7 @@
 package co.omise;
 
 import co.omise.models.OmiseObject;
+import co.omise.models.Params;
 import co.omise.resources.Resource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -52,17 +53,17 @@ public final class Serializer {
     private Serializer() {
         dateTimeFormatter = ISODateTimeFormat.dateTimeNoMillis();
 
-        objectMapper = new ObjectMapper();
-        JodaModule joda = new JodaModule();
-        joda.addSerializer(DateTime.class, new DateTimeSerializer()
-                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter)));
+        objectMapper = new ObjectMapper()
+                .registerModule(new GuavaModule())
+                .registerModule(new JodaModule()
+                        .addSerializer(DateTime.class, new DateTimeSerializer()
+                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
+                        )
+                )
 
-        objectMapper.registerModule(new GuavaModule());
-        objectMapper.registerModule(joda);
-
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        objectMapper.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+                .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
     }
 
     /**
@@ -148,6 +149,19 @@ public final class Serializer {
     }
 
     /**
+     * Serializes the given parameter object to the output stream.
+     *
+     * @param output The {@link OutputStream} to serialize the parameter into.
+     * @param param  The {@link Params} to serialize.
+     * @param <T>    The type of the parameter object to serialize.
+     * @throws IOException on general I/O error.
+     */
+    public <T extends Params> void serializeParams(OutputStream output, T param) throws IOException {
+        // TODO: Add params-specific options.
+        objectMapper.writerFor(param.getClass()).writeValue(output, param);
+    }
+
+    /**
      * Serialize the given model to a map with JSON-like structure.
      *
      * @param model The {@link OmiseObject} to serialize.
@@ -159,6 +173,13 @@ public final class Serializer {
         });
     }
 
+    /**
+     * Serialize the given model to a representation suitable for using as URL query parameters.
+     *
+     * @param value The value to serialize
+     * @param <T>   The type of the value to serialize.
+     * @return The string value for using as query parameters.
+     */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
         return (String) objectMapper.convertValue(value, String.class);
     }
