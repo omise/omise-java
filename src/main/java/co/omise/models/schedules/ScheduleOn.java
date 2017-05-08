@@ -56,6 +56,7 @@ public class ScheduleOn {
          * Specify that a schedule should run only on certain weekdays.
          *
          * @param weekdays A list of {@link Weekdays} values.
+         *                 @return itself, for chaining.
          */
         public Params weekdays(Weekdays... weekdays) {
             this.weekdays = weekdays;
@@ -67,6 +68,7 @@ public class ScheduleOn {
          *
          * @param days The month date to run.
          *             Specify 1 to run every month's start and 28th for every month's end.
+         * @return itself, for chaining.
          */
         public Params daysOfMonth(int... days) {
             this.daysOfMonth = days;
@@ -78,6 +80,7 @@ public class ScheduleOn {
          *
          * @param weekdayOfMonth Ordinalized weekday of month in underscore form.
          *                       For example `2nd_monday` or `last_friday`.
+         * @return itself, for chaining.
          */
         public Params weekdayOfMonth(String weekdayOfMonth) {
             this.weekdayOfMonth = weekdayOfMonth;

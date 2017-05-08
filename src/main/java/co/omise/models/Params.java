@@ -17,7 +17,7 @@ import java.io.IOException;
  * </p>
  * <ul>
  * <li>Annotate any JSON properties with {@link com.fasterxml.jackson.annotation.JsonProperty}</li>
- * <li>Overrides the {@link #query()} method to add query string parameters.</li>
+ * <li>Overrides the {@link #query(Serializer)} method to add query string parameters.</li>
  * <li>Overrides the {@link #body(Serializer)} method to returns a custom OkHttp {@link RequestBody}.</li>
  * </ul>
  * <p>
