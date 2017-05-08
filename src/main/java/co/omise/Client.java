@@ -41,7 +41,9 @@ public class Client {
     private final DisputeResource disputes;
     private final EventResource events;
     private final LinkResource links;
+    private final OccurrenceResource occurrences;
     private final RecipientResource recipients;
+    private final ScheduleResource schedules;
     private final TokenResource tokens;
     private final TransactionResource transactions;
     private final TransferResource transfers;
@@ -51,8 +53,8 @@ public class Client {
      * through your own server. (since token creation will fail without a public key.)
      *
      * @param secretKey The key with {@code skey_} prefix.
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      */
     public Client(String secretKey) throws ClientException {
         this(null, null, secretKey);
@@ -63,8 +65,8 @@ public class Client {
      *
      * @param publicKey The key with {@code pkey_} prefix.
      * @param secretKey The key with {@code skey_} prefix.
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      */
     public Client(String publicKey, String secretKey) throws ClientException {
         this(null, publicKey, secretKey);
@@ -77,9 +79,9 @@ public class Client {
      * @param apiVersion API version string that will be sent in {@code Omise-Version} header.
      * @param publicKey  The key with {@code pkey_} prefix.
      * @param secretKey  The key with {@code skey_} prefix.
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
-     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     public Client(String apiVersion, String publicKey, String secretKey) throws ClientException {
         Preconditions.checkNotNull(secretKey);
@@ -94,7 +96,9 @@ public class Client {
         disputes = new DisputeResource(httpClient);
         events = new EventResource(httpClient);
         links = new LinkResource(httpClient);
+        occurrences = new OccurrenceResource(httpClient);
         recipients = new RecipientResource(httpClient);
+        schedules = new ScheduleResource(httpClient);
         tokens = new TokenResource(httpClient);
         transactions = new TransactionResource(httpClient);
         transfers = new TransferResource(httpClient);
@@ -262,7 +266,20 @@ public class Client {
      * @return An {@link LinkResource} instance.
      * @see <a href="https://www.omise.co/links-api">Link API</a>
      */
-    public LinkResource links() { return links; }
+    public LinkResource links() {
+        return links;
+    }
+
+    /**
+     * Returns {@link OccurrenceResource} for accessing the
+     * <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
+     *
+     * @return A {@link OccurrenceResource} instance.
+     * @see <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
+     */
+    public OccurrenceResource occurrences() {
+        return occurrences;
+    }
 
     /**
      * Returns {@link RecipientResource} for accessing the
@@ -273,6 +290,29 @@ public class Client {
      */
     public RecipientResource recipients() {
         return recipients;
+    }
+
+    /**
+     * Returns {@link ScheduleResource} for accessing the
+     * <a href="https://www.omise.co/schedules-api">Schedule API</a>
+     *
+     * @return A {@link ScheduleResource} instance.
+     * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
+     */
+    public ScheduleResource schedules() {
+        return schedules;
+    }
+
+    /**
+     * Returns {@link ScheduleSpecificResource} instance for accessing
+     * schedule-specific sub-resources.
+     *
+     * @param scheduleId The id of the related schedule.
+     * @return A {@link ScheduleSpecificResource} instance.
+     * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
+     */
+    public ScheduleSpecificResource schedule(String scheduleId) {
+        return new ScheduleSpecificResource(httpClient, scheduleId);
     }
 
     /**

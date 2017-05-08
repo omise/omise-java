@@ -2,7 +2,7 @@ package co.omise.resources;
 
 import co.omise.Endpoint;
 import co.omise.models.OmiseException;
-import co.omise.models.Schedule;
+import co.omise.models.schedules.Schedule;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -26,6 +26,14 @@ public class ScheduleResource extends Resource {
 
     public Schedule get(String scheduleId) throws IOException, OmiseException {
         return httpGet(urlFor(scheduleId)).returns(Schedule.class);
+    }
+
+    public Schedule create(Schedule.Create params) throws IOException, OmiseException {
+        return httpPost(urlFor("")).params(params).returns(Schedule.class);
+    }
+
+    public Schedule destroy(String scheduleId) throws IOException, OmiseException {
+        return httpDelete(urlFor(scheduleId)).returns(Schedule.class);
     }
 
     private HttpUrl urlFor(String scheduleId) {

@@ -1,5 +1,7 @@
 package co.omise.models;
 
+import co.omise.models.schedules.Occurrence;
+import co.omise.models.schedules.Schedule;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.JavaType;
@@ -19,6 +21,8 @@ class ModelTypeResolver extends TypeIdResolverBase {
             .put("link", Link.class)
             .put("refund", Refund.class)
             .put("recipient", Recipient.class)
+            .put("schedule", Schedule.class)
+            .put("occurrence", Occurrence.class)
             .put("token", Token.class)
             .put("transaction", Transaction.class)
             .put("transfer", Transfer.class)

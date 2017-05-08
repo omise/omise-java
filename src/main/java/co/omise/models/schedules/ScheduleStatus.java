@@ -1,4 +1,4 @@
-package co.omise.models;
+package co.omise.models.schedules;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
