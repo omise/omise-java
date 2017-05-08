@@ -1,16 +1,24 @@
 package co.omise.models;
 
+import co.omise.Serializer;
 import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * Params class encapsulate request parameterization and provides a way to builds a parameter builder
- * for resource operations. This class is meant to be subclassed and used in one the following ways:
+ * for resource operations. This class is meant to be subclassed and serialized to JSON to send along
+ * with any API request.
+ * <p>
+ * Subclass should:
+ * </p>
  * <ul>
- * <li>Wrap the {@link #add(String, String)} in a builder method to appends key/value pair to the {@link FormBody} request body.</li>
+ * <li>Annotate any JSON properties with {@link com.fasterxml.jackson.annotation.JsonProperty}</li>
  * <li>Overrides the {@link #query()} method to add query string parameters.</li>
- * <li>Overrides the {@link #body()} method to returns a custom OkHttp {@link RequestBody}.</li>
+ * <li>Overrides the {@link #body(Serializer)} method to returns a custom OkHttp {@link RequestBody}.</li>
  * </ul>
  * <p>
  * For an example, see the {@link ScopedList.Options} or the {@link Charge.Create} class
@@ -20,7 +28,7 @@ import okhttp3.RequestBody;
  * @see Charge.Create
  */
 public abstract class Params {
-    private FormBody.Builder formBuilder = null;
+    private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
     /**
      * Returns the query string to add to an HTTP operation's URL.
@@ -32,29 +40,21 @@ public abstract class Params {
     }
 
     /**
-     * Returns the {@link RequestBody} to send with the HTTP request. The default implementation automatically
-     * builds and returns a {@link FormBody} from values added with the {@link #add(String, String)} method.
+     * Returns the {@link RequestBody} to send with the HTTP request. The default implementation serializes
+     * the instance into JSON format and builds an HTTP {@link RequestBody} containing the serialized data.
      *
+     * @param serializer The {@link Serializer} to use to serialize parameter data. Or `null` to use the default
+     *                   serializer.
      * @return An {@link RequestBody} to send with the HTTP request.
+     * @throws IOException on serialization errors.
      */
-    public RequestBody body() {
-        return formBuilder == null ? null : formBuilder.build();
-    }
-
-    /**
-     * Adds a key-value pair for building a {@link FormBody}.
-     *
-     * @param name  The name of the form field.
-     * @param value The value of the form field.
-     */
-    protected void add(String name, String value) {
-        if (formBuilder == null) {
-            formBuilder = new FormBody.Builder();
+    public RequestBody body(Serializer serializer) throws IOException {
+        if (serializer == null) {
+            serializer = Serializer.defaultSerializer();
         }
 
-        // TODO: test
-        if (value != null) {
-            formBuilder = formBuilder.add(name, value);
-        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream(4096);
+        serializer.serializeParams(stream, this);
+        return RequestBody.create(JSON_MEDIA_TYPE, stream.toByteArray());
     }
 }
