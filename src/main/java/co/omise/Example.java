@@ -226,7 +226,7 @@ final class Example {
                         .name("Somchai Prasert")
                         .email("somchai.prasert@example.com")
                         .type(RecipientType.Individual)
-                        .bankAccount(new BankAccount.BankAccountParams()
+                        .bankAccount(new BankAccount.Params()
                                 .brand("bbl")
                                 .number("1234567890")
                                 .name("SOMCHAI PRASErT")));
@@ -253,7 +253,7 @@ final class Example {
         Recipient recipient = client().recipients()
                 .update("recp_test_4z6p7e0m4k40txecj5", new Recipient.Update()
                         .email("somchai@prasert.com")
-                        .bankAccount(new BankAccount.BankAccountParams()
+                        .bankAccount(new BankAccount.Params()
                                 .brand("kbank")
                                 .number("1234567890")
                                 .name("SOMCHAI PRASERT")));
@@ -281,14 +281,15 @@ final class Example {
 
     void createToken() throws IOException, OmiseException, ClientException {
         Token token = client().tokens()
-                .create(new Token.Create()
+                .create(new Token.Create().card(new Card.Create()
                         .name("Somchai Prasert")
                         .number("4242424242424242")
                         .expirationMonth(10)
                         .expirationYear(2018)
                         .city("Bangkok")
                         .postalCode("10320")
-                        .securityCode("123"));
+                        .securityCode("123"))
+                );
         System.out.printf("created token: %s", token.getId());
     }
 

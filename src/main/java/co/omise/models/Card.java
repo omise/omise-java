@@ -135,6 +135,8 @@ public class Card extends Model {
         private String name;
         @JsonProperty
         private String number;
+        @JsonProperty("security_code")
+        private String securityCode;
         @JsonProperty
         private String city;
         @JsonProperty("postal_code")
@@ -151,6 +153,11 @@ public class Card extends Model {
 
         public Create number(String number) {
             this.number = number;
+            return this;
+        }
+
+        public Create securityCode(String code) {
+            this.securityCode = code;
             return this;
         }
 

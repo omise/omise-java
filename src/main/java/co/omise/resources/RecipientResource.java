@@ -28,11 +28,11 @@ public class RecipientResource extends Resource {
         return httpGet(urlFor(recipientId)).returns(Recipient.class);
     }
 
-    public Recipient create(Recipient.RecipientParams params) throws IOException, OmiseException {
+    public Recipient create(Recipient.Params params) throws IOException, OmiseException {
         return httpPost(urlFor("")).params(params).returns(Recipient.class);
     }
 
-    public Recipient update(String recipientId, Recipient.RecipientParams params) throws IOException, OmiseException {
+    public Recipient update(String recipientId, Recipient.Params params) throws IOException, OmiseException {
         return httpPatch(urlFor(recipientId)).params(params).returns(Recipient.class);
     }
 

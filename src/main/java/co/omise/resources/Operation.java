@@ -143,14 +143,14 @@ public final class Operation {
         HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
 
         if (params != null) {
-            ImmutableMap<String, String> queries = params.query();
+            ImmutableMap<String, String> queries = params.query(serializer);
             if (queries != null && !queries.isEmpty()) {
                 for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
                     urlBuilder = urlBuilder.addQueryParameter(pair.getKey(), pair.getValue());
                 }
             }
 
-            body = params.body();
+            body = params.body(serializer);
 
         } else if (HttpMethod.requiresRequestBody(method)) { // params == null
             body = new FormBody.Builder().build();

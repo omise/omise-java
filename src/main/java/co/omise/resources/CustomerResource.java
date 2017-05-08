@@ -32,11 +32,11 @@ public class CustomerResource extends Resource {
         return httpGet(urlFor(customerId)).returns(Customer.class);
     }
 
-    public Customer create(Customer.CustomerParams params) throws IOException, OmiseException {
+    public Customer create(Customer.Params params) throws IOException, OmiseException {
         return httpPost(urlFor("")).params(params).returns(Customer.class);
     }
 
-    public Customer update(String customerId, Customer.CustomerParams params) throws IOException, OmiseException {
+    public Customer update(String customerId, Customer.Params params) throws IOException, OmiseException {
         return httpPatch(urlFor(customerId)).params(params).returns(Customer.class);
     }
 
