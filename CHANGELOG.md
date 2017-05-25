@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+# v2.5.1
+
+* **NEW:** New `metadata` for Charge and Customer objects.
+
 # v2.5.0
 
 * **CHANGED:** Library now sends parameters using JSON encoding so that we can more easily
