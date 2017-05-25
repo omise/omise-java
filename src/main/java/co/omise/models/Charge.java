@@ -1,6 +1,9 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Maps;
+
+import java.util.Map;
 
 /**
  * Represents Omise Charge object.
@@ -12,6 +15,7 @@ public class Charge extends Model {
     private long amount;
     private String currency;
     private String description;
+    private Map<String, Object> metadata;
     private boolean capture;
     private boolean authorized;
     private boolean reversed;
@@ -65,6 +69,14 @@ public class Charge extends Model {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 
     public boolean isCapture() {
@@ -215,6 +227,8 @@ public class Charge extends Model {
         @JsonProperty
         private String description;
         @JsonProperty
+        private Map<String, Object> metadata;
+        @JsonProperty
         private Boolean capture;
         @JsonProperty
         private OffsiteTypes offsite;
@@ -246,6 +260,21 @@ public class Charge extends Model {
             return this;
         }
 
+        public Create metadata(Map<String, Object> metadata) {
+            // TODO: We should probably do an immutable copy here.
+            this.metadata = metadata;
+            return this;
+        }
+
+        public Create metadata(String key, Object value) {
+            if (this.metadata == null) {
+                this.metadata = Maps.newHashMap();
+            }
+
+            this.metadata.put(key, value);
+            return this;
+        }
+
         public Create capture(Boolean capture) {
             this.capture = capture;
             return this;
@@ -265,9 +294,26 @@ public class Charge extends Model {
     public static class Update extends Params {
         @JsonProperty
         private String description;
+        @JsonProperty
+        private Map<String, Object> metadata;
 
         public Update description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Update metadata(Map<String, Object> metadata) {
+            // TODO: We should probably do an immutable copy here.
+            this.metadata = metadata;
+            return this;
+        }
+
+        public Update metadata(String key, Object value) {
+            if (this.metadata == null) {
+                this.metadata = Maps.newHashMap();
+            }
+
+            this.metadata.put(key, value);
             return this;
         }
     }

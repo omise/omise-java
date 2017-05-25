@@ -1,6 +1,9 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Maps;
+
+import java.util.Map;
 
 /**
  * Represents Omise Customer object.
@@ -12,6 +15,7 @@ public class Customer extends Model {
     private String defaultCard;
     private String email;
     private String description;
+    private Map<String, Object> metadata;
     private ScopedList<Card> cards;
 
     public String getDefaultCard() {
@@ -38,6 +42,14 @@ public class Customer extends Model {
         this.description = description;
     }
 
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
     public ScopedList<Card> getCards() {
         return cards;
     }
@@ -52,6 +64,8 @@ public class Customer extends Model {
         @JsonProperty
         private String description;
         @JsonProperty
+        private Map<String, Object> metadata;
+        @JsonProperty
         private String card;
 
         public Params email(String email) {
@@ -61,6 +75,21 @@ public class Customer extends Model {
 
         public Params description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public Params metadata(Map<String, Object> metadata) {
+            // TODO: We should probably do an immutable copy here.
+            this.metadata = metadata;
+            return this;
+        }
+
+        public Params metadata(String key, Object value) {
+            if (this.metadata == null) {
+                this.metadata = Maps.newHashMap();
+            }
+
+            this.metadata.put(key, value);
             return this;
         }
 
