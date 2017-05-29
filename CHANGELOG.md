@@ -2,6 +2,7 @@
 
 # v2.5.2
 
+* **FIXED:** Added missing `TransferScheduling` type.
 * **NEW:** Add `Schedule.charge.description` field.
 * **NEW:** [Forex API](https://www.omise.co/forex-api).
 

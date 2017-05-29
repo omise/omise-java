@@ -24,7 +24,7 @@ public class Schedule extends Model {
     private DateTime endDate;
 
     private ChargeScheduling charge;
-    // TODO: transfer?
+    private TransferScheduling transfer;
 
     private ScopedList<Occurrence> occurrences;
     @JsonProperty("next_occurrences")
@@ -92,6 +92,14 @@ public class Schedule extends Model {
 
     public void setCharge(ChargeScheduling charge) {
         this.charge = charge;
+    }
+
+    public TransferScheduling getTransfer() {
+        return transfer;
+    }
+
+    public void setTransfer(TransferScheduling transfer) {
+        this.transfer = transfer;
     }
 
     public ScopedList<Occurrence> getOccurrences() {
