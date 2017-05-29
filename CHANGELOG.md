@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+# v2.5.2
+
+* **NEW:** Add `Schedule.charge.description` field.
+* **NEW:** [Forex API](https://www.omise.co/forex-api).
+
 # v2.5.1
 
 * **NEW:** New `metadata` for Charge and Customer objects.

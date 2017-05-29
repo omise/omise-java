@@ -40,6 +40,7 @@ public class Client {
     private final CustomerResource customers;
     private final DisputeResource disputes;
     private final EventResource events;
+    private final ForexResource forexes;
     private final LinkResource links;
     private final OccurrenceResource occurrences;
     private final RecipientResource recipients;
@@ -95,6 +96,7 @@ public class Client {
         customers = new CustomerResource(httpClient);
         disputes = new DisputeResource(httpClient);
         events = new EventResource(httpClient);
+        forexes = new ForexResource(httpClient);
         links = new LinkResource(httpClient);
         occurrences = new OccurrenceResource(httpClient);
         recipients = new RecipientResource(httpClient);
@@ -257,6 +259,17 @@ public class Client {
      */
     public EventResource events() {
         return events;
+    }
+
+    /**
+     * Returns {@link ForexResource} for accessing the
+     * <a href="https://www.omise.co/forex-api">Forex API</a>
+     *
+     * @return An {@link ForexResource} instance.
+     * @see <a href="https://www.omise.co/forex-api">Forex API</a>
+     */
+    public ForexResource forexes() {
+        return forexes;
     }
 
     /**
