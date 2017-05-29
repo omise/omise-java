@@ -47,6 +47,8 @@ public class ChargeScheduling {
         @JsonProperty
         private String currency;
         @JsonProperty
+        private String description;
+        @JsonProperty
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String customer;
         @JsonProperty
@@ -60,6 +62,11 @@ public class ChargeScheduling {
 
         public Params currency(String currency) {
             this.currency = currency;
+            return this;
+        }
+
+        public Params description(String description) {
+            this.description = description;
             return this;
         }
 
