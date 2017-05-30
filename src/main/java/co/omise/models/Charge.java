@@ -38,6 +38,8 @@ public class Charge extends Model {
     @JsonProperty("authorize_uri")
     private String authorizeUri;
     private OffsiteTypes offsite;
+    @JsonProperty("installment_terms")
+    private int installmentTerms;
 
     public ChargeStatus getStatus() {
         return status;
@@ -215,6 +217,14 @@ public class Charge extends Model {
         this.offsite = offsite;
     }
 
+    public int getInstallmentTerms() {
+        return installmentTerms;
+    }
+
+    public void setInstallmentTerms(int installmentTerms) {
+        this.installmentTerms = installmentTerms;
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private String customer;
@@ -232,6 +242,8 @@ public class Charge extends Model {
         private Boolean capture;
         @JsonProperty
         private OffsiteTypes offsite;
+        @JsonProperty("installment_terms")
+        private int installmentTerms;
         @JsonProperty("return_uri")
         private String returnUri;
 
@@ -277,6 +289,11 @@ public class Charge extends Model {
 
         public Create capture(Boolean capture) {
             this.capture = capture;
+            return this;
+        }
+
+        public Create installmentTerms(int terms) {
+            this.installmentTerms = terms;
             return this;
         }
 
