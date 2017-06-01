@@ -6,6 +6,7 @@
 * **NEW:** Add `Schedule.charge.description` field.
 * **NEW:** [Forex API](https://www.omise.co/forex-api).
 * **NEW:** [Installments](https://www.omise.co/installment-payment).
+* **NEW:** Support for fail-fast transfers.
 
 # v2.5.1
 

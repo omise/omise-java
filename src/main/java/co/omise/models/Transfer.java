@@ -16,6 +16,8 @@ public class Transfer extends Model {
     private long fee;
     private long amount;
     private String currency;
+    @JsonProperty("fail_fast")
+    private boolean failFast;
     @JsonProperty("failure_code")
     private String failureCode;
     @JsonProperty("failure_message")
@@ -78,6 +80,14 @@ public class Transfer extends Model {
         this.currency = currency;
     }
 
+    public boolean failFast() {
+        return failFast;
+    }
+
+    public void setFailFast(boolean failFast) {
+        this.failFast = failFast;
+    }
+
     public String getFailureCode() {
         return failureCode;
     }
@@ -107,6 +117,8 @@ public class Transfer extends Model {
         private long amount;
         @JsonProperty
         private String recipient;
+        @JsonProperty("fail_fast")
+        private boolean failFast;
 
         public Create amount(long amount) {
             this.amount = amount;
@@ -115,6 +127,11 @@ public class Transfer extends Model {
 
         public Create recipient(String recipient) {
             this.recipient = recipient;
+            return this;
+        }
+
+        public Create failFast(boolean failFast) {
+            this.failFast = failFast;
             return this;
         }
     }
