@@ -243,7 +243,7 @@ public class Charge extends Model {
         @JsonProperty
         private OffsiteTypes offsite;
         @JsonProperty("installment_terms")
-        private int installmentTerms;
+        private Integer installmentTerms;
         @JsonProperty("return_uri")
         private String returnUri;
 
@@ -292,7 +292,7 @@ public class Charge extends Model {
             return this;
         }
 
-        public Create installmentTerms(int terms) {
+        public Create installmentTerms(Integer terms) {
             this.installmentTerms = terms;
             return this;
         }

@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+# v2.5.3
+
+* **FIXED:** `installment_terms` are sent as `0` when not set. The field is now a boxed
+  `Integer` so it defaults to `null` instead.
+
 # v2.5.2
 
 * **FIXED:** Added missing `TransferScheduling` type.

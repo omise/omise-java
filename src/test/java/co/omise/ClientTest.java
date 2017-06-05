@@ -94,10 +94,16 @@ public class ClientTest extends OmiseTest {
                         .expiration(10, 2020)));
 
         Charge charge = client.charges().create(new Charge.Create()
-                .amount(200000) // 2,000 THB
-                .currency("thb")
+                .amount(2000) // $20
+                .currency("usd")
                 .description("omise-java test")
                 .card(token.getId()));
+
+        charge = client.charges().update(charge.getId(), new Charge.Update()
+                .description("omise-java test charge")
+                .metadata("test-date", DateTime.now().toString())
+                .metadata("library", "omise-java")
+        );
 
         System.out.println("created charge: " + charge.getId());
     }
