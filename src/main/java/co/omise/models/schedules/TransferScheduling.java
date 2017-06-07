@@ -1,5 +1,6 @@
 package co.omise.models.schedules;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TransferScheduling {
@@ -30,5 +31,30 @@ public class TransferScheduling {
 
     public void setPercentageOfBalance(float percentageOfBalance) {
         this.percentageOfBalance = percentageOfBalance;
+    }
+
+    public static class Params extends co.omise.models.Params {
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Long amount;
+        @JsonProperty("precentage_of_balance")
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Float percentageOfBalance;
+        @JsonProperty
+        private String recipient;
+
+        public Params amount(Long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public Params percentageOfBalance(Float percent) {
+            this.percentageOfBalance = percent;
+            return this;
+        }
+
+        public Params recipient(String recipient) {
+            this.recipient = recipient;
+            return this;
+        }
     }
 }

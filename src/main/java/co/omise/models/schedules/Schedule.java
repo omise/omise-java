@@ -129,6 +129,8 @@ public class Schedule extends Model {
         private DateTime endDate;
         @JsonProperty
         private ChargeScheduling.Params charge;
+        @JsonProperty
+        private TransferScheduling.Params transfer;
 
         public Create every(int units) {
             this.every = units;

@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+# v2.5.4
+
+* **NEW:** Transfer schedule APIs.
+* **FIXED:** There is no `currency` field on TransferScheduling, it has been removed.
+
 # v2.5.3
 
 * **FIXED:** `installment_terms` are sent as `0` when not set. The field is now a boxed
