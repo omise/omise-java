@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class TransferScheduling {
     private String recipient;
     private long amount;
-    private String currency;
     @JsonProperty("percentage_of_balance")
     private float percentageOfBalance;
 
@@ -24,15 +23,7 @@ public class TransferScheduling {
     public void setAmount(long amount) {
         this.amount = amount;
     }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
+   
     public float getPercentageOfBalance() {
         return percentageOfBalance;
     }
