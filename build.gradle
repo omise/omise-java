@@ -5,7 +5,7 @@ apply plugin: 'signing'
 apply plugin: "com.github.johnrengelman.shadow"
 
 group 'co.omise'
-version '2.5.3'
+version '2.5.4'
 
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
