@@ -2,7 +2,8 @@ apply plugin: 'java'
 apply plugin: 'java-library-distribution'
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'com.github.ben-manes.versions'
 
 group 'co.omise'
 version '2.5.4'
@@ -23,6 +24,7 @@ buildscript {
 
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
     }
 }
 
