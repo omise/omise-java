@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+# v2.5.5
+
+* **NEW:** Receipts API.
+
 # v2.5.4
 
 * **NEW:** Transfer schedule APIs.

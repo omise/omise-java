@@ -43,6 +43,7 @@ public class Client {
     private final ForexResource forexes;
     private final LinkResource links;
     private final OccurrenceResource occurrences;
+    private final ReceiptResource receipts;
     private final RecipientResource recipients;
     private final ScheduleResource schedules;
     private final TokenResource tokens;
@@ -99,6 +100,7 @@ public class Client {
         forexes = new ForexResource(httpClient);
         links = new LinkResource(httpClient);
         occurrences = new OccurrenceResource(httpClient);
+        receipts = new ReceiptResource(httpClient);
         recipients = new RecipientResource(httpClient);
         schedules = new ScheduleResource(httpClient);
         tokens = new TokenResource(httpClient);
@@ -292,6 +294,17 @@ public class Client {
      */
     public OccurrenceResource occurrences() {
         return occurrences;
+    }
+
+    /**
+     * Returns {@link ReceiptResource} for accessing the
+     * <a href="https://www.omise.co/receipts-api">Receipts API</a>
+     *
+     * @return A {@link ReceiptResource} instance.
+     * @see <a href="https://ww.omise.co/receipts-api">Receipts API</a>
+     */
+    public ReceiptResource receipts() {
+        return receipts;
     }
 
     /**
