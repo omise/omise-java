@@ -23,7 +23,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
     }
 }
@@ -113,12 +113,12 @@ shadowJar {
 dependencies {
     // base
     compile 'joda-time:joda-time:2.9.9'
-    compile 'com.google.guava:guava:22.0'
+    compile 'com.google.guava:guava:23.0'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.9'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.9'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.8.9'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.0'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.9.0'
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.8.1'

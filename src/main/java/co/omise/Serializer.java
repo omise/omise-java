@@ -57,13 +57,13 @@ public final class Serializer {
                 .registerModule(new GuavaModule())
                 .registerModule(new JodaModule()
                         .addSerializer(DateTime.class, new DateTimeSerializer()
-                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
+                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter), 0)
                         )
                 )
 
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false);
+                .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false); // TODO: Deprecate in vNext
     }
 
     /**
