@@ -71,11 +71,27 @@ final class Example {
     }
 
     void chargeWithToken() throws IOException, OmiseException, ClientException {
+        Token token = client().tokens()
+                .create(new Token.Create()
+                        .card(new Card.Create()
+                                .name("Somchai Prasert")
+                                .number("4242424242424242")
+                                .expirationMonth(10)
+                                .expirationYear(2018)
+                                .city("Bangkok")
+                                .postalCode("10320")
+                                .securityCode("123")
+                        )
+                );
+
+        System.out.println("created token: " + token.getId());
+
         Charge charge = client().charges()
                 .create(new Charge.Create()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
-                        .card("tokn_test_4xs9408a642a1htto8z"));
+                        .card(token.getId()));
+
         System.out.printf("created charge: %s", charge.getId());
     }
 
