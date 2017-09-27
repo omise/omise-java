@@ -1,6 +1,8 @@
 machine:
   java:
     version: openjdk7
+dependencies:
+  - wget "https://services.gradle.org/distributions/gradle-4.1-bin.zip"; unzip gradle-4.1-bin.zip
 test:
   overide:
     - ./gradlew test
