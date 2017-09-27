@@ -147,7 +147,6 @@ public class Client {
                 .addInterceptor(new Configurer(config))
                 .connectionSpecs(Collections.singletonList(spec))
                 .readTimeout(60, TimeUnit.SECONDS)
-                .certificatePinner(pinner.build())
                 .build();
     }
 
