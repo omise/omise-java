@@ -57,7 +57,7 @@ public final class Serializer {
                 .registerModule(new GuavaModule())
                 .registerModule(new JodaModule()
                         .addSerializer(DateTime.class, new DateTimeSerializer()
-                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter), 0)
+                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
                         )
                 )
 
