@@ -1,3 +1,12 @@
 machine:
   java:
     version: openjdk7
+dependencies:
+  pre:
+    - wget "https://services.gradle.org/distributions/gradle-4.1-bin.zip"; unzip gradle-4.1-bin.zip
+test:
+  overide:
+    - ./gradlew test
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
