@@ -1,7 +1,8 @@
 # CHANGE LOG
 
-# v2.5.5
+# v2.6.0
 
+* **REMOVED:** Certificate pinning.
 * **NEW:** Receipts API.
 
 # v2.5.4
