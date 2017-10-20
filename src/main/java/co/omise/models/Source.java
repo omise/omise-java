@@ -11,6 +11,8 @@ public class Source extends Model {
     private String barcode;
     @JsonProperty("invoice_id")
     private String invoiceId;
+    @JsonProperty("references")
+    private Reference reference;
 
     public String getType() {
         return type;
@@ -60,11 +62,23 @@ public class Source extends Model {
         this.invoiceId = invoiceId;
     }
 
+    public Reference getReference() {
+        return reference;
+    }
+
+    public void setReference(Reference reference) {
+        this.reference = reference;
+    }
+
     public static class Create extends Params {
 
+        @JsonProperty
         private long amount;
+        @JsonProperty
         private String currency;
+        @JsonProperty
         private String type;
+        @JsonProperty
         private String barcode;
         @JsonProperty("invoice_id")
         private String invoiceId;
