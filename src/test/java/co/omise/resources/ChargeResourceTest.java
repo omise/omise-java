@@ -47,6 +47,20 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
+    public void testCreateChargeFromSource() throws IOException, OmiseException {
+        Charge charge = resource().create(new Charge.Create()
+                .source("src_test_5929boxipb803ak7o06")
+                .amount(100000)
+                .currency("thb")
+                .returnUri("http://example.com/orders/345678/complete"));
+        assertRequested("POST", "/charges", 200);
+
+        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq",charge.getId());
+        assertEquals("src_test_5929boxipb803ak7o06", charge.getSource().getId());
+        assertEquals(100000L, charge.getAmount());
+    }
+
+    @Test
     public void testUpdate() throws IOException, OmiseException {
         Charge charge = resource().update(CHARGE_ID, new Charge.Update()
                 .description("Charge for order 3947 (XXL)"));
