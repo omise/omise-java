@@ -49,6 +49,7 @@ public class Client {
     private final TokenResource tokens;
     private final TransactionResource transactions;
     private final TransferResource transfers;
+    private final SourceResource sources;
 
     /**
      * Creates a Client with just the secret key. Always use this constructor to avoid transmitting any card data
@@ -59,36 +60,23 @@ public class Client {
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      */
     public Client(String secretKey) throws ClientException {
-        this(null, null, secretKey);
-    }
-
-    /**
-     * Creates a Client with both the secret key and public key.
-     *
-     * @param publicKey The key with {@code pkey_} prefix.
-     * @param secretKey The key with {@code skey_} prefix.
-     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
-     */
-    public Client(String publicKey, String secretKey) throws ClientException {
-        this(null, publicKey, secretKey);
+        this(null, secretKey);
     }
 
     /**
      * Creates a Client that sends the specified API version string in the header to access an earlier version
      * of the Omise API.
      *
-     * @param apiVersion API version string that will be sent in {@code Omise-Version} header.
      * @param publicKey  The key with {@code pkey_} prefix.
      * @param secretKey  The key with {@code skey_} prefix.
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
-    public Client(String apiVersion, String publicKey, String secretKey) throws ClientException {
+    public Client(String publicKey, String secretKey) throws ClientException {
         Preconditions.checkNotNull(secretKey);
 
-        config = new Config(apiVersion, publicKey, secretKey);
+        config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
         account = new AccountResource(httpClient);
@@ -106,6 +94,7 @@ public class Client {
         tokens = new TokenResource(httpClient);
         transactions = new TransactionResource(httpClient);
         transfers = new TransferResource(httpClient);
+        sources = new SourceResource(httpClient);
     }
 
     /**
@@ -378,5 +367,16 @@ public class Client {
      */
     public TransferResource transfers() {
         return transfers;
+    }
+
+    /**
+     * Returns {@link SourceResource} for accessing the
+     * <a href="https://www.omise.co/sources-api">Sources API</a>
+     *
+     * @return A {@link SourceResource} instance.
+     * @see <a href="https://www.omise.co/sources-api">Sources API</a>
+     */
+    public SourceResource sources() {
+        return sources;
     }
 }

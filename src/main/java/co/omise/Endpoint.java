@@ -56,6 +56,8 @@ public abstract class Endpoint {
                     .put(API.host(), API)
                     .build();
 
+    public static final String API_VERSION = "2084-09-05";
+
     /**
      * The scheme to use, defaults to HTTPS.
      *
