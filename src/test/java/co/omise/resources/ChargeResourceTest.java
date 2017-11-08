@@ -56,7 +56,7 @@ public class ChargeResourceTest extends ResourceTest {
         assertRequested("POST", "/charges", 200);
 
         assertEquals("chrg_test_4yq7duw15p9hdrjp8oq",charge.getId());
-        assertEquals("src_test_5929boxipb803ak7o06", charge.getSource().getId());
+        assertEquals("src_test_5929c3tjts3omoi7ti2", charge.getSource().getId());
         assertEquals(100000L, charge.getAmount());
     }
 

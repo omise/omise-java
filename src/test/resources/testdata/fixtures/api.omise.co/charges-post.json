@@ -47,6 +47,14 @@
   },
   "customer": "cust_test_4yq6txdpfadhbaqnwp3",
   "ip": null,
-  "created": "2015-01-15T05:00:29Z",
-  "dispute": null
+  "dispute": null,
+  "created": "2016-07-14T07:09:08Z",
+  "source": {
+    "object": "source",
+    "id": "src_test_5929c3tjts3omoi7ti2",
+    "type": "internet_banking_scb",
+    "flow": "redirect",
+    "amount": 100000,
+    "currency": "thb"
+  }
 }

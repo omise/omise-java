@@ -12,14 +12,11 @@ import java.io.IOException;
 public class ClientTest extends OmiseTest {
     private static final String LIVETEST_PKEY = "pkey_test_replaceme";
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
+    private static final String LIVETEST_CUST = "cust_test_replaceme";
 
-    @Test
-    public void testCtor() throws ClientException {
-        try {
-            new Client(null);
-            fail("exception expected");
-        } catch (NullPointerException e) {
-        }
+    @Test(expected = NullPointerException.class)
+    public void testCreator() throws ClientException {
+        new Client(null);
     }
 
     @Test
@@ -42,7 +39,7 @@ public class ClientTest extends OmiseTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveTransfer() throws ClientException, IOException, OmiseException {
-        Client client = new Client("pkey_test_55m9sc46dt7wequrp3j", "skey_test_55m9sazu79b5ir95ced");
+        Client client = new Client(LIVETEST_PKEY, LIVETEST_SKEY);
         Recipient recipient = client.recipients().create(new Recipient.Create()
                 .name("Omise-Java Recipient")
                 .email("support@omise.co")
@@ -73,7 +70,7 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveCard() throws ClientException, IOException, OmiseException {
         ScopedList<Card> list = liveTestClient()
-                .customer("cust_test_5665swqhhb3mioax1y7")
+                .customer(LIVETEST_CUST)
                 .cards()
                 .list();
 
@@ -175,14 +172,14 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveSourceBillPayment() throws ClientException, IOException, OmiseException {
         Source source = liveTestClient().sources().create(new Source.Create()
-                .type("tesco_lotus")
+                .type("bill_payment_tesco_lotus")
                 .amount(10000)
                 .currency("thb"));
 
         System.out.println("created source: " + source.getId());
 
         assertNotNull(source.getId());
-        assertEquals("tesco_lotus", source.getType());
+        assertEquals("bill_payment_tesco_lotus", source.getType());
         assertEquals("offline", source.getFlow());
         assertEquals(10000L, source.getAmount());
         assertEquals("thb", source.getCurrency());
@@ -209,14 +206,14 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveSourceVirtualAccount() throws ClientException, IOException, OmiseException {
         Source source = liveTestClient().sources().create(new Source.Create()
-                .type("virtual_account_sinarmas")
+                .type("bill_payment_virtual_account_sinarmas")
                 .amount(1100000)
                 .currency("idr"));
 
         System.out.println("created source: " + source.getId());
 
         assertNotNull(source.getId());
-        assertEquals("virtual_account_sinarmas", source.getType());
+        assertEquals("bill_payment_virtual_account_sinarmas", source.getType());
         assertEquals("offline", source.getFlow());
         assertEquals(1100000L, source.getAmount());
         assertEquals("idr", source.getCurrency());
