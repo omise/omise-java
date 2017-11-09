@@ -2,31 +2,35 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * Represents Omise Source object.
+ *
+ * @see <a href="https://www.omise.co/source-api">Source API</a>
+ */
 public class Source extends Model {
 
-    private String type;
-    private String flow;
+    private SourceType type;
+    private FlowType flow;
     private long amount;
     private String currency;
     private String barcode;
     @JsonProperty("invoice_id")
     private String invoiceId;
-    @JsonProperty("references")
-    private Reference reference;
+    private References references;
 
-    public String getType() {
+    public SourceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(SourceType type) {
         this.type = type;
     }
 
-    public String getFlow() {
+    public FlowType getFlow() {
         return flow;
     }
 
-    public void setFlow(String flow) {
+    public void setFlow(FlowType flow) {
         this.flow = flow;
     }
 
@@ -62,12 +66,12 @@ public class Source extends Model {
         this.invoiceId = invoiceId;
     }
 
-    public Reference getReference() {
-        return reference;
+    public References getReferences() {
+        return references;
     }
 
-    public void setReference(Reference reference) {
-        this.reference = reference;
+    public void setReferences(References references) {
+        this.references = references;
     }
 
     public static class Create extends Params {
@@ -77,7 +81,7 @@ public class Source extends Model {
         @JsonProperty
         private String currency;
         @JsonProperty
-        private String type;
+        private SourceType type;
         @JsonProperty
         private String barcode;
         @JsonProperty("invoice_id")
@@ -93,7 +97,7 @@ public class Source extends Model {
             return this;
         }
 
-        public Create type(String type) {
+        public Create type(SourceType type) {
             this.type = type;
             return this;
         }
