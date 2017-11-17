@@ -40,6 +40,7 @@ public class Charge extends Model {
     private OffsiteTypes offsite;
     @JsonProperty("installment_terms")
     private int installmentTerms;
+    private Source source;
 
     public ChargeStatus getStatus() {
         return status;
@@ -225,6 +226,14 @@ public class Charge extends Model {
         this.installmentTerms = installmentTerms;
     }
 
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private String customer;
@@ -246,6 +255,8 @@ public class Charge extends Model {
         private Integer installmentTerms;
         @JsonProperty("return_uri")
         private String returnUri;
+        @JsonProperty
+        private String source;
 
         public Create customer(String customer) {
             this.customer = customer;
@@ -304,6 +315,11 @@ public class Charge extends Model {
 
         public Create returnUri(String returnUri) {
             this.returnUri = returnUri;
+            return this;
+        }
+
+        public Create source(String source) {
+            this.source = source;
             return this;
         }
     }
