@@ -52,6 +52,13 @@
   "source": {
     "object": "source",
     "id": "src_test_5929c3tjts3omoi7ti2",
+    "references": {
+      "omise_tax_id": "0105556091152",
+      "reference_number_1": "789164909013218240",
+      "reference_number_2": "437059934205645755",
+      "barcode": "https://api.omise.co/charges/chrg_test_59o3j8ukevxlvj1vo5p/documents/docu_test_59o3j8xlm2n5qew173e/downloads/6B5B4C0F8DE54221",
+      "expires_at": "2017-10-19T06:25:08Z"
+    },
     "type": "internet_banking_scb",
     "flow": "redirect",
     "amount": 100000,
