@@ -3,7 +3,7 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 
-public class References extends Model {
+public class References {
 
     @JsonProperty("va_code")
     private String vaCode;
