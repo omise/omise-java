@@ -102,7 +102,25 @@ uploadArchives {
     }
 }
 
+/**
+ * {@link Package#getImplementationVersion()} on IDE will alway return `null`
+ * because this method read data from `META-INF/MANIFEST.MF` that contain in `.jar`.
+ * If need to check it, you have to run directly to `.jar` will return correct value.
+ *
+ * Run `gradle shadowJar` and `unzip -p build/libs/omise-java-2.7.0-all.jar META-INF/MANIFEST.MF`
+ * will return attributes in manifest file.
+ */
+jar {
+    manifest {
+        attributes 'Implementation-Version': version
+    }
+}
+
 shadowJar {
+    // Include all manifest from jar to shadowJar
+    manifest {
+        inheritFrom jar.manifest
+    }
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
     relocate 'org.joda.time', 'co.omise.dependencies.org.joda.time'
