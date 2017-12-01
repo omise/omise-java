@@ -101,8 +101,15 @@ uploadArchives {
         }
     }
 }
-
+jar {
+    manifest {
+        attributes 'Implementation-Version': version
+    }
+}
 shadowJar {
+    manifest {
+        attributes 'Implementation-Version': version
+    }
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
     relocate 'org.joda.time', 'co.omise.dependencies.org.joda.time'
