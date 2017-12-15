@@ -2,7 +2,7 @@
 
 [![Maven Central][9]][10] [![Circle CI][0]][1] [![Discourse Forum][14]][15]
 
-This library has been updated to v2.5, check the [v1 branch][4] for the previous version.
+This library has been updated to v2.7.2, check the [v1 branch][4] for the previous version.
 
 Omise-java provides a set of Java bindings to the [Omise REST API][5].  Please contact
  [support@omise.co][7] if you have any questions regarding this
@@ -23,7 +23,7 @@ Adds to your `build.gradle` file.
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:2.5.4'
+    compile 'co.omise:omise-java:2.7.2'
 }
 ```
 
@@ -48,7 +48,7 @@ $ gradle shadowJar
 BUILD SUCCESSFUL
 
 $ ls builds/libs
-omise-java-2.5.4-all.jar
+omise-java-2.7.2-all.jar
 ```
 
 # USAGE

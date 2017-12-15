@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+# v2.7.2
+
+* **FIXED:** Add missing `ChargeStatus.Expired` status.
+
+# v.2.7.1
+
+* **FIXED:** `omise-java` version sent `null` to User-Agent. Add manifest to sent correctly implementation version.
+
+# v.2.7.0
+
+* **NEW:** Support `source-api`.
+
 # v2.6.0
 
 * **REMOVED:** Certificate pinning.
