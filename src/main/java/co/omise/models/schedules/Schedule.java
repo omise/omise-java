@@ -6,6 +6,8 @@ import co.omise.models.ScopedList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
+import java.util.List;
+
 /**
  * Represents Omise Schedule object.
  *
@@ -29,6 +31,9 @@ public class Schedule extends Model {
     private ScopedList<Occurrence> occurrences;
     @JsonProperty("next_occurrences")
     private ScopedList<Occurrence> nextOccurrences;
+
+    @JsonProperty("next_occurrence_dates")
+    private List<String> nextOccurrenceDates;
 
     public ScheduleStatus getStatus() {
         return status;
@@ -118,6 +123,10 @@ public class Schedule extends Model {
         this.nextOccurrences = nextOccurrences;
     }
 
+    public List<String> getNextOccurrenceDates() { return this.nextOccurrenceDates; }
+
+    public void setNextOccurrenceDates(List<String> nextOccurrenceDates) { this.nextOccurrenceDates = nextOccurrenceDates; }
+
     public static class Create extends Params {
         @JsonProperty
         private int every;
@@ -125,6 +134,8 @@ public class Schedule extends Model {
         private SchedulePeriod period;
         @JsonProperty
         private ScheduleOn.Params on;
+        @JsonProperty("start_date")
+        private DateTime startDate;
         @JsonProperty("end_date")
         private DateTime endDate;
         @JsonProperty
@@ -139,6 +150,11 @@ public class Schedule extends Model {
 
         public Create period(SchedulePeriod period) {
             this.period = period;
+            return this;
+        }
+
+        public Create startDate(DateTime startDate) {
+            this.startDate = startDate;
             return this;
         }
 
