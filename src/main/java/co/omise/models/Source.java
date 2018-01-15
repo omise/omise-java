@@ -86,6 +86,12 @@ public class Source extends Model {
         private String barcode;
         @JsonProperty("invoice_id")
         private String invoiceId;
+        @JsonProperty("store_id")
+        private String storeId;
+        @JsonProperty("store_name")
+        private String storeName;
+        @JsonProperty("terminal_id")
+        private String terminalId;
 
         public Create amount(long amount) {
             this.amount = amount;
@@ -109,6 +115,21 @@ public class Source extends Model {
 
         public Create invoiceId(String invoiceId) {
             this.invoiceId = invoiceId;
+            return this;
+        }
+
+        public Create storeId(String storeId) {
+            this.storeId = storeId;
+            return this;
+        }
+
+        public Create storeName(String storeName) {
+            this.storeName = storeName;
+            return this;
+        }
+
+        public Create terminalId(String terminalId) {
+            this.terminalId = terminalId;
             return this;
         }
     }
