@@ -5,6 +5,7 @@ import co.omise.models.Params;
 import co.omise.models.ScopedList;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class Schedule extends Model {
     private ScopedList<Occurrence> nextOccurrences;
 
     @JsonProperty("next_occurrence_dates")
-    private List<String> nextOccurrenceDates;
+    private List<LocalDate> nextOccurrenceDates;
 
     public ScheduleStatus getStatus() {
         return status;
@@ -123,7 +124,7 @@ public class Schedule extends Model {
         this.nextOccurrences = nextOccurrences;
     }
 
-    public List<String> getNextOccurrenceDates() { return this.nextOccurrenceDates; }
+    public List<LocalDate> getNextOccurrenceDates() { return this.nextOccurrenceDates; }
 
     public void setNextOccurrenceDates(List<String> nextOccurrenceDates) { this.nextOccurrenceDates = nextOccurrenceDates; }
 
