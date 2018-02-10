@@ -353,6 +353,32 @@ public class ClientTest extends OmiseTest {
         assertNotNull(charge.getSource().getReferences());
     }
 
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceWalletAlipay() throws ClientException, IOException, OmiseException {
+        Source source = liveTestClient().sources().create(new Source.Create()
+                .type(SourceType.WalletAlipay)
+                .amount(200000)
+                .currency("thb")
+                .description("wallet alipay charge")
+                .barcode("1234567890")
+                .storeId("store_1")
+                .storeName("store 1")
+                .terminalId("POS-01"));
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("wallet_alipay", source.getType().toString());
+        assertEquals("offline", source.getFlow().toString());
+        assertEquals(200000, source.getAmount());
+        assertEquals("thb", source.getCurrency());
+        assertEquals("1234567890", source.getBarcode());
+        assertEquals("store_1", source.getStoreId());
+        assertEquals("store 1", source.getStoreId());
+        assertEquals("POS-01", source.getTerminalId());
+    }
+
     private Client liveTestClient() throws ClientException {
         return new Client(LIVETEST_PKEY, LIVETEST_SKEY);
     }

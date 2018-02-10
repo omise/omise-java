@@ -14,9 +14,13 @@ public class Source extends Model {
     private long amount;
     private String currency;
     private String barcode;
-    @JsonProperty("invoice_id")
-    private String invoiceId;
     private References references;
+    @JsonProperty("store_id")
+    private String storeId;
+    @JsonProperty("store_name")
+    private String storeName;
+    @JsonProperty("terminal_id")
+    private String terminalId;
 
     public SourceType getType() {
         return type;
@@ -58,20 +62,36 @@ public class Source extends Model {
         this.barcode = barcode;
     }
 
-    public String getInvoiceId() {
-        return invoiceId;
-    }
-
-    public void setInvoiceId(String invoiceId) {
-        this.invoiceId = invoiceId;
-    }
-
     public References getReferences() {
         return references;
     }
 
     public void setReferences(References references) {
         this.references = references;
+    }
+
+    public String getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public String getTerminalId() {
+        return terminalId;
+    }
+
+    public void setTerminalId(String terminalId) {
+        this.terminalId = terminalId;
     }
 
     public static class Create extends Params {
@@ -83,9 +103,9 @@ public class Source extends Model {
         @JsonProperty
         private SourceType type;
         @JsonProperty
+        private String description;
+        @JsonProperty
         private String barcode;
-        @JsonProperty("invoice_id")
-        private String invoiceId;
         @JsonProperty("store_id")
         private String storeId;
         @JsonProperty("store_name")
@@ -108,13 +128,13 @@ public class Source extends Model {
             return this;
         }
 
-        public Create barcode(String barcode) {
-            this.barcode = barcode;
+        public Create description(String description) {
+            this.description = description;
             return this;
         }
 
-        public Create invoiceId(String invoiceId) {
-            this.invoiceId = invoiceId;
+        public Create barcode(String barcode) {
+            this.barcode = barcode;
             return this;
         }
 
