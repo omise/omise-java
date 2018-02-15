@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+# v2.7.3
+
+* **NEW:** Add source's fields to support create source of Alipay Wallet.
+
 # v2.7.2
 
 * **FIXED:** Add missing `ChargeStatus.Expired` status.
