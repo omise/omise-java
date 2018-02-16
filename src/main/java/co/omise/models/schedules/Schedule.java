@@ -126,7 +126,7 @@ public class Schedule extends Model {
 
     public List<LocalDate> getNextOccurrenceDates() { return this.nextOccurrenceDates; }
 
-    public void setNextOccurrenceDates(List<String> nextOccurrenceDates) { this.nextOccurrenceDates = nextOccurrenceDates; }
+    public void setNextOccurrenceDates(List<LocalDate> nextOccurrenceDates) { this.nextOccurrenceDates = nextOccurrenceDates; }
 
     public static class Create extends Params {
         @JsonProperty
