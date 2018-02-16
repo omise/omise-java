@@ -11,7 +11,9 @@ import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
+import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
@@ -49,15 +51,20 @@ public final class Serializer {
 
     private final ObjectMapper objectMapper;
     private final DateTimeFormatter dateTimeFormatter;
+    private final DateTimeFormatter localDateFormatter;
 
     private Serializer() {
         dateTimeFormatter = ISODateTimeFormat.dateTimeNoMillis();
+        localDateFormatter = ISODateTimeFormat.date();
 
         objectMapper = new ObjectMapper()
                 .registerModule(new GuavaModule())
                 .registerModule(new JodaModule()
                         .addSerializer(DateTime.class, new DateTimeSerializer()
                                 .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
+                        )
+                        .addSerializer(LocalDate.class, new LocalDateSerializer()
+                                .withFormat(new JacksonJodaDateFormat(localDateFormatter))
                         )
                 )
 
@@ -84,6 +91,16 @@ public final class Serializer {
      */
     public DateTimeFormatter dateTimeFormatter() {
         return dateTimeFormatter;
+    }
+
+    /**
+     * Returns the pre-configured {@link DateTimeFormatter} used for
+     * serializing and deserializing date for Omise API objects.
+     *
+     * @return A {@link DateTimeFormatter} instance.
+     */
+    public DateTimeFormatter localDateFormatter() {
+        return localDateFormatter;
     }
 
     /**
