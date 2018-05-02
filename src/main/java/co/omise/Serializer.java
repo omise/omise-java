@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
 import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
+import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
@@ -67,6 +68,7 @@ public final class Serializer {
                                 .withFormat(new JacksonJodaDateFormat(localDateFormatter))
                         )
                 )
+                .registerModule(new KotlinModule())
 
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
