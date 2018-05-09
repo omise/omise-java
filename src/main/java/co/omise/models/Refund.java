@@ -2,6 +2,8 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 /**
  * Represents Omise Refund object.
  *
@@ -12,6 +14,7 @@ public class Refund extends Model {
     private String currency;
     private String charge;
     private String transaction;
+    private Map<String, Object> metadata;
 
     public long getAmount() {
         return amount;
@@ -45,12 +48,27 @@ public class Refund extends Model {
         this.transaction = transaction;
     }
 
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private long amount;
+        @JsonProperty
+        private Map<String, Object> metadata;
 
         public Create amount(long amount) {
             this.amount = amount;
+            return this;
+        }
+
+        public Create metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
             return this;
         }
     }

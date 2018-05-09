@@ -15,6 +15,7 @@ public class ClientTest extends OmiseTest {
     private static final String LIVETEST_PKEY = "pkey_test_replaceme";
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
     private static final String LIVETEST_CUST = "cust_test_replaceme";
+    private static final String LIVETEST_REFUND = "chrg_test_replaceme";
 
     @Test(expected = NullPointerException.class)
     public void testCreator() throws ClientException {
@@ -383,6 +384,20 @@ public class ClientTest extends OmiseTest {
         assertEquals("store_1", source.getStoreId());
         assertEquals("store 1", source.getStoreId());
         assertEquals("POS-01", source.getTerminalId());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRefund() throws ClientException, IOException, OmiseException {
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
+        Refund refund = liveTestClient().charge(LIVETEST_REFUND).refunds().create(new Refund.Create().amount(10000L).metadata(metadata));
+
+        System.out.println("created refund: " + refund.getId());
+
+        assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
+        assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
     }
 
     private Client liveTestClient() throws ClientException {
