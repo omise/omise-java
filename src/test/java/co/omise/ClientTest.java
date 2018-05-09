@@ -8,6 +8,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientTest extends OmiseTest {
     private static final String LIVETEST_PKEY = "pkey_test_replaceme";
@@ -40,6 +42,9 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveTransfer() throws ClientException, IOException, OmiseException {
         Client client = new Client(LIVETEST_PKEY, LIVETEST_SKEY);
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
         Recipient recipient = client.recipients().create(new Recipient.Create()
                 .name("Omise-Java Recipient")
                 .email("support@omise.co")
@@ -52,7 +57,8 @@ public class ClientTest extends OmiseTest {
 
         Transfer transfer = client.transfers().create(new Transfer.Create()
                 .recipient(recipient.getId())
-                .amount(10000));
+                .amount(10000)
+                .metadata(metadata));
         System.out.println("created transfer: " + transfer.getId());
     }
 
