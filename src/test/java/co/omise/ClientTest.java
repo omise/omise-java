@@ -16,6 +16,7 @@ public class ClientTest extends OmiseTest {
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
     private static final String LIVETEST_CUST = "cust_test_replaceme";
     private static final String LIVETEST_REFUND = "chrg_test_replaceme";
+    private static final String LIVETEST_DIPUTE = "dspt_test_replaceme";
 
     @Test(expected = NullPointerException.class)
     public void testCreator() throws ClientException {
@@ -398,6 +399,19 @@ public class ClientTest extends OmiseTest {
 
         assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
+    }
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveDispute() throws ClientException, IOException, OmiseException {
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
+        Dispute dispute = liveTestClient().disputes().update(LIVETEST_DIPUTE, new Dispute.Update().message("Proofs and other information...").metadata(metadata));
+
+        System.out.println("updated dispute: " + dispute.getId());
+
+        assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
+        assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
     }
 
     private Client liveTestClient() throws ClientException {
