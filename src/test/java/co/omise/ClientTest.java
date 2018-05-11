@@ -8,11 +8,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ClientTest extends OmiseTest {
     private static final String LIVETEST_PKEY = "pkey_test_replaceme";
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
     private static final String LIVETEST_CUST = "cust_test_replaceme";
+    private static final String LIVETEST_REFUND = "chrg_test_replaceme";
+    private static final String LIVETEST_DIPUTE = "dspt_test_replaceme";
 
     @Test(expected = NullPointerException.class)
     public void testCreator() throws ClientException {
@@ -40,6 +44,9 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveTransfer() throws ClientException, IOException, OmiseException {
         Client client = new Client(LIVETEST_PKEY, LIVETEST_SKEY);
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
         Recipient recipient = client.recipients().create(new Recipient.Create()
                 .name("Omise-Java Recipient")
                 .email("support@omise.co")
@@ -52,7 +59,8 @@ public class ClientTest extends OmiseTest {
 
         Transfer transfer = client.transfers().create(new Transfer.Create()
                 .recipient(recipient.getId())
-                .amount(10000));
+                .amount(10000)
+                .metadata(metadata));
         System.out.println("created transfer: " + transfer.getId());
     }
 
@@ -377,6 +385,33 @@ public class ClientTest extends OmiseTest {
         assertEquals("store_1", source.getStoreId());
         assertEquals("store 1", source.getStoreId());
         assertEquals("POS-01", source.getTerminalId());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRefund() throws ClientException, IOException, OmiseException {
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
+        Refund refund = liveTestClient().charge(LIVETEST_REFUND).refunds().create(new Refund.Create().amount(10000L).metadata(metadata));
+
+        System.out.println("created refund: " + refund.getId());
+
+        assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
+        assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
+    }
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveDispute() throws ClientException, IOException, OmiseException {
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("description", "DESCRIPTION");
+        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
+        Dispute dispute = liveTestClient().disputes().update(LIVETEST_DIPUTE, new Dispute.Update().message("Proofs and other information...").metadata(metadata));
+
+        System.out.println("updated dispute: " + dispute.getId());
+
+        assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
+        assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
     }
 
     private Client liveTestClient() throws ClientException {

@@ -8,5 +8,9 @@
   "status": "open",
   "message": "Your dispute message",
   "charge": "chrg_test_4yq7duw15p9hdrjp8oq",
-  "created": "2015-06-02T10:22:32Z"
+  "created": "2015-06-02T10:22:32Z",
+  "metadata": {
+    "description": "DESCRIPTION",
+    "invoice_id": "inv_N1ayTWJ2FV"
+  }
 }

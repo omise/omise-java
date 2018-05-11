@@ -2,6 +2,8 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 /**
  * Represents Omise Token object.
  *
@@ -23,6 +25,7 @@ public class Transfer extends Model {
     @JsonProperty("failure_message")
     private String failureMessage;
     private String transaction;
+    private Map<String, Object> metadata;
 
     public String getRecipient() {
         return recipient;
@@ -112,6 +115,14 @@ public class Transfer extends Model {
         this.transaction = transaction;
     }
 
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private long amount;
@@ -119,6 +130,8 @@ public class Transfer extends Model {
         private String recipient;
         @JsonProperty("fail_fast")
         private boolean failFast;
+        @JsonProperty
+        private Map<String, Object> metadata;
 
         public Create amount(long amount) {
             this.amount = amount;
@@ -134,14 +147,26 @@ public class Transfer extends Model {
             this.failFast = failFast;
             return this;
         }
+
+        public Create metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
     }
 
     public static class Update extends Params {
         @JsonProperty
         private long amount;
+        @JsonProperty
+        private Map<String, Object> metadata;
 
         public Update amount(long amount) {
             this.amount = amount;
+            return this;
+        }
+
+        public Update metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
             return this;
         }
     }
