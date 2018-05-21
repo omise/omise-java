@@ -2,6 +2,7 @@ package co.omise.staging;
 
 import co.omise.Client;
 import co.omise.models.Account;
+import co.omise.requests.Request;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,7 +19,8 @@ public class StagingAccountTest {
         Client client = new Client(STAGING_PKEY, STAGING_SKEY);
 
         // When
-        Account actualAccount = client.account().get();
+        Request<Account> getAccountRequest =  Account.buildGetRequest().build();
+        Account actualAccount = client.sendRequest(getAccountRequest, Account.class);
 
         // Then
         Assert.assertEquals("natthawut@omise.co", actualAccount.getEmail());
