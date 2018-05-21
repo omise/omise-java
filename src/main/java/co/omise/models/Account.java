@@ -3,7 +3,6 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import okhttp3.HttpUrl;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents Omise Account object and contains its {@link RequestBuilder<Account>}.
@@ -26,7 +25,6 @@ public class Account extends Model {
      *
      * @return the get request builder
      */
-    @NotNull
     public static GetRequestBuilder buildGetRequest() {
         return new GetRequestBuilder();
     }
