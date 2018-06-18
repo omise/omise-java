@@ -15,5 +15,6 @@ public class SourceTypeTest {
         assertEquals("bill_payment_tesco_lotus", SourceType.BillPaymentTescoLotus.toString());
         assertEquals("alipay", SourceType.Alipay.toString());
         assertEquals("virtual_account_sinarmas", SourceType.VirtualAccountSinarmas.toString());
+        assertEquals("barcode_alipay", SourceType.BarcodeAlipay.toString());
     }
 }

@@ -18,8 +18,8 @@ public enum SourceType {
     BillPaymentTescoLotus,
     @JsonProperty("virtual_account_sinarmas")
     VirtualAccountSinarmas,
-    @JsonProperty("wallet_alipay")
-    WalletAlipay;
+    @JsonProperty("barcode_alipay")
+    BarcodeAlipay;
 
     @Override
     public String toString() {
@@ -38,8 +38,8 @@ public enum SourceType {
                 return "alipay";
             case VirtualAccountSinarmas:
                 return "virtual_account_sinarmas";
-            case WalletAlipay:
-                return "wallet_alipay";
+            case BarcodeAlipay:
+                return "barcode_alipay";
             default:
                 return "";
         }

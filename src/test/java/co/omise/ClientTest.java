@@ -363,12 +363,12 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveSourceWalletAlipay() throws ClientException, IOException, OmiseException {
+    public void testLiveSourceBarcodeAlipay() throws ClientException, IOException, OmiseException {
         Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.WalletAlipay)
+                .type(SourceType.BarcodeAlipay)
                 .amount(200000)
                 .currency("thb")
-                .description("wallet alipay charge")
+                .description("barcode alipay charge")
                 .barcode("1234567890")
                 .storeId("store_1")
                 .storeName("store 1")
@@ -377,7 +377,7 @@ public class ClientTest extends OmiseTest {
         System.out.println("created source: " + source.getId());
 
         assertNotNull(source.getId());
-        assertEquals("wallet_alipay", source.getType().toString());
+        assertEquals("barcode_alipay", source.getType().toString());
         assertEquals("offline", source.getFlow().toString());
         assertEquals(200000, source.getAmount());
         assertEquals("thb", source.getCurrency());
