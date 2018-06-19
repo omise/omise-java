@@ -383,7 +383,7 @@ public class ClientTest extends OmiseTest {
         assertEquals("thb", source.getCurrency());
         assertEquals("1234567890", source.getBarcode());
         assertEquals("store_1", source.getStoreId());
-        assertEquals("store 1", source.getStoreId());
+        assertEquals("store 1", source.getStoreName());
         assertEquals("POS-01", source.getTerminalId());
     }
 
