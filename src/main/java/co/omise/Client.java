@@ -151,9 +151,9 @@ public class Client {
     }
 
     /**
-     * Gets x 509 trust manager.
+     * Gets x509 trust manager.
      *
-     * @return the x 509 trust manager
+     * @return the x509 trust manager
      * @throws KeyStoreException        the key store exception
      * @throws NoSuchAlgorithmException the no such algorithm exception
      */

@@ -6,8 +6,8 @@ import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 /**
- * Request is a base class, all extending classes would act as a holder for holder class which encapsulates information
- * regarding which Omise Api the user wants to access and pass any additional data needed for that api request
+ * Request is a base class, all extending classes would act as a holder class that encapsulate the information
+ * regarding which of the Omise APIs  the user wants to access and pass any additional data needed for that api request
  *
  * @param <T> the generic type for any Model that would need to be returned by the {@link Client} when this request is passed to it
  */
