@@ -1,6 +1,7 @@
 package co.omise;
 
 import co.omise.models.*;
+import co.omise.requests.Request;
 
 import java.io.IOException;
 
@@ -8,7 +9,8 @@ final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
 
     void retrieveAccount() throws IOException, OmiseException, ClientException {
-        Account account = client().account().get();
+        Request<Account> getAccountRequest =  new Account.GetRequestBuilder().build();
+        Account account = client().sendRequest(getAccountRequest, Account.class);
         System.out.printf("account id: %s", account.getId());
     }
 

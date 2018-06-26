@@ -2,6 +2,7 @@ package co.omise;
 
 import co.omise.models.*;
 import co.omise.models.schedules.*;
+import co.omise.requests.Request;
 import org.joda.time.DateTime;
 import org.joda.time.DurationFieldType;
 import org.junit.Ignore;
@@ -68,7 +69,8 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveError() throws ClientException, IOException {
         try {
-            new Client("skey_test_123").account().get();
+            Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
+            new Client("skey_test_123").sendRequest(getAccountRequest, Account.class);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         }
@@ -363,6 +365,7 @@ public class ClientTest extends OmiseTest {
         assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
     }
+
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveDispute() throws ClientException, IOException, OmiseException {
