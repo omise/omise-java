@@ -21,16 +21,7 @@ public class Account extends Model {
     }
 
     /**
-     * public accessor method for the a {@link RequestBuilder<Account>} for getting the user's Account.
-     *
-     * @return the get request builder
-     */
-    public static GetRequestBuilder buildGetRequest() {
-        return new GetRequestBuilder();
-    }
-
-    /**
-     * The {@link RequestBuilder<Account>} class for for getting the user's Account.
+     * The {@link RequestBuilder<Account>} class for for getting the user's Account. This class only overrides the path() method from its parent.
      */
     public static class GetRequestBuilder extends RequestBuilder<Account> {
 

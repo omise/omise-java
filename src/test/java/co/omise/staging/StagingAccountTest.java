@@ -11,6 +11,7 @@ public class StagingAccountTest {
 
     private final String STAGING_PKEY = "[YOUR_PKEY]";
     private final String STAGING_SKEY = "[YOUR_SKEY]";
+    private final String EXPECTED_EMAIL = "YOUR_EMAIL";
 
     @Test
     @Ignore("only hit when test on staging.")
@@ -19,10 +20,10 @@ public class StagingAccountTest {
         Client client = new Client(STAGING_PKEY, STAGING_SKEY);
 
         // When
-        Request<Account> getAccountRequest =  Account.buildGetRequest().build();
+        Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account actualAccount = client.sendRequest(getAccountRequest, Account.class);
 
         // Then
-        Assert.assertEquals("natthawut@omise.co", actualAccount.getEmail());
+        Assert.assertEquals(EXPECTED_EMAIL, actualAccount.getEmail());
     }
 }

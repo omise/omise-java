@@ -11,7 +11,7 @@ public class AccountRequestTest extends RequestTest {
     @Test
     public void testGet() throws IOException, OmiseException {
         Requester requester = new RequesterImpl(testClient(), Serializer.defaultSerializer());
-        Request<Account> getAccountRequest = Account.buildGetRequest().build();
+        Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account account = requester.sendRequest(getAccountRequest, Account.class);
         assertRequested("GET", "/account", 200);
 
