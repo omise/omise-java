@@ -2,6 +2,7 @@ package co.omise;
 
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
+import co.omise.requests.RequestBuilder;
 import co.omise.resources.Resource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -199,5 +200,17 @@ public final class Serializer {
      */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
         return (String) objectMapper.convertValue(value, String.class);
+    }
+
+    /**
+     * Serializes the given {@link RequestBuilder<T>} object to the provided output stream.
+     *
+     * @param outputStream The {@link OutputStream} to serialize the parameter into.
+     * @param builder      The {@link RequestBuilder<T>} to serialize.
+     * @param <T>          The type of the parameter object to serialize.
+     * @throws IOException on general I/O error.
+     */
+    public <T extends RequestBuilder> void serializeRequestBuilder(OutputStream outputStream, T builder) throws IOException {
+        objectMapper.writerFor(builder.getClass()).writeValue(outputStream, builder);
     }
 }

@@ -1,6 +1,12 @@
 package co.omise;
 
+import co.omise.models.Model;
+import co.omise.models.OmiseException;
+import co.omise.requests.Request;
+import co.omise.requests.Requester;
+import co.omise.requests.RequesterImpl;
 import co.omise.resources.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
@@ -11,6 +17,7 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
+import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -29,27 +36,28 @@ import java.util.concurrent.TimeUnit;
  *
  * @see Resource
  * @see Config
+ * @see Requester
  */
 public class Client {
-    private final Config config;
+
     private final OkHttpClient httpClient;
 
-    private final AccountResource account;
-    private final BalanceResource balance;
-    private final ChargeResource charges;
-    private final CustomerResource customers;
-    private final DisputeResource disputes;
-    private final EventResource events;
-    private final ForexResource forexes;
-    private final LinkResource links;
-    private final OccurrenceResource occurrences;
-    private final ReceiptResource receipts;
-    private final RecipientResource recipients;
-    private final ScheduleResource schedules;
-    private final TokenResource tokens;
-    private final TransactionResource transactions;
-    private final TransferResource transfers;
-    private final SourceResource sources;
+    private BalanceResource balance;
+    private ChargeResource charges;
+    private CustomerResource customers;
+    private DisputeResource disputes;
+    private EventResource events;
+    private LinkResource links;
+    private ForexResource forexes;
+    private OccurrenceResource occurrences;
+    private ReceiptResource receipts;
+    private RecipientResource recipients;
+    private ScheduleResource schedules;
+    private TokenResource tokens;
+    private TransactionResource transactions;
+    private TransferResource transfers;
+    private SourceResource sources;
+    private Requester requester;
 
     /**
      * Creates a Client with just the secret key. Always use this constructor to avoid transmitting any card data
@@ -67,19 +75,53 @@ public class Client {
      * Creates a Client that sends the specified API version string in the header to access an earlier version
      * of the Omise API.
      *
-     * @param publicKey  The key with {@code pkey_} prefix.
-     * @param secretKey  The key with {@code skey_} prefix.
+     * @param publicKey The key with {@code pkey_} prefix.
+     * @param secretKey The key with {@code skey_} prefix.
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+     * @see Serializer
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
     public Client(String publicKey, String secretKey) throws ClientException {
         Preconditions.checkNotNull(secretKey);
 
-        config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
+        Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
-        account = new AccountResource(httpClient);
+        Serializer serializer = Serializer.defaultSerializer();
+        requester = new RequesterImpl(httpClient, serializer);
+
+        initResources();
+    }
+
+    /**
+     * Creates a Client that sends the specified API version string in the header to access an earlier version
+     * of the Omise API. This is an overloaded version of the previous constructor to make it easy for users
+     * to supply their own implementations of Requester.
+     *
+     * @param publicKey The key with {@code pkey_} prefix.
+     * @param secretKey The key with {@code skey_} prefix.
+     * @param requester Requester implementation that will be used to send requests and parse their results.
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+     * @see Serializer
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
+     */
+    public Client(String publicKey, String secretKey, Requester requester) throws ClientException {
+        Preconditions.checkNotNull(secretKey);
+
+        Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
+        httpClient = buildHttpClient(config);
+
+        this.requester = requester;
+
+        initResources();
+    }
+
+    /**
+     * Initializes all the resources needed in the client (should be deprecated soon)
+     */
+    private void initResources() {
         balance = new BalanceResource(httpClient);
         charges = new ChargeResource(httpClient);
         customers = new CustomerResource(httpClient);
@@ -139,6 +181,13 @@ public class Client {
                 .build();
     }
 
+    /**
+     * Gets x509 trust manager.
+     *
+     * @return the x509 trust manager
+     * @throws KeyStoreException        the key store exception
+     * @throws NoSuchAlgorithmException the no such algorithm exception
+     */
     protected X509TrustManager getX509TrustManager() throws KeyStoreException, NoSuchAlgorithmException {
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         trustManagerFactory.init((KeyStore) null);
@@ -152,7 +201,6 @@ public class Client {
         return (X509TrustManager) trustManagers[0];
     }
 
-
     /**
      * Returns the internally cached {@link OkHttpClient} object used for building {@link Resource}(s).
      *
@@ -160,17 +208,6 @@ public class Client {
      */
     protected OkHttpClient httpClient() {
         return httpClient;
-    }
-
-    /**
-     * Returns {@link AccountResource} for accessing the
-     * <a href="https://www.omise.co/account-api">Account API</a>
-     *
-     * @return An {@link AccountResource} instance.
-     * @see <a href="https://www.omise.co/account-api">Account API</a>
-     */
-    public AccountResource account() {
-        return account;
     }
 
     /**
@@ -378,5 +415,40 @@ public class Client {
      */
     public SourceResource sources() {
         return sources;
+    }
+
+
+    /**
+     * Relays the user generated {@link Request<T>} to {@link Requester} for it to be carried out
+     *
+     * @param <T>     the {@link Model} object type that is expected to be returned
+     * @param <R>     the {@link Request} object type that is passed in from the user
+     * @param request the {@link Request<T>} user generated request
+     * @param klass   the type of the object that the response is expected to be deserialized as
+     * @return the {@link Model} object of type <T>
+     * @throws IOException    the general I/O error that could happen during deserialization
+     * @throws OmiseException the custom exception thrown for response errors
+     */
+    public <T extends Model, R extends Request<T>> T sendRequest(R request, Class<T> klass) throws IOException, OmiseException {
+        if (requester == null) return null;
+
+        return requester.sendRequest(request, klass);
+    }
+
+    /**
+     * Relays the user generated {@link Request<T>} to {@link Requester} for it to be carried out
+     *
+     * @param <T>           the {@link Model} object type that is expected to be returned
+     * @param <R>           the {@link Request} object type that is passed in from the user
+     * @param request       the {@link Request<T>} user generated request
+     * @param typeReference the type of the object for the list that the response is expected to be deserialized as
+     * @return the {@link Model} object of type <T>
+     * @throws IOException    the general I/O error that could happen during deserialization
+     * @throws OmiseException the custom exception thrown for response errors
+     */
+    public <T extends Model, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
+        if (requester == null) return null;
+
+        return requester.sendRequest(request, typeReference);
     }
 }
