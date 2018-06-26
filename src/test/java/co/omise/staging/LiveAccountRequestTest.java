@@ -7,7 +7,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class StagingAccountTest {
+public class LiveAccountRequestTest {
 
     private final String STAGING_PKEY = "[YOUR_PKEY]";
     private final String STAGING_SKEY = "[YOUR_SKEY]";
@@ -22,6 +22,8 @@ public class StagingAccountTest {
         // When
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account actualAccount = client.sendRequest(getAccountRequest, Account.class);
+
+        System.out.println("Account retrieved: " + actualAccount.getEmail());
 
         // Then
         Assert.assertEquals(EXPECTED_EMAIL, actualAccount.getEmail());
