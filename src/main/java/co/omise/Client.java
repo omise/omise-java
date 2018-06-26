@@ -42,21 +42,21 @@ public class Client {
 
     private final OkHttpClient httpClient;
 
-    private final BalanceResource balance;
-    private final ChargeResource charges;
-    private final CustomerResource customers;
-    private final DisputeResource disputes;
-    private final EventResource events;
-    private final ForexResource forexes;
-    private final LinkResource links;
-    private final OccurrenceResource occurrences;
-    private final ReceiptResource receipts;
-    private final RecipientResource recipients;
-    private final ScheduleResource schedules;
-    private final TokenResource tokens;
-    private final TransactionResource transactions;
-    private final TransferResource transfers;
-    private final SourceResource sources;
+    private BalanceResource balance;
+    private ChargeResource charges;
+    private CustomerResource customers;
+    private DisputeResource disputes;
+    private EventResource events;
+    private LinkResource links;
+    private ForexResource forexes;
+    private OccurrenceResource occurrences;
+    private ReceiptResource receipts;
+    private RecipientResource recipients;
+    private ScheduleResource schedules;
+    private TokenResource tokens;
+    private TransactionResource transactions;
+    private TransferResource transfers;
+    private SourceResource sources;
     private Requester requester;
 
     /**
@@ -91,6 +91,37 @@ public class Client {
         Serializer serializer = Serializer.defaultSerializer();
         requester = new RequesterImpl(httpClient, serializer);
 
+        initResources();
+    }
+
+    /**
+     * Creates a Client that sends the specified API version string in the header to access an earlier version
+     * of the Omise API. This is an overloaded version of the previous constructor to make it easy for users
+     * to supply their own implementations of Requester.
+     *
+     * @param publicKey The key with {@code pkey_} prefix.
+     * @param secretKey The key with {@code skey_} prefix.
+     * @param requester Requester implementation that will be used to send requests and parse their results.
+     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+     * @see Serializer
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
+     */
+    public Client(String publicKey, String secretKey, Requester requester) throws ClientException {
+        Preconditions.checkNotNull(secretKey);
+
+        Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
+        httpClient = buildHttpClient(config);
+
+        this.requester = requester;
+
+        initResources();
+    }
+
+    /**
+     * Initializes all the resources needed in the client (should be deprecated soon)
+     */
+    private void initResources() {
         balance = new BalanceResource(httpClient);
         charges = new ChargeResource(httpClient);
         customers = new CustomerResource(httpClient);
