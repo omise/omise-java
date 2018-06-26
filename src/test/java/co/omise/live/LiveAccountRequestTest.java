@@ -1,4 +1,4 @@
-package co.omise.staging;
+package co.omise.live;
 
 import co.omise.Client;
 import co.omise.models.Account;
@@ -7,17 +7,13 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class LiveAccountRequestTest {
-
-    private final String STAGING_PKEY = "[YOUR_PKEY]";
-    private final String STAGING_SKEY = "[YOUR_SKEY]";
-    private final String EXPECTED_EMAIL = "YOUR_EMAIL";
+public class LiveAccountRequestTest extends BaseLiveTest{
 
     @Test
-    @Ignore("only hit when test on staging.")
+    @Ignore("only hit when test on live.")
     public void getAccount_success() throws Exception {
         // Give
-        Client client = new Client(STAGING_PKEY, STAGING_SKEY);
+        Client client = new Client(getPublicKey(), getSecretKey());
 
         // When
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
@@ -26,6 +22,6 @@ public class LiveAccountRequestTest {
         System.out.println("Account retrieved: " + actualAccount.getEmail());
 
         // Then
-        Assert.assertEquals(EXPECTED_EMAIL, actualAccount.getEmail());
+        Assert.assertEquals(getUserEmail(), actualAccount.getEmail());
     }
 }
