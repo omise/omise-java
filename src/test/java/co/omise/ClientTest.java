@@ -154,15 +154,6 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveFetch() throws ClientException, IOException, OmiseException {
-        Balance balance = liveTestClient().balance().get();
-        assertTrue(balance.getTotal() > 100000);
-
-        System.out.println("current balance: " + Long.toString(balance.getTotal()));
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
     public void testLiveSourceInternetBankingBay() throws ClientException, IOException, OmiseException {
         Source source = liveTestClient().sources().create(new Source.Create()
                 .type(SourceType.InternetBankingBay)
