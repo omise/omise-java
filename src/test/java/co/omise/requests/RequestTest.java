@@ -33,7 +33,7 @@ public class RequestTest extends OmiseTest {
         assertEquals(code, response.code());
     }
 
-    protected Requester getTestRequester(){
+    Requester getTestRequester() {
         return new RequesterImpl(testClient(), Serializer.defaultSerializer());
     }
 }
