@@ -91,32 +91,6 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveCharge() throws ClientException, IOException, OmiseException {
-        Client client = liveTestClient();
-        Token token = client.tokens().create(new Token.Create()
-                .card(new Card.Create()
-                        .name("Omise Co., Ltd. - testLiveCharge")
-                        .number("4242424242424242")
-                        .securityCode("123")
-                        .expiration(10, 2020)));
-
-        Charge charge = client.charges().create(new Charge.Create()
-                .amount(2000) // $20
-                .currency("usd")
-                .description("omise-java test")
-                .card(token.getId()));
-
-        charge = client.charges().update(charge.getId(), new Charge.Update()
-                .description("omise-java test charge")
-                .metadata("test-date", DateTime.now().toString())
-                .metadata("library", "omise-java")
-        );
-
-        System.out.println("created charge: " + charge.getId());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
     public void testLiveSchedule() throws ClientException, IOException, OmiseException {
         Client client = liveTestClient();
         Token token = client.tokens().create(new Token.Create()
@@ -270,88 +244,6 @@ public class ClientTest extends OmiseTest {
         assertEquals("offline", source.getFlow().toString());
         assertEquals(1100000L, source.getAmount());
         assertEquals("idr", source.getCurrency());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveChargeWithInternetBanking() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.InternetBankingBay)
-                .amount(10000)
-                .currency("thb"));
-
-        Charge charge = liveTestClient().charges().create(new Charge.Create()
-                .source(source.getId())
-                .amount(10000)
-                .currency("thb")
-                .returnUri("http://example.com/orders/345678/complete"));
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertEquals(SourceType.InternetBankingBay, charge.getSource().getType());
-        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveChargeWithBillPaymentTescoLotus() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.BillPaymentTescoLotus)
-                .amount(10000)
-                .currency("thb"));
-
-        Charge charge = liveTestClient().charges().create(new Charge.Create()
-                .source(source.getId())
-                .amount(10000)
-                .currency("thb")
-                .returnUri("http://example.com/orders/345678/complete"));
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertEquals(SourceType.BillPaymentTescoLotus, charge.getSource().getType());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveChargeWithAlipay() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.Alipay)
-                .amount(10000)
-                .currency("thb"));
-
-        Charge charge = liveTestClient().charges().create(new Charge.Create()
-                .source(source.getId())
-                .amount(10000)
-                .currency("thb")
-                .returnUri("http://example.com/orders/345678/complete"));
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertEquals(SourceType.Alipay, charge.getSource().getType());
-        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveSourceVirtualAccountCharge() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.VirtualAccountSinarmas)
-                .amount(1100000)
-                .currency("idr"));
-
-        Charge charge = liveTestClient().charges().create(new Charge.Create()
-                .source(source.getId())
-                .amount(1100000)
-                .currency("idr"));
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertNotNull(charge.getSource());
-        assertNotNull(charge.getSource().getReferences());
     }
 
     @Test
