@@ -78,6 +78,17 @@ public class TransferRequestTest extends RequestTest {
         assertEquals("inv_N1ayTWJ2FV", transfer.getMetadata().get("invoice_id"));
     }
 
+    @Test
+    public void testDestroy() throws IOException, OmiseException {
+        Request<Transfer> request = new Transfer.DestroyRequestBuilder()
+                .id(TRANSFER_ID)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
+        assertEquals(TRANSFER_ID, transfer.getId());
+        assertTrue(transfer.isDeleted());
+    }
+
     private TransferResource resource() {
         return new TransferResource(testClient());
     }

@@ -229,10 +229,21 @@ public class Transfer extends Model {
     }
 
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
+        private String id;
+
+        public DestroyRequestBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
 
         @Override
         protected HttpUrl path() {
-            return null;
+            return buildUrl(Endpoint.API, "transfers", id);
+        }
+
+        @Override
+        protected String method() {
+            return "DELETE";
         }
     }
 
