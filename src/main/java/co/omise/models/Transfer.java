@@ -183,10 +183,6 @@ public class Transfer extends Model {
         }
     }
 
-    class ListRequestBuilder {
-
-    }
-
     public static class GetRequestBuilder extends RequestBuilder<Transfer> {
 
         private String id;

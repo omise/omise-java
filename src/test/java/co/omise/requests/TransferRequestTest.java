@@ -31,7 +31,7 @@ public class TransferRequestTest extends RequestTest {
         Request<Transfer> request = new Transfer.GetRequestBuilder()
                 .id(TRANSFER_ID)
                 .build();
-        Transfer transfer = getRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
