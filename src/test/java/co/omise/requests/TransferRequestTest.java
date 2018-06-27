@@ -28,8 +28,7 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Request<Transfer> request = new Transfer.GetRequestBuilder()
-                .id(TRANSFER_ID)
+        Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
@@ -64,8 +63,7 @@ public class TransferRequestTest extends RequestTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Request<Transfer> request = new Transfer.UpdateRequestBuilder()
-                .id(TRANSFER_ID)
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder(TRANSFER_ID)
                 .amount(192189)
                 .metadata(metadata)
                 .build();
@@ -80,8 +78,7 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testDestroy() throws IOException, OmiseException {
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder()
-                .id(TRANSFER_ID)
+        Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);

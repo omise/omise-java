@@ -51,12 +51,11 @@ public class LiveTransferRequestTest extends BaseLiveTest {
                 .build();
         Transfer expectedTransfer = client.sendRequest(creatingTransferRequest, Transfer.class);
 
-        Request<Transfer> gettingTransferRequest = new Transfer.GetRequestBuilder()
-                .id(expectedTransfer.getId())
+        Request<Transfer> gettingTransferRequest = new Transfer.GetRequestBuilder(expectedTransfer.getId())
                 .build();
         Transfer actualTransfer = client.sendRequest(gettingTransferRequest, Transfer.class);
 
-        System.out.println("Transfer retrieved: " + actualTransfer);
+        System.out.println("Transfer retrieved: " + actualTransfer.getId());
         assertEquals(expectedTransfer.getId(), actualTransfer.getId());
         assertEquals(expectedTransfer.getAmount(), actualTransfer.getAmount());
     }
@@ -70,13 +69,12 @@ public class LiveTransferRequestTest extends BaseLiveTest {
                 .build();
         Transfer expectedTransfer = client.sendRequest(creatingTransferRequest, Transfer.class);
 
-        Request<Transfer> request = new Transfer.UpdateRequestBuilder()
-                .id(expectedTransfer.getId())
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder(expectedTransfer.getId())
                 .amount(20000)
                 .build();
         Transfer actualTransfer = client.sendRequest(request, Transfer.class);
 
-        System.out.println("Updated transfer: " + actualTransfer);
+        System.out.println("Updated transfer: " + actualTransfer.getId());
         assertEquals(20000, actualTransfer.getAmount());
     }
 
@@ -89,12 +87,11 @@ public class LiveTransferRequestTest extends BaseLiveTest {
                 .build();
         Transfer expectedTransfer = client.sendRequest(creatingTransferRequest, Transfer.class);
 
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder()
-                .id(expectedTransfer.getId())
+        Request<Transfer> request = new Transfer.DestroyRequestBuilder(expectedTransfer.getId())
                 .build();
         Transfer actualTransfer = client.sendRequest(request, Transfer.class);
 
-        System.out.println("Destroy transfer: " + actualTransfer);
+        System.out.println("Destroy transfer: " + actualTransfer.getId());
         assertEquals(expectedTransfer.getId(), actualTransfer.getId());
         assertTrue(actualTransfer.isDeleted());
     }

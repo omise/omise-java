@@ -176,15 +176,14 @@ public class Transfer extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
-        private String id;
+        private String transferId;
         @JsonProperty
         private long amount;
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public UpdateRequestBuilder id(String id) {
-            this.id = id;
-            return this;
+        public UpdateRequestBuilder(String transferId) {
+            this.transferId = transferId;
         }
 
         public UpdateRequestBuilder amount(long amount) {
@@ -199,7 +198,7 @@ public class Transfer extends Model {
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", id);
+            return buildUrl(Endpoint.API, "transfers", transferId);
         }
 
         @Override
@@ -215,30 +214,28 @@ public class Transfer extends Model {
 
     public static class GetRequestBuilder extends RequestBuilder<Transfer> {
 
-        private String id;
+        private String transferId;
 
-        public GetRequestBuilder id(String id) {
-            this.id = id;
-            return this;
+        public GetRequestBuilder(String transferId) {
+            this.transferId = transferId;
         }
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", id);
+            return buildUrl(Endpoint.API, "transfers", transferId);
         }
     }
 
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
-        private String id;
+        private String transferId;
 
-        public DestroyRequestBuilder id(String id) {
-            this.id = id;
-            return this;
+        public DestroyRequestBuilder(String transferId) {
+            this.transferId = transferId;
         }
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", id);
+            return buildUrl(Endpoint.API, "transfers", transferId);
         }
 
         @Override
