@@ -25,16 +25,6 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException, OmiseException {
-        Charge charge = resource().update(CHARGE_ID, new Charge.Update()
-                .description("Charge for order 3947 (XXL)"));
-        assertRequested("PATCH", "/charges/" + CHARGE_ID, 200);
-
-        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
-        assertEquals("Charge for order 3947 (XXL)", charge.getDescription());
-    }
-
-    @Test
     public void testCapture() throws IOException, OmiseException {
         Charge charge = resource().capture(CHARGE_ID);
         assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
