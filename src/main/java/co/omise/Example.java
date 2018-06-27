@@ -50,7 +50,11 @@ final class Example {
     }
 
     void captureCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().capture("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                        .build();
+        Charge charge = client().sendRequest(captureChargeRequest, Charge.class);
+
         System.out.printf("captured charge: %s", charge.getId());
     }
 

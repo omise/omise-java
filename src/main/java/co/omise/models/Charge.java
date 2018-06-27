@@ -397,10 +397,21 @@ public class Charge extends Model {
         }
     }
 
-    public static class ReverseRequestBuilder extends RequestBuilder<Charge>{
+    public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
+        public CaptureRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
         @Override
         protected HttpUrl path() {
-            return null;
+            return buildUrl(Endpoint.API, "charges", chargeId, "capture");
+        }
+
+        @Override
+        protected String method() {
+            return POST;
         }
     }
 }
