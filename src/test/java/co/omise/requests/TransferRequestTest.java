@@ -28,7 +28,10 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Transfer transfer = resource().get(TRANSFER_ID);
+        Request<Transfer> request = new Transfer.GetRequestBuilder()
+                .id(TRANSFER_ID)
+                .build();
+        Transfer transfer = getRequester().sendRequest(request, Transfer.class);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());

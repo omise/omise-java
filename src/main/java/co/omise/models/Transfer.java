@@ -175,6 +175,41 @@ public class Transfer extends Model {
         }
     }
 
+    public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
+
+        @Override
+        protected HttpUrl path() {
+            return null;
+        }
+    }
+
+    class ListRequestBuilder {
+
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
+
+        private String id;
+
+        public GetRequestBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", id);
+        }
+    }
+
+    public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
+
+        @Override
+        protected HttpUrl path() {
+            return null;
+        }
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private long amount;

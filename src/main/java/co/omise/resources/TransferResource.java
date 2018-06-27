@@ -28,10 +28,6 @@ public class TransferResource extends Resource {
         return httpGet(urlFor(transferId)).returns(Transfer.class);
     }
 
-    public Transfer create(Transfer.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Transfer.class);
-    }
-
     public Transfer update(String transferId, Transfer.Update params) throws IOException, OmiseException {
         return httpPatch(urlFor(transferId)).params(params).returns(Transfer.class);
     }

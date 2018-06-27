@@ -227,36 +227,52 @@ final class Example {
     }
 
     void createTransfer() throws IOException, OmiseException, ClientException {
-        Transfer transfer = client().transfers()
-                .create(new Transfer.Create().amount(100000));
+        Request<Transfer> request = new Transfer.CreateRequestBuilder()
+                .amount(100000)
+                .build();
+        Transfer transfer = client().sendRequest(request, Transfer.class);
         System.out.printf("created transfer: %s", transfer.getId());
     }
 
     void createTransferWithRecipient() throws IOException, OmiseException, ClientException {
-        Transfer transfer = client().transfers()
-                .create(new Transfer.Create()
-                        .amount(100000)
-                        .recipient("recp_test_4z6p7e0m4k40txecj5o"));
+        Request<Transfer> request = new Transfer.CreateRequestBuilder()
+                .amount(100000)
+                .recipient("recp_test_4z6p7e0m4k40txecj5o")
+                .build();
+        Transfer transfer = client().sendRequest(request, Transfer.class);
         System.out.printf("created transfer: %s", transfer.getId());
     }
 
     void destroyTransfer() throws IOException, OmiseException, ClientException {
+//        Request<Transfer> request = Transfer.DestroyRequestBuilder()
+//                .id("trsf_test_4xs5px8c36dsanuwztf")
+//                .build();
         Transfer transfer = client().transfers().destroy("trsf_test_4xs5px8c36dsanuwztf");
         System.out.printf("destroyed transfer: %s", transfer.getId());
     }
 
     void listTransfers() throws IOException, OmiseException, ClientException {
+//        Request<Transfer> request = Transfer.ListRequestBuilder()
+//                .scope(option)
+//                .build();
         ScopedList<Transfer> transfers = client().transfers().list();
         System.out.printf("returned transfers: %d", transfers.getData().size());
         System.out.printf("total no. of transfers: %d", transfers.getTotal());
     }
 
     void retrieveTransfer() throws IOException, OmiseException, ClientException {
+//        Request<Transfer> request = Transfer.GetRequestBuilder()
+//                .id("trsf_test_4xs5px8c36dsanuwztf")
+//                .build();
         Transfer transfer = client().transfers().get("trsf_test_4xs5px8c36dsanuwztf");
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 
     void updateTransfer() throws IOException, OmiseException, ClientException {
+//        Request<Transfer> request = Transfer.UpdateRequestBuilder()
+//                .id("trsf_test_4xs5px8c36dsanuwztf")
+//                .amount(100000)
+//                .build();
         Transfer transfer = client().transfers()
                 .update("trsf_test_4xs5px8c36dsanuwztf", new Transfer.Update()
                         .amount(100000));
