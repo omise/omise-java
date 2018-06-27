@@ -4,6 +4,7 @@ import co.omise.Client;
 import co.omise.ClientException;
 import co.omise.models.*;
 import co.omise.requests.Request;
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -157,16 +158,55 @@ public class LiveChargeTest extends BaseLiveTest {
 
         Charge charge = client.sendRequest(createChargeRequest, Charge.class);
 
-        System.out.println("created charge: " + charge.getId());
+        System.out.println("Created charge: " + charge.getId());
 
         assertNotNull(charge.getId());
         assertEquals(SourceType.Alipay, charge.getSource().getType());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
 
-    //TODO add this for an update test
-//    charge = client.charges().update(charge.getId(), new Charge.Update()
-//            .description("omise-java test charge")
-//                .metadata("test-date", DateTime.now().toString())
-//            .metadata("library", "omise-java")
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeUpdate() throws IOException, OmiseException {
+        //TODO Change this to new format when Token creation flow is changed to new flow
+        Token token = client.tokens().create(new Token.Create()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020)));
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .build();
+
+        Charge createdCharge = client.sendRequest(createChargeRequest, Charge.class);
+
+        System.out.println("Created charge: " + createdCharge.getId());
+
+        Request<Charge> updateChargeRequest =
+                new Charge.UpdateRequestBuilder(createdCharge.getId())
+                        .description("omise-java test charge")
+                        .metadata("test-date", DateTime.now().dayOfMonth().toString())
+                        .metadata("library", "omise-java")
+                        .build();
+
+        Charge updatedCharge = client.sendRequest(updateChargeRequest, Charge.class);
+
+        System.out.println("Updated charge: " + updatedCharge.getId());
+
+
+        assertNotNull(updatedCharge);
+        assertNotNull(updatedCharge.getId());
+        assertEquals(createdCharge.getId(), updatedCharge.getId());
+        assertEquals("omise-java test charge", updatedCharge.getDescription());
+        assertEquals(updatedCharge.getMetadata().get("library"), "omise-java");
+        assertEquals(updatedCharge.getMetadata().get("test-date"), DateTime.now().dayOfMonth().toString());
+        assertEquals(2000, updatedCharge.getAmount());
+        assertEquals("usd", updatedCharge.getCurrency());
+    }
 }
