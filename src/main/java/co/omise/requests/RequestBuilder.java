@@ -88,16 +88,6 @@ public abstract class RequestBuilder<T extends Model> {
     }
 
     /**
-     * Utility method used to put together several pieces of an path to create a complete url path, separating each part by a "/".
-     *
-     * @param args the different parts of the path
-     * @return the complete url path as a string
-     */
-    protected String concatPath(String... args) {
-        return String.join("/", args);
-    }
-
-    /**
      * Builds and returns a valid {@link HttpUrl} pointing to the given {@link Endpoint}'s host
      * and with all the supplied segments concatenated.
      *

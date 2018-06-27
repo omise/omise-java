@@ -9,7 +9,7 @@ final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
 
     void retrieveAccount() throws IOException, OmiseException, ClientException {
-        Request<Account> getAccountRequest =  new Account.GetRequestBuilder().build();
+        Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account account = client().sendRequest(getAccountRequest, Account.class);
         System.out.printf("account id: %s", account.getId());
     }
@@ -105,7 +105,9 @@ final class Example {
     }
 
     void retrieveCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().get("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        Charge charge = client().sendRequest(getChargeRequest, Charge.class);
+
         System.out.printf("charge amount: %d", charge.getAmount());
     }
 

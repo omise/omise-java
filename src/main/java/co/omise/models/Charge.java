@@ -1,7 +1,11 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.Request;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
+import okhttp3.HttpUrl;
 
 import java.util.Map;
 
@@ -348,6 +352,20 @@ public class Charge extends Model {
 
             this.metadata.put(key, value);
             return this;
+        }
+    }
+    //New stuff
+
+    public static class GetRequestBuilder extends RequestBuilder<Charge> {
+    private String chargeId;
+
+        public GetRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId);
         }
     }
 }

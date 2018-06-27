@@ -4,6 +4,7 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.SourceType;
+import co.omise.requests.Request;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,16 +22,6 @@ public class ChargeResourceTest extends ResourceTest {
         Charge charge = list.getData().get(0);
         assertEquals("charge", charge.getObject());
         assertEquals(CHARGE_ID, charge.getId());
-    }
-
-    @Test
-    public void testGet() throws IOException, OmiseException {
-        Charge charge = resource().get(CHARGE_ID);
-        assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
-        assertEquals(100000L, charge.getAmount());
-        assertEquals("thb", charge.getCurrency());
-        assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
     }
 
     @Test
