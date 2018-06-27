@@ -25,35 +25,6 @@ public class ChargeResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException, OmiseException {
-        Charge charge = resource().create(new Charge.Create()
-                .amount(100000)
-                .currency("thb")
-                .description("Charge for order 3947"));
-        assertRequested("POST", "/charges", 200);
-
-        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
-        assertEquals(100000L, charge.getAmount());
-        assertEquals("thb", charge.getCurrency());
-        assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
-    }
-
-    @Test
-    public void testCreateChargeFromSource() throws IOException, OmiseException {
-        Charge charge = resource().create(new Charge.Create()
-                .source("src_test_5929c3tjts3omoi7ti2")
-                .amount(100000)
-                .currency("thb")
-                .returnUri("http://example.com/orders/345678/complete"));
-        assertRequested("POST", "/charges", 200);
-
-        assertEquals("chrg_test_4yq7duw15p9hdrjp8oq",charge.getId());
-        assertEquals("src_test_5929c3tjts3omoi7ti2", charge.getSource().getId());
-        assertEquals(SourceType.InternetBankingScb, charge.getSource().getType());
-        assertEquals(100000L, charge.getAmount());
-    }
-
-    @Test
     public void testUpdate() throws IOException, OmiseException {
         Charge charge = resource().update(CHARGE_ID, new Charge.Update()
                 .description("Charge for order 3947 (XXL)"));

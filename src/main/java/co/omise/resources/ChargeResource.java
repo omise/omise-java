@@ -24,10 +24,6 @@ public class ChargeResource extends Resource {
         });
     }
 
-    public Charge create(Charge.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Charge.class);
-    }
-
     public Charge update(String chargeId, Charge.Update params) throws IOException, OmiseException {
         return httpPatch(urlFor(chargeId)).params(params).returns(Charge.class);
     }
