@@ -11,7 +11,6 @@ public class ChargeRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        //TODO change this to getTestRequester once the Balance PR is merged
         Requester requester = getTestRequester();
         Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
         Charge charge = requester.sendRequest(getChargeRequest, Charge.class);
