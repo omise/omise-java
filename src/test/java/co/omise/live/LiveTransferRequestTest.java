@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class LiveTransferRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveTransfer() throws Exception {
+    public void testLiveCreateTransfer() throws Exception {
         Client client = getLiveClient();
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
@@ -44,13 +44,38 @@ public class LiveTransferRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit when test on live.")
     public void testGetLiveTransfer() throws Exception {
-        Request<Transfer> request = new Transfer.GetRequestBuilder()
-                .id(getTransferId())
+        Client client = getLiveClient();
+        Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
+                .amount(10000)
                 .build();
-        Transfer transfer = getLiveClient().sendRequest(request, Transfer.class);
+        Transfer expectedTransfer = client.sendRequest(creatingTransferRequest, Transfer.class);
 
-        System.out.println("Transfer retrieved: " + transfer);
+        Request<Transfer> gettingTransferRequest = new Transfer.GetRequestBuilder()
+                .id(expectedTransfer.getId())
+                .build();
+        Transfer actualTransfer = client.sendRequest(gettingTransferRequest, Transfer.class);
 
-        assertEquals(getTransferId(), transfer.getId());
+        System.out.println("Transfer retrieved: " + actualTransfer);
+        assertEquals(expectedTransfer.getId(), actualTransfer.getId());
+        assertEquals(expectedTransfer.getAmount(), actualTransfer.getAmount());
+    }
+
+    @Test
+//    @Ignore("only hit when test on live.")
+    public void testUpdateLiveTransfer() throws Exception {
+        Client client = getLiveClient();
+        Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
+                .amount(10000)
+                .build();
+        Transfer expectedTransfer = client.sendRequest(creatingTransferRequest, Transfer.class);
+
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder()
+                .id(expectedTransfer.getId())
+                .amount(20000)
+                .build();
+        Transfer actualTransfer = client.sendRequest(request, Transfer.class);
+
+        System.out.println("Transfer retrieved: " + actualTransfer);
+        assertEquals(20000, actualTransfer.getAmount());
     }
 }

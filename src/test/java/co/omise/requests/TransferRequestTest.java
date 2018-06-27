@@ -64,7 +64,12 @@ public class TransferRequestTest extends RequestTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Transfer transfer = resource().update(TRANSFER_ID, new Transfer.Update().amount(192189).metadata(metadata));
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder()
+                .id(TRANSFER_ID)
+                .amount(192189)
+                .metadata(metadata)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("PATCH", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());

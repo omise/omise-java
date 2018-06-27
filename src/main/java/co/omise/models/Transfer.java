@@ -176,10 +176,40 @@ public class Transfer extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
+        private String id;
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private Map<String, Object> metadata;
+
+        public UpdateRequestBuilder id(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public UpdateRequestBuilder amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
 
         @Override
         protected HttpUrl path() {
-            return null;
+            return buildUrl(Endpoint.API, "transfers", id);
+        }
+
+        @Override
+        protected String method() {
+            return "PATCH";
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
         }
     }
 
