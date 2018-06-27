@@ -24,10 +24,6 @@ public class ChargeResource extends Resource {
         });
     }
 
-    public Charge reverse(String chargeId) throws IOException, OmiseException {
-        return httpPost(urlFor(chargeId, "reverse")).returns(Charge.class);
-    }
-
     private HttpUrl urlFor(String chargeId) {
         return buildUrl(Endpoint.API, "charges", chargeId);
     }

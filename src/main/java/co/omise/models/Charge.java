@@ -414,4 +414,22 @@ public class Charge extends Model {
             return POST;
         }
     }
+
+    public static class ReverseRequestBuilder extends RequestBuilder<Charge>{
+        private String chargeId;
+
+        public ReverseRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId, "reverse");
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+    }
 }

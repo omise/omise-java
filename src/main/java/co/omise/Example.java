@@ -123,7 +123,10 @@ final class Example {
     }
 
     void reverseCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().reverse("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> reverseChargeRequest =
+                new Charge.ReverseRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        Charge charge = client().sendRequest(reverseChargeRequest, Charge.class);
+
         System.out.printf("charge reversal: %s", Boolean.toString(charge.isReversed()));
     }
 
