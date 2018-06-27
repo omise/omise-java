@@ -1,7 +1,12 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -121,6 +126,53 @@ public class Transfer extends Model {
 
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
+    }
+
+    public static class CreateRequestBuilder extends RequestBuilder<Transfer> {
+
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private String recipient;
+        @JsonProperty("fail_fast")
+        private boolean failFast;
+        @JsonProperty
+        private Map<String, Object> metadata;
+
+        public CreateRequestBuilder amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public CreateRequestBuilder recipient(String recipient) {
+            this.recipient = recipient;
+            return this;
+        }
+
+        public CreateRequestBuilder failFast(boolean failFast) {
+            this.failFast = failFast;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers");
+        }
+
+        @Override
+        protected String method() {
+            return "POST";
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class Create extends Params {

@@ -58,10 +58,12 @@ public class ClientTest extends OmiseTest {
                         .brand("kbank")));
         System.out.println("created recipient: " + recipient.getId());
 
-        Transfer transfer = client.transfers().create(new Transfer.Create()
+        Request<Transfer> request = new Transfer.CreateRequestBuilder()
                 .recipient(recipient.getId())
                 .amount(10000)
-                .metadata(metadata));
+                .metadata(metadata)
+                .build();
+        Transfer transfer = client.sendRequest(request, Transfer.class);
         System.out.println("created transfer: " + transfer.getId());
     }
 
