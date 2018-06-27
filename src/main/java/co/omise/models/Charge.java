@@ -242,35 +242,6 @@ public class Charge extends Model {
         this.source = source;
     }
 
-
-    public static class Update extends Params {
-        @JsonProperty
-        private String description;
-        @JsonProperty
-        private Map<String, Object> metadata;
-
-        public Update description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Update metadata(Map<String, Object> metadata) {
-            // TODO: We should probably do an immutable copy here.
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Update metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
-            }
-
-            this.metadata.put(key, value);
-            return this;
-        }
-    }
-    //New stuff
-
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
         @JsonProperty
         private String customer;
@@ -379,4 +350,57 @@ public class Charge extends Model {
         }
     }
 
+    public static class UpdateRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Map<String, Object> metadata;
+
+        public UpdateRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId);
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public UpdateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            if (this.metadata == null) {
+                this.metadata = Maps.newHashMap();
+            }
+
+            this.metadata.put(key, value);
+            return this;
+        }
+    }
+
+    public static class ReverseRequestBuilder extends RequestBuilder<Charge>{
+        @Override
+        protected HttpUrl path() {
+            return null;
+        }
+    }
 }

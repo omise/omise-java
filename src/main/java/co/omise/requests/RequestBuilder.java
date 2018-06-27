@@ -24,6 +24,7 @@ public abstract class RequestBuilder<T extends Model> {
 
     protected static final String POST = "POST";
     protected static final String GET = "GET";
+    protected static final String PATCH = "PATCH";
 
     /**
      * Builds request with all its enclosing information and extra params (if available).

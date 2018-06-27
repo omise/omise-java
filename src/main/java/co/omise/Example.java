@@ -124,9 +124,14 @@ final class Example {
     }
 
     void updateCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .update("chrg_test_4xso2s8ivdej29pqnhz", new Charge.Update()
-                        .description("updated description"));
+        Request<Charge> updateChargeRequest =
+                new Charge.UpdateRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                        .description("updated description")
+                        .build();
+
+
+        Charge charge = client().sendRequest(updateChargeRequest, Charge.class);
+
         System.out.printf("updated description: %s", charge.getDescription());
     }
 
