@@ -75,4 +75,17 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(CHARGE_ID, charge.getId());
         assertEquals("Charge for order 3947 (XXL)", charge.getDescription());
     }
+
+    @Test
+    public void testCapture() throws IOException, OmiseException {
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder(CHARGE_ID)
+                        .build();
+        Charge charge = getTestRequester().sendRequest(captureChargeRequest, Charge.class);
+
+        assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
+        assertEquals(CHARGE_ID, charge.getId());
+        assertFalse(charge.isCapture());
+        assertTrue(charge.isPaid());
+    }
 }
