@@ -22,12 +22,16 @@ public abstract class RequestBuilder<T extends Model> {
     private final Serializer serializer = Serializer.defaultSerializer();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
+    protected static final String POST = "POST";
+    protected static final String GET = "GET";
+
     /**
      * Builds request with all its enclosing information and extra params (if available).
      *
      * @return built {@link Request<T>}
+     * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
-    public Request<T> build() {
+    public Request<T> build() throws IOException {
         return new Request<T>(method(), path(), contentType(), payload());
     }
 
@@ -37,7 +41,7 @@ public abstract class RequestBuilder<T extends Model> {
      * @return the HTTP method as a string
      */
     protected String method() {
-        return "GET";
+        return GET;
     }
 
     /**
@@ -60,8 +64,9 @@ public abstract class RequestBuilder<T extends Model> {
      * Additional parameters for the request, which is null by default to avoid crashes for requests that do not accept params (eg: GET)
      *
      * @return the params as a {@link RequestBody}
+     * * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
      */
-    protected RequestBody payload() {
+    protected RequestBody payload() throws IOException {
         //Has to be null as it would fail for GET requests
         return null;
     }

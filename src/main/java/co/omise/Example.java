@@ -55,21 +55,26 @@ final class Example {
     }
 
     void chargeWithCard() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
                         .customer("cust_test_4xtrb759599jsxlhkrb")
-                        .card("card_test_4xtsoy2nbfs7ujngyyq"));
+                        .card("card_test_4xtsoy2nbfs7ujngyyq")
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
         System.out.printf("created charge: %s", charge.getId());
     }
 
     void chargeWithCustomer() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
-                        .customer("cust_test_4xtrb759599jsxlhkrb"));
+                        .customer("cust_test_4xtrb759599jsxlhkrb")
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
+
         System.out.printf("created charge: %s", charge.getId());
     }
 
@@ -89,11 +94,13 @@ final class Example {
 
         System.out.println("created token: " + token.getId());
 
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
-                        .card(token.getId()));
+                        .card(token.getId())
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
 
         System.out.printf("created charge: %s", charge.getId());
     }
