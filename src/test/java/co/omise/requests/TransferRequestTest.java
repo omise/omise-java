@@ -1,15 +1,16 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
+import co.omise.resources.TransferResource;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransferResourceTest extends ResourceTest {
+public class TransferRequestTest extends RequestTest {
     private static final String TRANSFER_ID = "trsf_test_4yqacz8t3cbipcj766u";
 
     @Test
@@ -41,7 +42,12 @@ public class TransferResourceTest extends ResourceTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Transfer transfer = resource().create(new Transfer.Create().amount(192188).metadata(metadata));
+
+        Request<Transfer> request = new Transfer.CreateRequestBuilder()
+                .amount(192188)
+                .metadata(metadata)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("POST", "/transfers", 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
