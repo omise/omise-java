@@ -27,8 +27,4 @@ public class ChargeResource extends Resource {
     private HttpUrl urlFor(String chargeId) {
         return buildUrl(Endpoint.API, "charges", chargeId);
     }
-
-    private HttpUrl urlFor(String chargeId, String resource) {
-        return buildUrl(Endpoint.API, "charges", chargeId, resource);
-    }
 }

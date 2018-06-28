@@ -88,4 +88,16 @@ public class ChargeRequestTest extends RequestTest {
         assertFalse(charge.isCapture());
         assertTrue(charge.isPaid());
     }
+
+    @Test
+    public void testReverse() throws IOException, OmiseException {
+        Request<Charge> reverseChargeRequest =
+                new Charge.ReverseRequestBuilder(CHARGE_ID)
+                        .build();
+        Charge charge = getTestRequester().sendRequest(reverseChargeRequest, Charge.class);
+
+        assertRequested("POST", "/charges/" + CHARGE_ID + "/reverse", 200);
+        assertEquals(CHARGE_ID, charge.getId());
+        assertTrue(charge.isReversed());
+    }
 }
