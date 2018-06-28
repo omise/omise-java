@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * Represents Omise Charge object.
+ * Represents Omise Charge object and contains all of its {@link RequestBuilder <Charge>}.
  *
  * @see <a href="https://www.omise.co/charges-api">Charges API</a>
  */
@@ -240,6 +240,9 @@ public class Charge extends Model {
         this.source = source;
     }
 
+    /**
+     * The {@link RequestBuilder<Charge>} class for for creating a Charge.
+     */
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
         @JsonProperty
         private String customer;
@@ -335,6 +338,9 @@ public class Charge extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Charge>} class for for retrieving a particular Charge.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
 
@@ -348,6 +354,9 @@ public class Charge extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Charge>} class for for updating a particular Charge.
+     */
     public static class UpdateRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
 
@@ -395,6 +404,9 @@ public class Charge extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Charge>} class for for capturing a particular Charge. Keep in mind, capturing only works for credit card transfers that are not auto-captured.
+     */
     public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
 
@@ -413,6 +425,10 @@ public class Charge extends Model {
         }
     }
 
+
+    /**
+     * The {@link RequestBuilder<Charge>} class for for reversing a particular Charge.
+     */
     public static class ReverseRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
 
@@ -431,11 +447,14 @@ public class Charge extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Charge>} class for for retrieving all Charges that belong to an account.
+     */
     public static class ListRequestBuilder extends RequestBuilder<Charge> {
         private ScopedList.Options options;
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
             }

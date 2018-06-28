@@ -39,7 +39,7 @@ public class Balance extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Account>} class for for getting the user's Balance. This class only overrides the path() method from its parent.
+     * The {@link RequestBuilder<Account>} class for for getting the user's Balance.
      */
     public static class GetRequestBuilder extends RequestBuilder<Balance> {
 

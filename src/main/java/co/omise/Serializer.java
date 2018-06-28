@@ -1,6 +1,8 @@
 package co.omise;
 
-import co.omise.models.*;
+import co.omise.models.OmiseList;
+import co.omise.models.OmiseObject;
+import co.omise.models.Params;
 import co.omise.requests.RequestBuilder;
 import co.omise.resources.Resource;
 import com.fasterxml.jackson.core.type.TypeReference;
