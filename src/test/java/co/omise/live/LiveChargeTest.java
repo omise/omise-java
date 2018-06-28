@@ -4,6 +4,8 @@ import co.omise.Client;
 import co.omise.ClientException;
 import co.omise.models.*;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.oracle.tools.packager.Log;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -278,4 +280,45 @@ public class LiveChargeTest extends BaseLiveTest {
         assertEquals(initialCharge.getId(), reversedCharge.getId());
         assertTrue(reversedCharge.isReversed());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeListGet() throws IOException, OmiseException {
+        Request<Charge> getChargeListRequest =
+                new Charge.ListRequestBuilder()
+                        .build();
+
+
+        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest, new TypeReference<ScopedList<Charge>>() {
+        });
+
+        assertEquals(20, charges.getLimit());
+        assertEquals(17, charges.getTotal()); // This can easily break as you add charges, not sure how to do it better
+
+        Charge charge = charges.getData().get(0);
+        assertNotNull(charge);
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeListGet_withOptions() throws IOException, OmiseException {
+        Request<Charge> getChargeListRequest =
+                new Charge.ListRequestBuilder()
+                        .options(new ScopedList.Options()
+                                .limit(3)
+                                .order(Ordering.Chronological))
+                        .build();
+
+
+        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest, new TypeReference<ScopedList<Charge>>() {
+        });
+
+        assertEquals(3, charges.getLimit());
+        assertEquals(3, charges.getData().size());
+        assertEquals(Ordering.Chronological, charges.getOrder());
+
+        Charge charge = charges.getData().get(0);
+        assertNotNull(charge);
+    }
+
 }
