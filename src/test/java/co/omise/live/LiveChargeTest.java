@@ -5,7 +5,6 @@ import co.omise.ClientException;
 import co.omise.models.*;
 import co.omise.requests.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.oracle.tools.packager.Log;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
