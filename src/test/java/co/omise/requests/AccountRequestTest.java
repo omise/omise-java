@@ -1,6 +1,5 @@
 package co.omise.requests;
 
-import co.omise.Serializer;
 import co.omise.models.Account;
 import co.omise.models.OmiseException;
 import org.junit.Test;
@@ -10,7 +9,7 @@ import java.io.IOException;
 public class AccountRequestTest extends RequestTest {
     @Test
     public void testGet() throws IOException, OmiseException {
-        Requester requester = new RequesterImpl(testClient(), Serializer.defaultSerializer());
+        Requester requester = getTestRequester();
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account account = requester.sendRequest(getAccountRequest, Account.class);
         assertRequested("GET", "/account", 200);
