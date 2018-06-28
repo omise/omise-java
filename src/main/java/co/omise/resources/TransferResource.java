@@ -24,18 +24,6 @@ public class TransferResource extends Resource {
         });
     }
 
-    public Transfer get(String transferId) throws IOException, OmiseException {
-        return httpGet(urlFor(transferId)).returns(Transfer.class);
-    }
-
-    public Transfer update(String transferId, Transfer.Update params) throws IOException, OmiseException {
-        return httpPatch(urlFor(transferId)).params(params).returns(Transfer.class);
-    }
-
-    public Transfer destroy(String transferId) throws IOException, OmiseException {
-        return httpDelete(urlFor(transferId)).returns(Transfer.class);
-    }
-
     private HttpUrl urlFor(String transferId) {
         return buildUrl(Endpoint.API, "transfers", transferId);
     }

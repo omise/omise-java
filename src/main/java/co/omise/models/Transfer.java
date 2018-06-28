@@ -226,6 +226,26 @@ public class Transfer extends Model {
         }
     }
 
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+    }
+
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
 
@@ -243,53 +263,4 @@ public class Transfer extends Model {
             return "DELETE";
         }
     }
-
-    public static class Create extends Params {
-        @JsonProperty
-        private long amount;
-        @JsonProperty
-        private String recipient;
-        @JsonProperty("fail_fast")
-        private boolean failFast;
-        @JsonProperty
-        private Map<String, Object> metadata;
-
-        public Create amount(long amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public Create recipient(String recipient) {
-            this.recipient = recipient;
-            return this;
-        }
-
-        public Create failFast(boolean failFast) {
-            this.failFast = failFast;
-            return this;
-        }
-
-        public Create metadata(Map<String, Object> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-    }
-
-    public static class Update extends Params {
-        @JsonProperty
-        private long amount;
-        @JsonProperty
-        private Map<String, Object> metadata;
-
-        public Update amount(long amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public Update metadata(Map<String, Object> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-    }
 }
-

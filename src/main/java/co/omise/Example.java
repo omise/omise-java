@@ -244,10 +244,9 @@ final class Example {
     }
 
     void destroyTransfer() throws IOException, OmiseException, ClientException {
-//        Request<Transfer> request = Transfer.DestroyRequestBuilder()
-//                .id("trsf_test_4xs5px8c36dsanuwztf")
-//                .build();
-        Transfer transfer = client().transfers().destroy("trsf_test_4xs5px8c36dsanuwztf");
+        Request<Transfer> request = new Transfer.DestroyRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
+                .build();
+        Transfer transfer = client().sendRequest(request, Transfer.class);
         System.out.printf("destroyed transfer: %s", transfer.getId());
     }
 
@@ -261,21 +260,17 @@ final class Example {
     }
 
     void retrieveTransfer() throws IOException, OmiseException, ClientException {
-//        Request<Transfer> request = Transfer.GetRequestBuilder()
-//                .id("trsf_test_4xs5px8c36dsanuwztf")
-//                .build();
+        Request<Transfer> request = new Transfer.GetRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
+                .build();
         Transfer transfer = client().transfers().get("trsf_test_4xs5px8c36dsanuwztf");
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 
     void updateTransfer() throws IOException, OmiseException, ClientException {
-//        Request<Transfer> request = Transfer.UpdateRequestBuilder()
-//                .id("trsf_test_4xs5px8c36dsanuwztf")
-//                .amount(100000)
-//                .build();
-        Transfer transfer = client().transfers()
-                .update("trsf_test_4xs5px8c36dsanuwztf", new Transfer.Update()
-                        .amount(100000));
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
+                .amount(100000)
+                .build();
+        Transfer transfer = client().sendRequest(request, Transfer.class);
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 

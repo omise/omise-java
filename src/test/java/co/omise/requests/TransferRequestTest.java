@@ -4,6 +4,7 @@ import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
 import co.omise.resources.TransferResource;
+import jdk.internal.org.objectweb.asm.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,7 +16,9 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        ScopedList<Transfer> list = resource().list();
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
+                .build();
+        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>());
         assertRequested("GET", "/transfers", 200);
 
         assertEquals(20, list.getLimit());
@@ -84,9 +87,5 @@ public class TransferRequestTest extends RequestTest {
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
         assertEquals(TRANSFER_ID, transfer.getId());
         assertTrue(transfer.isDeleted());
-    }
-
-    private TransferResource resource() {
-        return new TransferResource(testClient());
     }
 }
