@@ -1,18 +1,13 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
-import co.omise.Serializer;
-import co.omise.requests.Request;
 import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.common.collect.Maps;
-import com.oracle.tools.packager.Log;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
