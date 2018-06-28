@@ -1,6 +1,7 @@
 package co.omise.requests;
 
 import co.omise.OmiseTest;
+import co.omise.Serializer;
 import co.omise.testutils.TestInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,5 +31,9 @@ public class RequestTest extends OmiseTest {
         Response response = interceptor.lastResponse();
         assertNotNull(response);
         assertEquals(code, response.code());
+    }
+
+    Requester getTestRequester() {
+        return new RequesterImpl(testClient(), Serializer.defaultSerializer());
     }
 }
