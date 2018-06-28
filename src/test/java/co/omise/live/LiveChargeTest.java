@@ -243,4 +243,39 @@ public class LiveChargeTest extends BaseLiveTest {
         assertEquals(unCapturedCharge.getId(), capturedCharge.getId());
         assertTrue(capturedCharge.isPaid());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeReverse() throws IOException, OmiseException {
+        Token token = client.tokens().create(new Token.Create()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020)));
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .capture(false)
+                        .build();
+        Charge initialCharge = client.sendRequest(createChargeRequest, Charge.class);
+
+        System.out.println("created charge: " + initialCharge.getId());
+
+        assertNotNull(initialCharge.getId());
+        assertFalse(initialCharge.isReversed());
+
+        Request<Charge> reverseChargeRequest =
+                new Charge.ReverseRequestBuilder(initialCharge.getId())
+                        .build();
+        Charge reversedCharge = client.sendRequest(reverseChargeRequest, Charge.class);
+
+        assertNotNull(reversedCharge.getId());
+        assertEquals(initialCharge.getId(), reversedCharge.getId());
+        assertTrue(reversedCharge.isReversed());
+    }
 }
