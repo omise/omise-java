@@ -15,7 +15,8 @@ final class Example {
     }
 
     void retrieveBalance() throws IOException, OmiseException, ClientException {
-        Balance balance = client().balance().get();
+        Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
+        Balance balance = client().sendRequest(getBalanceRequest, Balance.class);
         System.out.printf("available balance: %d", balance.getAvailable());
     }
 

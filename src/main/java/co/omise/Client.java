@@ -42,7 +42,6 @@ public class Client {
 
     private final OkHttpClient httpClient;
 
-    private BalanceResource balance;
     private ChargeResource charges;
     private CustomerResource customers;
     private DisputeResource disputes;
@@ -122,7 +121,6 @@ public class Client {
      * Initializes all the resources needed in the client (should be deprecated soon)
      */
     private void initResources() {
-        balance = new BalanceResource(httpClient);
         charges = new ChargeResource(httpClient);
         customers = new CustomerResource(httpClient);
         disputes = new DisputeResource(httpClient);
@@ -208,17 +206,6 @@ public class Client {
      */
     protected OkHttpClient httpClient() {
         return httpClient;
-    }
-
-    /**
-     * Returns {@link BalanceResource} for accessing the
-     * <a href="https://www.omise.co/balance-api">Balance API</a>
-     *
-     * @return A {@link BalanceResource} instance.
-     * @see <a href="https://www.omise.co/balance-api">Balance API</a>
-     */
-    public BalanceResource balance() {
-        return balance;
     }
 
     /**

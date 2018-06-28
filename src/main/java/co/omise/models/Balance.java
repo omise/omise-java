@@ -1,7 +1,11 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import okhttp3.HttpUrl;
+
 /**
- * Represents Omise Balance object.
+ * Represents Omise Balance object and contains its {@link RequestBuilder <Account>}
  *
  * @see <a href="https://www.omise.co/balance-api">Balance API</a>
  */
@@ -32,5 +36,16 @@ public class Balance extends Model {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    /**
+     * The {@link RequestBuilder<Account>} class for for getting the user's Balance. This class only overrides the path() method from its parent.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Balance> {
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "balance");
+        }
     }
 }
