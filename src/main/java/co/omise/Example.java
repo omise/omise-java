@@ -2,6 +2,7 @@ package co.omise;
 
 import co.omise.models.*;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 
@@ -110,7 +111,11 @@ final class Example {
     }
 
     void listCharges() throws IOException, OmiseException, ClientException {
-        ScopedList<Charge> charges = client().charges().list();
+        Request<Charge> listChargeRequest =
+                new Charge.ListRequestBuilder().build();
+        ScopedList<Charge> charges = client().sendRequest(listChargeRequest, new TypeReference<ScopedList<Charge>>() {
+        });
+
         System.out.printf("returned charges: %d", charges.getData().size());
         System.out.printf("total no. of charges: %d", charges.getTotal());
     }

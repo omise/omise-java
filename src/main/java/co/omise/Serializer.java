@@ -1,7 +1,6 @@
 package co.omise;
 
-import co.omise.models.OmiseObject;
-import co.omise.models.Params;
+import co.omise.models.*;
 import co.omise.requests.RequestBuilder;
 import co.omise.resources.Resource;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -200,6 +199,19 @@ public final class Serializer {
      */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
         return (String) objectMapper.convertValue(value, String.class);
+    }
+
+    /**
+     * Deserialize an instance of the given type reference from the input stream, used for deserializing lists.
+     *
+     * @param input The {@link InputStream} that contains the data to deserialize.
+     * @param ref   The {@link TypeReference} of the type to deserialize the result into.
+     * @param <T>   The type to deserialize the result into.
+     * @return An instance of the given type T deserialized from the input stream.
+     * @throws IOException on general I/O error.
+     */
+    public <T extends OmiseList> T deserializeList(InputStream input, TypeReference<T> ref) throws IOException {
+        return objectMapper.readerFor(ref).readValue(input);
     }
 
     /**

@@ -4,7 +4,9 @@ import co.omise.Client;
 import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.Model;
+import co.omise.models.Params;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -50,7 +52,7 @@ public abstract class RequestBuilder<T extends Model> {
      *
      * @return the url path as {@link HttpUrl}
      */
-    protected abstract HttpUrl path();
+    protected abstract HttpUrl path() throws IOException;
 
     /**
      * Default Content type of the HTTP Request.
@@ -115,6 +117,33 @@ public abstract class RequestBuilder<T extends Model> {
             }
 
             builder = builder.addPathSegment(segment);
+        }
+
+        return builder.build();
+    }
+
+    /**
+     * Builds and returns a valid {@link HttpUrl} pointing to the given {@link Endpoint}'s host
+     * and with all the supplied params concatenated to the url.
+     *
+     * @param endpoint The Omise API {@link Endpoint} to point to.
+     * @param path     The base API path.
+     * @param params   Additional URL params that should be appended.
+     * @return An {@link HttpUrl} instance.
+     */
+    protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
+        Preconditions.checkNotNull(endpoint);
+        Preconditions.checkNotNull(path);
+        Preconditions.checkNotNull(params);
+
+        HttpUrl.Builder builder = endpoint.buildUrl()
+                .addPathSegment(path);
+
+        ImmutableMap<String, String> queries = params.query(serializer);
+        if (queries != null && !queries.isEmpty()) {
+            for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
+                builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
+            }
         }
 
         return builder.build();

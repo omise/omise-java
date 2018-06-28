@@ -1,10 +1,13 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
+import co.omise.Serializer;
 import co.omise.requests.Request;
 import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.google.common.collect.Maps;
+import com.oracle.tools.packager.Log;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -415,7 +418,7 @@ public class Charge extends Model {
         }
     }
 
-    public static class ReverseRequestBuilder extends RequestBuilder<Charge>{
+    public static class ReverseRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
 
         public ReverseRequestBuilder(String chargeId) {
@@ -430,6 +433,24 @@ public class Charge extends Model {
         @Override
         protected String method() {
             return POST;
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<Charge> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "charges", options);
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }
