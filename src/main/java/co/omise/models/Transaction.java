@@ -1,6 +1,11 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Transaction object.
@@ -52,5 +57,38 @@ public class Transaction extends Model {
 
     public void setTransferable(DateTime transferable) {
         this.transferable = transferable;
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Transaction> {
+
+        private String transactionId;
+
+        public GetRequestBuilder(String transactionId) {
+            this.transactionId = transactionId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "transactions", transactionId);
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<Transaction> {
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "transactions");
+        }
     }
 }
