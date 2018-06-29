@@ -38,7 +38,9 @@ public class LiveTransferRequestTest extends BaseLiveTest {
                 .metadata(metadata)
                 .build();
         Transfer transfer = client.sendRequest(request, Transfer.class);
+
         System.out.println("created transfer: " + transfer.getId());
+        assertEquals(10000, transfer.getAmount());
     }
 
     @Test

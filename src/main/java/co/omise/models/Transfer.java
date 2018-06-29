@@ -171,6 +171,11 @@ public class Transfer extends Model {
         protected String method() {
             return POST;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     /**
@@ -205,6 +210,11 @@ public class Transfer extends Model {
         @Override
         protected String method() {
             return PATCH;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
         }
     }
 
