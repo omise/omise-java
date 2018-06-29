@@ -1,6 +1,8 @@
 package co.omise;
 
-import co.omise.models.*;
+import co.omise.models.Model;
+import co.omise.models.OmiseException;
+import co.omise.models.OmiseList;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;

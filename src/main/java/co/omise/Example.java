@@ -353,12 +353,14 @@ final class Example {
     }
 
     void listTransactions() throws IOException, OmiseException, ClientException {
-        ScopedList<Transaction> transactions = client().transactions().list();
+        Request<Transaction> request = new Transaction.ListRequestBuilder().build();
+        ScopedList<Transaction> transactions = client().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
         System.out.printf("no. of transactions: %d", transactions.getTotal());
     }
 
     void retrieveTransactions() throws IOException, OmiseException, ClientException {
-        Transaction transaction = client().transactions().get("trxn_test_4xuy2z4w5vmvq4x5pfs");
+        Request<Transaction> request = new Transaction.GetRequestBuilder("trxn_test_4xuy2z4w5vmvq4x5pfs").build();
+        Transaction transaction = client().sendRequest(request, Transaction.class);
         System.out.printf("transaction amount: %d", transaction.getAmount());
     }
 
