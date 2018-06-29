@@ -1,24 +1,23 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.models.BankAccount;
-import co.omise.models.Recipient;
-import co.omise.models.RecipientType;
-import co.omise.models.Transfer;
+import co.omise.models.*;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LiveTransferRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testCreateLiveTransfer() throws Exception {
+    public void testLiveCreateTransfer() throws Exception {
         Client client = getLiveClient();
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
@@ -43,8 +42,44 @@ public class LiveTransferRequestTest extends BaseLiveTest {
     }
 
     @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveTransferListGet() throws Exception {
+        Request<Transfer> request = new Transfer.ListRequestBuilder()
+                .build();
+
+        ScopedList<Transfer> transfers = getLiveClient().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {
+        });
+
+        assertEquals(20, transfers.getLimit());
+        assertEquals(21, transfers.getTotal());
+
+        Transfer transfer = transfers.getData().get(0);
+        assertNotNull(transfer);
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveTransferListGetWithOption() throws Exception {
+        ScopedList.Options options = new ScopedList.Options()
+                .order(Ordering.Chronological)
+                .limit(3);
+        Request<Transfer> request = new Transfer.ListRequestBuilder()
+                .options(options)
+                .build();
+        ScopedList<Transfer> transfers = getLiveClient().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {
+        });
+
+        assertEquals(3, transfers.getLimit());
+        assertEquals(21, transfers.getTotal());
+        assertEquals(Ordering.Chronological, transfers.getOrder());
+
+        Transfer transfer = transfers.getData().get(0);
+        assertNotNull(transfer);
+    }
+
+    @Test
     @Ignore("only hit when test on live.")
-    public void testGetLiveTransfer() throws Exception {
+    public void testLiveGetTransfer() throws Exception {
         Client client = getLiveClient();
         Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
                 .amount(10000)
@@ -62,7 +97,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
-    public void testUpdateLiveTransfer() throws Exception {
+    public void testLiveUpdateTransfer() throws Exception {
         Client client = getLiveClient();
         Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
                 .amount(10000)
@@ -80,7 +115,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
-    public void testDestroyLiveTransfer() throws Exception {
+    public void testLiveDestroyTransfer() throws Exception {
         Client client = getLiveClient();
         Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
                 .amount(10000)

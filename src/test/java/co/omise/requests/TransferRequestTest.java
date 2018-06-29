@@ -3,8 +3,7 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
-import co.omise.resources.TransferResource;
-import jdk.internal.org.objectweb.asm.TypeReference;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,9 +15,9 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
+        Request<Transfer> request = new Transfer.ListRequestBuilder()
                 .build();
-        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>());
+        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
         assertRequested("GET", "/transfers", 200);
 
         assertEquals(20, list.getLimit());

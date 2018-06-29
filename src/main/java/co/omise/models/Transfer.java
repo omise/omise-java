@@ -166,12 +166,7 @@ public class Transfer extends Model {
 
         @Override
         protected String method() {
-            return "POST";
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
+            return POST;
         }
     }
 
@@ -203,12 +198,7 @@ public class Transfer extends Model {
 
         @Override
         protected String method() {
-            return "PATCH";
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
+            return PATCH;
         }
     }
 
@@ -226,7 +216,7 @@ public class Transfer extends Model {
         }
     }
 
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+    public static class ListRequestBuilder extends RequestBuilder<Transfer> {
 
         private ScopedList.Options options;
 
@@ -237,12 +227,10 @@ public class Transfer extends Model {
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers");
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return buildUrl(Endpoint.API, "transfers", options);
         }
     }
 
@@ -260,7 +248,7 @@ public class Transfer extends Model {
 
         @Override
         protected String method() {
-            return "DELETE";
+            return DELETE;
         }
     }
 }

@@ -5,6 +5,7 @@ import co.omise.requests.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
@@ -251,10 +252,9 @@ final class Example {
     }
 
     void listTransfers() throws IOException, OmiseException, ClientException {
-//        Request<Transfer> request = Transfer.ListRequestBuilder()
-//                .scope(option)
-//                .build();
-        ScopedList<Transfer> transfers = client().transfers().list();
+        Request<Transfer> request = new Transfer.ListRequestBuilder()
+                .build();
+        ScopedList<Transfer> transfers = client().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
         System.out.printf("returned transfers: %d", transfers.getData().size());
         System.out.printf("total no. of transfers: %d", transfers.getTotal());
     }
@@ -262,7 +262,7 @@ final class Example {
     void retrieveTransfer() throws IOException, OmiseException, ClientException {
         Request<Transfer> request = new Transfer.GetRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
                 .build();
-        Transfer transfer = client().transfers().get("trsf_test_4xs5px8c36dsanuwztf");
+        Transfer transfer = client().sendRequest(request, Transfer.class);
         System.out.printf("transfer amount: %d", transfer.getAmount());
     }
 
