@@ -59,6 +59,9 @@ public class Transaction extends Model {
         this.transferable = transferable;
     }
 
+    /**
+     * The {@link RequestBuilder<Transaction>} class for retrieving a particular transaction.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Transaction> {
 
         private String transactionId;
@@ -73,6 +76,9 @@ public class Transaction extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Transaction>} class for retrieving all transactions that belong to an account.
+     */
     public static class ListRequestBuilder extends RequestBuilder<Transaction> {
 
         private ScopedList.Options options;
@@ -87,8 +93,7 @@ public class Transaction extends Model {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-
-            return buildUrl(Endpoint.API, "transactions");
+            return buildUrl(Endpoint.API, "transactions", options);
         }
     }
 }
