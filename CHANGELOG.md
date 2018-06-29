@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+#2.7.5
+**REMOVED:** Removed Sinarmas virtual account as a payment source type
+
+#2.7.4
+**CHANGED:** Changed variable names for Alipay barcode payment
+
 # v2.7.3
 
 * **NEW:** Add source's fields to support create source of Alipay Wallet.
