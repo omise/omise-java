@@ -21,11 +21,10 @@ import java.io.IOException;
  * <li>Overrides the {@link #body(Serializer)} method to returns a custom OkHttp {@link RequestBody}.</li>
  * </ul>
  * <p>
- * For an example, see the {@link ScopedList.Options} or the {@link Charge.Create} class
+ * For an example, see the {@link ScopedList.Options}
  * </p>
  *
  * @see ScopedList.Options
- * @see Charge.Create
  */
 public abstract class Params {
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
