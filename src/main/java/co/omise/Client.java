@@ -52,7 +52,6 @@ public class Client {
     private ScheduleResource schedules;
     private TokenResource tokens;
     private TransactionResource transactions;
-    private TransferResource transfers;
     private SourceResource sources;
     private Requester requester;
 
@@ -123,7 +122,6 @@ public class Client {
         schedules = new ScheduleResource(httpClient);
         tokens = new TokenResource(httpClient);
         transactions = new TransactionResource(httpClient);
-        transfers = new TransferResource(httpClient);
         sources = new SourceResource(httpClient);
     }
 
@@ -359,17 +357,6 @@ public class Client {
      */
     public TransactionResource transactions() {
         return transactions;
-    }
-
-    /**
-     * Returns {@link TransferResource} for accessing the
-     * <a href="https://www.omise.co/transfers-api">Transfers API</a>
-     *
-     * @return A {@link TransferResource} instance.
-     * @see <a href="https://www.omise.co/transfers-api">Transfers API</a>
-     */
-    public TransferResource transfers() {
-        return transfers;
     }
 
     /**

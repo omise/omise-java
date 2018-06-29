@@ -10,9 +10,9 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Represents Omise Token object.
+ * Represents Omise Transfer object and contains all of its {@link RequestBuilder <Transfer>}.
  *
- * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
+ * @see <a href="https://www.omise.co/transfers-api">Tranfers API</a>
  */
 public class Transfer extends Model {
     private String recipient;
@@ -128,6 +128,9 @@ public class Transfer extends Model {
         this.metadata = metadata;
     }
 
+    /**
+     * The {@link RequestBuilder<Transfer>} class for creating a transfer.
+     */
     public static class CreateRequestBuilder extends RequestBuilder<Transfer> {
 
         @JsonProperty
@@ -170,6 +173,9 @@ public class Transfer extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Transfer>} class for updating a particular transfer.
+     */
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
         @JsonProperty
@@ -202,6 +208,9 @@ public class Transfer extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Transfer>} class for retrieving a particular transfer.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Transfer> {
 
         private String transferId;
@@ -216,6 +225,9 @@ public class Transfer extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Transfer>} class for retrieving all transfers that belong to an account.
+     */
     public static class ListRequestBuilder extends RequestBuilder<Transfer> {
 
         private ScopedList.Options options;
@@ -234,6 +246,9 @@ public class Transfer extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder<Transfer>} class for destroying a particular transfer.
+     */
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
 
