@@ -264,23 +264,6 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveSourceVirtualAccount() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.VirtualAccountSinarmas)
-                .amount(1100000)
-                .currency("idr"));
-
-        System.out.println("created source: " + source.getId());
-
-        assertNotNull(source.getId());
-        assertEquals("virtual_account_sinarmas", source.getType().toString());
-        assertEquals("offline", source.getFlow().toString());
-        assertEquals(1100000L, source.getAmount());
-        assertEquals("idr", source.getCurrency());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithInternetBanking() throws ClientException, IOException, OmiseException {
         Source source = liveTestClient().sources().create(new Source.Create()
                 .type(SourceType.InternetBankingBay)
@@ -339,26 +322,6 @@ public class ClientTest extends OmiseTest {
         assertNotNull(charge.getId());
         assertEquals(SourceType.Alipay, charge.getSource().getType());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveSourceVirtualAccountCharge() throws ClientException, IOException, OmiseException {
-        Source source = liveTestClient().sources().create(new Source.Create()
-                .type(SourceType.VirtualAccountSinarmas)
-                .amount(1100000)
-                .currency("idr"));
-
-        Charge charge = liveTestClient().charges().create(new Charge.Create()
-                .source(source.getId())
-                .amount(1100000)
-                .currency("idr"));
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertNotNull(charge.getSource());
-        assertNotNull(charge.getSource().getReferences());
     }
 
     @Test

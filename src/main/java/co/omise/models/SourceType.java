@@ -16,8 +16,6 @@ public enum SourceType {
     Alipay,
     @JsonProperty("bill_payment_tesco_lotus")
     BillPaymentTescoLotus,
-    @JsonProperty("virtual_account_sinarmas")
-    VirtualAccountSinarmas,
     @JsonProperty("barcode_alipay")
     BarcodeAlipay;
 
@@ -36,8 +34,6 @@ public enum SourceType {
                 return "bill_payment_tesco_lotus";
             case Alipay:
                 return "alipay";
-            case VirtualAccountSinarmas:
-                return "virtual_account_sinarmas";
             case BarcodeAlipay:
                 return "barcode_alipay";
             default:
