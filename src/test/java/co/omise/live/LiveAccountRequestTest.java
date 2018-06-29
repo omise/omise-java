@@ -12,7 +12,7 @@ public class LiveAccountRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit when test on live.")
     public void getAccount_success() throws Exception {
-        Client client = new Client(getPublicKey(), getSecretKey());
+        Client client = getLiveClient();
 
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account actualAccount = client.sendRequest(getAccountRequest, Account.class);

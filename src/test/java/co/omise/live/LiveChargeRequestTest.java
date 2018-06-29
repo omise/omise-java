@@ -1,7 +1,6 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.ClientException;
 import co.omise.models.*;
 import co.omise.requests.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,8 +20,8 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     private Client client;
 
     @Before
-    public void setup() throws ClientException {
-        client = new Client(getPublicKey(), getSecretKey());
+    public void setup() throws Exception {
+        client = getLiveClient();
     }
 
     @Test
