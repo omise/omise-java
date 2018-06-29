@@ -5,6 +5,9 @@
 
 #2.7.4
 **CHANGED:** Changed variable names for Alipay barcode payment
+**NEW:** Add metadata field to creating and updating a Transfer.
+**NEW:** Add metadata field to creating a Refund.
+**NEW:** Add metadata field to updating a Dispute.
 
 # v2.7.3
 
