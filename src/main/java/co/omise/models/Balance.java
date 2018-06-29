@@ -39,7 +39,7 @@ public class Balance extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Account>} class for for getting the user's Balance.
+     * The {@link RequestBuilder<Account>} class for getting the user's Balance.
      */
     public static class GetRequestBuilder extends RequestBuilder<Balance> {
 
