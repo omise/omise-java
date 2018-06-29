@@ -17,7 +17,7 @@ import static junit.framework.Assert.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
 
-public class LiveChargeTest extends BaseLiveTest {
+public class LiveChargeRequestTest extends BaseLiveTest {
     private Client client;
 
     @Before
