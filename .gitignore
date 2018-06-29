@@ -15,7 +15,7 @@
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-.idea/modules/omise-java_test.iml
+.idea/modules/
 
 # Gradle:
 .idea/gradle.xml
