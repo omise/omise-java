@@ -60,6 +60,10 @@ public class RequesterImpl implements Requester {
         }
     }
 
+    @Override
+    public OkHttpClient getHttpClient() {
+        return httpClient;
+    }
 
     /**
      * Process the reponse returned by the API

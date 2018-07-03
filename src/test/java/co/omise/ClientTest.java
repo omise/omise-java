@@ -21,7 +21,7 @@ public class ClientTest extends OmiseTest {
 
     @Test(expected = NullPointerException.class)
     public void testCreator() throws ClientException {
-        new Client(null);
+        new Client((String) null);
     }
 
     @Test
