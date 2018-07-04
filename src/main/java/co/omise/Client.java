@@ -1,7 +1,6 @@
 package co.omise;
 
-import co.omise.models.Model;
-import co.omise.models.OmiseException;
+import co.omise.models.*;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
@@ -42,7 +41,6 @@ public class Client {
 
     private final OkHttpClient httpClient;
 
-    private ChargeResource charges;
     private CustomerResource customers;
     private DisputeResource disputes;
     private EventResource events;
@@ -114,7 +112,6 @@ public class Client {
      * Initializes all the resources needed in the client (should be deprecated soon)
      */
     private void initResources() {
-        charges = new ChargeResource(httpClient);
         customers = new CustomerResource(httpClient);
         disputes = new DisputeResource(httpClient);
         events = new EventResource(httpClient);
@@ -199,17 +196,6 @@ public class Client {
      */
     protected OkHttpClient httpClient() {
         return httpClient;
-    }
-
-    /**
-     * Returns {@link ChargeResource} for accessing the
-     * <a href="https://www.omise.co/charges-api">Charge API</a>
-     *
-     * @return A {@link ChargeResource} instance.
-     * @see <a href="https://www.omise.co/charges-api">Charge API</a>
-     */
-    public ChargeResource charges() {
-        return charges;
     }
 
     /**
@@ -426,7 +412,7 @@ public class Client {
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
-    public <T extends Model, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
+    public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
         if (requester == null) return null;
 
         return requester.sendRequest(request, typeReference);
