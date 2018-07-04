@@ -2,6 +2,7 @@ package co.omise;
 
 import co.omise.models.*;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 
@@ -9,7 +10,7 @@ final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
 
     void retrieveAccount() throws IOException, OmiseException, ClientException {
-        Request<Account> getAccountRequest =  new Account.GetRequestBuilder().build();
+        Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account account = client().sendRequest(getAccountRequest, Account.class);
         System.out.printf("account id: %s", account.getId());
     }
@@ -50,26 +51,35 @@ final class Example {
     }
 
     void captureCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().capture("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                        .build();
+        Charge charge = client().sendRequest(captureChargeRequest, Charge.class);
+
         System.out.printf("captured charge: %s", charge.getId());
     }
 
     void chargeWithCard() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
                         .customer("cust_test_4xtrb759599jsxlhkrb")
-                        .card("card_test_4xtsoy2nbfs7ujngyyq"));
+                        .card("card_test_4xtsoy2nbfs7ujngyyq")
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
         System.out.printf("created charge: %s", charge.getId());
     }
 
     void chargeWithCustomer() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
-                        .customer("cust_test_4xtrb759599jsxlhkrb"));
+                        .customer("cust_test_4xtrb759599jsxlhkrb")
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
+
         System.out.printf("created charge: %s", charge.getId());
     }
 
@@ -89,35 +99,49 @@ final class Example {
 
         System.out.println("created token: " + token.getId());
 
-        Charge charge = client().charges()
-                .create(new Charge.Create()
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
                         .amount(100000) // 1,000 THB
                         .currency("thb")
-                        .card(token.getId()));
+                        .card(token.getId())
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest, Charge.class);
 
         System.out.printf("created charge: %s", charge.getId());
     }
 
     void listCharges() throws IOException, OmiseException, ClientException {
-        ScopedList<Charge> charges = client().charges().list();
+        Request<ScopedList<Charge>> listChargeRequest = new Charge.ListRequestBuilder().build();
+        ScopedList<Charge> charges = client().sendRequest(listChargeRequest, new TypeReference<ScopedList<Charge>>() {
+        });
+
         System.out.printf("returned charges: %d", charges.getData().size());
         System.out.printf("total no. of charges: %d", charges.getTotal());
     }
 
     void retrieveCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().get("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        Charge charge = client().sendRequest(getChargeRequest, Charge.class);
+
         System.out.printf("charge amount: %d", charge.getAmount());
     }
 
     void reverseCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges().reverse("chrg_test_4xso2s8ivdej29pqnhz");
+        Request<Charge> reverseChargeRequest =
+                new Charge.ReverseRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        Charge charge = client().sendRequest(reverseChargeRequest, Charge.class);
+
         System.out.printf("charge reversal: %s", Boolean.toString(charge.isReversed()));
     }
 
     void updateCharge() throws IOException, OmiseException, ClientException {
-        Charge charge = client().charges()
-                .update("chrg_test_4xso2s8ivdej29pqnhz", new Charge.Update()
-                        .description("updated description"));
+        Request<Charge> updateChargeRequest =
+                new Charge.UpdateRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                        .description("updated description")
+                        .build();
+
+        Charge charge = client().sendRequest(updateChargeRequest, Charge.class);
+
         System.out.printf("updated description: %s", charge.getDescription());
     }
 
@@ -331,4 +355,3 @@ final class Example {
         return new Client(OMISE_SKEY);
     }
 }
-
