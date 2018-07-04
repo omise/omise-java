@@ -5,6 +5,8 @@ import co.omise.models.Model;
 import co.omise.models.OmiseException;
 import co.omise.models.OmiseList;
 import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.OkHttpClient;
+import sun.net.www.http.HttpClient;
 
 import java.io.IOException;
 
@@ -37,4 +39,10 @@ public interface Requester {
      * @throws OmiseException the custom exception thrown for response errors
      */
     <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException;
+  
+    /**
+     * Getter method to retrieve the {@link OkHttpClient} used in the requester. (Temp method)
+     * @return {@link OkHttpClient} used in the requester
+    * */
+    OkHttpClient getHttpClient ();
 }

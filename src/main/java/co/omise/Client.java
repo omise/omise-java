@@ -96,21 +96,14 @@ public class Client {
      * of the Omise API. This is an overloaded version of the previous constructor to make it easy for users
      * to supply their own implementations of Requester.
      *
-     * @param publicKey The key with {@code pkey_} prefix.
-     * @param secretKey The key with {@code skey_} prefix.
      * @param requester Requester implementation that will be used to send requests and parse their results.
-     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      * @see Serializer
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
-    public Client(String publicKey, String secretKey, Requester requester) throws ClientException {
-        Preconditions.checkNotNull(secretKey);
-
-        Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
-        httpClient = buildHttpClient(config);
-
+    public Client(Requester requester) {
         this.requester = requester;
+        this.httpClient = requester.getHttpClient();
 
         initResources();
     }
