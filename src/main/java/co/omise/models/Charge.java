@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -307,8 +308,16 @@ public class Charge extends Model {
             return this;
         }
 
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = Maps.newHashMap();
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+
         public CreateRequestBuilder metadata(Map<String, Object> metadata) {
-            this.metadata = Collections.unmodifiableMap(metadata);
+            this.metadata = new HashMap<>(metadata);
             return this;
         }
 
@@ -389,17 +398,16 @@ public class Charge extends Model {
             return this;
         }
 
-        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
-            this.metadata = metadata;
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = Maps.newHashMap();
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
             return this;
         }
 
-        public UpdateRequestBuilder metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
-            }
-
-            this.metadata.put(key, value);
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = new HashMap<>(metadata);
             return this;
         }
     }
