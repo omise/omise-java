@@ -46,7 +46,7 @@ public class RequesterImpl implements Requester {
     }
 
     @Override
-    public <T extends OmiseList, S extends Model, R extends Request<S>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
+    public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
         InputStream stream = preProcess(roundTrip(request.getPath(), request.getPayload(), request.getMethod()));
         if (stream == null) {
             return null;

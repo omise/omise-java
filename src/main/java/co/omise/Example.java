@@ -111,8 +111,7 @@ final class Example {
     }
 
     void listCharges() throws IOException, OmiseException, ClientException {
-        Request<Charge> listChargeRequest =
-                new Charge.ListRequestBuilder().build();
+        Request<ScopedList<Charge>> listChargeRequest = new Charge.ListRequestBuilder().build();
         ScopedList<Charge> charges = client().sendRequest(listChargeRequest, new TypeReference<ScopedList<Charge>>() {
         });
 

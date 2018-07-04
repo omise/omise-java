@@ -4,6 +4,7 @@ import co.omise.Client;
 import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.Model;
+import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
@@ -20,7 +21,7 @@ import java.io.IOException;
  *
  * @param <T> the generic type for any Model that would need to be returned by the {@link Client} when this request is passed to it
  */
-public abstract class RequestBuilder<T extends Model> {
+public abstract class RequestBuilder<T extends OmiseObjectBase> {
     private final Serializer serializer = Serializer.defaultSerializer();
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 

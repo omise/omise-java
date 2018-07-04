@@ -282,7 +282,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeListGet() throws IOException, OmiseException {
-        Request<Charge> getChargeListRequest =
+        Request<ScopedList<Charge>> getChargeListRequest =
                 new Charge.ListRequestBuilder()
                         .build();
 
@@ -300,7 +300,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeListGet_withOptions() throws IOException, OmiseException {
-        Request<Charge> getChargeListRequest =
+        Request<ScopedList<Charge>> getChargeListRequest =
                 new Charge.ListRequestBuilder()
                         .options(new ScopedList.Options()
                                 .limit(3)

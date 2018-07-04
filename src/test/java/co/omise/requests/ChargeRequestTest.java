@@ -105,7 +105,7 @@ public class ChargeRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        Request<Charge> listChargeRequest =
+        Request<ScopedList<Charge>> listChargeRequest =
                 new Charge.ListRequestBuilder().build();
         ScopedList<Charge> list = getTestRequester().sendRequest(listChargeRequest, new TypeReference<ScopedList<Charge>>() {
         });

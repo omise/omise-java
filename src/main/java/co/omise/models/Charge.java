@@ -458,7 +458,7 @@ public class Charge extends Model {
     /**
      * The {@link RequestBuilder<Charge>} class for for retrieving all Charges that belong to an account.
      */
-    public static class ListRequestBuilder extends RequestBuilder<Charge> {
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
         private ScopedList.Options options;
 
         @Override

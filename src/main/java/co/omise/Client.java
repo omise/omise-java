@@ -419,7 +419,7 @@ public class Client {
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
-    public <T extends OmiseList, S extends Model, R extends Request<S>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
+    public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
         if (requester == null) return null;
 
         return requester.sendRequest(request, typeReference);

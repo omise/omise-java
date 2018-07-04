@@ -35,5 +35,5 @@ public interface Requester {
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
-    <T extends OmiseList, S extends Model, R extends Request<S>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException;
+    <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException;
 }
