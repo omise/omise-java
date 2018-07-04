@@ -317,7 +317,7 @@ public class Charge extends Model {
         }
 
         public CreateRequestBuilder metadata(Map<String, Object> metadata) {
-            this.metadata = new HashMap<>(metadata);
+            this.metadata = metadata;
             return this;
         }
 
@@ -402,7 +402,7 @@ public class Charge extends Model {
             HashMap<String, Object> tempMap = Maps.newHashMap();
             tempMap.put(key, value);
 
-            this.metadata = new HashMap<>(tempMap);
+            this.metadata = tempMap;
             return this;
         }
 
