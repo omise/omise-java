@@ -141,7 +141,6 @@ final class Example {
                         .description("updated description")
                         .build();
 
-
         Charge charge = client().sendRequest(updateChargeRequest, Charge.class);
 
         System.out.printf("updated description: %s", charge.getDescription());
@@ -357,4 +356,3 @@ final class Example {
         return new Client(OMISE_SKEY);
     }
 }
-
