@@ -1,9 +1,10 @@
 package co.omise.requests;
 
 import co.omise.Client;
-import co.omise.models.*;
+import co.omise.models.Model;
+import co.omise.models.OmiseException;
+import co.omise.models.OmiseList;
 import com.fasterxml.jackson.core.type.TypeReference;
-import sun.reflect.generics.scope.Scope;
 
 import java.io.IOException;
 
