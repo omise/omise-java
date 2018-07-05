@@ -41,29 +41,6 @@ public class ClientTest extends OmiseTest {
         }
     }
 
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveTransfer() throws ClientException, IOException, OmiseException {
-        Client client = new Client(LIVETEST_PKEY, LIVETEST_SKEY);
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("description", "DESCRIPTION");
-        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Recipient recipient = client.recipients().create(new Recipient.Create()
-                .name("Omise-Java Recipient")
-                .email("support@omise.co")
-                .type(RecipientType.Individual)
-                .bankAccount(new BankAccount.Params()
-                        .name("Omise-Java Bank")
-                        .number("7772-727-272")
-                        .brand("kbank")));
-        System.out.println("created recipient: " + recipient.getId());
-
-        Transfer transfer = client.transfers().create(new Transfer.Create()
-                .recipient(recipient.getId())
-                .amount(10000)
-                .metadata(metadata));
-        System.out.println("created transfer: " + transfer.getId());
-    }
 
     @Test
     @Ignore("only hit the network when we need to.")
