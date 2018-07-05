@@ -6,6 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 
 group 'co.omise'
+group 'com.github.omise'
 version '2.7.5'
 
 sourceCompatibility = 1.8
