@@ -5,7 +5,7 @@ import co.omise.requests.RequestBuilder;
 import okhttp3.HttpUrl;
 
 /**
- * Represents Omise Balance object and contains its {@link RequestBuilder <Account>}
+ * Represents Omise Balance object and contains its {@link RequestBuilder}
  *
  * @see <a href="https://www.omise.co/balance-api">Balance API</a>
  */
@@ -39,7 +39,7 @@ public class Balance extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Account>} class for getting the user's Balance.
+     * The {@link RequestBuilder} class for getting the user's Balance.
      */
     public static class GetRequestBuilder extends RequestBuilder<Balance> {
 
