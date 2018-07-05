@@ -48,9 +48,10 @@ distributions {
     }
 }
 
-signing {
-    sign configurations.archives
-}
+//TODO Uncomment this before any real release
+//signing {
+//    sign configurations.archives
+//}
 
 artifacts {
     archives javadocJar, sourcesJar
