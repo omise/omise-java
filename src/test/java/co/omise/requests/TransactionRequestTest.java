@@ -14,7 +14,7 @@ public class TransactionRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        Request<Transaction> request = new Transaction.ListRequestBuilder().build();
+        Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
         ScopedList<Transaction> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
         assertRequested("GET", "/transactions", 200);
 

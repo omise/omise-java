@@ -353,7 +353,7 @@ final class Example {
     }
 
     void listTransactions() throws IOException, OmiseException, ClientException {
-        Request<Transaction> request = new Transaction.ListRequestBuilder().build();
+        Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
         ScopedList<Transaction> transactions = client().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
         System.out.printf("no. of transactions: %d", transactions.getTotal());
     }

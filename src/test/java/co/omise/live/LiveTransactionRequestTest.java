@@ -49,7 +49,7 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveListTransaction() throws IOException, OmiseException {
-        Request<Transaction> request = new Transaction.ListRequestBuilder().build();
+        Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
         ScopedList<Transaction> transactions = client.sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
 
         assertEquals(20, transactions.getLimit());
@@ -63,7 +63,7 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
         ScopedList.Options options = new ScopedList.Options()
                 .limit(3)
                 .order(Ordering.Chronological);
-        Request<Transaction> request = new Transaction.ListRequestBuilder().options(options).build();
+        Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().options(options).build();
         ScopedList<Transaction> transactions = client.sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
 
         assertEquals(3, transactions.getLimit());

@@ -77,9 +77,9 @@ public class Transaction extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transaction>} class for retrieving all transactions that belong to an account.
+     * The {@link RequestBuilder<ScopedList<Transaction>>} class for retrieving all transactions that belong to an account.
      */
-    public static class ListRequestBuilder extends RequestBuilder<Transaction> {
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
 
         private ScopedList.Options options;
 

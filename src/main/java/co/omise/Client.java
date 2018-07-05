@@ -53,7 +53,6 @@ public class Client {
     private RecipientResource recipients;
     private ScheduleResource schedules;
     private TokenResource tokens;
-    private TransactionResource transactions;
     private SourceResource sources;
     private Requester requester;
 
@@ -123,7 +122,6 @@ public class Client {
         recipients = new RecipientResource(httpClient);
         schedules = new ScheduleResource(httpClient);
         tokens = new TokenResource(httpClient);
-        transactions = new TransactionResource(httpClient);
         sources = new SourceResource(httpClient);
     }
 
@@ -348,17 +346,6 @@ public class Client {
      */
     public TokenResource tokens() {
         return tokens;
-    }
-
-    /**
-     * Returns {@link TransactionResource} for accessing the
-     * <a href="https://www.omise.co/transactions-api">Transactions API</a>
-     *
-     * @return A {@link TransactionResource} instance.
-     * @see <a href="https://www.omise.co/transactions-api">Transactions API</a>
-     */
-    public TransactionResource transactions() {
-        return transactions;
     }
 
     /**
