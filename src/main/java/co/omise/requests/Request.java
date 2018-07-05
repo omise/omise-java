@@ -1,7 +1,7 @@
 package co.omise.requests;
 
 import co.omise.Client;
-import co.omise.models.Model;
+import co.omise.models.OmiseObjectBase;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
  *
  * @param <T> the generic type for any Model/ScopedList that would need to be returned by the {@link Client} when this request is passed to it
  */
-public class Request<T extends Model> {
+public class Request<T extends OmiseObjectBase> {
     private final String method;
     private final HttpUrl path;
     private final String contentType;
