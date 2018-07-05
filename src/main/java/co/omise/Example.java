@@ -252,7 +252,7 @@ final class Example {
     }
 
     void listTransfers() throws IOException, OmiseException, ClientException {
-        Request<Transfer> request = new Transfer.ListRequestBuilder()
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
         ScopedList<Transfer> transfers = client().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
         System.out.printf("returned transfers: %d", transfers.getData().size());

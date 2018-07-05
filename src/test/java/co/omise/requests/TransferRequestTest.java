@@ -15,7 +15,7 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        Request<Transfer> request = new Transfer.ListRequestBuilder()
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
         ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
         assertRequested("GET", "/transfers", 200);

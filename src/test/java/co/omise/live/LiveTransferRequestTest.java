@@ -46,7 +46,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveTransferListGet() throws Exception {
-        Request<Transfer> request = new Transfer.ListRequestBuilder()
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
 
         ScopedList<Transfer> transfers = getLiveClient().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {
@@ -65,7 +65,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
         ScopedList.Options options = new ScopedList.Options()
                 .order(Ordering.Chronological)
                 .limit(3);
-        Request<Transfer> request = new Transfer.ListRequestBuilder()
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .options(options)
                 .build();
         ScopedList<Transfer> transfers = getLiveClient().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {

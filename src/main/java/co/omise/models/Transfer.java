@@ -236,9 +236,9 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transfer>} class for retrieving all transfers that belong to an account.
+     * The {@link RequestBuilder<ScopedList<Transfer>>} class for retrieving all transfers that belong to an account.
      */
-    public static class ListRequestBuilder extends RequestBuilder<Transfer> {
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
 
         private ScopedList.Options options;
 
