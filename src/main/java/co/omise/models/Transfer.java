@@ -1,13 +1,18 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
- * Represents Omise Token object.
+ * Represents Omise Transfer object and contains all of its {@link RequestBuilder <Transfer>}.
  *
- * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
+ * @see <a href="https://www.omise.co/transfers-api">Tranfers API</a>
  */
 public class Transfer extends Model {
     private String recipient;
@@ -123,7 +128,11 @@ public class Transfer extends Model {
         this.metadata = metadata;
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder<Transfer>} class for creating a transfer.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Transfer> {
+
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -133,42 +142,138 @@ public class Transfer extends Model {
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public Create amount(long amount) {
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create recipient(String recipient) {
+        public CreateRequestBuilder recipient(String recipient) {
             this.recipient = recipient;
             return this;
         }
 
-        public Create failFast(boolean failFast) {
+        public CreateRequestBuilder failFast(boolean failFast) {
             this.failFast = failFast;
             return this;
         }
 
-        public Create metadata(Map<String, Object> metadata) {
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers");
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
-    public static class Update extends Params {
+    /**
+     * The {@link RequestBuilder<Transfer>} class for updating a particular transfer.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
         @JsonProperty
         private long amount;
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public Update amount(long amount) {
+        public UpdateRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        public UpdateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Update metadata(Map<String, Object> metadata) {
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder<Transfer>} class for retrieving a particular transfer.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
+
+        private String transferId;
+
+        public GetRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder<ScopedList<Transfer>>} class for retrieving all transfers that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return buildUrl(Endpoint.API, "transfers", options);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder<Transfer>} class for destroying a particular transfer.
+     */
+    public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+
+        public DestroyRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
     }
 }
-

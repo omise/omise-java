@@ -1,20 +1,23 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransferResourceTest extends ResourceTest {
+public class TransferRequestTest extends RequestTest {
     private static final String TRANSFER_ID = "trsf_test_4yqacz8t3cbipcj766u";
 
     @Test
     public void testList() throws IOException, OmiseException {
-        ScopedList<Transfer> list = resource().list();
+        Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
+                .build();
+        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
         assertRequested("GET", "/transfers", 200);
 
         assertEquals(20, list.getLimit());
@@ -27,7 +30,9 @@ public class TransferResourceTest extends ResourceTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Transfer transfer = resource().get(TRANSFER_ID);
+        Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -41,7 +46,12 @@ public class TransferResourceTest extends ResourceTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Transfer transfer = resource().create(new Transfer.Create().amount(192188).metadata(metadata));
+
+        Request<Transfer> request = new Transfer.CreateRequestBuilder()
+                .amount(192188)
+                .metadata(metadata)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("POST", "/transfers", 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -55,7 +65,11 @@ public class TransferResourceTest extends ResourceTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Transfer transfer = resource().update(TRANSFER_ID, new Transfer.Update().amount(192189).metadata(metadata));
+        Request<Transfer> request = new Transfer.UpdateRequestBuilder(TRANSFER_ID)
+                .amount(192189)
+                .metadata(metadata)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
         assertRequested("PATCH", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -64,7 +78,13 @@ public class TransferResourceTest extends ResourceTest {
         assertEquals("inv_N1ayTWJ2FV", transfer.getMetadata().get("invoice_id"));
     }
 
-    private TransferResource resource() {
-        return new TransferResource(testClient());
+    @Test
+    public void testDestroy() throws IOException, OmiseException {
+        Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
+        assertEquals(TRANSFER_ID, transfer.getId());
+        assertTrue(transfer.isDeleted());
     }
 }
