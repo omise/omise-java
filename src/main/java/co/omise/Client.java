@@ -367,7 +367,7 @@ public class Client {
      * @param <R>     the {@link Request} object type that is passed in from the user
      * @param request the {@link Request} user generated request
      * @param klass   the type of the object that the response is expected to be deserialized as
-     * @return the {@link Model} object that contains the response from the api
+     * @return the {@link Model} object that contains the response from the API
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
@@ -384,7 +384,7 @@ public class Client {
      * @param <R>           the {@link Request} object type that is passed in from the user
      * @param request       the {@link Request} user generated request
      * @param typeReference the type of the object for the list that the response is expected to be deserialized as
-     * @return the {@link OmiseList} object that contains the response from the api
+     * @return the {@link OmiseList} object that contains the response from the API
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
