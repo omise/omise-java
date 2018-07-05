@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Represents Omise Transfer object and contains all of its {@link RequestBuilder <Transfer>}.
+ * Represents Omise Transfer object and contains all of its {@link RequestBuilder}.
  *
  * @see <a href="https://www.omise.co/transfers-api">Tranfers API</a>
  */
@@ -129,7 +129,7 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transfer>} class for creating a transfer.
+     * The {@link RequestBuilder} class for creating a transfer.
      */
     public static class CreateRequestBuilder extends RequestBuilder<Transfer> {
 
@@ -179,7 +179,7 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transfer>} class for updating a particular transfer.
+     * The {@link RequestBuilder} class for updating a particular transfer.
      */
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
@@ -219,7 +219,7 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transfer>} class for retrieving a particular transfer.
+     * The {@link RequestBuilder} class for retrieving a particular transfer.
      */
     public static class GetRequestBuilder extends RequestBuilder<Transfer> {
 
@@ -236,7 +236,7 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<ScopedList<Transfer>>} class for retrieving all transfers that belong to an account.
+     * The {@link RequestBuilder} class for retrieving all transfers that belong to an account.
      */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
 
@@ -257,7 +257,7 @@ public class Transfer extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transfer>} class for destroying a particular transfer.
+     * The {@link RequestBuilder} class for destroying a particular transfer.
      */
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
