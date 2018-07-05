@@ -60,7 +60,7 @@ public class Transaction extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<Transaction>} class for retrieving a particular transaction.
+     * The {@link RequestBuilder} class for retrieving a particular transaction.
      */
     public static class GetRequestBuilder extends RequestBuilder<Transaction> {
 
@@ -77,7 +77,7 @@ public class Transaction extends Model {
     }
 
     /**
-     * The {@link RequestBuilder<ScopedList<Transaction>>} class for retrieving all transactions that belong to an account.
+     * The {@link RequestBuilder} class for retrieving all transactions that belong to an account.
      */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
 

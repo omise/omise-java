@@ -48,9 +48,10 @@ distributions {
     }
 }
 
-signing {
-    sign configurations.archives
-}
+//TODO Turn the signing action back on before merging this into the master
+//signing {
+//    sign configurations.archives
+//}
 
 artifacts {
     archives javadocJar, sourcesJar

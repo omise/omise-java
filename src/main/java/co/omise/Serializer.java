@@ -217,10 +217,10 @@ public final class Serializer {
     }
 
     /**
-     * Serializes the given {@link RequestBuilder<T>} object to the provided output stream.
+     * Serializes the given {@link RequestBuilder} object to the provided output stream.
      *
      * @param outputStream The {@link OutputStream} to serialize the parameter into.
-     * @param builder      The {@link RequestBuilder<T>} to serialize.
+     * @param builder      The {@link RequestBuilder} to serialize.
      * @param <T>          The type of the parameter object to serialize.
      * @throws IOException on general I/O error.
      */

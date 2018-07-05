@@ -16,7 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
- * RequestBuilder is base class, all extending classes would be used to generate a {@link Request<T>} that would then be passed on to {@link Client} in order
+ * RequestBuilder is base class, all extending classes would be used to generate a {@link Request} that would then be passed on to {@link Client} in order
  * to carry out a certain task through an HTTP request
  *
  * @param <T> the generic type for any Model that would need to be returned by the {@link Client} when this request is passed to it
@@ -33,7 +33,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
     /**
      * Builds request with all its enclosing information and extra params (if available).
      *
-     * @return built {@link Request<T>}
+     * @return built {@link Request} of type {@link OmiseObjectBase}
      * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
     public Request<T> build() throws IOException {
