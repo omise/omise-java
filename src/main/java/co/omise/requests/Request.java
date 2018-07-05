@@ -1,7 +1,6 @@
 package co.omise.requests;
 
 import co.omise.Client;
-import co.omise.models.Model;
 import co.omise.models.OmiseObjectBase;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;

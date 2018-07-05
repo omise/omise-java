@@ -28,6 +28,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
     protected static final String POST = "POST";
     protected static final String GET = "GET";
     protected static final String PATCH = "PATCH";
+    protected static final String DELETE = "DELETE";
 
     /**
      * Builds request with all its enclosing information and extra params (if available).
