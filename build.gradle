@@ -48,7 +48,7 @@ distributions {
     }
 }
 
-//TODO Uncomment this before any real release
+//TODO Turn the signing action back on before merging this into the master
 //signing {
 //    sign configurations.archives
 //}
