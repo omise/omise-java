@@ -435,7 +435,7 @@ public class Charge extends Model {
 
 
     /**
-     * The {@link RequestBuilder} class for for reversing a particular Charge.
+     * The {@link RequestBuilder} class for reversing a particular Charge.
      */
     public static class ReverseRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
