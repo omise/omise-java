@@ -14,17 +14,6 @@ public class TokenResourceTest extends ResourceTest {
     private static final String TOKEN_ID = "tokn_test_4yq8lbecl0q6dsjzxr5";
 
     @Test
-    public void testGet() throws IOException, OmiseException {
-        Token token = resource().get(TOKEN_ID);
-        assertRequested("GET", "/tokens/" + TOKEN_ID, 200);
-        assertVaultRequest();
-
-        assertEquals(TOKEN_ID, token.getId());
-        assertEquals("card_test_4yq6tuucl9h4erukfl0", token.getCard().getId());
-        assertEquals("sRF/oMw2UQJJp/WbU+2/ZbVzwROjpMf1lyhOHhOqziw=", token.getCard().getFingerprint());
-    }
-
-    @Test
     public void testCreate() throws IOException, OmiseException {
         Token token = resource().create(new Token.Create().card(new Card.Create()
                 .name("JOHN DOE")

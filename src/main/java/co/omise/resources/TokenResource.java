@@ -13,9 +13,6 @@ public class TokenResource extends Resource {
         super(httpClient);
     }
 
-    public Token get(String tokenId) throws IOException, OmiseException {
-        return httpGet(urlFor(tokenId)).returns(Token.class);
-    }
 
     public Token create(Token.Create params) throws IOException, OmiseException {
         return httpPost(urlFor("")).params(params).returns(Token.class);

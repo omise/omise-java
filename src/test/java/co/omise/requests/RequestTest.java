@@ -36,4 +36,8 @@ public class RequestTest extends OmiseTest {
     Requester getTestRequester() {
         return new RequesterImpl(testClient(), Serializer.defaultSerializer());
     }
+
+    Request lastRequest() {
+        return interceptor.lastRequest();
+    }
 }
