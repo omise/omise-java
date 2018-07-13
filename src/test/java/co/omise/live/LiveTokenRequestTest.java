@@ -35,4 +35,28 @@ public class LiveTokenRequestTest extends BaseLiveTest {
 
         assertEquals(createdToken.getId(), retrievedToken.getId());
     }
+
+    @Test
+    @Ignore("only hit when test on live.")
+    public void createTokenSuccess() throws Exception {
+        Client client = getLiveClient();
+
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("testCreateToken")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(request, Token.class);
+
+        System.out.println("Token created: " + token.getId());
+
+        assertEquals("Visa", token.getCard().getBrand());
+        assertEquals("testCreateToken", token.getCard().getName());
+        assertEquals("4242", token.getCard().getLastDigits());
+        assertEquals(10, token.getCard().getExpirationMonth());
+        assertEquals(2020, token.getCard().getExpirationYear());
+    }
 }
