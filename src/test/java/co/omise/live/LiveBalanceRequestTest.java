@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class LiveBalanceTest extends BaseLiveTest {
+public class LiveBalanceRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
