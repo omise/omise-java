@@ -4,6 +4,9 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -43,11 +46,29 @@ public class Token extends Model {
         this.card = card;
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder} class for for creating a Token.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Token> {
         @JsonProperty
         private Card.Create card;
 
-        public Create card(Card.Create card) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.VAULT, "tokens");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public CreateRequestBuilder card(Card.Create card) {
             this.card = card;
             return this;
         }

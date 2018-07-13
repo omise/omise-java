@@ -85,18 +85,17 @@ final class Example {
     }
 
     void chargeWithToken() throws IOException, OmiseException, ClientException {
-        Token token = client().tokens()
-                .create(new Token.Create()
-                        .card(new Card.Create()
-                                .name("Somchai Prasert")
-                                .number("4242424242424242")
-                                .expirationMonth(10)
-                                .expirationYear(2018)
-                                .city("Bangkok")
-                                .postalCode("10320")
-                                .securityCode("123")
-                        )
-                );
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Somchai Prasert")
+                        .number("4242424242424242")
+                        .expirationMonth(10)
+                        .expirationYear(2022)
+                        .city("Bangkok")
+                        .postalCode("10320")
+                        .securityCode("123"))
+                .build();
+        Token token = client().sendRequest(request, Token.class);
 
         System.out.println("created token: " + token.getId());
 
@@ -335,16 +334,17 @@ final class Example {
     }
 
     void createToken() throws IOException, OmiseException, ClientException {
-        Token token = client().tokens()
-                .create(new Token.Create().card(new Card.Create()
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
                         .name("Somchai Prasert")
                         .number("4242424242424242")
                         .expirationMonth(10)
-                        .expirationYear(2018)
+                        .expirationYear(2022)
                         .city("Bangkok")
                         .postalCode("10320")
                         .securityCode("123"))
-                );
+                .build();
+        Token token = client().sendRequest(request, Token.class);
         System.out.printf("created token: %s", token.getId());
     }
 

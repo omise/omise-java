@@ -13,12 +13,4 @@ public class TokenResource extends Resource {
         super(httpClient);
     }
 
-
-    public Token create(Token.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Token.class);
-    }
-
-    private HttpUrl urlFor(String tokenId) {
-        return buildUrl(Endpoint.VAULT, "tokens", tokenId);
-    }
 }
