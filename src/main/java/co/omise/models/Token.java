@@ -1,6 +1,9 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
 
 /**
  * <p>
@@ -15,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Sending card data from server requires a valid PCI-DSS certification.
  * You can learn more about this in <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>.
  * </p>
- *
+ * <p>
  * This class represents Omise Token object.
  *
  * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
@@ -49,4 +52,21 @@ public class Token extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for for retrieving a particular Token.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Token> {
+        private String tokenId;
+
+        public GetRequestBuilder(String tokenId) {
+            this.tokenId = tokenId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.VAULT, "tokens", tokenId);
+        }
+    }
+
 }

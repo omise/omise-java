@@ -254,7 +254,8 @@ final class Example {
     void listTransfers() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
-        ScopedList<Transfer> transfers = client().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
+        ScopedList<Transfer> transfers = client().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {
+        });
         System.out.printf("returned transfers: %d", transfers.getData().size());
         System.out.printf("total no. of transfers: %d", transfers.getTotal());
     }
@@ -348,13 +349,15 @@ final class Example {
     }
 
     void retrieveToken() throws IOException, OmiseException, ClientException {
-        Token token = client().tokens().get("tokn_test_4xs9408a642a1htto8z");
+        Request<Token> request = new Token.GetRequestBuilder("tokn_test_4xs9408a642a1htto8z").build();
+        Token token = client().sendRequest(request, Token.class);
         System.out.printf("token last digits: %s", token.getCard().getLastDigits());
     }
 
     void listTransactions() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
-        ScopedList<Transaction> transactions = client().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
+        ScopedList<Transaction> transactions = client().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {
+        });
         System.out.printf("no. of transactions: %d", transactions.getTotal());
     }
 
@@ -364,7 +367,7 @@ final class Example {
         System.out.printf("transaction amount: %d", transaction.getAmount());
     }
 
-    Client client() throws ClientException {
+    private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }
 }
