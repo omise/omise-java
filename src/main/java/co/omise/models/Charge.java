@@ -310,6 +310,9 @@ public class Charge extends Model {
 
         public CreateRequestBuilder metadata(String key, Object value) {
             HashMap<String, Object> tempMap = Maps.newHashMap();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
             tempMap.put(key, value);
 
             this.metadata = new HashMap<>(tempMap);
@@ -400,6 +403,9 @@ public class Charge extends Model {
 
         public UpdateRequestBuilder metadata(String key, Object value) {
             HashMap<String, Object> tempMap = Maps.newHashMap();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
             tempMap.put(key, value);
 
             this.metadata = tempMap;
