@@ -1,8 +1,11 @@
 package co.omise.requests;
 
 import co.omise.Endpoint;
+import co.omise.models.Card;
 import co.omise.models.OmiseException;
 import co.omise.models.Token;
+import org.joda.time.Period;
+import org.joda.time.YearMonth;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,6 +24,28 @@ public class TokenRequestTest extends RequestTest {
         assertEquals(TOKEN_ID, token.getId());
         assertEquals("card_test_4yq6tuucl9h4erukfl0", token.getCard().getId());
         assertEquals("sRF/oMw2UQJJp/WbU+2/ZbVzwROjpMf1lyhOHhOqziw=", token.getCard().getFingerprint());
+    }
+
+    @Test
+    public void testCreate() throws IOException, OmiseException {
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("JOHN DOE")
+                        .number("4242424242424242")
+                        .expiration(YearMonth.now().withPeriodAdded(Period.years(1), 1))
+                        .securityCode("123")
+                        .city("Bangkok")
+                        .postalCode("10240"))
+                .build();
+
+        Token token = getTestRequester().sendRequest(request, Token.class);
+
+        assertRequested("POST", "/tokens", 200);
+        assertVaultRequest();
+
+        assertEquals(TOKEN_ID, token.getId());
+        assertFalse(token.isLiveMode());
+        assertEquals("card_test_4yq6tuucl9h4erukfl0", token.getCard().getId());
     }
 
     private void assertVaultRequest() {
