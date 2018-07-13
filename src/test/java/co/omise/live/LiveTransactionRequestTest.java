@@ -25,12 +25,16 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveGetTransaction() throws IOException, OmiseException {
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("John Deo")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
+
         Request<Charge> createChargeRequest = new Charge.CreateRequestBuilder()
                 .amount(10000)
                 .currency("thb")

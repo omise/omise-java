@@ -26,18 +26,21 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveErrorVault() throws ClientException, IOException {
+    public void testLiveErrorVault() throws ClientException {
         try {
-            Token.Create creation = new Token.Create().card(new Card.Create()
-                    .name("Omise Co., Ltd.")
-                    .number("4242424242424242")
-                    .expiration(10, 2020)
-                    .securityCode("123")
-            );
+            Request<Token> request = new Token.CreateRequestBuilder()
+                    .card(new Card.Create()
+                            .name("Omise Co., Ltd.")
+                            .number("4242424242424242")
+                            .expiration(10, 2020)
+                            .securityCode("123"))
+                    .build();
 
-            new Client("pkey_test_123", "skey_test_123").tokens().create(creation);
+            new Client("pkey_test_123", "skey_test_123").sendRequest(request, Token.class);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -70,12 +73,16 @@ public class ClientTest extends OmiseTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveSchedule() throws ClientException, IOException, OmiseException {
         Client client = liveTestClient();
-        Token token = client.tokens().create(new Token.Create()
+
+        Request<Token> request = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(request, Token.class);
 
         Customer customer = client.customers().create(new Customer.Create()
                 .card(token.getId())

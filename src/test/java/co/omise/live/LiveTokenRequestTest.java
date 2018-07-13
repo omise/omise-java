@@ -16,13 +16,15 @@ public class LiveTokenRequestTest extends BaseLiveTest {
     public void getToken_success() throws Exception {
         Client client = getLiveClient();
 
-        //TODO Change this when Token.Create() is changed to new flow
-        Token createdToken = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
-                        .name("testLiveSchedule")
+                        .name("testGetToken")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token createdToken = client.sendRequest(tokenRequest, Token.class);
 
         System.out.println("Token created: " + createdToken.getId());
 
