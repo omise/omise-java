@@ -5,6 +5,7 @@ import co.omise.models.schedules.*;
 import co.omise.requests.Request;
 import org.joda.time.DateTime;
 import org.joda.time.DurationFieldType;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -40,10 +41,9 @@ public class ClientTest extends OmiseTest {
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         } catch (IOException e) {
-            e.printStackTrace();
+            Assert.fail();
         }
     }
-
 
     @Test
     @Ignore("only hit the network when we need to.")
