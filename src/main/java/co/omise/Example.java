@@ -329,8 +329,8 @@ final class Example {
     }
 
     void retrieveRefund() throws IOException, OmiseException, ClientException {
-        Refund refund = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().get("rfnd_test_4ypebtxon6oye5o8myu");
+        Request<Refund> request = new Refund.GetRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz", "rfnd_test_4ypebtxon6oye5o8myu").build();
+        Refund refund = client().sendRequest(request, Refund.class);
         System.out.printf("refunded amount: %d", refund.getAmount());
     }
 

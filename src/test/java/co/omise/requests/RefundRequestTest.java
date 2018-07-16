@@ -31,9 +31,11 @@ public class RefundRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Refund refund = resource().get(REFUND_ID);
-        assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds/" + REFUND_ID, 200);
+        Request<Refund> request = new Refund.GetRequestBuilder(CHARGE_ID, REFUND_ID).build();
 
+        Refund refund = getTestRequester().sendRequest(request, Refund.class);
+
+        assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds/" + REFUND_ID, 200);
         assertEquals(REFUND_ID, refund.getId());
         assertEquals(10000L, refund.getAmount());
         assertEquals("thb", refund.getCurrency());
@@ -48,10 +50,8 @@ public class RefundRequestTest extends RequestTest {
         Request<Refund> request = new Refund.CreateRequestBuilder(CHARGE_ID).amount(10000L).metadata(metadata).build();
 
         Refund refund = getTestRequester().sendRequest(request, Refund.class);
-//        Refund refund = resource().create(new Refund.Create().amount(10000L).metadata(metadata));
 
         assertRequested("POST", "/charges/" + CHARGE_ID + "/refunds", 200);
-
         assertEquals(REFUND_ID, refund.getId());
         assertEquals(10000L, refund.getAmount());
         assertEquals("DESCRIPTION", refund.getMetadata().get("description"));

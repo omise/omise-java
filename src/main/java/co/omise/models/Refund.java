@@ -68,6 +68,10 @@ public class Refund extends Model {
         @JsonProperty
         private Map<String, Object> metadata;
 
+        public CreateRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
         @Override
         protected HttpUrl path() throws IOException {
             return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
@@ -83,10 +87,6 @@ public class Refund extends Model {
             return serialize();
         }
 
-        public CreateRequestBuilder(String chargeId) {
-            this.chargeId = chargeId;
-        }
-
         public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
@@ -95,6 +95,21 @@ public class Refund extends Model {
         public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
+        }
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Refund> {
+        private final String chargeId;
+        private final String refundId;
+
+        public GetRequestBuilder(String chargeId, String refundId) {
+            this.chargeId = chargeId;
+            this.refundId = refundId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
         }
     }
 }

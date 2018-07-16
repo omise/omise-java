@@ -25,11 +25,11 @@ public class LiveRefundRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveRefund() throws IOException, OmiseException {
+    public void testLiveCreateRefund() throws IOException, OmiseException {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Request<Refund> request = new Refund.CreateRequestBuilder(getChargeRefundId())
+        Request<Refund> request = new Refund.CreateRequestBuilder(getChargeId())
                 .amount(10000)
                 .metadata(metadata)
                 .build();
@@ -39,5 +39,16 @@ public class LiveRefundRequestTest extends BaseLiveTest {
 
         assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRetrieveRefund() throws IOException, OmiseException {
+        Request<Refund> request = new Refund.GetRequestBuilder(getChargeId(), getRefundId()).build();
+        Refund refund = client.sendRequest(request, Refund.class);
+
+        System.out.println("retrieved refund: " + refund.getId());
+
+        assertEquals(getRefundId(), refund.getId());
     }
 }

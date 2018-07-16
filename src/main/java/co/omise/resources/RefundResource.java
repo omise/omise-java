@@ -31,10 +31,6 @@ public class RefundResource extends Resource {
         });
     }
 
-    public Refund get(String refundId) throws IOException, OmiseException {
-        return httpGet(urlFor(refundId)).returns(Refund.class);
-    }
-
     private HttpUrl urlFor(String refundId) {
         return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
     }
