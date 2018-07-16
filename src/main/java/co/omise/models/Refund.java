@@ -61,6 +61,9 @@ public class Refund extends Model {
         this.metadata = metadata;
     }
 
+    /**
+     * The {@link RequestBuilder} class for creating a Refund.
+     */
     public static class CreateRequestBuilder extends RequestBuilder<Refund> {
         private String chargeId;
         @JsonProperty
@@ -98,6 +101,9 @@ public class Refund extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Refund.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Refund> {
         private final String chargeId;
         private final String refundId;
@@ -113,6 +119,9 @@ public class Refund extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving all Refunds that belong to a particular Charge.
+     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
         private final String chargeId;
         private ScopedList.Options options;
