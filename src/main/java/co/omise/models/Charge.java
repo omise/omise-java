@@ -242,7 +242,7 @@ public class Charge extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for creating a Charge.
+     * The {@link RequestBuilder} class for creating a Charge.
      */
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
         @JsonProperty
@@ -351,7 +351,7 @@ public class Charge extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for retrieving a particular Charge.
+     * The {@link RequestBuilder} class for retrieving a particular Charge.
      */
     public static class GetRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
@@ -367,7 +367,7 @@ public class Charge extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for updating a particular Charge.
+     * The {@link RequestBuilder} class for updating a particular Charge.
      */
     public static class UpdateRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
@@ -419,7 +419,7 @@ public class Charge extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for capturing a particular Charge. Keep in mind, capturing only works for credit card transfers that are not auto-captured.
+     * The {@link RequestBuilder} class for capturing a particular Charge. Keep in mind, capturing only works for credit card transfers that are not auto-captured.
      */
     public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
@@ -462,7 +462,7 @@ public class Charge extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for retrieving all Charges that belong to an account.
+     * The {@link RequestBuilder} class for retrieving all Charges that belong to an account.
      */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
         private ScopedList.Options options;

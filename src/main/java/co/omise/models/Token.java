@@ -48,7 +48,7 @@ public class Token extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for creating a Token.
+     * The {@link RequestBuilder} class for creating a Token.
      */
     public static class CreateRequestBuilder extends RequestBuilder<Token> {
         @JsonProperty
@@ -76,7 +76,7 @@ public class Token extends Model {
     }
 
     /**
-     * The {@link RequestBuilder} class for for retrieving a particular Token.
+     * The {@link RequestBuilder} class for retrieving a particular Token.
      */
     public static class GetRequestBuilder extends RequestBuilder<Token> {
         private String tokenId;
