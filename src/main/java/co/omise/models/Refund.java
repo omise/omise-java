@@ -73,7 +73,7 @@ public class Refund extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
         }
 
@@ -108,8 +108,31 @@ public class Refund extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
+        private final String chargeId;
+        private ScopedList.Options options;
+
+        public ListRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

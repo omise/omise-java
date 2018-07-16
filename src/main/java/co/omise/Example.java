@@ -323,8 +323,8 @@ final class Example {
     }
 
     void listRefunds() throws IOException, OmiseException, ClientException {
-        ScopedList<Refund> refunds = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().list();
+        Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
         System.out.printf("total no. of refunds: %d", refunds.getTotal());
     }
 

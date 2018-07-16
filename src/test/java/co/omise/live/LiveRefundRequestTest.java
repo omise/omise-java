@@ -3,7 +3,9 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.OmiseException;
 import co.omise.models.Refund;
+import co.omise.models.ScopedList;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -13,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class LiveRefundRequestTest extends BaseLiveTest {
 
@@ -43,12 +46,23 @@ public class LiveRefundRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveRetrieveRefund() throws IOException, OmiseException {
+    public void testLiveGetRefund() throws IOException, OmiseException {
         Request<Refund> request = new Refund.GetRequestBuilder(getChargeId(), getRefundId()).build();
         Refund refund = client.sendRequest(request, Refund.class);
 
         System.out.println("retrieved refund: " + refund.getId());
 
         assertEquals(getRefundId(), refund.getId());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveGetRefundList() throws IOException, OmiseException {
+        Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder(getChargeId()).build();
+        ScopedList<Refund> refunds = client.sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
+
+        System.out.println("retrieved refund list total no.: " + refunds.getTotal());
+
+        assertNotNull(refunds.getData().get(0));
     }
 }

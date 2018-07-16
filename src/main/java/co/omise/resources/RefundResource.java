@@ -22,15 +22,6 @@ public class RefundResource extends Resource {
         return chargeId;
     }
 
-    public ScopedList<Refund> list() throws IOException, OmiseException {
-        return list(new ScopedList.Options());
-    }
-
-    public ScopedList<Refund> list(ScopedList.Options options) throws IOException, OmiseException {
-        return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Refund>>() {
-        });
-    }
-
     private HttpUrl urlFor(String refundId) {
         return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
     }
