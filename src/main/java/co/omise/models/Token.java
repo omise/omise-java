@@ -23,6 +23,7 @@ import java.io.IOException;
  * </p>
  * <p>
  * This class represents Omise Token object.
+ * </p>
  *
  * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
  */
