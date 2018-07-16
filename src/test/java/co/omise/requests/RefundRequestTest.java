@@ -1,15 +1,17 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.models.OmiseException;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
+import co.omise.resources.RefundResource;
+import co.omise.resources.ResourceTest;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RefundResourceTest extends ResourceTest {
+public class RefundRequestTest extends RequestTest {
     public static final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
     public static final String REFUND_ID = "rfnd_test_4yqmv79ahghsiz23y3c";
 
@@ -43,7 +45,11 @@ public class RefundResourceTest extends ResourceTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Refund refund = resource().create(new Refund.Create().amount(10000L).metadata(metadata));
+        Request<Refund> request = new Refund.CreateRequestBuilder(CHARGE_ID).amount(10000L).metadata(metadata).build();
+
+        Refund refund = getTestRequester().sendRequest(request, Refund.class);
+//        Refund refund = resource().create(new Refund.Create().amount(10000L).metadata(metadata));
+
         assertRequested("POST", "/charges/" + CHARGE_ID + "/refunds", 200);
 
         assertEquals(REFUND_ID, refund.getId());

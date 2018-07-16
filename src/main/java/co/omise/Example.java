@@ -315,9 +315,10 @@ final class Example {
     }
 
     void createRefund() throws IOException, OmiseException, ClientException {
-        Refund refund = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().create(new Refund.Create()
-                        .amount(10000));
+        Request<Refund> request = new Refund.CreateRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                .amount(10000)
+                .build();
+        Refund refund = client().sendRequest(request, Refund.class);
         System.out.printf("created refund: %s", refund.getId());
     }
 

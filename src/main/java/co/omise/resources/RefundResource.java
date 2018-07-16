@@ -35,10 +35,6 @@ public class RefundResource extends Resource {
         return httpGet(urlFor(refundId)).returns(Refund.class);
     }
 
-    public Refund create(Refund.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Refund.class);
-    }
-
     private HttpUrl urlFor(String refundId) {
         return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
     }

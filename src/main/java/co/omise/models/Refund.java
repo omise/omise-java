@@ -1,7 +1,12 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -56,18 +61,38 @@ public class Refund extends Model {
         this.metadata = metadata;
     }
 
-    public static class Create extends Params {
+    public static class CreateRequestBuilder extends RequestBuilder<Refund> {
+        private String chargeId;
         @JsonProperty
         private long amount;
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public Create amount(long amount) {
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public CreateRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create metadata(Map<String, Object> metadata) {
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
