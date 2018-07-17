@@ -5,6 +5,7 @@ import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
@@ -36,7 +37,11 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
     public Request<T> build() throws IOException {
-        return new Request<T>(method(), path(), contentType(), payload());
+        if (classType() != null) {
+            return new Request<>(method(), path(), contentType(), payload(), classType());
+        } else {
+            return new Request<>(method(), path(), contentType(), payload(), typeReference());
+        }
     }
 
     /**
@@ -72,6 +77,14 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      */
     protected RequestBody payload() throws IOException {
         //Has to be null as it would fail for GET requests
+        return null;
+    }
+
+    protected Class<T> classType() {
+        return null;
+    }
+
+    protected TypeReference<T> typeReference() {
         return null;
     }
 

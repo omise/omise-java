@@ -4,6 +4,7 @@ import co.omise.Client;
 import co.omise.models.Model;
 import co.omise.models.OmiseException;
 import co.omise.models.OmiseList;
+import co.omise.models.OmiseObjectBase;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.OkHttpClient;
 import sun.net.www.http.HttpClient;
@@ -26,6 +27,8 @@ public interface Requester {
      * @throws OmiseException the custom exception thrown for response errors
      */
     <T extends Model, R extends Request<T>> T sendRequest(R request, Class<T> klass) throws IOException, OmiseException;
+
+    <T extends OmiseObjectBase, R extends Request<T>> T sendRequest(R request) throws IOException, OmiseException;
 
     /**
      * Sends the user generated {@link Request} to {@link Requester} for it to be carried out

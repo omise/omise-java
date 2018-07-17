@@ -14,10 +14,10 @@ public class TransferRequestTest extends RequestTest {
     private static final String TRANSFER_ID = "trsf_test_4yqacz8t3cbipcj766u";
 
     @Test
-    public void testList() throws IOException, OmiseException {
+    public void testList() throws IOException, OmiseException, IllegalAccessException {
         Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
-        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
+        ScopedList<Transfer> list = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers", 200);
 
         assertEquals(20, list.getLimit());
@@ -29,10 +29,10 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testGet() throws IOException, OmiseException {
+    public void testGet() throws IOException, OmiseException, IllegalAccessException {
         Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -42,7 +42,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testCreate() throws IOException, OmiseException {
+    public void testCreate() throws IOException, OmiseException, IllegalAccessException {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
@@ -51,7 +51,7 @@ public class TransferRequestTest extends RequestTest {
                 .amount(192188)
                 .metadata(metadata)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("POST", "/transfers", 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -61,7 +61,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testUpdate() throws IOException, OmiseException {
+    public void testUpdate() throws IOException, OmiseException, IllegalAccessException {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
@@ -69,7 +69,7 @@ public class TransferRequestTest extends RequestTest {
                 .amount(192189)
                 .metadata(metadata)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("PATCH", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -79,10 +79,10 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testDestroy() throws IOException, OmiseException {
+    public void testDestroy() throws IOException, OmiseException, IllegalAccessException {
         Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
         assertEquals(TRANSFER_ID, transfer.getId());
         assertTrue(transfer.isDeleted());
