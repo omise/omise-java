@@ -19,6 +19,9 @@ import static org.junit.Assert.assertNotNull;
 
 public class LiveRefundRequestTest extends BaseLiveTest {
 
+    private final String LIVETEST_CHARGE = "[YOUR_CHARGE]";
+    private final String LIVETEST_REFUND = "[YOUR_REFUND]";
+
     private Client client;
 
     @Before
@@ -32,7 +35,7 @@ public class LiveRefundRequestTest extends BaseLiveTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Request<Refund> request = new Refund.CreateRequestBuilder(getChargeId())
+        Request<Refund> request = new Refund.CreateRequestBuilder(LIVETEST_CHARGE)
                 .amount(10000)
                 .metadata(metadata)
                 .build();
@@ -47,18 +50,18 @@ public class LiveRefundRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveGetRefund() throws IOException, OmiseException {
-        Request<Refund> request = new Refund.GetRequestBuilder(getChargeId(), getRefundId()).build();
+        Request<Refund> request = new Refund.GetRequestBuilder(LIVETEST_CHARGE, LIVETEST_REFUND).build();
         Refund refund = client.sendRequest(request, Refund.class);
 
         System.out.println("retrieved refund: " + refund.getId());
 
-        assertEquals(getRefundId(), refund.getId());
+        assertEquals(LIVETEST_REFUND, refund.getId());
     }
 
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveGetRefundList() throws IOException, OmiseException {
-        Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder(getChargeId()).build();
+        Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder(LIVETEST_CHARGE).build();
         ScopedList<Refund> refunds = client.sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
 
         System.out.println("retrieved refund list total no.: " + refunds.getTotal());
