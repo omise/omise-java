@@ -1,4 +1,4 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.Endpoint;
 import co.omise.models.Card;
@@ -10,12 +10,14 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-public class TokenResourceTest extends ResourceTest {
+public class TokenRequestTest extends RequestTest {
     private static final String TOKEN_ID = "tokn_test_4yq8lbecl0q6dsjzxr5";
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Token token = resource().get(TOKEN_ID);
+        Request<Token> request = new Token.GetRequestBuilder(TOKEN_ID).build();
+        Token token = getTestRequester().sendRequest(request, Token.class);
+
         assertRequested("GET", "/tokens/" + TOKEN_ID, 200);
         assertVaultRequest();
 
@@ -26,14 +28,17 @@ public class TokenResourceTest extends ResourceTest {
 
     @Test
     public void testCreate() throws IOException, OmiseException {
-        Token token = resource().create(new Token.Create().card(new Card.Create()
-                .name("JOHN DOE")
-                .number("4242424242424242")
-                .expiration(YearMonth.now().withPeriodAdded(Period.years(1), 1))
-                .securityCode("123")
-                .city("Bangkok")
-                .postalCode("10240"))
-        );
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("JOHN DOE")
+                        .number("4242424242424242")
+                        .expiration(YearMonth.now().withPeriodAdded(Period.years(1), 1))
+                        .securityCode("123")
+                        .city("Bangkok")
+                        .postalCode("10240"))
+                .build();
+
+        Token token = getTestRequester().sendRequest(request, Token.class);
 
         assertRequested("POST", "/tokens", 200);
         assertVaultRequest();
@@ -45,9 +50,5 @@ public class TokenResourceTest extends ResourceTest {
 
     private void assertVaultRequest() {
         assertEquals(Endpoint.VAULT.host(), lastRequest().url().host());
-    }
-
-    private TokenResource resource() {
-        return new TokenResource(testClient());
     }
 }
