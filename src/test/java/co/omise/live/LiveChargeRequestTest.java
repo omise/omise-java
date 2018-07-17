@@ -11,10 +11,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertFalse;
 
 public class LiveChargeRequestTest extends BaseLiveTest {
     private Client client;
@@ -27,13 +25,15 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveGetCharge() throws IOException, OmiseException {
-        //TODO Change this to new format when Token creation flow is changed to new flow
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -57,13 +57,15 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveCreateCharge() throws IOException, OmiseException {
-        //TODO Change this to new format when Token creation flow is changed to new flow
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -167,13 +169,15 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeUpdate() throws IOException, OmiseException {
-        //TODO Change this to new format when Token creation flow is changed to new flow
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -211,13 +215,15 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeCapture() throws IOException, OmiseException {
-        //TODO Change this to new format when Token creation flow is changed to new flow
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -247,12 +253,15 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeReverse() throws IOException, OmiseException {
-        Token token = client.tokens().create(new Token.Create()
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020)));
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest, Token.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
