@@ -123,7 +123,11 @@ public class Charge extends Model {
     }
 
     public SourceOfFunds getSourceOfFund() {
-        return sourceOfFund;
+        if (sourceOfFund != null) {
+            return sourceOfFund;
+        } else {
+            return card != null ? SourceOfFunds.Card : SourceOfFunds.Offsite;
+        }
     }
 
     public void setSourceOfFund(SourceOfFunds sourceOfFund) {
