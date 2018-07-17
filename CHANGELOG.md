@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+#2.7.6
+**FIXED** Fixed `sourceOfFund` in Charge no longer in Charge API.
+
 #2.7.5
 **REMOVED:** Removed Sinarmas virtual account as a payment source type
 
