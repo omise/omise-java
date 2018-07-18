@@ -32,12 +32,10 @@ public class LiveRefundRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveCreateRefund() throws IOException, OmiseException {
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("description", "DESCRIPTION");
-        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
         Request<Refund> request = new Refund.CreateRequestBuilder(LIVETEST_CHARGE)
                 .amount(10000)
-                .metadata(metadata)
+                .metadata("description", "DESCRIPTION")
+                .metadata("invoice_id", "inv_N1ayTWJ2FV")
                 .build();
         Refund refund = client.sendRequest(request, Refund.class);
 

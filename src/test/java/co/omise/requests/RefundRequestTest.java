@@ -48,10 +48,11 @@ public class RefundRequestTest extends RequestTest {
 
     @Test
     public void testCreate() throws IOException, OmiseException {
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("description", "DESCRIPTION");
-        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Request<Refund> request = new Refund.CreateRequestBuilder(CHARGE_ID).amount(10000L).metadata(metadata).build();
+        Request<Refund> request = new Refund.CreateRequestBuilder(CHARGE_ID)
+                .amount(10000L)
+                .metadata("description", "DESCRIPTION")
+                .metadata("invoice_id", "inv_N1ayTWJ2FV")
+                .build();
 
         Refund refund = getTestRequester().sendRequest(request, Refund.class);
 

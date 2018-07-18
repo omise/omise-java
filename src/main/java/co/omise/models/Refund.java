@@ -3,10 +3,12 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -97,6 +99,16 @@ public class Refund extends Model {
 
         public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = Maps.newHashMap();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+            this.metadata = new HashMap<>(tempMap);
             return this;
         }
     }
