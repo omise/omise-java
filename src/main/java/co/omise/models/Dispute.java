@@ -1,7 +1,14 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.Maps;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -65,20 +72,59 @@ public class Dispute extends Model {
         this.metadata = metadata;
     }
 
-    public static class Update extends Params {
+    class GetRequestBuilder {
+
+    }
+
+    class ListRequestBuilder {
+
+    }
+
+    public static class UpdateRequestBuilder extends RequestBuilder<Dispute> {
+        private String disputeId;
         @JsonProperty
         private String message;
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public Update message(String message) {
+        public UpdateRequestBuilder(String disputeId) {
+            this.disputeId = disputeId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "disputes", disputeId);
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public UpdateRequestBuilder message(String message) {
             this.message = message;
             return this;
         }
 
-        public Update metadata(Map<String, Object> metadata) {
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = Maps.newHashMap();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
     }
+
 }

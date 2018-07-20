@@ -1,9 +1,6 @@
 package co.omise.requests;
 
-import co.omise.models.Dispute;
-import co.omise.models.DisputeStatus;
-import co.omise.models.OmiseException;
-import co.omise.models.ScopedList;
+import co.omise.models.*;
 import co.omise.resources.DisputeResource;
 import co.omise.resources.ResourceTest;
 import org.junit.Test;
@@ -12,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DisputeRequestTest extends ResourceTest {
+public class DisputeRequestTest extends RequestTest {
     private static final String DISPUTE_ID = "dspt_test_5089off452g5m5te7xs";
 
     @Test
@@ -54,12 +51,14 @@ public class DisputeRequestTest extends ResourceTest {
 
     @Test
     public void testUpdate() throws IOException, OmiseException {
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("description", "DESCRIPTION");
-        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Dispute dispute = resource().update(DISPUTE_ID, new Dispute.Update()
+        Request<Dispute> request = new Dispute.UpdateRequestBuilder(DISPUTE_ID)
                 .message("Your dispute message")
-                .metadata(metadata));
+                .metadata("description", "DESCRIPTION")
+                .metadata("invoice_id", "inv_N1ayTWJ2FV")
+                .build();
+
+        Dispute dispute = getTestRequester().sendRequest(request, Dispute.class);
+
         assertRequested("PATCH", "/disputes/" + DISPUTE_ID, 200);
 
         assertEquals("dspt_test_5089off452g5m5te7xs", dispute.getId());

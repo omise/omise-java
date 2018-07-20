@@ -199,9 +199,10 @@ final class Example {
     }
 
     void updateDispute() throws IOException, OmiseException, ClientException {
-        Dispute dispute = client().disputes()
-                .update("dspt_test_4zgf15h89w8t775kcm8", new Dispute.Update()
-                        .message("Proofs and other information..."));
+        Request<Dispute> request = new Dispute.UpdateRequestBuilder("dspt_test_4zgf15h89w8t775kcm8")
+                .message("Proofs and other information...")
+                .build();
+        Dispute dispute = client().sendRequest(request, Dispute.class);
         System.out.printf("updated dispute: %s", dispute.getMessage());
     }
 

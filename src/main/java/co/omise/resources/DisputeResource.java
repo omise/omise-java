@@ -38,10 +38,6 @@ public class DisputeResource extends Resource {
         return httpGet(urlFor(disputeId)).returns(Dispute.class);
     }
 
-    public Dispute update(String disputeId, Dispute.Update params) throws IOException, OmiseException {
-        return httpPatch(urlFor(disputeId)).params(params).returns(Dispute.class);
-    }
-
     private HttpUrl urlFor(String disputeId) {
         return buildUrl(Endpoint.API, "disputes", disputeId);
     }
