@@ -315,21 +315,22 @@ final class Example {
     }
 
     void createRefund() throws IOException, OmiseException, ClientException {
-        Refund refund = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().create(new Refund.Create()
-                        .amount(10000));
+        Request<Refund> request = new Refund.CreateRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                .amount(10000)
+                .build();
+        Refund refund = client().sendRequest(request, Refund.class);
         System.out.printf("created refund: %s", refund.getId());
     }
 
     void listRefunds() throws IOException, OmiseException, ClientException {
-        ScopedList<Refund> refunds = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().list();
+        Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
+        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
         System.out.printf("total no. of refunds: %d", refunds.getTotal());
     }
 
     void retrieveRefund() throws IOException, OmiseException, ClientException {
-        Refund refund = client().charge("chrg_test_4xso2s8ivdej29pqnhz")
-                .refunds().get("rfnd_test_4ypebtxon6oye5o8myu");
+        Request<Refund> request = new Refund.GetRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz", "rfnd_test_4ypebtxon6oye5o8myu").build();
+        Refund refund = client().sendRequest(request, Refund.class);
         System.out.printf("refunded amount: %d", refund.getAmount());
     }
 
