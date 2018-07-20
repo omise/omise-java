@@ -1,16 +1,18 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.models.Dispute;
 import co.omise.models.DisputeStatus;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
+import co.omise.resources.DisputeResource;
+import co.omise.resources.ResourceTest;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DisputeResourceTest extends ResourceTest {
+public class DisputeRequestTest extends ResourceTest {
     private static final String DISPUTE_ID = "dspt_test_5089off452g5m5te7xs";
 
     @Test
