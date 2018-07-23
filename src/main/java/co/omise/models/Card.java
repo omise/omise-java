@@ -5,7 +5,10 @@ import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.YearMonth;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Card object.
@@ -195,54 +198,6 @@ public class Card extends Model {
         }
     }
 
-    public static class Update extends co.omise.models.Params {
-        @JsonProperty
-        private String name;
-        @JsonProperty
-        private String city;
-        @JsonProperty("postal_code")
-        private String postalCode;
-        @JsonProperty("expiration_month")
-        private int expirationMonth;
-        @JsonProperty("expiration_year")
-        private int expirationYear;
-
-        public Update name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Update city(String city) {
-            this.city = city;
-            return this;
-        }
-
-        public Update postalCode(String postalCode) {
-            this.postalCode = postalCode;
-            return this;
-        }
-
-        public Update expirationMonth(int expirationMonth) {
-            this.expirationMonth = expirationMonth;
-            return this;
-        }
-
-        public Update expirationYear(int expirationYear) {
-            this.expirationYear = expirationYear;
-            return this;
-        }
-
-        public Update expiration(YearMonth expiration) {
-            return expirationMonth(expiration.getMonthOfYear())
-                    .expirationYear(expiration.getYear());
-        }
-
-        public Update expiration(int month, int year) {
-            return expirationMonth(month)
-                    .expirationYear(year);
-        }
-    }
-
     /**
      * The {@link RequestBuilder} class for retrieving a particular Card.
      */
@@ -259,7 +214,79 @@ public class Card extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
         }
+    }
 
+    /**
+     * The {@link RequestBuilder} class for updating a particular Card.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
 
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String city;
+        @JsonProperty("postal_code")
+        private String postalCode;
+        @JsonProperty("expiration_month")
+        private int expirationMonth;
+        @JsonProperty("expiration_year")
+        private int expirationYear;
+
+        public UpdateRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected String method() {
+            return RequestBuilder.PATCH;
+        }
+
+        public UpdateRequestBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UpdateRequestBuilder city(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public UpdateRequestBuilder postalCode(String postalCode) {
+            this.postalCode = postalCode;
+            return this;
+        }
+
+        public UpdateRequestBuilder expirationMonth(int expirationMonth) {
+            this.expirationMonth = expirationMonth;
+            return this;
+        }
+
+        public UpdateRequestBuilder expirationYear(int expirationYear) {
+            this.expirationYear = expirationYear;
+            return this;
+        }
+
+        public UpdateRequestBuilder expiration(YearMonth expiration) {
+            return expirationMonth(expiration.getMonthOfYear())
+                    .expirationYear(expiration.getYear());
+        }
+
+        public UpdateRequestBuilder expiration(int month, int year) {
+            return expirationMonth(month)
+                    .expirationYear(year);
+        }
     }
 }

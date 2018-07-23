@@ -44,12 +44,15 @@ final class Example {
     }
 
     void updateCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().update("card_test_4xsjw0t21xaxnuzi9gs", new Card.Update()
+        Request<Card> request =
+                new Card.UpdateRequestBuilder(
+                        "card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
                         .expirationMonth(11)
                         .expirationYear(2017)
                         .name("Somchai Prasert")
-                        .postalCode("10310"));
+                        .postalCode("10310")
+                        .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("updated card: %s", card.getId());
     }
 
