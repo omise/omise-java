@@ -27,20 +27,6 @@ public class CardResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException, OmiseException {
-        Card.Update update = new Card.Update()
-                .name("JOHN W. DOE");
-
-        Card card = resource().update(CARD_ID, new Card.Update().name("JOHN W. DOE"));
-        assertRequested("PATCH", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
-
-        assertEquals("card", card.getObject());
-        assertEquals("card_test_4yq6tuucl9h4erukfl0", card.getId());
-        assertEquals("JOHN W. DOE", card.getName());
-        assertEquals("4242", card.getLastDigits());
-    }
-
-    @Test
     public void testDestroy() throws IOException, OmiseException {
         Card card = resource().destroy(CARD_ID);
         assertRequested("DELETE", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
