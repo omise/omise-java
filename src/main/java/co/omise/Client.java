@@ -205,18 +205,6 @@ public class Client {
     }
 
     /**
-     * Retruns {@link CustomerSpecificResource} instance for accessing
-     * customer-specific sub-resources.
-     *
-     * @param customerId The id of the related customer.
-     * @return A {@link CustomerSpecificResource} instance.
-     * @see <a href="https://www.omise.co/cards-api">Card API</a>
-     */
-    public CustomerSpecificResource customer(String customerId) {
-        return customers.withId(customerId);
-    }
-
-    /**
      * Returns {@link EventResource} for accessing the
      * <a href="https://www.omise.co/events-api">Events API</a>
      *
