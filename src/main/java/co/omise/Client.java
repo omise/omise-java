@@ -51,7 +51,6 @@ public class Client {
     private ReceiptResource receipts;
     private RecipientResource recipients;
     private ScheduleResource schedules;
-    private TokenResource tokens;
     private SourceResource sources;
     private Requester requester;
 
@@ -121,7 +120,6 @@ public class Client {
         receipts = new ReceiptResource(httpClient);
         recipients = new RecipientResource(httpClient);
         schedules = new ScheduleResource(httpClient);
-        tokens = new TokenResource(httpClient);
         sources = new SourceResource(httpClient);
     }
 
@@ -305,24 +303,6 @@ public class Client {
      */
     public ScheduleSpecificResource schedule(String scheduleId) {
         return new ScheduleSpecificResource(httpClient, scheduleId);
-    }
-
-    /**
-     * Returns {@link TokenResource} for acessing the
-     * <a href="https://www.omise.co/tokens-api">Tokens API</a>
-     * <p>
-     * <strong>Full Credit Card data should never go through your server.</strong>
-     * This API is to be used if and only if your servers are PCI-DSS certified.
-     * See <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
-     * for more information.
-     * </p>
-     *
-     * @return A {@link TokenResource} instance.
-     * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
-     */
-    public TokenResource tokens() {
-        return tokens;
     }
 
     /**
