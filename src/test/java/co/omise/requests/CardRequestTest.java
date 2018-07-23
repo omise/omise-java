@@ -2,6 +2,8 @@ package co.omise.requests;
 
 import co.omise.models.Card;
 import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -39,4 +41,22 @@ public class CardRequestTest extends RequestTest {
         assertEquals("JOHN W. DOE", card.getName());
         assertEquals("4242", card.getLastDigits());
     }
+
+    @Test
+    public void testList() throws IOException, OmiseException {
+        Request<ScopedList<Card>> request = new Card.ListRequestBuilder(CUSTOMER_ID).build();
+        ScopedList<Card> cards = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Card>>() {
+        });
+        assertEquals(1, cards.getTotal());
+        assertEquals(20, cards.getLimit());
+
+        Card card = cards.getData().get(0);
+        assertRequested("GET", "/customers/" + CUSTOMER_ID + "/cards", 200);
+
+        assertEquals("card", card.getObject());
+        assertEquals("card_test_4yq6tuucl9h4erukfl0", card.getId());
+        assertEquals("4242", card.getLastDigits());
+        assertEquals("Visa", card.getBrand());
+    }
+
 }
