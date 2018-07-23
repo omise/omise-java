@@ -25,6 +25,17 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
+    public void testLiveGetDispute() throws IOException, OmiseException {
+        Request<Dispute> request = new Dispute.GetRequestBuilder(LIVETEST_DISPUTE).build();
+        Dispute actualDispute = client.sendRequest(request, Dispute.class);
+
+        System.out.println("Retrieved dispute: " + actualDispute.getId());
+
+        assertEquals(LIVETEST_DISPUTE, actualDispute.getId());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveDispute() throws IOException, OmiseException {
         Request<Dispute> request = new Dispute.UpdateRequestBuilder(LIVETEST_DISPUTE)
                 .message("Proofs and other information...")

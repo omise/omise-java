@@ -72,8 +72,17 @@ public class Dispute extends Model {
         this.metadata = metadata;
     }
 
-    class GetRequestBuilder {
+    public static class GetRequestBuilder extends RequestBuilder<Dispute>{
+        private String disputeId;
 
+        public GetRequestBuilder(String disputeId) {
+            this.disputeId = disputeId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "disputes", disputeId);
+        }
     }
 
     class ListRequestBuilder {

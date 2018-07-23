@@ -38,7 +38,8 @@ public class DisputeRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        Dispute dispute = resource().get(DISPUTE_ID);
+        Request<Dispute> request = new Dispute.GetRequestBuilder(DISPUTE_ID).build();
+        Dispute dispute = getTestRequester().sendRequest(request, Dispute.class);
         assertRequested("GET", "/disputes/" + DISPUTE_ID, 200);
 
         assertEquals("dspt_test_5089off452g5m5te7xs", dispute.getId());

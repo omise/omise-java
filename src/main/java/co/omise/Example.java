@@ -194,7 +194,8 @@ final class Example {
     }
 
     void retrieveDispute() throws IOException, OmiseException, ClientException {
-        Dispute dispute = client().disputes().get("dspt_test_4zgf15h89w8t775kcm8");
+        Request<Dispute> request = new Dispute.GetRequestBuilder("dspt_test_4zgf15h89w8t775kcm8").build();
+        Dispute dispute = client().sendRequest(request, Dispute.class);
         System.out.printf("disputed amount: %d", dispute.getAmount());
     }
 

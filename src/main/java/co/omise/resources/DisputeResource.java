@@ -34,10 +34,6 @@ public class DisputeResource extends Resource {
         });
     }
 
-    public Dispute get(String disputeId) throws IOException, OmiseException {
-        return httpGet(urlFor(disputeId)).returns(Dispute.class);
-    }
-
     private HttpUrl urlFor(String disputeId) {
         return buildUrl(Endpoint.API, "disputes", disputeId);
     }
