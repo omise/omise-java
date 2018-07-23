@@ -289,4 +289,35 @@ public class Card extends Model {
                     .expirationYear(year);
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Cards that belong to a customer.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
+        private String customerId;
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return new HttpUrlBuilder(
+                    Endpoint.API, "customers", serializer())
+                    .segments(customerId, "cards")
+                    .params(options)
+                    .build();
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
 }

@@ -18,19 +18,6 @@ public class CardResource extends Resource {
         this.customerId = customerId;
     }
 
-    public String customerId() {
-        return customerId;
-    }
-
-    public ScopedList<Card> list() throws IOException, OmiseException {
-        return list(new ScopedList.Options());
-    }
-
-    public ScopedList<Card> list(ScopedList.Options options) throws IOException, OmiseException {
-        return httpGet(urlFor("")).params(options).returns(new TypeReference<ScopedList<Card>>() {
-        });
-    }
-
     public Card destroy(String cardId) throws IOException, OmiseException {
         return httpDelete(urlFor(cardId)).returns(Card.class);
     }
