@@ -3,6 +3,7 @@ package co.omise.requests;
 import co.omise.models.*;
 import co.omise.resources.DisputeResource;
 import co.omise.resources.ResourceTest;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -14,7 +15,8 @@ public class DisputeRequestTest extends RequestTest {
 
     @Test
     public void testList() throws IOException, OmiseException {
-        ScopedList<Dispute> list = resource().list();
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
+        ScopedList<Dispute> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         assertRequested("GET", "/disputes", 200);
 
         assertEquals(1, list.getTotal());
@@ -23,7 +25,10 @@ public class DisputeRequestTest extends RequestTest {
 
     @Test
     public void testListWithStatus() throws IOException, OmiseException {
-        ScopedList<Dispute> list = resource().list(DisputeStatus.Closed);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder()
+                .status(DisputeStatus.Closed)
+                .build();
+        ScopedList<Dispute> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         assertRequested("GET", "/disputes/closed", 200);
         assertEquals(DisputeStatus.Won, list.getData().get(0).getStatus());
 

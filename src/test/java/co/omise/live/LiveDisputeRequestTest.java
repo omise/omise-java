@@ -1,9 +1,9 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.models.Dispute;
-import co.omise.models.OmiseException;
+import co.omise.models.*;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class LiveDisputeRequestTest extends BaseLiveTest {
 
@@ -21,6 +22,19 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
     @Before
     public void setup() throws Exception {
         client = getLiveClient();
+    }
+
+    @Test
+//    @Ignore("only hit the network when we need to.")
+    public void testLiveGetDisputeList() throws IOException, OmiseException {
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder()
+                .status(DisputeStatus.Lost)
+                .options(new ScopedList.Options().order(Ordering.ReverseChronological)).build();
+        ScopedList<Dispute> disputes = client.sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+
+        System.out.println("retrieved dispute list total no.: " + disputes.getTotal());
+
+        assertNotNull(disputes.getData().get(0));
     }
 
     @Test

@@ -3,7 +3,6 @@ package co.omise.requests;
 import co.omise.Client;
 import co.omise.Endpoint;
 import co.omise.Serializer;
-import co.omise.models.Model;
 import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
 import com.google.common.base.Preconditions;
@@ -107,21 +106,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, String... segments) {
-        Preconditions.checkNotNull(endpoint);
-        Preconditions.checkNotNull(path);
-
-        HttpUrl.Builder builder = endpoint.buildUrl()
-                .addPathSegment(path);
-
-        for (String segment : segments) {
-            if (segment == null || segment.isEmpty()) {
-                continue;
-            }
-
-            builder = builder.addPathSegment(segment);
-        }
-
-        return builder.build();
+        return new HttpUrlBuilder(endpoint, path, segments).build();
     }
 
     /**
@@ -134,20 +119,56 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
-        Preconditions.checkNotNull(endpoint);
-        Preconditions.checkNotNull(path);
         Preconditions.checkNotNull(params);
+        return new HttpUrlBuilder(endpoint, path).params(params).build();
+    }
 
-        HttpUrl.Builder builder = endpoint.buildUrl()
-                .addPathSegment(path);
+    public class HttpUrlBuilder {
+        private Endpoint endpoint;
+        private String path;
+        private String[] segments;
+        private Params params;
 
-        ImmutableMap<String, String> queries = params.query(serializer);
-        if (queries != null && !queries.isEmpty()) {
-            for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
-                builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
+        public HttpUrlBuilder(Endpoint endpoint, String path, String... segments) {
+            this.endpoint = endpoint;
+            this.path = path;
+
+            if (segments != null) {
+                this.segments = segments.clone();
             }
         }
 
-        return builder.build();
+        public HttpUrlBuilder params(Params params) {
+            this.params = params;
+            return this;
+        }
+
+        public HttpUrl build() {
+            Preconditions.checkNotNull(endpoint);
+            Preconditions.checkNotNull(path);
+
+            HttpUrl.Builder builder = endpoint.buildUrl().addPathSegment(path);
+
+            if (segments != null) {
+                for (String segment : segments) {
+                    if (segment == null || segment.isEmpty()) {
+                        continue;
+                    }
+
+                    builder = builder.addPathSegment(segment);
+                }
+            }
+
+            if (params != null) {
+                ImmutableMap<String, String> queries = params.query(serializer);
+                if (queries != null && !queries.isEmpty()) {
+                    for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
+                        builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
+                    }
+                }
+            }
+
+            return builder.build();
+        }
     }
 }

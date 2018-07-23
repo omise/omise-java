@@ -147,8 +147,7 @@ public class Refund extends Model {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-
-            return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
+            return new HttpUrlBuilder(Endpoint.API, "charges", chargeId, "refunds").params(options).build();
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

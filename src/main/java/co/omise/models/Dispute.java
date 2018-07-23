@@ -72,7 +72,7 @@ public class Dispute extends Model {
         this.metadata = metadata;
     }
 
-    public static class GetRequestBuilder extends RequestBuilder<Dispute>{
+    public static class GetRequestBuilder extends RequestBuilder<Dispute> {
         private String disputeId;
 
         public GetRequestBuilder(String disputeId) {
@@ -85,8 +85,30 @@ public class Dispute extends Model {
         }
     }
 
-    class ListRequestBuilder {
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Dispute>> {
 
+        private ScopedList.Options options;
+        private DisputeStatus status;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            String status = this.status == null ? "" : this.status.name().toLowerCase();
+//            return buildUrl(Endpoint.API, "disputes", new String[]{statusPath}, options);
+            return new HttpUrlBuilder(Endpoint.API, "disputes", status).params(options).build();
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        public ListRequestBuilder status(DisputeStatus status) {
+            this.status = status;
+            return this;
+        }
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Dispute> {
