@@ -251,7 +251,7 @@ public class Card extends Model {
 
         @Override
         protected String method() {
-            return RequestBuilder.PATCH;
+            return PATCH;
         }
 
         public UpdateRequestBuilder name(String name) {
@@ -287,6 +287,26 @@ public class Card extends Model {
         public UpdateRequestBuilder expiration(int month, int year) {
             return expirationMonth(month)
                     .expirationYear(year);
+        }
+    }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
+
+        public DeleteRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
         }
     }
 

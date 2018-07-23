@@ -5,7 +5,6 @@ import co.omise.requests.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
@@ -23,8 +22,10 @@ final class Example {
     }
 
     void destroyCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().destroy("card_test_4xsjw0t21xaxnuzi9gs");
+        Request<Card> request = new Card.DeleteRequestBuilder(
+                "card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
+                .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("destroyed card: %s", card.getId());
     }
 
