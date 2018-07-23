@@ -31,10 +31,6 @@ public class CardResource extends Resource {
         });
     }
 
-    public Card get(String cardId) throws IOException, OmiseException {
-        return httpGet(urlFor(cardId)).returns(Card.class);
-    }
-
     public Card update(String cardId, Card.Update update) throws IOException, OmiseException {
         return httpPatch(urlFor(cardId)).params(update).returns(Card.class);
     }

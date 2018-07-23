@@ -1,7 +1,10 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
 import org.joda.time.YearMonth;
 
 /**
@@ -238,5 +241,25 @@ public class Card extends Model {
             return expirationMonth(month)
                     .expirationYear(year);
         }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Card.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
+
+        public GetRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+
     }
 }

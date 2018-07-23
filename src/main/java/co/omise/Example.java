@@ -36,8 +36,10 @@ final class Example {
     }
 
     void retrieveCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().get("card_test_4xsjw0t21xaxnuzi9gs");
+        Request<Card> request =
+                new Card.GetRequestBuilder("card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
+                        .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("card last digits: %s", card.getLastDigits());
     }
 
@@ -330,7 +332,8 @@ final class Example {
 
     void listRefunds() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
-        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
+        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {
+        });
         System.out.printf("total no. of refunds: %d", refunds.getTotal());
     }
 
