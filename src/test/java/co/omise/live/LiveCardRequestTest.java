@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 
 public class LiveCardRequestTest extends BaseLiveTest {
     private Client client;
@@ -63,8 +64,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveCard() throws IOException, OmiseException {
-
+    public void getCardList_success() throws IOException, OmiseException {
         Request<ScopedList<Card>> request =
                 new Card.ListRequestBuilder(CUSTOMER_ID)
                         .options(new ScopedList.Options()
@@ -84,5 +84,18 @@ public class LiveCardRequestTest extends BaseLiveTest {
         assertEquals(Ordering.Chronological, cards.getOrder());
         assertNotNull(cards.getData().get(0));
         assertEquals("4242", cards.getData().get(0).getLastDigits());
+    }
+
+    @Test
+    @Ignore("only hit the network when need to.")
+    public void deleteCard_success() throws IOException, OmiseException {
+        Request<Card> request =
+                new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
+                        .build();
+        Card card = client.sendRequest(request, Card.class);
+
+        assertNotNull(card);
+        assertEquals(CARD_ID, card.getId());
+        assertTrue(card.isDeleted());
     }
 }
