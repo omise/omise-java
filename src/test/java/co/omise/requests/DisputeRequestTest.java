@@ -1,14 +1,13 @@
 package co.omise.requests;
 
-import co.omise.models.*;
-import co.omise.resources.DisputeResource;
-import co.omise.resources.ResourceTest;
+import co.omise.models.Dispute;
+import co.omise.models.DisputeStatus;
+import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DisputeRequestTest extends RequestTest {
     private static final String DISPUTE_ID = "dspt_test_5089off452g5m5te7xs";
@@ -25,20 +24,26 @@ public class DisputeRequestTest extends RequestTest {
 
     @Test
     public void testListWithStatus() throws IOException, OmiseException {
-        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder()
+        Request<ScopedList<Dispute>> wonDisputesRequest = new Dispute.ListRequestBuilder()
                 .status(DisputeStatus.Closed)
                 .build();
-        ScopedList<Dispute> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> wonDisputes = getTestRequester().sendRequest(wonDisputesRequest, new TypeReference<ScopedList<Dispute>>() {});
         assertRequested("GET", "/disputes/closed", 200);
-        assertEquals(DisputeStatus.Won, list.getData().get(0).getStatus());
+        assertEquals(DisputeStatus.Won, wonDisputes.getData().get(0).getStatus());
 
-        list = resource().list(DisputeStatus.Open);
+        Request<ScopedList<Dispute>> openDisputesRequest = new Dispute.ListRequestBuilder()
+                .status(DisputeStatus.Open)
+                .build();
+        ScopedList<Dispute> openDisputes = getTestRequester().sendRequest(openDisputesRequest, new TypeReference<ScopedList<Dispute>>() {});
         assertRequested("GET", "/disputes/open", 200);
-        assertEquals(DisputeStatus.Open, list.getData().get(0).getStatus());
+        assertEquals(DisputeStatus.Open, openDisputes.getData().get(0).getStatus());
 
-        list = resource().list(DisputeStatus.Pending);
+        Request<ScopedList<Dispute>> pendingDisputesRequest = new Dispute.ListRequestBuilder()
+                .status(DisputeStatus.Pending)
+                .build();
+        ScopedList<Dispute> pendingDisputes = getTestRequester().sendRequest(pendingDisputesRequest, new TypeReference<ScopedList<Dispute>>() {});
         assertRequested("GET", "/disputes/pending", 200);
-        assertEquals(DisputeStatus.Pending, list.getData().get(0).getStatus());
+        assertEquals(DisputeStatus.Pending, pendingDisputes.getData().get(0).getStatus());
     }
 
     @Test
@@ -74,7 +79,4 @@ public class DisputeRequestTest extends RequestTest {
         assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
     }
 
-    private DisputeResource resource() {
-        return new DisputeResource(testClient());
-    }
 }

@@ -25,7 +25,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
     }
 
     @Test
-//    @Ignore("only hit the network when we need to.")
+    @Ignore("only hit the network when we need to.")
     public void testLiveGetDisputeList() throws IOException, OmiseException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder()
                 .status(DisputeStatus.Lost)

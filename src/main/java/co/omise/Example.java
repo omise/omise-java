@@ -174,22 +174,26 @@ final class Example {
     }
 
     void listAllDisputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list();
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("no. of disputes: %d", disputes.getTotal());
     }
 
     void listClosedDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Closed);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Closed).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("closed disputes: %d", disputes.getTotal());
     }
 
     void listOpenDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Open);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Open).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("open disputes: %d", disputes.getTotal());
     }
 
     void listPendingDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Pending);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Pending).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("pending disputes: %d", disputes.getTotal());
     }
 
