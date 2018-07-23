@@ -96,8 +96,7 @@ public class Dispute extends Model {
                 options = new ScopedList.Options();
             }
             String status = this.status == null ? "" : this.status.name().toLowerCase();
-//            return buildUrl(Endpoint.API, "disputes", new String[]{statusPath}, options);
-            return new HttpUrlBuilder(Endpoint.API, "disputes", status).params(options).build();
+            return new HttpUrlBuilder(Endpoint.API, "disputes", serializer()).segments(status).params(options).build();
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

@@ -106,7 +106,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, String... segments) {
-        return new HttpUrlBuilder(endpoint, path, segments).build();
+        return new HttpUrlBuilder(endpoint, path, serializer).segments(segments).build();
     }
 
     /**
@@ -120,7 +120,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
         Preconditions.checkNotNull(params);
-        return new HttpUrlBuilder(endpoint, path).params(params).build();
+        return new HttpUrlBuilder(endpoint, path, serializer).params(params).build();
     }
 
     public class HttpUrlBuilder {
@@ -128,14 +128,17 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         private String path;
         private String[] segments;
         private Params params;
+        private Serializer serializer;
 
-        public HttpUrlBuilder(Endpoint endpoint, String path, String... segments) {
+        public HttpUrlBuilder(Endpoint endpoint, String path, Serializer serializer) {
             this.endpoint = endpoint;
             this.path = path;
+            this.serializer = serializer;
+        }
 
-            if (segments != null) {
-                this.segments = segments.clone();
-            }
+        public HttpUrlBuilder segments(String... segments) {
+            this.segments = segments.clone();
+            return this;
         }
 
         public HttpUrlBuilder params(Params params) {
