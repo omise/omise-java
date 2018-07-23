@@ -59,4 +59,16 @@ public class CardRequestTest extends RequestTest {
         assertEquals("Visa", card.getBrand());
     }
 
+    @Test
+    public void testDestroy() throws IOException, OmiseException {
+        Request<Card> request =
+                new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
+                        .build();
+        Card card = getTestRequester().sendRequest(request, Card.class);
+
+        assertRequested("DELETE", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
+
+        assertTrue(card.isDeleted());
+        assertEquals("card_test_4yq6tuucl9h4erukfl0", card.getId());
+    }
 }
