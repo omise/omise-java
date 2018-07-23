@@ -3,7 +3,10 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.Card;
 import co.omise.models.OmiseException;
+import co.omise.models.Ordering;
+import co.omise.models.ScopedList;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -58,4 +61,28 @@ public class LiveCardRequestTest extends BaseLiveTest {
         assertEquals(11, card.getExpirationMonth());
     }
 
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveCard() throws IOException, OmiseException {
+
+        Request<ScopedList<Card>> request =
+                new Card.ListRequestBuilder(CUSTOMER_ID)
+                        .options(new ScopedList.Options()
+                                .limit(10)
+                                .order(Ordering.Chronological))
+                        .build();
+        ScopedList<Card> cards = client.sendRequest(request, new TypeReference<ScopedList<Card>>() {
+        });
+        for (Card card : cards.getData()) {
+            System.out.println(card.getId() + " : " + card.getLastDigits());
+        }
+
+        // These can change (card specific details, like size or the details of the first card)
+        assertNotNull(cards);
+        assertEquals(3, cards.getData().size());
+        assertEquals(10, cards.getLimit());
+        assertEquals(Ordering.Chronological, cards.getOrder());
+        assertNotNull(cards.getData().get(0));
+        assertEquals("4242", cards.getData().get(0).getLastDigits());
+    }
 }

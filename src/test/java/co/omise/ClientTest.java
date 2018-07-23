@@ -3,7 +3,6 @@ package co.omise;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
-import com.sun.org.apache.regexp.internal.REUtil;
 import org.joda.time.DateTime;
 import org.joda.time.DurationFieldType;
 import org.junit.Assert;
@@ -11,8 +10,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ClientTest extends OmiseTest {
     private static final String LIVETEST_PKEY = "pkey_test_replaceme";
@@ -48,19 +45,6 @@ public class ClientTest extends OmiseTest {
             new Client("skey_test_123").sendRequest(getAccountRequest, Account.class);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
-        }
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveCard() throws ClientException, IOException, OmiseException {
-        ScopedList<Card> list = liveTestClient()
-                .customer(LIVETEST_CUST)
-                .cards()
-                .list();
-
-        for (Card card : list.getData()) {
-            System.out.println(card.getId() + " : " + card.getLastDigits());
         }
     }
 
