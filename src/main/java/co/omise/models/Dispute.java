@@ -72,6 +72,9 @@ public class Dispute extends Model {
         this.metadata = metadata;
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Dispute.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Dispute> {
         private String disputeId;
 
@@ -85,6 +88,9 @@ public class Dispute extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving all Disputes.
+     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Dispute>> {
 
         private ScopedList.Options options;
@@ -113,6 +119,9 @@ public class Dispute extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for updating a Dispute.
+     */
     public static class UpdateRequestBuilder extends RequestBuilder<Dispute> {
         private String disputeId;
         @JsonProperty
