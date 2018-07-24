@@ -27,9 +27,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveGetDisputeList() throws IOException, OmiseException {
-        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder()
-                .status(DisputeStatus.Lost)
-                .options(new ScopedList.Options().order(Ordering.ReverseChronological)).build();
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
         ScopedList<Dispute> disputes = client.sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
 
         System.out.println("retrieved dispute list total no.: " + disputes.getTotal());
@@ -60,6 +58,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
 
         System.out.println("updated dispute: " + dispute.getId());
 
+        assertEquals(LIVETEST_DISPUTE, dispute.getId());
         assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
     }
