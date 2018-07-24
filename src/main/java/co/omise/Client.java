@@ -195,18 +195,6 @@ public class Client {
     }
 
     /**
-     * Returns {@link ChargeSpecificResource} instance for accessing
-     * charge-specific sub-resources.
-     *
-     * @param chargeId The id of the related charge.
-     * @return A {@link ChargeSpecificResource} instance.
-     * @see <a href="https://www.omise.co/refunds-api">Refunds API</a>
-     */
-    public ChargeSpecificResource charge(String chargeId) {
-        return new ChargeSpecificResource(httpClient, chargeId);
-    }
-
-    /**
      * Returns {@link CustomerResource} instance for accessing
      * <a href="https://www.omise.co/customers-api">Customer API</a>
      *
