@@ -72,6 +72,10 @@ public class Client {
      * Creates a Client that sends the specified API version string in the header to access an earlier version
      * of the Omise API.
      *
+     * <p>
+     * Note: Please ensure to have at least one of the keys supplied to have the client function correctly.
+     * </p>
+     *
      * @param publicKey The key with {@code pkey_} prefix.
      * @param secretKey The key with {@code skey_} prefix.
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
