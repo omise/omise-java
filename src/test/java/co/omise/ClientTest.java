@@ -19,11 +19,6 @@ public class ClientTest extends OmiseTest {
     private static final String LIVETEST_CUST = "cust_test_replaceme";
     private static final String LIVETEST_DIPUTE = "dspt_test_replaceme";
 
-    @Test(expected = NullPointerException.class)
-    public void testCreator() throws ClientException {
-        new Client((String) null);
-    }
-
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveErrorVault() throws ClientException {
