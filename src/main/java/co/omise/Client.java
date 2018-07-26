@@ -80,8 +80,6 @@ public class Client {
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
     public Client(String publicKey, String secretKey) throws ClientException {
-        Preconditions.checkNotNull(secretKey);
-
         Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
