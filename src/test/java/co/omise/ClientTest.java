@@ -3,6 +3,7 @@ package co.omise;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
+import com.sun.org.apache.regexp.internal.REUtil;
 import org.joda.time.DateTime;
 import org.joda.time.DurationFieldType;
 import org.junit.Assert;
@@ -231,21 +232,6 @@ public class ClientTest extends OmiseTest {
         assertEquals("store_1", source.getStoreId());
         assertEquals("store 1", source.getStoreName());
         assertEquals("POS-01", source.getTerminalId());
-    }
-
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveDispute() throws ClientException, IOException, OmiseException {
-        Map<String, Object> metadata = new HashMap<>();
-        metadata.put("description", "DESCRIPTION");
-        metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Dispute dispute = liveTestClient().disputes().update(LIVETEST_DIPUTE, new Dispute.Update().message("Proofs and other information...").metadata(metadata));
-
-        System.out.println("updated dispute: " + dispute.getId());
-
-        assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
-        assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
     }
 
     private Client liveTestClient() throws ClientException {
