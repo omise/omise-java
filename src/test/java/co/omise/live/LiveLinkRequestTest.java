@@ -1,12 +1,17 @@
 package co.omise.live;
 
 import co.omise.Client;
+import co.omise.models.Charge;
 import co.omise.models.Link;
+import co.omise.models.Ordering;
+import co.omise.models.ScopedList;
 import co.omise.requests.Request;
+import com.fasterxml.jackson.core.type.TypeReference;
 import junit.framework.TestCase;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +19,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
-    public void createLinkSuccess() throws Exception {
+    public void testCreateLinkSuccess() throws Exception {
         Client client = getLiveClient();
 
         Request<Link> request =
@@ -39,7 +44,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
-    public void getLinkSuccess() throws Exception {
+    public void testGetLinkSuccess() throws Exception {
         Client client = getLiveClient();
 
         Request<Link> createRequest =
@@ -64,5 +69,28 @@ public class LiveLinkRequestTest extends BaseLiveTest {
         System.out.printf("Link retrieved: %s", retrievedLink.getId());
 
         assertEquals(createdLink.getId(), retrievedLink.getId());
+    }
+
+    @Test
+    @Ignore("only hit when test on live.")
+    public void testLinkListGet() throws Exception {
+        Client client = getLiveClient();
+
+        Request<ScopedList<Link>> request =
+                new Link.ListRequestBuilder()
+                        .options(new ScopedList.Options()
+                                .limit(10)
+                                .order(Ordering.Chronological))
+                        .build();
+
+        ScopedList<Link> links = client.sendRequest(request, new TypeReference<ScopedList<Link>>() {
+        });
+
+        assertEquals(10, links.getLimit());
+        assertEquals(18, links.getTotal()); // This can easily break as you add charges, not sure how to do it better
+        assertEquals(Ordering.Chronological, links.getOrder());
+
+        Link link = links.getData().get(0);
+        assertNotNull(link);
     }
 }
