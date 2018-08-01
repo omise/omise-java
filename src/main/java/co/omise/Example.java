@@ -5,7 +5,6 @@ import co.omise.requests.Request;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
@@ -23,31 +22,40 @@ final class Example {
     }
 
     void destroyCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().destroy("card_test_4xsjw0t21xaxnuzi9gs");
+        Request<Card> request = new Card.DeleteRequestBuilder(
+                "card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
+                .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("destroyed card: %s", card.getId());
     }
 
     void listCards() throws IOException, OmiseException, ClientException {
-        ScopedList<Card> cards = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().list();
+        Request<ScopedList<Card>> request =
+                new Card.ListRequestBuilder("cust_test_4xsjvylia03ur542vn6").build();
+        ScopedList<Card> cards = client().sendRequest(request, new TypeReference<ScopedList<Card>>() {
+        });
         System.out.printf("returned cards: %d", cards.getData().size());
         System.out.printf("total no. of cards: %d", cards.getTotal());
     }
 
     void retrieveCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().get("card_test_4xsjw0t21xaxnuzi9gs");
+        Request<Card> request =
+                new Card.GetRequestBuilder("card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
+                        .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("card last digits: %s", card.getLastDigits());
     }
 
     void updateCard() throws IOException, OmiseException, ClientException {
-        Card card = client().customer("cust_test_4xsjvylia03ur542vn6")
-                .cards().update("card_test_4xsjw0t21xaxnuzi9gs", new Card.Update()
+        Request<Card> request =
+                new Card.UpdateRequestBuilder(
+                        "card_test_4xsjw0t21xaxnuzi9gs", "cust_test_4xsjvylia03ur542vn6")
                         .expirationMonth(11)
                         .expirationYear(2017)
                         .name("Somchai Prasert")
-                        .postalCode("10310"));
+                        .postalCode("10310")
+                        .build();
+        Card card = client().sendRequest(request, Card.class);
         System.out.printf("updated card: %s", card.getId());
     }
 
@@ -175,25 +183,29 @@ final class Example {
 
     void listAllDisputes() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
-        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {
+        });
         System.out.printf("no. of disputes: %d", disputes.getTotal());
     }
 
     void listClosedDiputes() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Closed).build();
-        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {
+        });
         System.out.printf("closed disputes: %d", disputes.getTotal());
     }
 
     void listOpenDiputes() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Open).build();
-        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {
+        });
         System.out.printf("open disputes: %d", disputes.getTotal());
     }
 
     void listPendingDiputes() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Pending).build();
-        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {
+        });
         System.out.printf("pending disputes: %d", disputes.getTotal());
     }
 
@@ -330,7 +342,8 @@ final class Example {
 
     void listRefunds() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
-        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
+        ScopedList<Refund> refunds = client().sendRequest(request, new TypeReference<ScopedList<Refund>>() {
+        });
         System.out.printf("total no. of refunds: %d", refunds.getTotal());
     }
 
