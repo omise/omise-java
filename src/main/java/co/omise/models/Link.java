@@ -143,4 +143,20 @@ public class Link extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Link.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Link> {
+        private String linkId;
+
+        public GetRequestBuilder(String linkId) {
+            this.linkId = linkId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "links", linkId);
+        }
+    }
 }

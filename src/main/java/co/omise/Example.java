@@ -400,6 +400,13 @@ final class Example {
         System.out.printf("link created: %s", link.getId());
     }
 
+    void retrieveLink() throws IOException, OmiseException, ClientException {
+        Request<Link> request = new Link.GetRequestBuilder("link_test_6csdepgdsdob7ee47sf").build();
+
+        Link link = client().sendRequest(request, Link.class);
+        System.out.printf("link retrieved: %s", link.getId());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }
