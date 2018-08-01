@@ -174,34 +174,40 @@ final class Example {
     }
 
     void listAllDisputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list();
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("no. of disputes: %d", disputes.getTotal());
     }
 
     void listClosedDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Closed);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Closed).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("closed disputes: %d", disputes.getTotal());
     }
 
     void listOpenDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Open);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Open).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("open disputes: %d", disputes.getTotal());
     }
 
     void listPendingDiputes() throws IOException, OmiseException, ClientException {
-        ScopedList<Dispute> disputes = client().disputes().list(DisputeStatus.Pending);
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Pending).build();
+        ScopedList<Dispute> disputes = client().sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
         System.out.printf("pending disputes: %d", disputes.getTotal());
     }
 
     void retrieveDispute() throws IOException, OmiseException, ClientException {
-        Dispute dispute = client().disputes().get("dspt_test_4zgf15h89w8t775kcm8");
+        Request<Dispute> request = new Dispute.GetRequestBuilder("dspt_test_4zgf15h89w8t775kcm8").build();
+        Dispute dispute = client().sendRequest(request, Dispute.class);
         System.out.printf("disputed amount: %d", dispute.getAmount());
     }
 
     void updateDispute() throws IOException, OmiseException, ClientException {
-        Dispute dispute = client().disputes()
-                .update("dspt_test_4zgf15h89w8t775kcm8", new Dispute.Update()
-                        .message("Proofs and other information..."));
+        Request<Dispute> request = new Dispute.UpdateRequestBuilder("dspt_test_4zgf15h89w8t775kcm8")
+                .message("Proofs and other information...")
+                .build();
+        Dispute dispute = client().sendRequest(request, Dispute.class);
         System.out.printf("updated dispute: %s", dispute.getMessage());
     }
 

@@ -44,7 +44,6 @@ public class Client {
     private final OkHttpClient httpClient;
 
     private CustomerResource customers;
-    private DisputeResource disputes;
     private EventResource events;
     private LinkResource links;
     private ForexResource forexes;
@@ -115,7 +114,6 @@ public class Client {
      */
     private void initResources() {
         customers = new CustomerResource(httpClient);
-        disputes = new DisputeResource(httpClient);
         events = new EventResource(httpClient);
         forexes = new ForexResource(httpClient);
         links = new LinkResource(httpClient);
@@ -199,18 +197,6 @@ public class Client {
     }
 
     /**
-     * Returns {@link ChargeSpecificResource} instance for accessing
-     * charge-specific sub-resources.
-     *
-     * @param chargeId The id of the related charge.
-     * @return A {@link ChargeSpecificResource} instance.
-     * @see <a href="https://www.omise.co/refunds-api">Refunds API</a>
-     */
-    public ChargeSpecificResource charge(String chargeId) {
-        return new ChargeSpecificResource(httpClient, chargeId);
-    }
-
-    /**
      * Returns {@link CustomerResource} instance for accessing
      * <a href="https://www.omise.co/customers-api">Customer API</a>
      *
@@ -230,17 +216,6 @@ public class Client {
      */
     public CustomerSpecificResource customer(String customerId) {
         return customers.withId(customerId);
-    }
-
-    /**
-     * Returns {@link DisputeResource} for accessing the
-     * <a href="https://www.omise.co/disputes-api">Dispute API</a>
-     *
-     * @return A {@link DisputeResource} instance.
-     * @see <a href="https://www.omise.co/disputes-api">Dispute API</a>
-     */
-    public DisputeResource disputes() {
-        return disputes;
     }
 
     /**

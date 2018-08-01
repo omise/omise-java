@@ -4,13 +4,10 @@ import co.omise.models.OmiseException;
 import co.omise.models.Ordering;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
-import co.omise.resources.RefundResource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RefundRequestTest extends RequestTest {
     private static final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
