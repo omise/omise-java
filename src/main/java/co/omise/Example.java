@@ -387,6 +387,19 @@ final class Example {
         System.out.printf("transaction amount: %d", transaction.getAmount());
     }
 
+    void createLink() throws IOException, OmiseException, ClientException {
+        Request<Link> request = new Link.CreateRequestBuilder()
+                .amount(100000) // 1,000 THB
+                .currency("thb")
+                .title("Omise Sale")
+                .description("Medium size T-Shirt (Blue)")
+                .multiple(true) // can be used for multiple payments
+                .build();
+
+        Link link = client().sendRequest(request, Link.class);
+        System.out.printf("link created: %s", link.getId());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }

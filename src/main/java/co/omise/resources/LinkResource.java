@@ -28,10 +28,6 @@ public class LinkResource extends Resource {
         return httpGet(urlFor(linkId)).returns(Link.class);
     }
 
-    public Link create(Link.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Link.class);
-    }
-
     private HttpUrl urlFor(String linkId) {
         return buildUrl(Endpoint.API, "links", linkId);
     }
