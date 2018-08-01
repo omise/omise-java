@@ -11,19 +11,32 @@ public class LinkRequestTest extends RequestTest {
 
     @Test
     public void testCreate() throws IOException, OmiseException {
-        Request<Link> request = new Link.CreateRequestBuilder()
-                .amount(100000)
-                .currency("thb")
-                .title("Omise Sale")
-                .description("Medium size T-Shirt (Blue)")
-                .multiple(true)
-                .build();
+        Request<Link> request =
+                new Link.CreateRequestBuilder()
+                        .amount(100000)
+                        .currency("thb")
+                        .title("Omise Sale")
+                        .description("Medium size T-Shirt (Blue)")
+                        .multiple(true)
+                        .build();
 
         Link link = getTestRequester().sendRequest(request, Link.class);
 
         assertRequested("POST", "/links", 200);
         assertEquals(LINK_ID, link.getId());
-        assertFalse(link.isLiveMode());
+        assertTrue(link.isMultiple());
+    }
+
+    @Test
+    public void testGet() throws IOException, OmiseException {
+        Request<Link> request =
+                new Link.GetRequestBuilder(LINK_ID)
+                        .build();
+
+        Link link = getTestRequester().sendRequest(request, Link.class);
+
+        assertRequested("GET", "/links/" + LINK_ID, 200);
+        assertEquals(LINK_ID, link.getId());
         assertTrue(link.isMultiple());
     }
 }
