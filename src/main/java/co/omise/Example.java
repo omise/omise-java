@@ -407,6 +407,15 @@ final class Example {
         System.out.printf("link retrieved: %s", link.getId());
     }
 
+    void listLinks() throws IOException, OmiseException, ClientException {
+        Request<ScopedList<Link>> request = new Link.ListRequestBuilder()
+                .build();
+
+        ScopedList<Link> links = client().sendRequest(request, new TypeReference<ScopedList<Link>>() {
+        });
+        System.out.printf("no. of links: %d", links.getTotal());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }

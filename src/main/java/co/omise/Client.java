@@ -45,7 +45,6 @@ public class Client {
 
     private CustomerResource customers;
     private EventResource events;
-    private LinkResource links;
     private ForexResource forexes;
     private OccurrenceResource occurrences;
     private ReceiptResource receipts;
@@ -115,7 +114,6 @@ public class Client {
         customers = new CustomerResource(httpClient);
         events = new EventResource(httpClient);
         forexes = new ForexResource(httpClient);
-        links = new LinkResource(httpClient);
         occurrences = new OccurrenceResource(httpClient);
         receipts = new ReceiptResource(httpClient);
         recipients = new RecipientResource(httpClient);
@@ -224,17 +222,6 @@ public class Client {
      */
     public ForexResource forexes() {
         return forexes;
-    }
-
-    /**
-     * Returns {@link LinkResource} for accessing the
-     * <a href="https://www.omise.co/links-api">Link API</a>
-     *
-     * @return An {@link LinkResource} instance.
-     * @see <a href="https://www.omise.co/links-api">Link API</a>
-     */
-    public LinkResource links() {
-        return links;
     }
 
     /**

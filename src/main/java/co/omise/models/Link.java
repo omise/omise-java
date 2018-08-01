@@ -159,4 +159,25 @@ public class Link extends Model {
             return buildUrl(Endpoint.API, "links", linkId);
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Links that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "links", options);
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
 }
