@@ -15,10 +15,6 @@ public class CustomerResource extends Resource {
         super(httpClient);
     }
 
-    public CustomerSpecificResource withId(String customerId) {
-        return new CustomerSpecificResource(httpClient(), customerId);
-    }
-
     public ScopedList<Customer> list() throws IOException, OmiseException {
         return list(new ScopedList.Options());
     }
