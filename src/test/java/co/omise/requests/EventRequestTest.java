@@ -2,7 +2,9 @@ package co.omise.requests;
 
 import co.omise.models.Event;
 import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -21,5 +23,21 @@ public class EventRequestTest extends RequestTest {
         assertEquals("transfer", transfer.getObject());
         assertEquals("trsf_test_526yctqob5djkckq88a", transfer.getId());
         assertTrue(transfer.isDeleted());
+    }
+
+    @Test
+    public void testList() throws IOException, OmiseException {
+        Request<ScopedList<Event>> request = new Event.ListRequestBuilder().build();
+        ScopedList<Event> events = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Event>>() {
+        });
+
+        assertRequested("GET", "/events", 200);
+
+        assertEquals(20, events.getLimit());
+        assertEquals(301, events.getTotal());
+
+        Event event = events.getData().get(0);
+        assertEquals("evnt_test_5232t5tlhjwh7nbi14g", event.getId());
+        assertEquals("customer.create", event.getKey());
     }
 }
