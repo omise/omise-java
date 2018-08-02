@@ -6,24 +6,24 @@ import co.omise.models.SearchResult;
 import co.omise.models.SearchScope;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
-import okhttp3.Request;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Map;
 
 public class SearchRequestTest extends RequestTest {
-    public static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
+    
+    private static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
 
     @Test
     public void testSearch() throws IOException, OmiseException {
-        SearchResult.Options options = new SearchResult.Options()
-                .scope(SearchScope.Charge)
-                .filter("amount", "4096.69")
-                .query(CHARGE_ID);
-        co.omise.requests.Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
-        SearchResult<Charge> result = getTestRequester().sendRequest(request, new TypeReference<SearchResult<Charge>>() {
-        });
+        Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(
+                new SearchResult.Options()
+                        .scope(SearchScope.Charge)
+                        .filter("amount", "4096.69")
+                        .query(CHARGE_ID))
+                .build();
+        SearchResult<Charge> result = getTestRequester().sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
 
         Map<String, String> expects = ImmutableMap.of(
                 "scope", "charge",
@@ -32,7 +32,7 @@ public class SearchRequestTest extends RequestTest {
 
         assertRequested("GET", "/search", 200);
 
-        Request lastRequest = lastRequest();
+        okhttp3.Request lastRequest = lastRequest();
         for (Map.Entry<String, String> entry : expects.entrySet()) {
             assertEquals(entry.getValue(), lastRequest.url().queryParameter(entry.getKey()));
         }
