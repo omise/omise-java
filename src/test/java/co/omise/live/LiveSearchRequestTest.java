@@ -29,7 +29,7 @@ public class LiveSearchRequestTest extends BaseLiveTest {
     public void testLiveSearchGet() throws IOException, OmiseException {
         SearchResult.Options options = new SearchResult.Options()
                 .scope(SearchScope.Charge);
-        Request<SearchResult<Charge>> request = new SearchResult.ListRequestBuilder<Charge>(options).build();
+        Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
 
         SearchResult<Charge> result = client.sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
 
@@ -43,7 +43,7 @@ public class LiveSearchRequestTest extends BaseLiveTest {
         SearchResult.Options options = new SearchResult.Options()
                 .scope(SearchScope.Charge)
                 .query(LIVETEST_CHARGE);
-        Request<SearchResult<Charge>> request = new SearchResult.ListRequestBuilder<Charge>(options).build();
+        Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
 
         SearchResult<Charge> result = client.sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
 

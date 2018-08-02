@@ -21,7 +21,7 @@ public class SearchRequestTest extends RequestTest {
                 .scope(SearchScope.Charge)
                 .filter("amount", "4096.69")
                 .query(CHARGE_ID);
-        co.omise.requests.Request<SearchResult<Charge>> request = new SearchResult.ListRequestBuilder<Charge>(options).build();
+        co.omise.requests.Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
         SearchResult<Charge> result = getTestRequester().sendRequest(request, new TypeReference<SearchResult<Charge>>() {
         });
 

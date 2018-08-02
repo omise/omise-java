@@ -408,12 +408,21 @@ final class Example {
     }
 
     void listLinks() throws IOException, OmiseException, ClientException {
-        Request<ScopedList<Link>> request = new Link.ListRequestBuilder()
-                .build();
+        Request<ScopedList<Link>> request = new Link.ListRequestBuilder().build();
 
         ScopedList<Link> links = client().sendRequest(request, new TypeReference<ScopedList<Link>>() {
         });
         System.out.printf("no. of links: %d", links.getTotal());
+    }
+
+    void retrieveSearch() throws ClientException, IOException, OmiseException {
+        Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(
+                new SearchResult.Options()
+                        .scope(SearchScope.Charge)
+                        .query("chrg_test_4xso2s8ivdej29pqnhz"))
+                .build();
+        SearchResult<Charge> searchResult = client().sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
+        System.out.printf("total no. of search result: %d", searchResult.getTotal());
     }
 
     private Client client() throws ClientException {
