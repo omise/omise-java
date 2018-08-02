@@ -229,7 +229,8 @@ final class Example {
     }
 
     void retrieveEvent() throws IOException, OmiseException, ClientException {
-        Event event = client().events().get("evnt_test_5vxs0ajpo78");
+        Request<Event> request = new Event.GetRequestBuilder("evnt_test_5vxs0ajpo78").build();
+        Event event = client().sendRequest(request, Event.class);
         System.out.printf("key of event: %s", event.getKey());
     }
 

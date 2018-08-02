@@ -24,11 +24,6 @@ public class EventResource extends Resource {
         });
     }
 
-    public Event get(String eventId) throws IOException, OmiseException {
-        return httpGet(urlFor(eventId)).returns(new TypeReference<Event>() {
-        });
-    }
-
     private HttpUrl urlFor(String eventId) {
         return buildUrl(Endpoint.API, "events", eventId);
     }
