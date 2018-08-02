@@ -1,10 +1,14 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
 import co.omise.Serializer;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
+import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,6 +126,20 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         @Override
         public RequestBody body(Serializer serializer) {
             return null;
+        }
+    }
+
+    public static class ListRequestBuilder<T extends Model> extends RequestBuilder<SearchResult<T>> {
+
+        private SearchResult.Options options;
+
+        public ListRequestBuilder(SearchResult.Options options) {
+            this.options = options;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "search", options);
         }
     }
 }

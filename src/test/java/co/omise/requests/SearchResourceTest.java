@@ -1,9 +1,10 @@
-package co.omise.resources;
+package co.omise.requests;
 
 import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.SearchResult;
 import co.omise.models.SearchScope;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.Request;
 import org.junit.Test;
@@ -11,15 +12,18 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Map;
 
-public class SearchResourceTest extends ResourceTest {
+public class SearchResourceTest extends RequestTest {
     public static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
 
     @Test
     public void testSearch() throws IOException, OmiseException {
-        SearchResult<Charge> result = resource().search(new SearchResult.Options()
+        SearchResult.Options options = new SearchResult.Options()
                 .scope(SearchScope.Charge)
                 .filter("amount", "4096.69")
-                .query(CHARGE_ID));
+                .query(CHARGE_ID);
+        co.omise.requests.Request<SearchResult<Charge>> request = new SearchResult.ListRequestBuilder<Charge>(options).build();
+        SearchResult<Charge> result = getTestRequester().sendRequest(request, new TypeReference<SearchResult<Charge>>() {
+        });
 
         Map<String, String> expects = ImmutableMap.of(
                 "scope", "charge",
@@ -28,9 +32,9 @@ public class SearchResourceTest extends ResourceTest {
 
         assertRequested("GET", "/search", 200);
 
-        Request request = lastRequest();
+        Request lastRequest = lastRequest();
         for (Map.Entry<String, String> entry : expects.entrySet()) {
-            assertEquals(entry.getValue(), request.url().queryParameter(entry.getKey()));
+            assertEquals(entry.getValue(), lastRequest.url().queryParameter(entry.getKey()));
         }
 
         assertEquals(1, result.getTotal());
@@ -42,7 +46,4 @@ public class SearchResourceTest extends ResourceTest {
         assertEquals(409669, charge.getAmount());
     }
 
-    private SearchResource resource() {
-        return new SearchResource(testClient());
-    }
 }
