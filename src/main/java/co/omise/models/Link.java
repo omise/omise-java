@@ -1,6 +1,12 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Link object.
@@ -82,7 +88,10 @@ public class Link extends Model {
         this.paymentUri = paymentUri;
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder} class for creating a Link.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Link> {
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -94,28 +103,80 @@ public class Link extends Model {
         @JsonProperty
         private Boolean multiple;
 
-        public Create amount(long amount) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "links");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create currency(String currency) {
+        public CreateRequestBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public Create title(String title) {
+        public CreateRequestBuilder title(String title) {
             this.title = title;
             return this;
         }
 
-        public Create description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Create multiple(boolean multiple) {
+        public CreateRequestBuilder multiple(boolean multiple) {
             this.multiple = multiple;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Link.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Link> {
+        private String linkId;
+
+        public GetRequestBuilder(String linkId) {
+            this.linkId = linkId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "links", linkId);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Links that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "links", options);
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
             return this;
         }
     }

@@ -387,6 +387,35 @@ final class Example {
         System.out.printf("transaction amount: %d", transaction.getAmount());
     }
 
+    void createLink() throws IOException, OmiseException, ClientException {
+        Request<Link> request = new Link.CreateRequestBuilder()
+                .amount(100000) // 1,000 THB
+                .currency("thb")
+                .title("Omise Sale")
+                .description("Medium size T-Shirt (Blue)")
+                .multiple(true) // can be used for multiple payments
+                .build();
+
+        Link link = client().sendRequest(request, Link.class);
+        System.out.printf("link created: %s", link.getId());
+    }
+
+    void retrieveLink() throws IOException, OmiseException, ClientException {
+        Request<Link> request = new Link.GetRequestBuilder("link_test_6csdepgdsdob7ee47sf").build();
+
+        Link link = client().sendRequest(request, Link.class);
+        System.out.printf("link retrieved: %s", link.getId());
+    }
+
+    void listLinks() throws IOException, OmiseException, ClientException {
+        Request<ScopedList<Link>> request = new Link.ListRequestBuilder()
+                .build();
+
+        ScopedList<Link> links = client().sendRequest(request, new TypeReference<ScopedList<Link>>() {
+        });
+        System.out.printf("no. of links: %d", links.getTotal());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }
