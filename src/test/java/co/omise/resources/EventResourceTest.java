@@ -22,18 +22,6 @@ public class EventResourceTest extends ResourceTest {
         assertEquals("customer.create", event.getKey());
     }
 
-    @Test
-    public void testGet() throws IOException, OmiseException {
-        Event event = resource().get("evnt_test_526yctupnje5mbldskd");
-        assertEquals("evnt_test_526yctupnje5mbldskd", event.getId());
-        assertEquals("transfer.destroy", event.getKey());
-
-        Transfer transfer = (Transfer) event.getData();
-        assertEquals("transfer", transfer.getObject());
-        assertEquals("trsf_test_526yctqob5djkckq88a", transfer.getId());
-        assertTrue(transfer.isDeleted());
-    }
-
     private EventResource resource() {
         return new EventResource(testClient());
     }
