@@ -12,7 +12,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.util.Map;
 
-public class SearchResourceTest extends RequestTest {
+public class SearchRequestTest extends RequestTest {
     public static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
 
     @Test
