@@ -48,7 +48,6 @@ public class Client {
     private ReceiptResource receipts;
     private RecipientResource recipients;
     private ScheduleResource schedules;
-    private SourceResource sources;
     private Requester requester;
 
     /**
@@ -115,7 +114,6 @@ public class Client {
         receipts = new ReceiptResource(httpClient);
         recipients = new RecipientResource(httpClient);
         schedules = new ScheduleResource(httpClient);
-        sources = new SourceResource(httpClient);
     }
 
     /**
@@ -265,18 +263,6 @@ public class Client {
     public ScheduleSpecificResource schedule(String scheduleId) {
         return new ScheduleSpecificResource(httpClient, scheduleId);
     }
-
-    /**
-     * Returns {@link SourceResource} for accessing the
-     * <a href="https://www.omise.co/sources-api">Sources API</a>
-     *
-     * @return A {@link SourceResource} instance.
-     * @see <a href="https://www.omise.co/sources-api">Sources API</a>
-     */
-    public SourceResource sources() {
-        return sources;
-    }
-
 
     /**
      * Relays the user generated {@link Request} to {@link Requester} for it to be carried out

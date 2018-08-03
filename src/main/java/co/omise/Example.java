@@ -418,6 +418,21 @@ final class Example {
         System.out.printf("no. of links: %d", links.getTotal());
     }
 
+    void createSource() throws IOException, OmiseException, ClientException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.InternetBankingBay)
+                .amount(100000) // 1,000 THB
+                .currency("thb")
+                .description("Medium size T-Shirt (Blue)")
+                .terminalId("test_term_id")
+                .storeId("test_store_id")
+                .storeName("Omise Shop")
+                .build();
+
+        Source source = client().sendRequest(request, Source.class);
+        System.out.printf("source created: %s", source.getId());
+}
+  
     void retrieveSearch() throws ClientException, IOException, OmiseException {
         Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(
                 new SearchResult.Options()
