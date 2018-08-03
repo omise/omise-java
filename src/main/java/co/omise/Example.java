@@ -224,12 +224,15 @@ final class Example {
     }
 
     void listEvents() throws IOException, OmiseException, ClientException {
-        ScopedList<Event> events = client().events().list();
+        Request<ScopedList<Event>> request = new Event.ListRequestBuilder().build();
+        ScopedList<Event> events = client().sendRequest(request, new TypeReference<ScopedList<Event>>() {
+        });
         System.out.printf("no. of events: %d", events.getTotal());
     }
 
     void retrieveEvent() throws IOException, OmiseException, ClientException {
-        Event event = client().events().get("evnt_test_5vxs0ajpo78");
+        Request<Event> request = new Event.GetRequestBuilder("evnt_test_5vxs0ajpo78").build();
+        Event event = client().sendRequest(request, Event.class);
         System.out.printf("key of event: %s", event.getKey());
     }
 
