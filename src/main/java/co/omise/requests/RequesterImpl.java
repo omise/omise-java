@@ -39,10 +39,10 @@ public class RequesterImpl implements Requester {
         }
 
         try {
-            if (request.getClassType() != null) {
-                return serializer.deserialize(stream, request.getClassType());
+            if (request.getType().isClassType()) {
+                return serializer.deserialize(stream, request.getType().getClassType());
             } else {
-                return serializer.deserialize(stream, request.getTypeReference());
+                return serializer.deserialize(stream, request.getType().getTypeReference());
             }
         } finally {
             stream.close();

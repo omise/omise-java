@@ -2,7 +2,6 @@ package co.omise.requests;
 
 import co.omise.Client;
 import co.omise.models.OmiseObjectBase;
-import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -17,8 +16,7 @@ public class Request<T extends OmiseObjectBase> {
     private final HttpUrl path;
     private final String contentType;
     private final RequestBody payload;
-    private final Class<T> classType;
-    private final TypeReference<T> typeReference;
+    private final ResponseType<T> type;
 
     /**
      * Constructor for a new Request
@@ -28,22 +26,12 @@ public class Request<T extends OmiseObjectBase> {
      * @param contentType The content type of HTTP request
      * @param payload     Additional params passed as OkHttp {@link RequestBody} to the HTTP request
      */
-    Request(String method, HttpUrl path, String contentType, RequestBody payload, Class<T> classType) {
+    Request(String method, HttpUrl path, String contentType, RequestBody payload, ResponseType<T> type) {
         this.method = method;
         this.path = path;
         this.contentType = contentType;
         this.payload = payload;
-        this.classType = classType;
-        this.typeReference = null;
-    }
-
-    Request(String method, HttpUrl path, String contentType, RequestBody payload, TypeReference<T> typeReference) {
-        this.method = method;
-        this.path = path;
-        this.contentType = contentType;
-        this.payload = payload;
-        this.typeReference = typeReference;
-        this.classType = null;
+        this.type = type;
     }
 
     /**
@@ -82,11 +70,7 @@ public class Request<T extends OmiseObjectBase> {
         return payload;
     }
 
-    public Class<T> getClassType() {
-        return classType;
-    }
-
-    public TypeReference<T> getTypeReference() {
-        return typeReference;
+    public ResponseType<T> getType() {
+        return type;
     }
 }

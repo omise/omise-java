@@ -36,11 +36,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
     public Request<T> build() throws IOException {
-        if (type().isClassType()) {
-            return new Request<>(method(), path(), contentType(), payload(), type().getClassType());
-        } else {
-            return new Request<>(method(), path(), contentType(), payload(), type().getTypeReference());
-        }
+        return new Request<>(method(), path(), contentType(), payload(), type());
     }
 
     /**

@@ -8,7 +8,6 @@ public class ResponseType<T> {
     private TypeReference<T> typeReference;
 
     private ResponseType() {
-
     }
 
     public ResponseType(Class<T> classType) {
