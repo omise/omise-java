@@ -2,6 +2,7 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import okhttp3.HttpUrl;
 
 /**
@@ -28,6 +29,11 @@ public class Account extends Model {
         @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "account");
+        }
+
+        @Override
+        protected ResponseType<Account> type() {
+            return new ResponseType<>(Account.class);
         }
     }
 }

@@ -2,8 +2,10 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 import org.joda.time.YearMonth;
@@ -214,6 +216,11 @@ public class Card extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
         }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
     }
 
     /**
@@ -247,6 +254,11 @@ public class Card extends Model {
         @Override
         protected RequestBody payload() throws IOException {
             return serialize();
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
         }
 
         @Override
@@ -305,6 +317,11 @@ public class Card extends Model {
         }
 
         @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
+
+        @Override
         protected String method() {
             return DELETE;
         }
@@ -333,6 +350,11 @@ public class Card extends Model {
                     .segments(customerId, "cards")
                     .params(options)
                     .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Card>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Card>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {
