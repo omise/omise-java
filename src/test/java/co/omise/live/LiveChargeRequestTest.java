@@ -88,11 +88,13 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithInternetBanking() throws IOException, OmiseException {
-        //TODO Change this to new format when Source creation flow is changed to new flow
-        Source source = client.sources().create(new Source.Create()
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
                 .type(SourceType.InternetBankingBay)
                 .amount(10000)
-                .currency("thb"));
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest, Source.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -116,11 +118,13 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithBillPaymentTescoLotus() throws IOException, OmiseException {
-        //TODO Change this to new format when Source creation flow is changed to new flow
-        Source source = client.sources().create(new Source.Create()
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
                 .type(SourceType.BillPaymentTescoLotus)
                 .amount(10000)
-                .currency("thb"));
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest, Source.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -143,11 +147,13 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithAlipay() throws IOException, OmiseException {
-        //TODO Change this to new format when Source creation flow is changed to new flow
-        Source source = client.sources().create(new Source.Create()
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
                 .type(SourceType.Alipay)
                 .amount(10000)
-                .currency("thb"));
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest, Source.class);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()

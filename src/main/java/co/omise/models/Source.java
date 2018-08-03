@@ -1,6 +1,12 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Source object.
@@ -94,8 +100,10 @@ public class Source extends Model {
         this.terminalId = terminalId;
     }
 
-    public static class Create extends Params {
-
+    /**
+     * The {@link RequestBuilder} class for creating a Source.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Source> {
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -113,42 +121,57 @@ public class Source extends Model {
         @JsonProperty("terminal_id")
         private String terminalId;
 
-        public Create amount(long amount) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "sources");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create currency(String currency) {
+        public CreateRequestBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public Create type(SourceType type) {
+        public CreateRequestBuilder type(SourceType type) {
             this.type = type;
             return this;
         }
 
-        public Create description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Create barcode(String barcode) {
+        public CreateRequestBuilder barcode(String barcode) {
             this.barcode = barcode;
             return this;
         }
 
-        public Create storeId(String storeId) {
+        public CreateRequestBuilder storeId(String storeId) {
             this.storeId = storeId;
             return this;
         }
 
-        public Create storeName(String storeName) {
+        public CreateRequestBuilder storeName(String storeName) {
             this.storeName = storeName;
             return this;
         }
 
-        public Create terminalId(String terminalId) {
+        public CreateRequestBuilder terminalId(String terminalId) {
             this.terminalId = terminalId;
             return this;
         }
