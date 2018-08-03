@@ -8,7 +8,6 @@ import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
 import co.omise.resources.*;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.base.Preconditions;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -44,7 +43,6 @@ public class Client {
     private final OkHttpClient httpClient;
 
     private CustomerResource customers;
-    private EventResource events;
     private ForexResource forexes;
     private OccurrenceResource occurrences;
     private ReceiptResource receipts;
@@ -111,7 +109,6 @@ public class Client {
      */
     private void initResources() {
         customers = new CustomerResource(httpClient);
-        events = new EventResource(httpClient);
         forexes = new ForexResource(httpClient);
         occurrences = new OccurrenceResource(httpClient);
         receipts = new ReceiptResource(httpClient);
@@ -198,17 +195,6 @@ public class Client {
      */
     public CustomerResource customers() {
         return customers;
-    }
-
-    /**
-     * Returns {@link EventResource} for accessing the
-     * <a href="https://www.omise.co/events-api">Events API</a>
-     *
-     * @return An {@link EventResource} instance.
-     * @see <a href="https://www.omise.co/events-api">Events API</a>
-     */
-    public EventResource events() {
-        return events;
     }
 
     /**

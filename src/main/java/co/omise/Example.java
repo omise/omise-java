@@ -224,12 +224,15 @@ final class Example {
     }
 
     void listEvents() throws IOException, OmiseException, ClientException {
-        ScopedList<Event> events = client().events().list();
+        Request<ScopedList<Event>> request = new Event.ListRequestBuilder().build();
+        ScopedList<Event> events = client().sendRequest(request, new TypeReference<ScopedList<Event>>() {
+        });
         System.out.printf("no. of events: %d", events.getTotal());
     }
 
     void retrieveEvent() throws IOException, OmiseException, ClientException {
-        Event event = client().events().get("evnt_test_5vxs0ajpo78");
+        Request<Event> request = new Event.GetRequestBuilder("evnt_test_5vxs0ajpo78").build();
+        Event event = client().sendRequest(request, Event.class);
         System.out.printf("key of event: %s", event.getKey());
     }
 
@@ -408,8 +411,7 @@ final class Example {
     }
 
     void listLinks() throws IOException, OmiseException, ClientException {
-        Request<ScopedList<Link>> request = new Link.ListRequestBuilder()
-                .build();
+        Request<ScopedList<Link>> request = new Link.ListRequestBuilder().build();
 
         ScopedList<Link> links = client().sendRequest(request, new TypeReference<ScopedList<Link>>() {
         });
@@ -429,6 +431,16 @@ final class Example {
 
         Source source = client().sendRequest(request, Source.class);
         System.out.printf("source created: %s", source.getId());
+}
+  
+    void retrieveSearch() throws ClientException, IOException, OmiseException {
+        Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(
+                new SearchResult.Options()
+                        .scope(SearchScope.Charge)
+                        .query("chrg_test_4xso2s8ivdej29pqnhz"))
+                .build();
+        SearchResult<Charge> searchResult = client().sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
+        System.out.printf("total no. of search result: %d", searchResult.getTotal());
     }
 
     private Client client() throws ClientException {
