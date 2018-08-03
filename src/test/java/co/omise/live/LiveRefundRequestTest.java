@@ -5,14 +5,11 @@ import co.omise.models.OmiseException;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -37,7 +34,7 @@ public class LiveRefundRequestTest extends BaseLiveTest {
                 .metadata("description", "DESCRIPTION")
                 .metadata("invoice_id", "inv_N1ayTWJ2FV")
                 .build();
-        Refund refund = client.sendRequest(request, Refund.class);
+        Refund refund = client.sendRequest(request);
 
         System.out.println("created refund: " + refund.getId());
 
@@ -49,7 +46,7 @@ public class LiveRefundRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveGetRefund() throws IOException, OmiseException {
         Request<Refund> request = new Refund.GetRequestBuilder(LIVETEST_CHARGE, LIVETEST_REFUND).build();
-        Refund refund = client.sendRequest(request, Refund.class);
+        Refund refund = client.sendRequest(request);
 
         System.out.println("retrieved refund: " + refund.getId());
 
@@ -60,7 +57,7 @@ public class LiveRefundRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveGetRefundList() throws IOException, OmiseException {
         Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder(LIVETEST_CHARGE).build();
-        ScopedList<Refund> refunds = client.sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
+        ScopedList<Refund> refunds = client.sendRequest(request);
 
         System.out.println("retrieved refund list total no.: " + refunds.getTotal());
 

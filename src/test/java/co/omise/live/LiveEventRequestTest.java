@@ -6,7 +6,6 @@ import co.omise.models.Event;
 import co.omise.models.Ordering;
 import co.omise.models.ScopedList;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -29,7 +28,7 @@ public class LiveEventRequestTest extends BaseLiveTest {
     @Ignore("only hit when test on live.")
     public void testGetEventSuccess() throws Exception {
         Request<Event> request = new Event.GetRequestBuilder(EVENT_ID).build();
-        Event event = client.sendRequest(request, Event.class);
+        Event event = client.sendRequest(request);
 
         System.out.printf("Event retrieved: %s", event.getId());
 
@@ -44,8 +43,7 @@ public class LiveEventRequestTest extends BaseLiveTest {
     public void testLiveEventListGet() throws Exception {
         Request<ScopedList<Event>> request = new Event.ListRequestBuilder().build();
 
-        ScopedList<Event> events = client.sendRequest(request, new TypeReference<ScopedList<Event>>() {
-        });
+        ScopedList<Event> events = client.sendRequest(request);
 
         assertEquals(20, events.getLimit());
         assertEquals(114, events.getTotal()); // This can easily break as you add events,
@@ -64,8 +62,7 @@ public class LiveEventRequestTest extends BaseLiveTest {
                                 .order(Ordering.ReverseChronological))
                         .build();
 
-        ScopedList<Event> events = client.sendRequest(request, new TypeReference<ScopedList<Event>>() {
-        });
+        ScopedList<Event> events = client.sendRequest(request);
 
         assertEquals(5, events.getLimit());
         assertEquals(5, events.getData().size());

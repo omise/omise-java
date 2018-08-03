@@ -2,12 +2,11 @@ package co.omise;
 
 import co.omise.models.Model;
 import co.omise.models.OmiseException;
-import co.omise.models.OmiseList;
+import co.omise.models.OmiseObjectBase;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
 import co.omise.resources.*;
-import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -270,29 +269,11 @@ public class Client {
      * @param <T>     the {@link Model} object type that is expected to be returned
      * @param <R>     the {@link Request} object type that is passed in from the user
      * @param request the {@link Request} user generated request
-     * @param klass   the type of the object that the response is expected to be deserialized as
      * @return the {@link Model} object that contains the response from the API
      * @throws IOException    the general I/O error that could happen during deserialization
      * @throws OmiseException the custom exception thrown for response errors
      */
-    public <T extends Model, R extends Request<T>> T sendRequest(R request, Class<T> klass) throws IOException, OmiseException {
-        if (requester == null) return null;
-
-        return requester.sendRequest(request);
-    }
-
-    /**
-     * Relays the user generated {@link Request} to {@link Requester} for it to be carried out
-     *
-     * @param <T>           the {@link Model} object type that is expected to be returned
-     * @param <R>           the {@link Request} object type that is passed in from the user
-     * @param request       the {@link Request} user generated request
-     * @param typeReference the type of the object for the list that the response is expected to be deserialized as
-     * @return the {@link OmiseList} object that contains the response from the API
-     * @throws IOException    the general I/O error that could happen during deserialization
-     * @throws OmiseException the custom exception thrown for response errors
-     */
-    public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
+    public <T extends OmiseObjectBase, R extends Request<T>> T sendRequest(R request) throws IOException, OmiseException {
         if (requester == null) return null;
 
         return requester.sendRequest(request);

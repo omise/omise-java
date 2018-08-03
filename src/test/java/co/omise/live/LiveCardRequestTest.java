@@ -6,16 +6,13 @@ import co.omise.models.OmiseException;
 import co.omise.models.Ordering;
 import co.omise.models.ScopedList;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.*;
 
 public class LiveCardRequestTest extends BaseLiveTest {
     private Client client;
@@ -32,7 +29,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
     public void getCard_success() throws Exception {
         Request<Card> request = new Card.GetRequestBuilder(
                 CARD_ID, CUSTOMER_ID).build();
-        Card card = client.sendRequest(request, Card.class);
+        Card card = client.sendRequest(request);
 
         System.out.println("Card retrieved: " + card.getId());
 
@@ -51,7 +48,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
                 .expirationMonth(11)
                 .build();
 
-        Card card = client.sendRequest(request, Card.class);
+        Card card = client.sendRequest(request);
 
         System.out.println("Card update: " + card + " to name: " + card.getName());
 
@@ -71,8 +68,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
                                 .limit(10)
                                 .order(Ordering.Chronological))
                         .build();
-        ScopedList<Card> cards = client.sendRequest(request, new TypeReference<ScopedList<Card>>() {
-        });
+        ScopedList<Card> cards = client.sendRequest(request);
         for (Card card : cards.getData()) {
             System.out.println(card.getId() + " : " + card.getLastDigits());
         }
@@ -92,7 +88,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
         Request<Card> request =
                 new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
                         .build();
-        Card card = client.sendRequest(request, Card.class);
+        Card card = client.sendRequest(request);
 
         assertNotNull(card);
         assertEquals(CARD_ID, card.getId());

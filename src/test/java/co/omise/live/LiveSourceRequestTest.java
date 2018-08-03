@@ -31,7 +31,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -51,7 +51,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -71,7 +71,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -91,7 +91,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -111,7 +111,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -132,7 +132,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
@@ -157,7 +157,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .terminalId("POS-01")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.println("created source: " + source.getId());
 
