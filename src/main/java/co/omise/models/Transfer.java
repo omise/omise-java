@@ -2,6 +2,7 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -179,8 +180,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected Class<Transfer> classType() {
-            return Transfer.class;
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
         }
     }
 
@@ -224,8 +225,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected Class<Transfer> classType() {
-            return Transfer.class;
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
         }
     }
 
@@ -246,8 +247,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected Class<Transfer> classType() {
-            return Transfer.class;
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
         }
     }
 
@@ -272,8 +273,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected TypeReference<ScopedList<Transfer>> typeReference() {
-            return new TypeReference<ScopedList<Transfer>>() {};
+        protected ResponseType<ScopedList<Transfer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {});
         }
     }
 
@@ -298,8 +299,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected Class<Transfer> classType() {
-            return Transfer.class;
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
         }
     }
 }

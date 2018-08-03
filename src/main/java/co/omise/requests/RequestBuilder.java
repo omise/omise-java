@@ -5,7 +5,6 @@ import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
@@ -37,10 +36,10 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
     public Request<T> build() throws IOException {
-        if (classType() != null) {
-            return new Request<>(method(), path(), contentType(), payload(), classType());
+        if (type().isClassType()) {
+            return new Request<>(method(), path(), contentType(), payload(), type().getClassType());
         } else {
-            return new Request<>(method(), path(), contentType(), payload(), typeReference());
+            return new Request<>(method(), path(), contentType(), payload(), type().getTypeReference());
         }
     }
 
@@ -80,13 +79,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         return null;
     }
 
-    protected Class<T> classType() {
-        return null;
-    }
-
-    protected TypeReference<T> typeReference() {
-        return null;
-    }
+    protected abstract ResponseType<T> type();
 
     /**
      * Serializes all the enclosed parameters in a child RequestBuilder. This method should be called in the return statement of the overridden payload() method.
