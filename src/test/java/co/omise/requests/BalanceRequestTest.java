@@ -11,7 +11,7 @@ public class BalanceRequestTest extends RequestTest {
     public void testGet() throws IOException, OmiseException {
         Requester requester = getTestRequester();
         Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
-        Balance balance = requester.sendRequest(getBalanceRequest, Balance.class);
+        Balance balance = requester.sendRequest(getBalanceRequest);
 
         assertRequested("GET", "/balance", 200);
 

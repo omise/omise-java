@@ -16,7 +16,7 @@ public class CardRequestTest extends RequestTest {
     public void testGet() throws IOException, OmiseException {
 
         Request<Card> request = new Card.GetRequestBuilder(CARD_ID, CUSTOMER_ID).build();
-        Card card = getTestRequester().sendRequest(request, Card.class);
+        Card card = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
 
@@ -32,7 +32,7 @@ public class CardRequestTest extends RequestTest {
                 CARD_ID, CUSTOMER_ID)
                 .name("JOHN W. DOE")
                 .build();
-        Card card = getTestRequester().sendRequest(request, Card.class);
+        Card card = getTestRequester().sendRequest(request);
 
         assertRequested("PATCH", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
 
@@ -45,8 +45,7 @@ public class CardRequestTest extends RequestTest {
     @Test
     public void testList() throws IOException, OmiseException {
         Request<ScopedList<Card>> request = new Card.ListRequestBuilder(CUSTOMER_ID).build();
-        ScopedList<Card> cards = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Card>>() {
-        });
+        ScopedList<Card> cards = getTestRequester().sendRequest(request);
         assertEquals(1, cards.getTotal());
         assertEquals(20, cards.getLimit());
 
@@ -64,7 +63,7 @@ public class CardRequestTest extends RequestTest {
         Request<Card> request =
                 new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
                         .build();
-        Card card = getTestRequester().sendRequest(request, Card.class);
+        Card card = getTestRequester().sendRequest(request);
 
         assertRequested("DELETE", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
 

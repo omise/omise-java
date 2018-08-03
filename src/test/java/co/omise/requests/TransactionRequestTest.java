@@ -4,7 +4,6 @@ import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transaction;
 import co.omise.models.TransactionType;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,7 +14,7 @@ public class TransactionRequestTest extends RequestTest {
     @Test
     public void testList() throws IOException, OmiseException {
         Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
-        ScopedList<Transaction> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
+        ScopedList<Transaction> list = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transactions", 200);
 
         assertEquals(2, list.getTotal());
@@ -31,7 +30,7 @@ public class TransactionRequestTest extends RequestTest {
     @Test
     public void testGet() throws IOException, OmiseException {
         Request<Transaction> request = new Transaction.GetRequestBuilder(TRANSACTION_ID).build();
-        Transaction transaction = getTestRequester().sendRequest(request, Transaction.class);
+        Transaction transaction = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transactions/" + TRANSACTION_ID, 200);
 
         assertEquals(TRANSACTION_ID, transaction.getId());

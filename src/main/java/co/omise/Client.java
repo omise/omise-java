@@ -278,7 +278,7 @@ public class Client {
     public <T extends Model, R extends Request<T>> T sendRequest(R request, Class<T> klass) throws IOException, OmiseException {
         if (requester == null) return null;
 
-        return requester.sendRequest(request, klass);
+        return requester.sendRequest(request);
     }
 
     /**
@@ -295,6 +295,6 @@ public class Client {
     public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
         if (requester == null) return null;
 
-        return requester.sendRequest(request, typeReference);
+        return requester.sendRequest(request);
     }
 }
