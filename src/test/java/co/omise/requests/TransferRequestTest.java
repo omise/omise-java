@@ -14,7 +14,7 @@ public class TransferRequestTest extends RequestTest {
     private static final String TRANSFER_ID = "trsf_test_4yqacz8t3cbipcj766u";
 
     @Test
-    public void testList() throws IOException, OmiseException, IllegalAccessException {
+    public void testList() throws IOException, OmiseException {
         Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
         ScopedList<Transfer> list = getTestRequester().sendRequest(request);
@@ -29,7 +29,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testGet() throws IOException, OmiseException, IllegalAccessException {
+    public void testGet() throws IOException, OmiseException {
         Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);
@@ -42,7 +42,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testCreate() throws IOException, OmiseException, IllegalAccessException {
+    public void testCreate() throws IOException, OmiseException {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
@@ -61,7 +61,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testUpdate() throws IOException, OmiseException, IllegalAccessException {
+    public void testUpdate() throws IOException, OmiseException {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
@@ -79,7 +79,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testDestroy() throws IOException, OmiseException, IllegalAccessException {
+    public void testDestroy() throws IOException, OmiseException {
         Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);
