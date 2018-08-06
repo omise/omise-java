@@ -15,7 +15,7 @@ public interface Requester {
     /**
      * Sends the user generated {@link Request} to {@link Requester} for it to be carried out
      *
-     * @param <T>     the {@link Model} object type that is expected to be returned
+     * @param <T>     the {@link OmiseObjectBase} object type that is expected to be returned
      * @param <R>     the {@link Request} object type that is passed in from the user
      * @param request the {@link Request} user generated request
      * @return the {@link Model} object that contains the response from the API
