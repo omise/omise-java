@@ -75,6 +75,11 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         return null;
     }
 
+    /**
+     * Abstract method that needs to be implement by all children of this class to provide response type
+     *
+     * @return ResponseType type of response
+     */
     protected abstract ResponseType<T> type();
 
     /**

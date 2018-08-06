@@ -1,8 +1,14 @@
 package co.omise.requests;
 
+import co.omise.models.OmiseObjectBase;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-public class ResponseType<T> {
+/**
+ * This class is wrapped data type either Class or TypeReference.
+ *
+ * @param <T>
+ */
+public class ResponseType<T extends OmiseObjectBase> {
 
     private Class<T> classType;
     private TypeReference<T> typeReference;
@@ -29,6 +35,7 @@ public class ResponseType<T> {
     public Class<T> getClassType() {
         return this.classType;
     }
+
     public TypeReference<T> getTypeReference() {
         return this.typeReference;
     }
