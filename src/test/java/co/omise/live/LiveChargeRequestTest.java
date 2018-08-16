@@ -3,7 +3,6 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.*;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -33,7 +32,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -42,10 +41,10 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .description("omise-java test")
                         .card(token.getId())
                         .build();
-        Charge createdCharge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge createdCharge = client.sendRequest(createChargeRequest);
 
         Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(createdCharge.getId()).build();
-        Charge actualCharge = client.sendRequest(getChargeRequest, Charge.class);
+        Charge actualCharge = client.sendRequest(getChargeRequest);
 
 
         System.out.println("Retrieved charge: " + actualCharge.getId());
@@ -65,7 +64,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -75,7 +74,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .card(token.getId())
                         .build();
 
-        Charge charge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge charge = client.sendRequest(createChargeRequest);
 
         System.out.println("created charge: " + charge.getId());
 
@@ -94,7 +93,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(sourceRequest, Source.class);
+        Source source = client.sendRequest(sourceRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -104,7 +103,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .returnUri("http://example.com/orders/345678/complete")
                         .build();
 
-        Charge charge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge charge = client.sendRequest(createChargeRequest);
 
         System.out.println("created charge: " + charge.getId());
 
@@ -124,7 +123,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(sourceRequest, Source.class);
+        Source source = client.sendRequest(sourceRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -134,7 +133,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .returnUri("http://example.com/orders/345678/complete")
                         .build();
 
-        Charge charge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge charge = client.sendRequest(createChargeRequest);
 
         System.out.println("created charge: " + charge.getId());
 
@@ -153,7 +152,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                 .currency("thb")
                 .build();
 
-        Source source = client.sendRequest(sourceRequest, Source.class);
+        Source source = client.sendRequest(sourceRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -163,7 +162,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .returnUri("http://example.com/orders/345678/complete")
                         .build();
 
-        Charge charge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge charge = client.sendRequest(createChargeRequest);
 
         System.out.println("Created charge: " + charge.getId());
 
@@ -183,7 +182,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -193,7 +192,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .card(token.getId())
                         .build();
 
-        Charge createdCharge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge createdCharge = client.sendRequest(createChargeRequest);
 
         System.out.println("Created charge: " + createdCharge.getId());
 
@@ -204,7 +203,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .metadata("library", "omise-java")
                         .build();
 
-        Charge updatedCharge = client.sendRequest(updateChargeRequest, Charge.class);
+        Charge updatedCharge = client.sendRequest(updateChargeRequest);
 
         System.out.println("Updated charge: " + updatedCharge.getId());
 
@@ -229,7 +228,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -239,7 +238,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .card(token.getId())
                         .capture(false)
                         .build();
-        Charge unCapturedCharge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge unCapturedCharge = client.sendRequest(createChargeRequest);
 
         System.out.println("created charge: " + unCapturedCharge.getId());
 
@@ -249,7 +248,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         Request<Charge> captureChargeRequest =
                 new Charge.CaptureRequestBuilder(unCapturedCharge.getId()).build();
 
-        Charge capturedCharge = client.sendRequest(captureChargeRequest, Charge.class);
+        Charge capturedCharge = client.sendRequest(captureChargeRequest);
 
         assertNotNull(capturedCharge);
         assertEquals(unCapturedCharge.getId(), capturedCharge.getId());
@@ -267,7 +266,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -277,7 +276,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .card(token.getId())
                         .capture(false)
                         .build();
-        Charge initialCharge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge initialCharge = client.sendRequest(createChargeRequest);
 
         System.out.println("created charge: " + initialCharge.getId());
 
@@ -287,7 +286,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         Request<Charge> reverseChargeRequest =
                 new Charge.ReverseRequestBuilder(initialCharge.getId())
                         .build();
-        Charge reversedCharge = client.sendRequest(reverseChargeRequest, Charge.class);
+        Charge reversedCharge = client.sendRequest(reverseChargeRequest);
 
         assertNotNull(reversedCharge.getId());
         assertEquals(initialCharge.getId(), reversedCharge.getId());
@@ -302,8 +301,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .build();
 
 
-        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest, new TypeReference<ScopedList<Charge>>() {
-        });
+        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest);
 
         assertEquals(20, charges.getLimit());
         assertEquals(17, charges.getTotal()); // This can easily break as you add charges, not sure how to do it better
@@ -323,8 +321,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .build();
 
 
-        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest, new TypeReference<ScopedList<Charge>>() {
-        });
+        ScopedList<Charge> charges = client.sendRequest(getChargeListRequest);
 
         assertEquals(3, charges.getLimit());
         assertEquals(3, charges.getData().size());

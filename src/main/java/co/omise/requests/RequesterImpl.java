@@ -2,8 +2,8 @@ package co.omise.requests;
 
 import co.omise.Client;
 import co.omise.Serializer;
-import co.omise.models.*;
-import com.fasterxml.jackson.core.type.TypeReference;
+import co.omise.models.OmiseException;
+import co.omise.models.OmiseObjectBase;
 import okhttp3.*;
 import okhttp3.internal.http.HttpMethod;
 
@@ -32,28 +32,18 @@ public class RequesterImpl implements Requester {
     }
 
     @Override
-    public <T extends Model, R extends Request<T>> T sendRequest(R request, Class<T> klass) throws IOException, OmiseException {
+    public <T extends OmiseObjectBase, R extends Request<T>> T sendRequest(R request) throws IOException, OmiseException {
         InputStream stream = preProcess(roundTrip(request.getPath(), request.getPayload(), request.getMethod()));
         if (stream == null) {
             return null;
         }
 
         try {
-            return serializer.deserialize(stream, klass);
-        } finally {
-            stream.close();
-        }
-    }
-
-    @Override
-    public <T extends OmiseList, R extends Request<T>> T sendRequest(R request, TypeReference<T> typeReference) throws IOException, OmiseException {
-        InputStream stream = preProcess(roundTrip(request.getPath(), request.getPayload(), request.getMethod()));
-        if (stream == null) {
-            return null;
-        }
-
-        try {
-            return serializer.deserializeList(stream, typeReference);
+            if (request.getType().isClassType()) {
+                return serializer.deserialize(stream, request.getType().getClassType());
+            } else {
+                return serializer.deserialize(stream, request.getType().getTypeReference());
+            }
         } finally {
             stream.close();
         }

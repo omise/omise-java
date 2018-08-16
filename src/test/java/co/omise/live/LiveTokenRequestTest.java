@@ -24,12 +24,12 @@ public class LiveTokenRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token createdToken = client.sendRequest(tokenRequest, Token.class);
+        Token createdToken = client.sendRequest(tokenRequest);
 
         System.out.println("Token created: " + createdToken.getId());
 
         Request<Token> request = new Token.GetRequestBuilder(createdToken.getId()).build();
-        Token retrievedToken = client.sendRequest(request, Token.class);
+        Token retrievedToken = client.sendRequest(request);
 
         System.out.println("Token retrieved: " + retrievedToken.getId());
 
@@ -49,7 +49,7 @@ public class LiveTokenRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(request, Token.class);
+        Token token = client.sendRequest(request);
 
         System.out.println("Token created: " + token.getId());
 

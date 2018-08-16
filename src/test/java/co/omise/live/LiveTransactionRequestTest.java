@@ -3,7 +3,6 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.*;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,17 +32,17 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(tokenRequest, Token.class);
+        Token token = client.sendRequest(tokenRequest);
 
         Request<Charge> createChargeRequest = new Charge.CreateRequestBuilder()
                 .amount(10000)
                 .currency("thb")
                 .card(token.getId())
                 .build();
-        Charge charge = client.sendRequest(createChargeRequest, Charge.class);
+        Charge charge = client.sendRequest(createChargeRequest);
 
         Request<Transaction> request = new Transaction.GetRequestBuilder(charge.getTransaction()).build();
-        Transaction transaction = client.sendRequest(request, Transaction.class);
+        Transaction transaction = client.sendRequest(request);
 
         System.out.println("Retrieved transaction: " + transaction.getId());
 
@@ -54,7 +53,7 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveListTransaction() throws IOException, OmiseException {
         Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
-        ScopedList<Transaction> transactions = client.sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
+        ScopedList<Transaction> transactions = client.sendRequest(request);
 
         assertEquals(20, transactions.getLimit());
         Transaction transaction = transactions.getData().get(0);
@@ -68,7 +67,7 @@ public class LiveTransactionRequestTest extends BaseLiveTest {
                 .limit(3)
                 .order(Ordering.Chronological);
         Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().options(options).build();
-        ScopedList<Transaction> transactions = client.sendRequest(request, new TypeReference<ScopedList<Transaction>>() {});
+        ScopedList<Transaction> transactions = client.sendRequest(request);
 
         assertEquals(3, transactions.getLimit());
         assertEquals(Ordering.Chronological, transactions.getOrder());

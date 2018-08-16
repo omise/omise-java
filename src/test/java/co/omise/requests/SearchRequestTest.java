@@ -4,7 +4,6 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.SearchResult;
 import co.omise.models.SearchScope;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class SearchRequestTest extends RequestTest {
                         .filter("amount", "4096.69")
                         .query(CHARGE_ID))
                 .build();
-        SearchResult<Charge> result = getTestRequester().sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
+        SearchResult<Charge> result = getTestRequester().sendRequest(request);
 
         Map<String, String> expects = ImmutableMap.of(
                 "scope", "charge",

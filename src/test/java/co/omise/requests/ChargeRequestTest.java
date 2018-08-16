@@ -4,7 +4,6 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.SourceType;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ public class ChargeRequestTest extends RequestTest {
     public void testGet() throws IOException, OmiseException {
         Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
 
-        Charge charge = getTestRequester().sendRequest(getChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
         assertEquals("chrg_test_4yq7duw15p9hdrjp8oq", charge.getId());
@@ -34,7 +33,7 @@ public class ChargeRequestTest extends RequestTest {
                         .description("Charge for order 3947")
                         .build();
 
-        Charge charge = getTestRequester().sendRequest(createChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
 
@@ -54,7 +53,7 @@ public class ChargeRequestTest extends RequestTest {
                         .returnUri("http://example.com/orders/345678/complete")
                         .build();
 
-        Charge charge = getTestRequester().sendRequest(createChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
 
@@ -71,7 +70,7 @@ public class ChargeRequestTest extends RequestTest {
                         .description("Charge for order 3947 (XXL)")
                         .build();
 
-        Charge charge = getTestRequester().sendRequest(updateChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(updateChargeRequest);
 
         assertRequested("PATCH", "/charges/" + CHARGE_ID, 200);
         assertEquals(CHARGE_ID, charge.getId());
@@ -83,7 +82,7 @@ public class ChargeRequestTest extends RequestTest {
         Request<Charge> captureChargeRequest =
                 new Charge.CaptureRequestBuilder(CHARGE_ID)
                         .build();
-        Charge charge = getTestRequester().sendRequest(captureChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(captureChargeRequest);
 
         assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
         assertEquals(CHARGE_ID, charge.getId());
@@ -96,7 +95,7 @@ public class ChargeRequestTest extends RequestTest {
         Request<Charge> reverseChargeRequest =
                 new Charge.ReverseRequestBuilder(CHARGE_ID)
                         .build();
-        Charge charge = getTestRequester().sendRequest(reverseChargeRequest, Charge.class);
+        Charge charge = getTestRequester().sendRequest(reverseChargeRequest);
 
         assertRequested("POST", "/charges/" + CHARGE_ID + "/reverse", 200);
         assertEquals(CHARGE_ID, charge.getId());
@@ -107,8 +106,7 @@ public class ChargeRequestTest extends RequestTest {
     public void testList() throws IOException, OmiseException {
         Request<ScopedList<Charge>> listChargeRequest =
                 new Charge.ListRequestBuilder().build();
-        ScopedList<Charge> list = getTestRequester().sendRequest(listChargeRequest, new TypeReference<ScopedList<Charge>>() {
-        });
+        ScopedList<Charge> list = getTestRequester().sendRequest(listChargeRequest);
 
         assertRequested("GET", "/charges", 200);
         assertEquals(2, list.getTotal());

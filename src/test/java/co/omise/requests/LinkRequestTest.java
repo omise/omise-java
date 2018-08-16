@@ -3,7 +3,6 @@ package co.omise.requests;
 import co.omise.models.Link;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class LinkRequestTest extends RequestTest {
                         .multiple(true)
                         .build();
 
-        Link link = getTestRequester().sendRequest(request, Link.class);
+        Link link = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/links", 200);
         assertEquals(LINK_ID, link.getId());
@@ -35,7 +34,7 @@ public class LinkRequestTest extends RequestTest {
                 new Link.GetRequestBuilder(LINK_ID)
                         .build();
 
-        Link link = getTestRequester().sendRequest(request, Link.class);
+        Link link = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/links/" + LINK_ID, 200);
         assertEquals(LINK_ID, link.getId());
@@ -46,8 +45,7 @@ public class LinkRequestTest extends RequestTest {
     public void testList() throws IOException, OmiseException {
         Request<ScopedList<Link>> request =
                 new Link.ListRequestBuilder().build();
-        ScopedList<Link> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Link>>() {
-        });
+        ScopedList<Link> list = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/links", 200);
         assertEquals(2, list.getTotal());

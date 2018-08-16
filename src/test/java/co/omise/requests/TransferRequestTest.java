@@ -17,7 +17,7 @@ public class TransferRequestTest extends RequestTest {
     public void testList() throws IOException, OmiseException {
         Request<ScopedList<Transfer>> request = new Transfer.ListRequestBuilder()
                 .build();
-        ScopedList<Transfer> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Transfer>>() {});
+        ScopedList<Transfer> list = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers", 200);
 
         assertEquals(20, list.getLimit());
@@ -32,7 +32,7 @@ public class TransferRequestTest extends RequestTest {
     public void testGet() throws IOException, OmiseException {
         Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -51,7 +51,7 @@ public class TransferRequestTest extends RequestTest {
                 .amount(192188)
                 .metadata(metadata)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("POST", "/transfers", 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -69,7 +69,7 @@ public class TransferRequestTest extends RequestTest {
                 .amount(192189)
                 .metadata(metadata)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("PATCH", "/transfers/" + TRANSFER_ID, 200);
 
         assertEquals(TRANSFER_ID, transfer.getId());
@@ -82,7 +82,7 @@ public class TransferRequestTest extends RequestTest {
     public void testDestroy() throws IOException, OmiseException {
         Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
                 .build();
-        Transfer transfer = getTestRequester().sendRequest(request, Transfer.class);
+        Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
         assertEquals(TRANSFER_ID, transfer.getId());
         assertTrue(transfer.isDeleted());

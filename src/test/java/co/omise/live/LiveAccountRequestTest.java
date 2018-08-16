@@ -15,7 +15,7 @@ public class LiveAccountRequestTest extends BaseLiveTest {
         Client client = getLiveClient();
 
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
-        Account actualAccount = client.sendRequest(getAccountRequest, Account.class);
+        Account actualAccount = client.sendRequest(getAccountRequest);
 
         System.out.println("Account retrieved: " + actualAccount.getEmail());
 

@@ -17,7 +17,7 @@ public class SourceRequestTest extends RequestTest {
                 .type(SourceType.Alipay)
                 .build();
 
-        Source source = getTestRequester().sendRequest(request, Source.class);
+        Source source = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/sources", 200);
         assertEquals(100000L, source.getAmount());

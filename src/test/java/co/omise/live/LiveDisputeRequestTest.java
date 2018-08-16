@@ -1,9 +1,10 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.models.*;
+import co.omise.models.Dispute;
+import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveGetDisputeList() throws IOException, OmiseException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
-        ScopedList<Dispute> disputes = client.sendRequest(request, new TypeReference<ScopedList<Dispute>>() {});
+        ScopedList<Dispute> disputes = client.sendRequest(request);
 
         System.out.println("retrieved dispute list total no.: " + disputes.getTotal());
 
@@ -39,7 +40,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveGetDispute() throws IOException, OmiseException {
         Request<Dispute> request = new Dispute.GetRequestBuilder(LIVETEST_DISPUTE).build();
-        Dispute actualDispute = client.sendRequest(request, Dispute.class);
+        Dispute actualDispute = client.sendRequest(request);
 
         System.out.println("Retrieved dispute: " + actualDispute.getId());
 
@@ -54,7 +55,7 @@ public class LiveDisputeRequestTest extends BaseLiveTest {
                 .metadata("description", "DESCRIPTION")
                 .metadata("invoice_id", "inv_N1ayTWJ2FV")
                 .build();
-        Dispute dispute = client.sendRequest(request, Dispute.class);
+        Dispute dispute = client.sendRequest(request);
 
         System.out.println("updated dispute: " + dispute.getId());
 

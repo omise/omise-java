@@ -2,6 +2,7 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import okhttp3.HttpUrl;
 
 /**
@@ -46,6 +47,11 @@ public class Balance extends Model {
         @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "balance");
+        }
+
+        @Override
+        protected ResponseType<Balance> type() {
+            return new ResponseType<>(Balance.class);
         }
     }
 }

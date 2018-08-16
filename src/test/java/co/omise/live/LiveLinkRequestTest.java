@@ -1,13 +1,10 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.models.Charge;
 import co.omise.models.Link;
 import co.omise.models.Ordering;
 import co.omise.models.ScopedList;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
-import junit.framework.TestCase;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -31,7 +28,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
                         .multiple(true) // can be used for multiple payments
                         .build();
 
-        Link link = client.sendRequest(request, Link.class);
+        Link link = client.sendRequest(request);
 
         System.out.printf("Link created: %s", link.getId());
 
@@ -56,7 +53,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
                         .multiple(true) // can be used for multiple payments
                         .build();
 
-        Link createdLink = client.sendRequest(createRequest, Link.class);
+        Link createdLink = client.sendRequest(createRequest);
 
         System.out.printf("Link created: %s \n", createdLink.getId());
 
@@ -64,7 +61,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
                 new Link.GetRequestBuilder(createdLink.getId())
                         .build();
 
-        Link retrievedLink = client.sendRequest(getRequest, Link.class);
+        Link retrievedLink = client.sendRequest(getRequest);
 
         System.out.printf("Link retrieved: %s", retrievedLink.getId());
 
@@ -83,8 +80,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
                                 .order(Ordering.Chronological))
                         .build();
 
-        ScopedList<Link> links = client.sendRequest(request, new TypeReference<ScopedList<Link>>() {
-        });
+        ScopedList<Link> links = client.sendRequest(request);
 
         assertEquals(10, links.getLimit());
         assertEquals(18, links.getTotal()); // This can easily break as you add charges, not sure how to do it better

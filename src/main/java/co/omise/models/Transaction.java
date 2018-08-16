@@ -2,6 +2,8 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
 
@@ -74,6 +76,11 @@ public class Transaction extends Model {
         protected HttpUrl path() throws IOException {
             return buildUrl(Endpoint.API, "transactions", transactionId);
         }
+
+        @Override
+        protected ResponseType<Transaction> type() {
+            return new ResponseType<>(Transaction.class);
+        }
     }
 
     /**
@@ -94,6 +101,11 @@ public class Transaction extends Model {
                 options = new ScopedList.Options();
             }
             return buildUrl(Endpoint.API, "transactions", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Transaction>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {});
         }
     }
 }
