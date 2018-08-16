@@ -36,7 +36,7 @@ public class SourceRequestTest extends RequestTest {
                 .installmentTerms("4")
                 .build();
 
-        Source source = getTestRequester().sendRequest(request, Source.class);
+        Source source = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/sources/installments", 200);
         assertEquals(500000L, source.getAmount());

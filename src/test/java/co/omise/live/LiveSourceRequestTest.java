@@ -182,7 +182,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .installmentTerms("4")
                 .build();
 
-        Source source = client.sendRequest(request, Source.class);
+        Source source = client.sendRequest(request);
 
         System.out.printf("created source: %s, type = %s", source.getId(), source.getType());
 
