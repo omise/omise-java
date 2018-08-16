@@ -421,7 +421,7 @@ final class Example {
         System.out.printf("source created: %s", source.getId());
     }
 
-    void createSource_installment() throws IOException, ClientException, OmiseException {
+    void createSourceInstallment() throws IOException, ClientException, OmiseException {
         Request<Source> request = new Source.CreateRequestBuilder()
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
