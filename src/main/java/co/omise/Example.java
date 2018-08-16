@@ -419,8 +419,20 @@ final class Example {
 
         Source source = client().sendRequest(request);
         System.out.printf("source created: %s", source.getId());
-}
-  
+    }
+
+    void createSource_installment() throws IOException, ClientException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.InstBankingBay)
+                .amount(500000)
+                .currency("thb")
+                .installmentTerms("4")
+                .build();
+
+        Source source = client().sendRequest(request);
+        System.out.printf("source created: %s", source.getId());
+    }
+
     void retrieveSearch() throws ClientException, IOException, OmiseException {
         Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(
                 new SearchResult.Options()
