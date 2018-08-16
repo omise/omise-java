@@ -16,7 +16,7 @@ public class TokenRequestTest extends RequestTest {
     @Test
     public void testGet() throws IOException, OmiseException {
         Request<Token> request = new Token.GetRequestBuilder(TOKEN_ID).build();
-        Token token = getTestRequester().sendRequest(request, Token.class);
+        Token token = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/tokens/" + TOKEN_ID, 200);
         assertVaultRequest();
@@ -38,7 +38,7 @@ public class TokenRequestTest extends RequestTest {
                         .postalCode("10240"))
                 .build();
 
-        Token token = getTestRequester().sendRequest(request, Token.class);
+        Token token = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/tokens", 200);
         assertVaultRequest();

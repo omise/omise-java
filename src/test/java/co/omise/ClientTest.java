@@ -27,7 +27,7 @@ public class ClientTest extends OmiseTest {
                             .securityCode("123"))
                     .build();
 
-            new Client("pkey_test_123", "skey_test_123").sendRequest(request, Token.class);
+            new Client("pkey_test_123", "skey_test_123").sendRequest(request);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class ClientTest extends OmiseTest {
     public void testLiveError() throws ClientException, IOException {
         try {
             Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
-            new Client("skey_test_123").sendRequest(getAccountRequest, Account.class);
+            new Client("skey_test_123").sendRequest(getAccountRequest);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         }
@@ -59,7 +59,7 @@ public class ClientTest extends OmiseTest {
                         .expiration(10, 2020))
                 .build();
 
-        Token token = client.sendRequest(request, Token.class);
+        Token token = client.sendRequest(request);
 
         Customer customer = client.customers().create(new Customer.Create()
                 .card(token.getId())

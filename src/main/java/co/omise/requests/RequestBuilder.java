@@ -36,7 +36,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the payload using Jackson
      */
     public Request<T> build() throws IOException {
-        return new Request<T>(method(), path(), contentType(), payload());
+        return new Request<>(method(), path(), contentType(), payload(), type());
     }
 
     /**
@@ -74,6 +74,13 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         //Has to be null as it would fail for GET requests
         return null;
     }
+
+    /**
+     * Abstract method that needs to be implement by all children of this class to provide response type
+     *
+     * @return ResponseType type of response
+     */
+    protected abstract ResponseType<T> type();
 
     /**
      * Serializes all the enclosed parameters in a child RequestBuilder. This method should be called in the return statement of the overridden payload() method.

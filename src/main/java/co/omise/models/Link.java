@@ -2,7 +2,9 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -118,6 +120,11 @@ public class Link extends Model {
             return serialize();
         }
 
+        @Override
+        protected ResponseType<Link> type() {
+            return new ResponseType<>(Link.class);
+        }
+
         public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
@@ -158,6 +165,11 @@ public class Link extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "links", linkId);
         }
+
+        @Override
+        protected ResponseType<Link> type() {
+            return new ResponseType<>(Link.class);
+        }
     }
 
     /**
@@ -173,6 +185,11 @@ public class Link extends Model {
             }
 
             return buildUrl(Endpoint.API, "links", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Link>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Link>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

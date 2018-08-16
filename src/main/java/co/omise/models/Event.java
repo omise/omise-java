@@ -2,6 +2,8 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 
 /**
@@ -44,6 +46,11 @@ public class Event<T extends Model> extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "events", eventId);
         }
+
+        @Override
+        protected ResponseType<Event> type() {
+            return new ResponseType<>(Event.class);
+        }
     }
 
     /**
@@ -59,6 +66,11 @@ public class Event<T extends Model> extends Model {
             }
 
             return buildUrl(Endpoint.API, "events", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Event>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

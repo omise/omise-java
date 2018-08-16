@@ -2,7 +2,9 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -86,6 +88,11 @@ public class Dispute extends Model {
         protected HttpUrl path() throws IOException {
             return buildUrl(Endpoint.API, "disputes", disputeId);
         }
+
+        @Override
+        protected ResponseType<Dispute> type() {
+            return new ResponseType<>(Dispute.class);
+        }
     }
 
     /**
@@ -106,6 +113,11 @@ public class Dispute extends Model {
                     .segments(status)
                     .params(options)
                     .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Dispute>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Dispute>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {
@@ -146,6 +158,11 @@ public class Dispute extends Model {
         @Override
         protected RequestBody payload() throws IOException {
             return serialize();
+        }
+
+        @Override
+        protected ResponseType<Dispute> type() {
+            return new ResponseType<>(Dispute.class);
         }
 
         public UpdateRequestBuilder message(String message) {

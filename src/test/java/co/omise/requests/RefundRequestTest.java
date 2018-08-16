@@ -4,7 +4,6 @@ import co.omise.models.OmiseException;
 import co.omise.models.Ordering;
 import co.omise.models.Refund;
 import co.omise.models.ScopedList;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class RefundRequestTest extends RequestTest {
         Request<ScopedList<Refund>> request = new Refund.ListRequestBuilder(CHARGE_ID)
                 .options(new ScopedList.Options().order(Ordering.Chronological))
                 .build();
-        ScopedList<Refund> list = getTestRequester().sendRequest(request, new TypeReference<ScopedList<Refund>>() {});
+        ScopedList<Refund> list = getTestRequester().sendRequest(request);
         assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds", 200);
 
         assertEquals(1, list.getTotal());
@@ -34,7 +33,7 @@ public class RefundRequestTest extends RequestTest {
     public void testGet() throws IOException, OmiseException {
         Request<Refund> request = new Refund.GetRequestBuilder(CHARGE_ID, REFUND_ID).build();
 
-        Refund refund = getTestRequester().sendRequest(request, Refund.class);
+        Refund refund = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/charges/" + CHARGE_ID + "/refunds/" + REFUND_ID, 200);
         assertEquals(REFUND_ID, refund.getId());
@@ -51,7 +50,7 @@ public class RefundRequestTest extends RequestTest {
                 .metadata("invoice_id", "inv_N1ayTWJ2FV")
                 .build();
 
-        Refund refund = getTestRequester().sendRequest(request, Refund.class);
+        Refund refund = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/charges/" + CHARGE_ID + "/refunds", 200);
         assertEquals(REFUND_ID, refund.getId());

@@ -2,7 +2,9 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -92,6 +94,11 @@ public class Refund extends Model {
             return serialize();
         }
 
+        @Override
+        protected ResponseType<Refund> type() {
+            return new ResponseType<>(Refund.class);
+        }
+
         public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
@@ -129,6 +136,11 @@ public class Refund extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "charges", chargeId, "refunds", refundId);
         }
+
+        @Override
+        protected ResponseType<Refund> type() {
+            return new ResponseType<>(Refund.class);
+        }
     }
 
     /**
@@ -151,6 +163,11 @@ public class Refund extends Model {
                     .segments(chargeId, "refunds")
                     .params(options)
                     .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Refund>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

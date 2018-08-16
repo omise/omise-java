@@ -2,7 +2,9 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -299,6 +301,11 @@ public class Charge extends Model {
             return serialize();
         }
 
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
         public CreateRequestBuilder customer(String customer) {
             this.customer = customer;
             return this;
@@ -385,6 +392,11 @@ public class Charge extends Model {
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "charges", chargeId);
         }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
     }
 
     /**
@@ -415,6 +427,11 @@ public class Charge extends Model {
         @Override
         protected RequestBody payload() throws IOException {
             return serialize();
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
         }
 
         public UpdateRequestBuilder description(String description) {
@@ -455,6 +472,11 @@ public class Charge extends Model {
         }
 
         @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        @Override
         protected String method() {
             return POST;
         }
@@ -477,6 +499,11 @@ public class Charge extends Model {
         }
 
         @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        @Override
         protected String method() {
             return POST;
         }
@@ -495,6 +522,11 @@ public class Charge extends Model {
             }
 
             return buildUrl(Endpoint.API, "charges", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Charge>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

@@ -16,6 +16,7 @@ public class Request<T extends OmiseObjectBase> {
     private final HttpUrl path;
     private final String contentType;
     private final RequestBody payload;
+    private final ResponseType<T> type;
 
     /**
      * Constructor for a new Request
@@ -25,11 +26,12 @@ public class Request<T extends OmiseObjectBase> {
      * @param contentType The content type of HTTP request
      * @param payload     Additional params passed as OkHttp {@link RequestBody} to the HTTP request
      */
-    Request(String method, HttpUrl path, String contentType, RequestBody payload) {
+    Request(String method, HttpUrl path, String contentType, RequestBody payload, ResponseType<T> type) {
         this.method = method;
         this.path = path;
         this.contentType = contentType;
         this.payload = payload;
+        this.type = type;
     }
 
     /**
@@ -66,5 +68,9 @@ public class Request<T extends OmiseObjectBase> {
      */
     public RequestBody getPayload() {
         return payload;
+    }
+
+    public ResponseType<T> getType() {
+        return type;
     }
 }

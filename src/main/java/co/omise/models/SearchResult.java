@@ -3,7 +3,9 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -149,6 +151,11 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         @Override
         protected HttpUrl path() throws IOException {
             return buildUrl(Endpoint.API, "search", options);
+        }
+
+        @Override
+        protected ResponseType<SearchResult<T>> type() {
+            return new ResponseType<>(new TypeReference<SearchResult<T>>() {});
         }
     }
 }

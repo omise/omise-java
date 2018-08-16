@@ -16,7 +16,7 @@ public class LiveBalanceRequestTest extends BaseLiveTest {
         Client client = getLiveClient();
 
         Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
-        Balance actualBalance = client.sendRequest(getBalanceRequest, Balance.class);
+        Balance actualBalance = client.sendRequest(getBalanceRequest);
 
         System.out.println("Balance retrieved: " + Long.toString(actualBalance.getTotal()));
 

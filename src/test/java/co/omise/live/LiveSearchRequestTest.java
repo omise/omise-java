@@ -1,9 +1,11 @@
 package co.omise.live;
 
 import co.omise.Client;
-import co.omise.models.*;
+import co.omise.models.Charge;
+import co.omise.models.OmiseException;
+import co.omise.models.SearchResult;
+import co.omise.models.SearchScope;
 import co.omise.requests.Request;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -31,7 +33,7 @@ public class LiveSearchRequestTest extends BaseLiveTest {
                 .scope(SearchScope.Charge);
         Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
 
-        SearchResult<Charge> result = client.sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
+        SearchResult<Charge> result = client.sendRequest(request);
 
         Charge charge = result.getData().get(0);
         assertNotNull(charge);
@@ -45,7 +47,7 @@ public class LiveSearchRequestTest extends BaseLiveTest {
                 .query(LIVETEST_CHARGE);
         Request<SearchResult<Charge>> request = new SearchResult.SearchRequestBuilder<Charge>(options).build();
 
-        SearchResult<Charge> result = client.sendRequest(request, new TypeReference<SearchResult<Charge>>() {});
+        SearchResult<Charge> result = client.sendRequest(request);
 
         Charge charge = result.getData().get(0);
         assertEquals(1, result.getTotal());
