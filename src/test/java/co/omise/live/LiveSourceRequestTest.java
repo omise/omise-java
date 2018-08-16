@@ -177,7 +177,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
     public void testLiveSourceInstallment() throws IOException, OmiseException {
         Request<Source> request = new Source.CreateRequestBuilder()
                 .type(SourceType.InstBankingBay)
-                .amount(10000)
+                .amount(500000)
                 .currency("thb")
                 .installmentTerms("4")
                 .build();
@@ -189,7 +189,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertNotNull(source);
         assertEquals(SourceType.InstBankingBay, source.getType());
         assertEquals("4", source.getInstallmentTerms());
-        assertEquals(10000L, source.getAmount());
+        assertEquals(500000L, source.getAmount());
         assertEquals("thb", source.getCurrency());
     }
 }
