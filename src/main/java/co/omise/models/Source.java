@@ -28,6 +28,8 @@ public class Source extends Model {
     private String storeName;
     @JsonProperty("terminal_id")
     private String terminalId;
+    @JsonProperty("installment_terms")
+    private String installmentTerms;
 
     public SourceType getType() {
         return type;
@@ -101,6 +103,14 @@ public class Source extends Model {
         this.terminalId = terminalId;
     }
 
+    public String getInstallmentTerms() {
+        return installmentTerms;
+    }
+
+    public void setInstallmentTerms(String installmentTerms) {
+        this.installmentTerms = installmentTerms;
+    }
+
     /**
      * The {@link RequestBuilder} class for creating a Source.
      */
@@ -121,6 +131,8 @@ public class Source extends Model {
         private String storeName;
         @JsonProperty("terminal_id")
         private String terminalId;
+        @JsonProperty("installment_terms")
+        private String installmentTerms;
 
         @Override
         protected String method() {
@@ -179,6 +191,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder terminalId(String terminalId) {
             this.terminalId = terminalId;
+            return this;
+        }
+
+        public CreateRequestBuilder installmentTerms(String installmentTerms) {
+            this.installmentTerms = installmentTerms;
             return this;
         }
     }

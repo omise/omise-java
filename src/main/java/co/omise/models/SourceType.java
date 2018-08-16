@@ -1,6 +1,5 @@
 package co.omise.models;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum SourceType {
@@ -17,7 +16,17 @@ public enum SourceType {
     @JsonProperty("bill_payment_tesco_lotus")
     BillPaymentTescoLotus,
     @JsonProperty("barcode_alipay")
-    BarcodeAlipay;
+    BarcodeAlipay,
+    @JsonProperty("installment_bay")
+    InstBankingBay,
+    @JsonProperty("installment_first_choice")
+    InstFirstChoice,
+    @JsonProperty("installment_bbl")
+    InstBbl,
+    @JsonProperty("installment_ktc")
+    InstKtc,
+    @JsonProperty("installment_kbank")
+    InstKBank;
 
     @Override
     public String toString() {
@@ -36,6 +45,16 @@ public enum SourceType {
                 return "alipay";
             case BarcodeAlipay:
                 return "barcode_alipay";
+            case InstBankingBay:
+                return "installment_bay";
+            case InstFirstChoice:
+                return "installment_first_choice";
+            case InstBbl:
+                return "installment_bbl";
+            case InstKtc:
+                return "installment_ktc";
+            case InstKBank:
+                return "installment_kbank";
             default:
                 return "";
         }
