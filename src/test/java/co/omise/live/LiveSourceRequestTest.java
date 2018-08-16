@@ -171,4 +171,25 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("store 1", source.getStoreName());
         assertEquals("POS-01", source.getTerminalId());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceInstallment() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.InstBankingBay)
+                .amount(10000)
+                .currency("thb")
+                .installmentTerms("4")
+                .build();
+
+        Source source = client.sendRequest(request, Source.class);
+
+        System.out.printf("created source: %s, type = %s", source.getId(), source.getType());
+
+        assertNotNull(source);
+        assertEquals(SourceType.InstBankingBay, source.getType());
+        assertEquals("4", source.getInstallmentTerms());
+        assertEquals(10000L, source.getAmount());
+        assertEquals("thb", source.getCurrency());
+    }
 }
