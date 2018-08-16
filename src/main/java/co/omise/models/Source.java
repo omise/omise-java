@@ -34,7 +34,9 @@ public class Source extends Model {
     private String email;
     @JsonProperty("phone_number")
     private String phoneNumber;
-    
+    @JsonProperty("installment_terms")
+    private String installmentTerms;
+
     public SourceType getType() {
         return type;
     }
@@ -106,7 +108,7 @@ public class Source extends Model {
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -114,7 +116,7 @@ public class Source extends Model {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -122,13 +124,21 @@ public class Source extends Model {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getInstallmentTerms() {
+        return installmentTerms;
+    }
+
+    public void setInstallmentTerms(String installmentTerms) {
+        this.installmentTerms = installmentTerms;
     }
 
     /**
@@ -157,6 +167,8 @@ public class Source extends Model {
         private String email;
         @JsonProperty("phone_number")
         private String phoneNumber;
+        @JsonProperty("installment_terms")
+        private String installmentTerms;
 
         @Override
         protected String method() {
@@ -217,19 +229,24 @@ public class Source extends Model {
             this.terminalId = terminalId;
             return this;
         }
-        
-        public Create name(String name) {
+
+        public CreateRequestBuilder name(String name) {
             this.name = name;
             return this;
         }
-        
-        public Create email(String email) {
+
+        public CreateRequestBuilder email(String email) {
             this.email = email;
             return this;
         }
-        
-        public Create phoneNumber(String phoneNumber) {
+
+        public CreateRequestBuilder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public CreateRequestBuilder installmentTerms(String installmentTerms) {
+            this.installmentTerms = installmentTerms;
             return this;
         }
     }
