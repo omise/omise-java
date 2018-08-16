@@ -28,7 +28,7 @@ public class SourceRequestTest extends RequestTest {
     }
 
     @Test
-    public void testCreate_installment() throws IOException, OmiseException {
+    public void testCreateInstallment() throws IOException, OmiseException {
         Request<Source> request = new TestSourceRequestBuilder()
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
