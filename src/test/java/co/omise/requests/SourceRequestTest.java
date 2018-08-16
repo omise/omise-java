@@ -3,6 +3,7 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.Source;
 import co.omise.models.SourceType;
+import co.omise.testutils.TestSourceRequestBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,5 +25,24 @@ public class SourceRequestTest extends RequestTest {
         assertEquals("thb", source.getCurrency());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals("alipay", source.getType().toString());
+    }
+
+    @Test
+    public void testCreate_installment() throws IOException, OmiseException {
+        Request<Source> request = new TestSourceRequestBuilder()
+                .type(SourceType.InstBankingBay)
+                .amount(500000)
+                .currency("thb")
+                .installmentTerms("4")
+                .build();
+
+        Source source = getTestRequester().sendRequest(request, Source.class);
+
+        assertRequested("POST", "/sources/installments", 200);
+        assertEquals(500000L, source.getAmount());
+        assertEquals(SourceType.InstBankingBay, source.getType());
+        assertEquals("4", source.getInstallmentTerms());
+        assertEquals("thb", source.getCurrency());
+        assertEquals("redirect", source.getFlow().toString());
     }
 }
