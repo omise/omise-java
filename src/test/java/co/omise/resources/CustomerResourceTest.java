@@ -25,15 +25,6 @@ public class CustomerResourceTest extends ResourceTest {
         assertEquals("John Doe (id: 30)", customer.getDescription());
     }
 
-    @Test
-    public void testDestroy() throws IOException, OmiseException {
-        Customer customer = resource().destroy(CUSTOMER_ID);
-        assertRequested("DELETE", "/customers/" + CUSTOMER_ID, 200);
-
-        assertEquals("cust_test_4yq6txdpfadhbaqnwp3", customer.getId());
-        assertTrue(customer.isDeleted());
-    }
-
     private CustomerResource resource() {
         return new CustomerResource(testClient());
     }
