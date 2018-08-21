@@ -3,6 +3,8 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.Customer;
 import co.omise.models.OmiseException;
+import co.omise.models.Ordering;
+import co.omise.models.ScopedList;
 import co.omise.requests.Request;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -10,6 +12,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
 public class LiveCustomerRequestTest extends BaseLiveTest {
@@ -108,5 +112,38 @@ public class LiveCustomerRequestTest extends BaseLiveTest {
         assertEquals(createdCustomer.getId(), deletedCustomer.getId());
         assertFalse(createdCustomer.isDeleted());
         assertTrue(deletedCustomer.isDeleted());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveGetListCustomer() throws IOException, OmiseException {
+        Request<ScopedList<Customer>> request = new Customer.ListRequestBuilder().build();
+
+        ScopedList<Customer> customers = client.sendRequest(request);
+
+        assertEquals(20, customers.getLimit());
+        assertTrue(customers.getData().size() > 0);
+
+        Customer customer = customers.getData().get(0);
+        assertNotNull(customer);
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveGetListCustomerWithOptions() throws IOException, OmiseException {
+        Request<ScopedList<Customer>> request = new Customer.ListRequestBuilder()
+                .options(new ScopedList.Options()
+                        .limit(3)
+                        .order(Ordering.Chronological))
+                .build();
+
+        ScopedList<Customer> customers = client.sendRequest(request);
+
+        assertEquals(3, customers.getLimit());
+        assertTrue(customers.getData().size() > 0);
+        assertEquals(Ordering.Chronological, customers.getOrder());
+
+        Customer customer = customers.getData().get(0);
+        assertNotNull(customer);
     }
 }
