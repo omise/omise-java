@@ -1,7 +1,6 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
-import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;

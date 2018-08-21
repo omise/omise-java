@@ -42,7 +42,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveGetSchedule() throws IOException, OmiseException {
+    public void testLiveScheduleGet() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
@@ -86,7 +86,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveCreateSchedule() throws IOException, OmiseException {
+    public void testLiveScheduleCreate() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
@@ -136,7 +136,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveDeleteSchedule() throws IOException, OmiseException {
+    public void testLiveScheduleDelete() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
