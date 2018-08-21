@@ -2,7 +2,6 @@ package co.omise.models.schedules;
 
 import co.omise.Endpoint;
 import co.omise.models.Model;
-import co.omise.models.Params;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
@@ -125,53 +124,6 @@ public class Schedule extends Model {
 
     public void setNextOccurrenceDates(List<String> nextOccurrenceDates) {
         this.nextOccurrenceDates = nextOccurrenceDates;
-    }
-
-    public static class Create extends Params {
-        @JsonProperty
-        private int every;
-        @JsonProperty
-        private SchedulePeriod period;
-        @JsonProperty
-        private ScheduleOn.Params on;
-        @JsonProperty("start_date")
-        private DateTime startDate;
-        @JsonProperty("end_date")
-        private DateTime endDate;
-        @JsonProperty
-        private ChargeScheduling.Params charge;
-        @JsonProperty
-        private TransferScheduling.Params transfer;
-
-        public Create every(int units) {
-            this.every = units;
-            return this;
-        }
-
-        public Create period(SchedulePeriod period) {
-            this.period = period;
-            return this;
-        }
-
-        public Create startDate(DateTime startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public Create endDate(DateTime endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        public Create on(ScheduleOn.Params on) {
-            this.on = on;
-            return this;
-        }
-
-        public Create charge(ChargeScheduling.Params charge) {
-            this.charge = charge;
-            return this;
-        }
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Schedule> {

@@ -28,10 +28,6 @@ public class ScheduleResource extends Resource {
         return httpGet(urlFor(scheduleId)).returns(Schedule.class);
     }
 
-    public Schedule create(Schedule.Create params) throws IOException, OmiseException {
-        return httpPost(urlFor("")).params(params).returns(Schedule.class);
-    }
-
     public Schedule destroy(String scheduleId) throws IOException, OmiseException {
         return httpDelete(urlFor(scheduleId)).returns(Schedule.class);
     }
