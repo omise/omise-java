@@ -11,6 +11,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class LiveCustomerRequestTest extends BaseLiveTest {
     private Client client;
@@ -56,5 +57,34 @@ public class LiveCustomerRequestTest extends BaseLiveTest {
 
         assertEquals(createdCustomer.getId(), retrievedCustomer.getId());
         assertEquals(createdCustomer.getEmail(), retrievedCustomer.getEmail());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveUpdateCustomer() throws IOException, OmiseException {
+        Request<Customer> createRequest = new Customer.CreateRequestBuilder()
+                .email("john.doe@example.com")
+                .description("John Doe (id: 30)")
+                .build();
+
+        Customer createdCustomer = client.sendRequest(createRequest);
+
+        System.out.println("Created customer: " + createdCustomer.getId());
+
+        Request<Customer> updateRequest = new Customer.UpdateRequestBuilder(createdCustomer.getId())
+                .email("john.doe.not.so.doe@example.com")
+                .metadata("first_thing", "first")
+                .metadata("second_thing", "second")
+                .build();
+
+        Customer updatedCustomer = client.sendRequest(updateRequest);
+
+        System.out.println("Updated customer: " + updatedCustomer.getId());
+
+        assertEquals(createdCustomer.getId(), updatedCustomer.getId());
+        assertNotEquals(createdCustomer.getEmail(), updatedCustomer.getEmail());
+        assertEquals("john.doe.not.so.doe@example.com", updatedCustomer.getEmail());
+        assertEquals(updatedCustomer.getMetadata().get("first_thing"), "first");
+        assertEquals(updatedCustomer.getMetadata().get("second_thing"), "second");
     }
 }
