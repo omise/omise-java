@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -222,6 +223,10 @@ public class Customer extends Model {
         }
     }
 
+
+    /**
+     * The {@link RequestBuilder} class for deleting a particular Customer.
+     */
     public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
         private String customerId;
 
@@ -242,6 +247,33 @@ public class Customer extends Model {
         @Override
         protected String method() {
             return DELETE;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Customers that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "customers", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Customer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {
+            });
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

@@ -239,7 +239,8 @@ final class Example {
     }
 
     void listCustomers() throws IOException, OmiseException, ClientException {
-        ScopedList<Customer> customers = client().customers().list();
+        Request<ScopedList<Customer>> request = new Customer.ListRequestBuilder().build();
+        ScopedList<Customer> customers = client().sendRequest(request);
         System.out.printf("returned customers: %d", customers.getData().size());
         System.out.printf("total no. of customers: %d", customers.getTotal());
     }
