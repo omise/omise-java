@@ -39,4 +39,17 @@ public class CustomerRequestTest extends RequestTest {
         assertEquals("John Doe (id: 30)", customer.getDescription());
     }
 
+    @Test
+    public void testUpdate() throws IOException, OmiseException {
+        Request<Customer> request = new Customer.UpdateRequestBuilder(CUSTOMER_ID)
+                .email("john.doe.the.second@example.com")
+                .build();
+        Customer customer = getTestRequester().sendRequest(request);
+
+        assertRequested("PATCH", "/customers/" + CUSTOMER_ID, 200);
+
+        assertEquals("cust_test_4yq6txdpfadhbaqnwp3", customer.getId());
+        assertEquals("john.doe.the.second@example.com", customer.getEmail());
+    }
+
 }
