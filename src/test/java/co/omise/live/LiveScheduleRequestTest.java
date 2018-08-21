@@ -9,6 +9,7 @@ import org.joda.time.DurationFieldType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 
 import java.io.IOException;
 
@@ -72,5 +73,49 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         for (Occurrence occurrence : list.getData()) {
             System.out.println("- " + occurrence.getId());
         }
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveDeleteSchedule() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("testLiveSchedule")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Customer customer = client.customers().create(new Customer.Create()
+                .card(token.getId())
+                .description("Test customer for scheduling")
+                .email("chakrit@omise.co"));
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .charge(new ChargeScheduling.Params()
+                        .customer(customer.getId())
+                        .amount(2000)
+                        .currency("THB")
+                        .description("Monthly membership fee"))
+                .build();
+
+        Schedule schedule = client.sendRequest(scheduleRequest);
+
+        System.out.println("created schedule: " + schedule.getId());
+
+        Request<Schedule> deleteScheduleRequest = new Schedule.DeleteRequestBuilder(schedule.getId()).build();
+
+        Schedule deletedSchedule = client.sendRequest(deleteScheduleRequest);
+
+        System.out.println("deleted schedule: " + schedule.getId());
+
+        assertNotNull(deletedSchedule);
+        assertEquals(ScheduleStatus.Deleted, deletedSchedule.getStatus());
     }
 }

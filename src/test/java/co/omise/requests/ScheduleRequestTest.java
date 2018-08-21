@@ -1,16 +1,21 @@
 package co.omise.requests;
 
 import co.omise.models.OmiseException;
-import co.omise.models.schedules.ChargeScheduling;
-import co.omise.models.schedules.Schedule;
-import co.omise.models.schedules.ScheduleOn;
-import co.omise.models.schedules.SchedulePeriod;
+import co.omise.models.schedules.*;
 import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class ScheduleRequestTest extends RequestTest {
+
+    private Requester requester;
+
+    @Before
+    public void setUp() {
+        requester = getTestRequester();
+    }
 
     @Test
     public void testGet() {
@@ -36,7 +41,7 @@ public class ScheduleRequestTest extends RequestTest {
                         .description("Monthly membership fee"))
                 .build();
 
-        Schedule schedule = getTestRequester().sendRequest(request);
+        Schedule schedule = requester.sendRequest(request);
 
         assertRequested("POST", "/schedules", 200);
 
@@ -47,7 +52,15 @@ public class ScheduleRequestTest extends RequestTest {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws IOException, OmiseException {
+        String scheduleId = "schd_test_57s33hm9fg1pzcqihxs";
+        Request<Schedule> request = new Schedule.DeleteRequestBuilder(scheduleId).build();
 
+        Schedule schedule = requester.sendRequest(request);
+
+        assertRequested("DELETE", "/schedules/" + scheduleId, 200);
+
+        assertEquals(scheduleId, schedule.getId());
+        assertEquals(ScheduleStatus.Deleted, schedule.getStatus());
     }
 }

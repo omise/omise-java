@@ -192,4 +192,28 @@ public class Schedule extends Model {
             return new ResponseType<>(Schedule.class);
         }
     }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Schedule> {
+
+        private String scheduleId;
+
+        public DeleteRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "schedules", scheduleId);
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+    }
 }
