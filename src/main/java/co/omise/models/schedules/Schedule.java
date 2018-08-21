@@ -1,11 +1,13 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
+import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 import org.joda.time.DateTime;
@@ -124,6 +126,29 @@ public class Schedule extends Model {
 
     public void setNextOccurrenceDates(List<String> nextOccurrenceDates) {
         this.nextOccurrenceDates = nextOccurrenceDates;
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "schedules", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Schedule> {

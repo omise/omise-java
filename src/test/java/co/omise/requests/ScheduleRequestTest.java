@@ -1,6 +1,7 @@
 package co.omise.requests;
 
 import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
 import co.omise.models.schedules.*;
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -34,8 +35,13 @@ public class ScheduleRequestTest extends RequestTest {
     }
 
     @Test
-    public void testList() {
+    public void testList() throws IOException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.ListRequestBuilder().build();
 
+        ScopedList<Schedule> scheduleList = requester.sendRequest(request);
+
+        assertRequested("GET", "/schedules", 200);
+        assertEquals(11, scheduleList.getTotal());
     }
 
     @Test
