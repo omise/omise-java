@@ -302,6 +302,9 @@ public class Card extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for deleting a particular Customer.
+     */
     public static class DeleteRequestBuilder extends RequestBuilder<Card> {
         private String cardId;
         private String customerId;

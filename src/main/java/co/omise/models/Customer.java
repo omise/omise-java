@@ -221,4 +221,27 @@ public class Customer extends Model {
             return this;
         }
     }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        public DeleteRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+    }
 }

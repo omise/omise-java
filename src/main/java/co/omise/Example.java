@@ -177,7 +177,8 @@ final class Example {
     }
 
     void destroyCustomer() throws IOException, OmiseException, ClientException {
-        Customer customer = client().customers().destroy("cust_test_4xtrb759599jsxlhkrb");
+        Request<Customer> request = new Customer.DeleteRequestBuilder("cust_test_4xtrb759599jsxlhkrb").build();
+        Customer customer = client().sendRequest(request);
         System.out.printf("destroy customer: %s", customer.getId());
     }
 

@@ -24,10 +24,6 @@ public class CustomerResource extends Resource {
         });
     }
 
-    public Customer destroy(String customerId) throws IOException, OmiseException {
-        return httpDelete(urlFor(customerId)).returns(Customer.class);
-    }
-
     private HttpUrl urlFor(String customerId) {
         return buildUrl(Endpoint.API, "customers", customerId);
     }
