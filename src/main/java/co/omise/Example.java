@@ -151,9 +151,10 @@ final class Example {
     }
 
     void attachCardToCustomer() throws IOException, OmiseException, ClientException {
-        Customer customer = client().customers()
-                .update("cust_test_4xtrb759599jsxlhkrb", new Customer.Update()
-                        .card("tokn_test_4xs9408a642a1htto8z"));
+        Request<Customer> request = new Customer.UpdateRequestBuilder("cust_test_4xtrb759599jsxlhkrb")
+                .card("tokn_test_4xs9408a642a1htto8z")
+                .build();
+        Customer customer = client().sendRequest(request);
         System.out.printf("updated customer: %s", customer.getId());
     }
 
@@ -167,10 +168,11 @@ final class Example {
     }
 
     void updateCustomer() throws IOException, OmiseException, ClientException {
-        Customer customer = client().customers()
-                .update("cust_test_4xtrb759599jsxlhkrb", new Customer.Update()
-                        .email("john.smith@example.com")
-                        .description("Another description"));
+        Request<Customer> request = new Customer.UpdateRequestBuilder("cust_test_4xtrb759599jsxlhkrb")
+                .email("john.smith@example.com")
+                .description("Another description")
+                .build();
+        Customer customer = client().sendRequest(request);
         System.out.printf("updated email: %s", customer.getEmail());
     }
 

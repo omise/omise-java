@@ -4,7 +4,6 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -64,52 +63,6 @@ public class Customer extends Model {
     public void setCards(ScopedList<Card> cards) {
         this.cards = cards;
     }
-
-    public static abstract class Params extends co.omise.models.Params {
-        @JsonProperty
-        private String email;
-        @JsonProperty
-        private String description;
-        @JsonProperty
-        private Map<String, Object> metadata;
-        @JsonProperty
-        private String card;
-
-        public Params email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Params description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Params metadata(Map<String, Object> metadata) {
-            // TODO: We should probably do an immutable copy here.
-            this.metadata = metadata;
-            return this;
-        }
-
-        public Params metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
-            }
-
-            this.metadata.put(key, value);
-            return this;
-        }
-
-        public Params card(String card) {
-            this.card = card;
-            return this;
-        }
-    }
-
-    public static class Update extends Params {
-    }
-
-    //NEW
 
     /**
      * The {@link RequestBuilder} class for creating a Customer.
@@ -197,4 +150,75 @@ public class Customer extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for updating a particular Customer.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Map<String, Object> metadata;
+        @JsonProperty
+        private String card;
+
+        public UpdateRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+
+        public UpdateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UpdateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+
+        public UpdateRequestBuilder card(String card) {
+            this.card = card;
+            return this;
+        }
+    }
 }
