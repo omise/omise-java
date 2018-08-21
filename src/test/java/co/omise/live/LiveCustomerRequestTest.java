@@ -35,4 +35,26 @@ public class LiveCustomerRequestTest extends BaseLiveTest {
         assertEquals("john.doe@example.com", customer.getEmail());
         assertEquals("John Doe (id: 30)", customer.getDescription());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveGetCustomer() throws IOException, OmiseException {
+        Request<Customer> createRequest = new Customer.CreateRequestBuilder()
+                .email("john.doe@example.com")
+                .description("John Doe (id: 30)")
+                .build();
+
+        Customer createdCustomer = client.sendRequest(createRequest);
+
+        System.out.println("Created customer: " + createdCustomer.getId());
+
+        Request<Customer> retrieveRequest = new Customer.GetRequestBuilder(createdCustomer.getId()).build();
+
+        Customer retrievedCustomer = client.sendRequest(retrieveRequest);
+
+        System.out.println("Retrieved customer: " + retrievedCustomer.getId());
+
+        assertEquals(createdCustomer.getId(), retrievedCustomer.getId());
+        assertEquals(createdCustomer.getEmail(), retrievedCustomer.getEmail());
+    }
 }
