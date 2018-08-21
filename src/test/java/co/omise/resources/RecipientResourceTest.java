@@ -36,19 +36,6 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException, OmiseException {
-        Recipient recipient = resource().create(new Recipient.Create()
-                .email("john.doe@example.com")
-                .description("Default recipient"));
-        assertRequested("POST", "/recipients", 200);
-
-        assertEquals(RECIPIENT_ID, recipient.getId());
-        assertEquals("john.doe@example.com", recipient.getEmail());
-        assertEquals("6789", recipient.getBankAccount().getLastDigits());
-        assertEquals("Default recipient", recipient.getDescription());
-    }
-
-    @Test
     public void testUpdate() throws IOException, OmiseException {
         Recipient recipient = resource().update(RECIPIENT_ID, new Recipient.Update()
                 .email("john@doe.com")
