@@ -37,19 +37,6 @@ public class CustomerResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testCreate() throws IOException, OmiseException {
-        Customer customer = resource().create(new Customer.Create()
-                .email("john.doe@example.com")
-                .description("John Doe (id: 30)"));
-        assertRequested("POST", "/customers", 200);
-
-        assertEquals("customer", customer.getObject());
-        assertEquals(CUSTOMER_ID, customer.getId());
-        assertEquals("john.doe@example.com", customer.getEmail());
-        assertEquals("John Doe (id: 30)", customer.getDescription());
-    }
-
-    @Test
     public void testUpdate() throws IOException, OmiseException {
         Customer customer = resource().update(CUSTOMER_ID, new Customer.Update()
                 .email("john.doe.the.second@example.com"));
