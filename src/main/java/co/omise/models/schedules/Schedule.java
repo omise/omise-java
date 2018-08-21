@@ -126,6 +126,25 @@ public class Schedule extends Model {
         this.nextOccurrenceDates = nextOccurrenceDates;
     }
 
+    public static class GetRequestBuilder extends RequestBuilder<Schedule> {
+
+        private String scheduleId;
+
+        public GetRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "schedules", scheduleId);
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+    }
+
     public static class CreateRequestBuilder extends RequestBuilder<Schedule> {
         @JsonProperty
         private int every;

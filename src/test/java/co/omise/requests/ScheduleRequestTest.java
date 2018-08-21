@@ -18,8 +18,19 @@ public class ScheduleRequestTest extends RequestTest {
     }
 
     @Test
-    public void testGet() {
+    public void testGet() throws IOException, OmiseException {
+        String scheduleId = "schd_test_57s33hm9fg1pzcqihxs";
+        Request<Schedule> request = new Schedule.GetRequestBuilder(scheduleId).build();
 
+        Schedule schedule = requester.sendRequest(request);
+
+        assertRequested("GET", "/schedules/" + scheduleId, 200);
+
+        assertEquals(scheduleId, schedule.getId());
+        assertEquals(ScheduleStatus.Active, schedule.getStatus());
+        assertEquals(1, schedule.getEvery());
+        assertEquals(SchedulePeriod.month, schedule.getPeriod());
+        assertEquals(11, schedule.getNextOccurrenceDates().size());
     }
 
     @Test
