@@ -2,6 +2,7 @@ package co.omise.requests;
 
 import co.omise.models.Customer;
 import co.omise.models.OmiseException;
+import co.omise.models.ScopedList;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -63,4 +64,20 @@ public class CustomerRequestTest extends RequestTest {
         assertTrue(customer.isDeleted());
     }
 
+    @Test
+    public void testGetList() throws IOException, OmiseException {
+        Request<ScopedList<Customer>> request = new Customer.ListRequestBuilder().build();
+        ScopedList<Customer> list = getTestRequester().sendRequest(request);
+
+        assertRequested("GET", "/customers", 200);
+
+        assertEquals(1, list.getTotal());
+        assertEquals(20, list.getLimit());
+
+        Customer customer = list.getData().get(0);
+        assertEquals("customer", customer.getObject());
+        assertEquals(CUSTOMER_ID, customer.getId());
+        assertEquals("john.doe@example.com", customer.getEmail());
+        assertEquals("John Doe (id: 30)", customer.getDescription());
+    }
 }
