@@ -10,8 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class LiveCustomerRequestTest extends BaseLiveTest {
     private Client client;
@@ -86,5 +85,28 @@ public class LiveCustomerRequestTest extends BaseLiveTest {
         assertEquals("john.doe.not.so.doe@example.com", updatedCustomer.getEmail());
         assertEquals(updatedCustomer.getMetadata().get("first_thing"), "first");
         assertEquals(updatedCustomer.getMetadata().get("second_thing"), "second");
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveDeleteCustomer() throws IOException, OmiseException {
+        Request<Customer> createRequest = new Customer.CreateRequestBuilder()
+                .email("john.doe@example.com")
+                .description("John Doe (id: 30)")
+                .build();
+
+        Customer createdCustomer = client.sendRequest(createRequest);
+
+        System.out.println("Created customer: " + createdCustomer.getId());
+
+        Request<Customer> deleteRequest = new Customer.DeleteRequestBuilder(createdCustomer.getId()).build();
+
+        Customer deletedCustomer = client.sendRequest(deleteRequest);
+
+        System.out.println("Deleted customer: " + deletedCustomer.getId());
+
+        assertEquals(createdCustomer.getId(), deletedCustomer.getId());
+        assertFalse(createdCustomer.isDeleted());
+        assertTrue(deletedCustomer.isDeleted());
     }
 }
