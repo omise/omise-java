@@ -158,10 +158,11 @@ final class Example {
     }
 
     void createCustomerSimple() throws IOException, OmiseException, ClientException {
-        Customer customer = client().customers()
-                .create(new Customer.Create()
-                        .email("john.doe@example.com")
-                        .description("John Doe (id: 30)"));
+        Request<Customer> request = new Customer.CreateRequestBuilder()
+                .email("john.doe@example.com")
+                .description("John Doe (id: 30)")
+                .build();
+        Customer customer = client().sendRequest(request);
         System.out.printf("created customer: %s", customer.getId());
     }
 

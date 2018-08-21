@@ -1,8 +1,15 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -99,10 +106,73 @@ public class Customer extends Model {
         }
     }
 
-    public static class Create extends Params {
-    }
-
     public static class Update extends Params {
     }
-}
 
+    //NEW
+
+    /**
+     * The {@link RequestBuilder} class for creating a Customer.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Customer> {
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Map<String, Object> metadata;
+        @JsonProperty
+        private String card;
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+        public CreateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public CreateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+
+        public CreateRequestBuilder card(String card) {
+            this.card = card;
+            return this;
+        }
+    }
+}
