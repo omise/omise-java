@@ -298,15 +298,16 @@ final class Example {
     }
 
     void createRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients()
-                .create(new Recipient.Create()
-                        .name("Somchai Prasert")
-                        .email("somchai.prasert@example.com")
-                        .type(RecipientType.Individual)
-                        .bankAccount(new BankAccount.Params()
-                                .brand("bbl")
-                                .number("1234567890")
-                                .name("SOMCHAI PRASErT")));
+        Request<Recipient> request = new Recipient.CreateRequestBuilder()
+                .name("Somchai Prasert")
+                .email("somchai.prasert@example.com")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("bbl")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASErT"))
+                .build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("created recipient: %s", recipient.getId());
     }
 
