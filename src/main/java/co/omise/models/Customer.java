@@ -175,4 +175,26 @@ public class Customer extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Customer.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        public GetRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+    }
+
 }

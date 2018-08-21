@@ -24,10 +24,6 @@ public class CustomerResource extends Resource {
         });
     }
 
-    public Customer get(String customerId) throws IOException, OmiseException {
-        return httpGet(urlFor(customerId)).returns(Customer.class);
-    }
-
     public Customer update(String customerId, Customer.Params params) throws IOException, OmiseException {
         return httpPatch(urlFor(customerId)).params(params).returns(Customer.class);
     }

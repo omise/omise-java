@@ -230,7 +230,8 @@ final class Example {
     }
 
     void retrieveCustomer() throws IOException, OmiseException, ClientException {
-        Customer customer = client().customers().get("cust_test_4xtrb759599jsxlhkrb");
+        Request<Customer> request = new Customer.GetRequestBuilder("cust_test_4xtrb759599jsxlhkrb").build();
+        Customer customer = client().sendRequest(request);
         System.out.printf("customer email: %s", customer.getEmail());
     }
 
