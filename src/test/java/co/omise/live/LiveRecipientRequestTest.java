@@ -44,4 +44,32 @@ public class LiveRecipientRequestTest extends BaseLiveTest {
         assertEquals("john.doe@example.com", recipient.getEmail());
         assertEquals("Default recipient", recipient.getDescription());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveGetRecipient() throws IOException, OmiseException {
+        Request<Recipient> createRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+
+        Recipient createdRecipient = client.sendRequest(createRequest);
+
+        System.out.println("created recipient: " + createdRecipient.getId());
+
+        Request<Recipient> retrieveRequest = new Recipient.GetRequestBuilder(createdRecipient.getId())
+                .build();
+
+        Recipient retrievedRecipient = client.sendRequest(retrieveRequest);
+
+        assertEquals(createdRecipient.getId(), retrievedRecipient.getId());
+        assertEquals(createdRecipient.getName(), retrievedRecipient.getName());
+        assertEquals(createdRecipient.getBankAccount().getBrand(), retrievedRecipient.getBankAccount().getBrand());
+    }
 }
