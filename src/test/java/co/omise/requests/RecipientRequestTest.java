@@ -54,4 +54,15 @@ public class RecipientRequestTest extends RequestTest {
         assertEquals("john@doe.com", recipient.getEmail());
         assertEquals("john@doe.com", recipient.getName());
     }
+
+    @Test
+    public void testDestroy() throws IOException, OmiseException {
+        Request<Recipient> request = new Recipient.DeleteRequestBuilder(RECIPIENT_ID).build();
+        Recipient recipient = getTestRequester().sendRequest(request);
+
+        assertRequested("DELETE", "/recipients/" + RECIPIENT_ID, 200);
+
+        assertEquals(RECIPIENT_ID, recipient.getId());
+        assertTrue(recipient.isDeleted());
+    }
 }
