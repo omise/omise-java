@@ -21,14 +21,18 @@ public class LiveTransferRequestTest extends BaseLiveTest {
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("description", "DESCRIPTION");
         metadata.put("invoice_id", "inv_N1ayTWJ2FV");
-        Recipient recipient = client.recipients().create(new Recipient.Create()
+
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
                 .name("Omise-Java Recipient")
                 .email("support@omise.co")
                 .type(RecipientType.Individual)
                 .bankAccount(new BankAccount.Params()
                         .name("Omise-Java Bank")
                         .number("7772-727-272")
-                        .brand("kbank")));
+                        .brand("kbank"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
         System.out.println("created recipient: " + recipient.getId());
 
         Request<Transfer> request = new Transfer.CreateRequestBuilder()
