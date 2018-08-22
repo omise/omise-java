@@ -1,7 +1,12 @@
 package co.omise;
 
 import co.omise.models.*;
+import co.omise.models.schedules.ChargeScheduling;
+import co.omise.models.schedules.Schedule;
+import co.omise.models.schedules.ScheduleOn;
+import co.omise.models.schedules.SchedulePeriod;
 import co.omise.requests.Request;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 
@@ -185,7 +190,7 @@ final class Example {
     void listAllDisputes() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().build();
         ScopedList<Dispute> disputes = client().sendRequest(request);
-        System.out.printf("no. of disputes: %d", disputes.getTotal());
+        System.out.printf("total no. of disputes: %d", disputes.getTotal());
     }
 
     void listClosedDiputes() throws IOException, OmiseException, ClientException {
@@ -223,7 +228,7 @@ final class Example {
     void listEvents() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Event>> request = new Event.ListRequestBuilder().build();
         ScopedList<Event> events = client().sendRequest(request);
-        System.out.printf("no. of events: %d", events.getTotal());
+        System.out.printf("total no. of events: %d", events.getTotal());
     }
 
     void retrieveEvent() throws IOException, OmiseException, ClientException {
@@ -376,10 +381,10 @@ final class Example {
     void listTransactions() throws IOException, OmiseException, ClientException {
         Request<ScopedList<Transaction>> request = new Transaction.ListRequestBuilder().build();
         ScopedList<Transaction> transactions = client().sendRequest(request);
-        System.out.printf("no. of transactions: %d", transactions.getTotal());
+        System.out.printf("total no. of transactions: %d", transactions.getTotal());
     }
 
-    void retrieveTransactions() throws IOException, OmiseException, ClientException {
+    void retrieveTransaction() throws IOException, OmiseException, ClientException {
         Request<Transaction> request = new Transaction.GetRequestBuilder("trxn_test_4xuy2z4w5vmvq4x5pfs").build();
         Transaction transaction = client().sendRequest(request);
         System.out.printf("transaction amount: %d", transaction.getAmount());
@@ -409,7 +414,7 @@ final class Example {
         Request<ScopedList<Link>> request = new Link.ListRequestBuilder().build();
 
         ScopedList<Link> links = client().sendRequest(request);
-        System.out.printf("no. of links: %d", links.getTotal());
+        System.out.printf("total no. of links: %d", links.getTotal());
     }
 
     void createSource() throws IOException, OmiseException, ClientException {
@@ -447,6 +452,44 @@ final class Example {
                 .build();
         SearchResult<Charge> searchResult = client().sendRequest(request);
         System.out.printf("total no. of search result: %d", searchResult.getTotal());
+    }
+
+    void retrieveSchedule() throws IOException, ClientException, OmiseException {
+        Request<Schedule> request = new Schedule.GetRequestBuilder("schd_test_57wedy7pc6v9i59xpbx").build();
+
+        Schedule schedule = client().sendRequest(request);
+        System.out.printf("schedule retrieved: %s", schedule.getId());
+    }
+
+    void listSchedule() throws IOException, ClientException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.ListRequestBuilder().build();
+
+        ScopedList<Schedule> schedules = client().sendRequest(request);
+        System.out.printf("total no. of schedules: %d", schedules.getTotal());
+    }
+
+    void createSchedule() throws ClientException, IOException, OmiseException {
+        Request<Schedule> request = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.month)
+                .on(new ScheduleOn.Params().daysOfMonth(2))
+                .startDate(DateTime.parse("2017-04-27"))
+                .endDate(DateTime.parse("2018-04-27"))
+                .charge(new ChargeScheduling.Params()
+                        .customer("cust_test_55bb3hkywglfyyachha")
+                        .amount(88800)
+                        .description("Monthly membership fee"))
+                .build();
+
+        Schedule schedule = client().sendRequest(request);
+        System.out.printf("schedule created: %s", schedule.getId());
+    }
+
+    void destrySchedule() throws ClientException, IOException, OmiseException {
+        Request<Schedule> request = new Schedule.DeleteRequestBuilder("schd_test_57s33hm9fg1pzcqihxs").build();
+
+        Schedule schedule = client().sendRequest(request);
+        System.out.printf("destroyed schedule: %s", schedule.getId());
     }
 
     private Client client() throws ClientException {
