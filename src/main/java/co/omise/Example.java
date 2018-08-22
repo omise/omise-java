@@ -329,13 +329,14 @@ final class Example {
     }
 
     void updateRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients()
-                .update("recp_test_4z6p7e0m4k40txecj5", new Recipient.Update()
-                        .email("somchai@prasert.com")
-                        .bankAccount(new BankAccount.Params()
-                                .brand("kbank")
-                                .number("1234567890")
-                                .name("SOMCHAI PRASERT")));
+        Request<Recipient> request = new Recipient.UpdateRequestBuilder("recp_test_4z6p7e0m4k40txecj5")
+                .email("somchai@prasert.com")
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("updated recipient: %s", recipient.getId());
     }
 

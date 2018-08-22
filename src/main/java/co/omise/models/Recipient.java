@@ -100,56 +100,6 @@ public class Recipient extends Model {
         this.failureCode = failureCode;
     }
 
-    public static class Params extends co.omise.models.Params {
-        @JsonProperty("bank_account")
-        private BankAccount.Params bankAccount;
-        @JsonProperty
-        private String name;
-        @JsonProperty
-        private String email;
-        @JsonProperty
-        private String description;
-        @JsonProperty
-        private RecipientType type;
-        @JsonProperty
-        private String taxId;
-
-        public Params name(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Params email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Params description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public Params type(RecipientType type) {
-            this.type = type;
-            return this;
-        }
-
-        public Params taxId(String taxId) {
-            this.taxId = taxId;
-            return this;
-        }
-
-        public Params bankAccount(BankAccount.Params bankAccount) {
-            this.bankAccount = bankAccount;
-            return this;
-        }
-    }
-
-    public static class Update extends Params {
-    }
-
-    // New
-
     /**
      * The {@link RequestBuilder} class for creating a Recipient.
      */
@@ -236,6 +186,80 @@ public class Recipient extends Model {
         @Override
         protected ResponseType<Recipient> type() {
             return new ResponseType<>(Recipient.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for updating a Recipient.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        @JsonProperty("bank_account")
+        private BankAccount.Params bankAccount;
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private RecipientType type;
+        @JsonProperty
+        private String taxId;
+
+        public UpdateRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+
+        public UpdateRequestBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UpdateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UpdateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder type(RecipientType type) {
+            this.type = type;
+            return this;
+        }
+
+        public UpdateRequestBuilder taxId(String taxId) {
+            this.taxId = taxId;
+            return this;
+        }
+
+        public UpdateRequestBuilder bankAccount(BankAccount.Params bankAccount) {
+            this.bankAccount = bankAccount;
+            return this;
         }
     }
 }
