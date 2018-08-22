@@ -12,9 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class LiveRecipientRequestTest extends BaseLiveTest {
     private Client client;
@@ -111,5 +109,34 @@ public class LiveRecipientRequestTest extends BaseLiveTest {
         assertEquals(createdRecipient.getId(), updatedRecipient.getId());
         assertNotEquals(createdRecipient.getBankAccount().getName(), updatedRecipient.getBankAccount().getName());
         assertEquals("John Doe", updatedRecipient.getBankAccount().getName());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveDeleteRecipient() throws IOException, OmiseException {
+        Request<Recipient> createRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+
+        Recipient createdRecipient = client.sendRequest(createRequest);
+
+        System.out.println("created recipient: " + createdRecipient.getId());
+
+        Request<Recipient> deleteRequest = new Recipient.DeleteRequestBuilder(createdRecipient.getId())
+                .build();
+
+        Recipient deletedRecipient = client.sendRequest(deleteRequest);
+
+        System.out.println("deleted recipient: " + deletedRecipient.getId());
+
+        assertEquals(createdRecipient.getId(), deletedRecipient.getId());
+        assertTrue(deletedRecipient.isDeleted());
     }
 }
