@@ -25,18 +25,6 @@ public class RecipientResourceTest extends ResourceTest {
     }
 
     @Test
-    public void testUpdate() throws IOException, OmiseException {
-        Recipient recipient = resource().update(RECIPIENT_ID, new Recipient.Update()
-                .email("john@doe.com")
-                .name("john@doe.com"));
-        assertRequested("PATCH", "/recipients/" + RECIPIENT_ID, 200);
-
-        assertEquals(RECIPIENT_ID, recipient.getId());
-        assertEquals("john@doe.com", recipient.getEmail());
-        assertEquals("john@doe.com", recipient.getName());
-    }
-
-    @Test
     public void testDestroy() throws IOException, OmiseException {
         Recipient recipient = resource().destroy(RECIPIENT_ID);
         assertRequested("DELETE", "/recipients/" + RECIPIENT_ID, 200);

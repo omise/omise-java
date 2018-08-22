@@ -26,7 +26,6 @@ public class RecipientRequestTest extends RequestTest {
         assertEquals("Default recipient", recipient.getDescription());
     }
 
-
     @Test
     public void testGet() throws IOException, OmiseException {
         Request<Recipient> request = new Recipient.GetRequestBuilder(RECIPIENT_ID)
@@ -39,5 +38,20 @@ public class RecipientRequestTest extends RequestTest {
         assertEquals("john.doe@example.com", recipient.getEmail());
         assertEquals(RecipientType.Individual, recipient.getType());
         assertEquals("6789", recipient.getBankAccount().getLastDigits());
+    }
+
+    @Test
+    public void testUpdate() throws IOException, OmiseException {
+        Request<Recipient> request = new Recipient.UpdateRequestBuilder(RECIPIENT_ID)
+                .email("john@doe.com")
+                .name("john@doe.com")
+                .build();
+        Recipient recipient = getTestRequester().sendRequest(request);
+
+        assertRequested("PATCH", "/recipients/" + RECIPIENT_ID, 200);
+
+        assertEquals(RECIPIENT_ID, recipient.getId());
+        assertEquals("john@doe.com", recipient.getEmail());
+        assertEquals("john@doe.com", recipient.getName());
     }
 }
