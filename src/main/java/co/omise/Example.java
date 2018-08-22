@@ -318,7 +318,8 @@ final class Example {
     }
 
     void listRecipients() throws IOException, OmiseException, ClientException {
-        ScopedList<Recipient> recipients = client().recipients().list();
+        Request<ScopedList<Recipient>> request = new Recipient.ListRequestBuilder().build();
+        ScopedList<Recipient> recipients = client().sendRequest(request);
         System.out.printf("returned recipients: %d", recipients.getData().size());
         System.out.printf("total no. of recipients: %d", recipients.getTotal());
     }
