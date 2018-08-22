@@ -45,7 +45,6 @@ public class Client {
     private OccurrenceResource occurrences;
     private ReceiptResource receipts;
     private RecipientResource recipients;
-    private ScheduleResource schedules;
     private Requester requester;
 
     /**
@@ -110,7 +109,6 @@ public class Client {
         occurrences = new OccurrenceResource(httpClient);
         receipts = new ReceiptResource(httpClient);
         recipients = new RecipientResource(httpClient);
-        schedules = new ScheduleResource(httpClient);
     }
 
     /**
@@ -226,17 +224,6 @@ public class Client {
      */
     public RecipientResource recipients() {
         return recipients;
-    }
-
-    /**
-     * Returns {@link ScheduleResource} for accessing the
-     * <a href="https://www.omise.co/schedules-api">Schedule API</a>
-     *
-     * @return A {@link ScheduleResource} instance.
-     * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
-     */
-    public ScheduleResource schedules() {
-        return schedules;
     }
 
     /**

@@ -1,12 +1,17 @@
 package co.omise.models.schedules;
 
+import co.omise.Endpoint;
 import co.omise.models.Model;
-import co.omise.models.Params;
 import co.omise.models.ScopedList;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -30,11 +35,9 @@ public class Schedule extends Model {
     private TransferScheduling transfer;
 
     private ScopedList<Occurrence> occurrences;
-    @JsonProperty("next_occurrences")
-    private ScopedList<Occurrence> nextOccurrences;
 
     @JsonProperty("next_occurrence_dates")
-    private List<LocalDate> nextOccurrenceDates;
+    private List<String> nextOccurrenceDates;
 
     public ScheduleStatus getStatus() {
         return status;
@@ -116,19 +119,66 @@ public class Schedule extends Model {
         this.occurrences = occurrences;
     }
 
-    public ScopedList<Occurrence> getNextOccurrences() {
-        return nextOccurrences;
+    public List<String> getNextOccurrenceDates() {
+        return this.nextOccurrenceDates;
     }
 
-    public void setNextOccurrences(ScopedList<Occurrence> nextOccurrences) {
-        this.nextOccurrences = nextOccurrences;
+    public void setNextOccurrenceDates(List<String> nextOccurrenceDates) {
+        this.nextOccurrenceDates = nextOccurrenceDates;
     }
 
-    public List<LocalDate> getNextOccurrenceDates() { return this.nextOccurrenceDates; }
+    /**
+     * The {@link RequestBuilder} class for retrieving all schedules that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private ScopedList.Options options;
 
-    public void setNextOccurrenceDates(List<LocalDate> nextOccurrenceDates) { this.nextOccurrenceDates = nextOccurrenceDates; }
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
 
-    public static class Create extends Params {
+            return buildUrl(Endpoint.API, "schedules", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular schedule.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Schedule> {
+
+        private String scheduleId;
+
+        public GetRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "schedules", scheduleId);
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for creating a schedule.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Schedule> {
         @JsonProperty
         private int every;
         @JsonProperty
@@ -144,34 +194,81 @@ public class Schedule extends Model {
         @JsonProperty
         private TransferScheduling.Params transfer;
 
-        public Create every(int units) {
+        public CreateRequestBuilder every(int units) {
             this.every = units;
             return this;
         }
 
-        public Create period(SchedulePeriod period) {
+        public CreateRequestBuilder period(SchedulePeriod period) {
             this.period = period;
             return this;
         }
 
-        public Create startDate(DateTime startDate) {
+        public CreateRequestBuilder startDate(DateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public Create endDate(DateTime endDate) {
+        public CreateRequestBuilder endDate(DateTime endDate) {
             this.endDate = endDate;
             return this;
         }
 
-        public Create on(ScheduleOn.Params on) {
+        public CreateRequestBuilder on(ScheduleOn.Params on) {
             this.on = on;
             return this;
         }
 
-        public Create charge(ChargeScheduling.Params charge) {
+        public CreateRequestBuilder charge(ChargeScheduling.Params charge) {
             this.charge = charge;
             return this;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "schedules");
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for destroying a particular schedule.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Schedule> {
+
+        private String scheduleId;
+
+        public DeleteRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "schedules", scheduleId);
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
         }
     }
 }
