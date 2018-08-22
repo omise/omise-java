@@ -42,6 +42,22 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
+    public void testLiveListScheduleWithOption() throws IOException, OmiseException {
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(3)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> request =
+                new Schedule.ListRequestBuilder()
+                        .options(options)
+                        .build();
+        ScopedList<Schedule> transactions = client.sendRequest(request);
+
+        assertEquals(3, transactions.getLimit());
+        assertEquals(Ordering.Chronological, transactions.getOrder());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveScheduleGet() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
