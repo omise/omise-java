@@ -3,6 +3,7 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.Recipient;
 import co.omise.models.RecipientType;
+import co.omise.models.ScopedList;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -64,5 +65,21 @@ public class RecipientRequestTest extends RequestTest {
 
         assertEquals(RECIPIENT_ID, recipient.getId());
         assertTrue(recipient.isDeleted());
+    }
+
+    @Test
+    public void testList() throws IOException, OmiseException {
+        Request<ScopedList<Recipient>> request = new Recipient.ListRequestBuilder()
+                .build();
+        ScopedList<Recipient> recipients = getTestRequester().sendRequest(request);
+
+        assertRequested("GET", "/recipients", 200);
+
+        assertEquals(1, recipients.getTotal());
+        assertEquals(20, recipients.getLimit());
+
+        Recipient recipient = recipients.getData().get(0);
+        assertEquals(RECIPIENT_ID, recipient.getId());
+        assertEquals("john.doe@example.com", recipient.getEmail());
     }
 }
