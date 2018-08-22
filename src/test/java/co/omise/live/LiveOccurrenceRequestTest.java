@@ -33,7 +33,7 @@ public class LiveOccurrenceRequestTest extends BaseLiveTest {
         Request<ScopedList<Occurrence>> request = new Occurrence.ListRequestBuilder(SCHEDULE_ID).build();
         ScopedList<Occurrence> occurrences = client.sendRequest(request);
 
-        System.out.println("get schedule list: " + occurrences.getTotal());
+        System.out.println("get occurrence list: " + occurrences.getTotal());
 
         assertNotNull(occurrences);
         assertEquals(SCHEDULE_ID, occurrences.getData().get(0).getSchedule());
@@ -50,7 +50,7 @@ public class LiveOccurrenceRequestTest extends BaseLiveTest {
                 .build();
         ScopedList<Occurrence> occurrences = client.sendRequest(request);
 
-        System.out.println("get schedule list: " + occurrences.getTotal());
+        System.out.println("get occurrence list: " + occurrences.getTotal());
 
         assertNotNull(occurrences);
         assertEquals(3, occurrences.getTotal());
@@ -66,6 +66,8 @@ public class LiveOccurrenceRequestTest extends BaseLiveTest {
         Occurrence expectedOccurrence = occurrences.getData().get(0);
         Request<Occurrence> occurrenceRequest  = new Occurrence.GetRequestBuilder(expectedOccurrence.getId()).build();
         Occurrence actualOccurrence = client.sendRequest(occurrenceRequest);
+
+        System.out.println("get occurrence: " + actualOccurrence.getId());
 
         assertNotNull(actualOccurrence);
         assertEquals(expectedOccurrence.getId(), actualOccurrence.getId());

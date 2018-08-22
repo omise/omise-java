@@ -494,7 +494,7 @@ final class Example {
         System.out.printf("destroyed schedule: %s", schedule.getId());
     }
 
-    void retriveOccurrence() throws IOException, ClientException, OmiseException {
+    void retrieveOccurrence() throws IOException, ClientException, OmiseException {
         Request<Occurrence> request = new Occurrence.GetRequestBuilder("occu_test_59wupnlrayrqccw6lob").build();
 
         Occurrence occurrence = client().sendRequest(request);
