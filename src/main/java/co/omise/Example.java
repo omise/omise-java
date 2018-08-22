@@ -485,7 +485,7 @@ final class Example {
         System.out.printf("schedule created: %s", schedule.getId());
     }
 
-    void destrySchedule() throws ClientException, IOException, OmiseException {
+    void destroySchedule() throws ClientException, IOException, OmiseException {
         Request<Schedule> request = new Schedule.DeleteRequestBuilder("schd_test_57s33hm9fg1pzcqihxs").build();
 
         Schedule schedule = client().sendRequest(request);
