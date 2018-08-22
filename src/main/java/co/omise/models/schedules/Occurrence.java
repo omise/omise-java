@@ -86,6 +86,9 @@ public class Occurrence extends Model {
         this.result = result;
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving all occurrences that belong to a schedule.
+     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
 
         private String scheduleId;
@@ -118,6 +121,9 @@ public class Occurrence extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular occurrence.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Occurrence>{
         private String occurrenceId;
 
