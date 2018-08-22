@@ -127,6 +127,9 @@ public class Schedule extends Model {
         this.nextOccurrenceDates = nextOccurrenceDates;
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving all schedules that belong to an account.
+     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
 
@@ -150,6 +153,9 @@ public class Schedule extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular schedule.
+     */
     public static class GetRequestBuilder extends RequestBuilder<Schedule> {
 
         private String scheduleId;
@@ -169,6 +175,9 @@ public class Schedule extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for creating a schedule.
+     */
     public static class CreateRequestBuilder extends RequestBuilder<Schedule> {
         @JsonProperty
         private int every;
@@ -236,6 +245,9 @@ public class Schedule extends Model {
         }
     }
 
+    /**
+     * The {@link RequestBuilder} class for destroying a particular schedule.
+     */
     public static class DeleteRequestBuilder extends RequestBuilder<Schedule> {
 
         private String scheduleId;
