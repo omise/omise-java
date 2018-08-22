@@ -12,8 +12,6 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
 
 public class LiveCustomerRequestTest extends BaseLiveTest {
