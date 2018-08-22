@@ -1,8 +1,17 @@
 package co.omise.models.schedules;
 
+import co.omise.Endpoint;
+import co.omise.models.Charge;
 import co.omise.models.Model;
+import co.omise.models.ScopedList;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Occurrence object.
@@ -75,5 +84,61 @@ public class Occurrence extends Model {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all occurrences that belong to a schedule.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
+
+        private String scheduleId;
+        private ScopedList.Options options;
+
+        public ListRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return new HttpUrlBuilder(Endpoint.API, "schedules", serializer())
+                    .segments(scheduleId, "occurrences")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Occurrence>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {});
+        }
+
+        public Occurrence.ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular occurrence.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Occurrence>{
+        private String occurrenceId;
+
+        public GetRequestBuilder(String occurrenceId) {
+            this.occurrenceId= occurrenceId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "occurrences", occurrenceId);
+        }
+
+        @Override
+        protected ResponseType<Occurrence> type() {
+            return new ResponseType<>(Occurrence.class);
+        }
     }
 }
