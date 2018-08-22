@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class ScheduleRequestTest extends RequestTest {
 
+    private final String SCHEDULE_ID = "schd_test_57s33hm9fg1pzcqihxs";
+    
     private Requester requester;
 
     @Before
@@ -20,14 +22,13 @@ public class ScheduleRequestTest extends RequestTest {
 
     @Test
     public void testGet() throws IOException, OmiseException {
-        String scheduleId = "schd_test_57s33hm9fg1pzcqihxs";
-        Request<Schedule> request = new Schedule.GetRequestBuilder(scheduleId).build();
+        Request<Schedule> request = new Schedule.GetRequestBuilder(SCHEDULE_ID).build();
 
         Schedule schedule = requester.sendRequest(request);
 
-        assertRequested("GET", "/schedules/" + scheduleId, 200);
+        assertRequested("GET", "/schedules/" + SCHEDULE_ID, 200);
 
-        assertEquals(scheduleId, schedule.getId());
+        assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Active, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.month, schedule.getPeriod());
@@ -62,7 +63,7 @@ public class ScheduleRequestTest extends RequestTest {
 
         assertRequested("POST", "/schedules", 200);
 
-        assertEquals("schd_test_57s33hm9fg1pzcqihxs", schedule.getId());
+        assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.month, schedule.getPeriod());
         assertEquals(11, schedule.getNextOccurrenceDates().size());
@@ -70,14 +71,13 @@ public class ScheduleRequestTest extends RequestTest {
 
     @Test
     public void testDelete() throws IOException, OmiseException {
-        String scheduleId = "schd_test_57s33hm9fg1pzcqihxs";
-        Request<Schedule> request = new Schedule.DeleteRequestBuilder(scheduleId).build();
+        Request<Schedule> request = new Schedule.DeleteRequestBuilder(SCHEDULE_ID).build();
 
         Schedule schedule = requester.sendRequest(request);
 
-        assertRequested("DELETE", "/schedules/" + scheduleId, 200);
+        assertRequested("DELETE", "/schedules/" + SCHEDULE_ID, 200);
 
-        assertEquals(scheduleId, schedule.getId());
+        assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Deleted, schedule.getStatus());
     }
 }
