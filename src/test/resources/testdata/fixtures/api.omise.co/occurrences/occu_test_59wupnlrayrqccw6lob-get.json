@@ -1,0 +1,14 @@
+{
+  "object": "occurrence",
+  "id": "occu_test_59wupnlrayrqccw6lob",
+  "livemode": false,
+  "location": "/occurrences/occu_test_59wupnlrayrqccw6lob",
+  "schedule": "schd_test_59wupnlq9lej6bi12i8",
+  "schedule_date": "2017-11-10",
+  "retry_date": null,
+  "processed_at": "2017-11-10T01:30:04Z",
+  "status": "successful",
+  "message": null,
+  "result": "chrg_test_59x0i8ff4ujlzkbo3ki",
+  "created": "2017-11-09T15:37:31Z"
+}

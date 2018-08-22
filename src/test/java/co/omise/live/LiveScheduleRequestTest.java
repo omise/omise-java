@@ -144,13 +144,6 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.week, schedule.getPeriod());
         assertEquals(customer.getId(), schedule.getCharge().getCustomer());
-
-        ScopedList<Occurrence> list = client.schedule(schedule.getId()).occurrences().list();
-
-        System.out.println("occurrences:");
-        for (Occurrence occurrence : list.getData()) {
-            System.out.println("- " + occurrence.getId());
-        }
     }
 
     @Test

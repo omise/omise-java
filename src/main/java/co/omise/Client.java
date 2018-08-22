@@ -42,7 +42,6 @@ public class Client {
     private final OkHttpClient httpClient;
 
     private ForexResource forexes;
-    private OccurrenceResource occurrences;
     private ReceiptResource receipts;
     private Requester requester;
 
@@ -105,7 +104,6 @@ public class Client {
      */
     private void initResources() {
         forexes = new ForexResource(httpClient);
-        occurrences = new OccurrenceResource(httpClient);
         receipts = new ReceiptResource(httpClient);
     }
 
@@ -192,17 +190,6 @@ public class Client {
     }
 
     /**
-     * Returns {@link OccurrenceResource} for accessing the
-     * <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
-     *
-     * @return A {@link OccurrenceResource} instance.
-     * @see <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
-     */
-    public OccurrenceResource occurrences() {
-        return occurrences;
-    }
-
-    /**
      * Returns {@link ReceiptResource} for accessing the
      * <a href="https://www.omise.co/receipts-api">Receipts API</a>
      *
@@ -211,18 +198,6 @@ public class Client {
      */
     public ReceiptResource receipts() {
         return receipts;
-    }
-
-    /**
-     * Returns {@link ScheduleSpecificResource} instance for accessing
-     * schedule-specific sub-resources.
-     *
-     * @param scheduleId The id of the related schedule.
-     * @return A {@link ScheduleSpecificResource} instance.
-     * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
-     */
-    public ScheduleSpecificResource schedule(String scheduleId) {
-        return new ScheduleSpecificResource(httpClient, scheduleId);
     }
 
     /**

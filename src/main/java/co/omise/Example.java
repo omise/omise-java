@@ -1,10 +1,7 @@
 package co.omise;
 
 import co.omise.models.*;
-import co.omise.models.schedules.ChargeScheduling;
-import co.omise.models.schedules.Schedule;
-import co.omise.models.schedules.ScheduleOn;
-import co.omise.models.schedules.SchedulePeriod;
+import co.omise.models.schedules.*;
 import co.omise.requests.Request;
 import org.joda.time.DateTime;
 
@@ -495,6 +492,20 @@ final class Example {
 
         Schedule schedule = client().sendRequest(request);
         System.out.printf("destroyed schedule: %s", schedule.getId());
+    }
+
+    void retrieveOccurrence() throws IOException, ClientException, OmiseException {
+        Request<Occurrence> request = new Occurrence.GetRequestBuilder("occu_test_59wupnlrayrqccw6lob").build();
+
+        Occurrence occurrence = client().sendRequest(request);
+        System.out.printf("occurrence retrieved: %s", occurrence.getId());
+    }
+
+    void listOccurrence() throws IOException, ClientException, OmiseException {
+        Request<ScopedList<Occurrence>> request = new Occurrence.ListRequestBuilder("schd_test_59wupnlq9lej6bi12i8").build();
+
+        ScopedList<Occurrence> occurrences = client().sendRequest(request);
+        System.out.printf("total no. of occurrences: %d", occurrences.getTotal());
     }
 
     private Client client() throws ClientException {
