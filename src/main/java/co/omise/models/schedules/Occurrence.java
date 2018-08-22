@@ -117,4 +117,22 @@ public class Occurrence extends Model {
             return this;
         }
     }
+
+    public static class GetRequestBuilder extends RequestBuilder<Occurrence>{
+        private String occurrenceId;
+
+        public GetRequestBuilder(String occurrenceId) {
+            this.occurrenceId= occurrenceId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "occurrences", occurrenceId);
+        }
+
+        @Override
+        protected ResponseType<Occurrence> type() {
+            return new ResponseType<>(Occurrence.class);
+        }
+    }
 }
