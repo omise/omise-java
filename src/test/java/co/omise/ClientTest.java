@@ -1,10 +1,10 @@
 package co.omise;
 
-import co.omise.models.*;
-import co.omise.models.schedules.*;
+import co.omise.models.Account;
+import co.omise.models.Card;
+import co.omise.models.OmiseException;
+import co.omise.models.Token;
 import co.omise.requests.Request;
-import org.joda.time.DateTime;
-import org.joda.time.DurationFieldType;
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,50 +43,6 @@ public class ClientTest extends OmiseTest {
             new Client("skey_test_123").sendRequest(getAccountRequest);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
-        }
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveSchedule() throws ClientException, IOException, OmiseException {
-        Client client = liveTestClient();
-
-        Request<Token> request = new Token.CreateRequestBuilder()
-                .card(new Card.Create()
-                        .name("testLiveSchedule")
-                        .number("4242424242424242")
-                        .securityCode("123")
-                        .expiration(10, 2020))
-                .build();
-
-        Token token = client.sendRequest(request);
-
-        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
-                .card(token.getId())
-                .description("Test customer for scheduling")
-                .email("chakrit@omise.co")
-                .build();
-
-        Customer customer = client.sendRequest(customerRequest);
-
-        Schedule schedule = client.schedules().create(new Schedule.Create()
-                .every(1)
-                .period(SchedulePeriod.week)
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
-                .on(new ScheduleOn.Params()
-                        .weekdays(Weekdays.Friday))
-                .charge(new ChargeScheduling.Params()
-                        .amount(2000)
-                        .currency("THB")
-                        .customer(customer.getId())));
-
-        System.out.println("created schedule: " + schedule.getId());
-
-        ScopedList<Occurrence> list = client.schedule(schedule.getId()).occurrences().list();
-
-        System.out.println("occurrences:");
-        for (Occurrence occurrence : list.getData()) {
-            System.out.println("- " + occurrence.getId());
         }
     }
 
