@@ -42,7 +42,6 @@ public class Client {
     private final OkHttpClient httpClient;
 
     private ForexResource forexes;
-    private OccurrenceResource occurrences;
     private ReceiptResource receipts;
     private Requester requester;
 
@@ -105,7 +104,6 @@ public class Client {
      */
     private void initResources() {
         forexes = new ForexResource(httpClient);
-        occurrences = new OccurrenceResource(httpClient);
         receipts = new ReceiptResource(httpClient);
     }
 
@@ -189,17 +187,6 @@ public class Client {
      */
     public ForexResource forexes() {
         return forexes;
-    }
-
-    /**
-     * Returns {@link OccurrenceResource} for accessing the
-     * <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
-     *
-     * @return A {@link OccurrenceResource} instance.
-     * @see <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
-     */
-    public OccurrenceResource occurrences() {
-        return occurrences;
     }
 
     /**
