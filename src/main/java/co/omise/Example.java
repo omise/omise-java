@@ -323,7 +323,8 @@ final class Example {
     }
 
     void retrieveRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients().get("recp_test_4z6p7e0m4k40txecj5o");
+        Request<Recipient> request = new Recipient.GetRequestBuilder("recp_test_4z6p7e0m4k40txecj5o").build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("recipient's email: %s", recipient.getEmail());
     }
 

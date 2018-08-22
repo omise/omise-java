@@ -217,4 +217,25 @@ public class Recipient extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a Recipient.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        public GetRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+    }
 }

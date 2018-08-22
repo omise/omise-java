@@ -24,10 +24,6 @@ public class RecipientResource extends Resource {
         });
     }
 
-    public Recipient get(String recipientId) throws IOException, OmiseException {
-        return httpGet(urlFor(recipientId)).returns(Recipient.class);
-    }
-
     public Recipient update(String recipientId, Recipient.Params params) throws IOException, OmiseException {
         return httpPatch(urlFor(recipientId)).params(params).returns(Recipient.class);
     }
