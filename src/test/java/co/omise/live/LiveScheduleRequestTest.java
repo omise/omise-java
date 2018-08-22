@@ -69,10 +69,13 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Token token = client.sendRequest(tokenRequest);
 
-        Customer customer = client.customers().create(new Customer.Create()
+        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
                 .card(token.getId())
                 .description("Test customer for scheduling")
-                .email("chakrit@omise.co"));
+                .email("chakrit@omise.co")
+                .build();
+
+        Customer customer = client.sendRequest(customerRequest);
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
@@ -163,10 +166,13 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Token token = client.sendRequest(tokenRequest);
 
-        Customer customer = client.customers().create(new Customer.Create()
+        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
                 .card(token.getId())
                 .description("Test customer for scheduling")
-                .email("chakrit@omise.co"));
+                .email("chakrit@omise.co")
+                .build();
+
+        Customer customer = client.sendRequest(customerRequest);
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
