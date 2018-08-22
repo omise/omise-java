@@ -49,7 +49,7 @@ public class CustomerRequestTest extends RequestTest {
 
         assertRequested("PATCH", "/customers/" + CUSTOMER_ID, 200);
 
-        assertEquals("cust_test_4yq6txdpfadhbaqnwp3", customer.getId());
+        assertEquals(CUSTOMER_ID, customer.getId());
         assertEquals("john.doe.the.second@example.com", customer.getEmail());
     }
 
@@ -60,7 +60,7 @@ public class CustomerRequestTest extends RequestTest {
 
         assertRequested("DELETE", "/customers/" + CUSTOMER_ID, 200);
 
-        assertEquals("cust_test_4yq6txdpfadhbaqnwp3", customer.getId());
+        assertEquals(CUSTOMER_ID, customer.getId());
         assertTrue(customer.isDeleted());
     }
 
