@@ -61,10 +61,13 @@ public class ClientTest extends OmiseTest {
 
         Token token = client.sendRequest(request);
 
-        Customer customer = client.customers().create(new Customer.Create()
+        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
                 .card(token.getId())
                 .description("Test customer for scheduling")
-                .email("chakrit@omise.co"));
+                .email("chakrit@omise.co")
+                .build();
+
+        Customer customer = client.sendRequest(customerRequest);
 
         Schedule schedule = client.schedules().create(new Schedule.Create()
                 .every(1)
