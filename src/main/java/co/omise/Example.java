@@ -298,42 +298,47 @@ final class Example {
     }
 
     void createRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients()
-                .create(new Recipient.Create()
-                        .name("Somchai Prasert")
-                        .email("somchai.prasert@example.com")
-                        .type(RecipientType.Individual)
-                        .bankAccount(new BankAccount.Params()
-                                .brand("bbl")
-                                .number("1234567890")
-                                .name("SOMCHAI PRASErT")));
+        Request<Recipient> request = new Recipient.CreateRequestBuilder()
+                .name("Somchai Prasert")
+                .email("somchai.prasert@example.com")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("bbl")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASErT"))
+                .build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("created recipient: %s", recipient.getId());
     }
 
     void destroyRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients().destroy("recp_test_4z6p7e0m4k40txecj5o");
+        Request<Recipient> request = new Recipient.DeleteRequestBuilder("recp_test_4z6p7e0m4k40txecj5o").build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("destroyed recipient: %s", recipient.getId());
     }
 
     void listRecipients() throws IOException, OmiseException, ClientException {
-        ScopedList<Recipient> recipients = client().recipients().list();
+        Request<ScopedList<Recipient>> request = new Recipient.ListRequestBuilder().build();
+        ScopedList<Recipient> recipients = client().sendRequest(request);
         System.out.printf("returned recipients: %d", recipients.getData().size());
         System.out.printf("total no. of recipients: %d", recipients.getTotal());
     }
 
     void retrieveRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients().get("recp_test_4z6p7e0m4k40txecj5o");
+        Request<Recipient> request = new Recipient.GetRequestBuilder("recp_test_4z6p7e0m4k40txecj5o").build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("recipient's email: %s", recipient.getEmail());
     }
 
     void updateRecipient() throws IOException, OmiseException, ClientException {
-        Recipient recipient = client().recipients()
-                .update("recp_test_4z6p7e0m4k40txecj5", new Recipient.Update()
-                        .email("somchai@prasert.com")
-                        .bankAccount(new BankAccount.Params()
-                                .brand("kbank")
-                                .number("1234567890")
-                                .name("SOMCHAI PRASERT")));
+        Request<Recipient> request = new Recipient.UpdateRequestBuilder("recp_test_4z6p7e0m4k40txecj5")
+                .email("somchai@prasert.com")
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client().sendRequest(request);
         System.out.printf("updated recipient: %s", recipient.getId());
     }
 
