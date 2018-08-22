@@ -262,4 +262,30 @@ public class Recipient extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for deleting a Recipient.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        public DeleteRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+    }
 }

@@ -24,10 +24,6 @@ public class RecipientResource extends Resource {
         });
     }
 
-    public Recipient destroy(String recipientId) throws IOException, OmiseException {
-        return httpDelete(urlFor(recipientId)).returns(Recipient.class);
-    }
-
     private HttpUrl urlFor(String recipientId) {
         return buildUrl(Endpoint.API, "recipients", recipientId);
     }
