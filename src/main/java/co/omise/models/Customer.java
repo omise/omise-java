@@ -1,8 +1,15 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Maps;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -58,7 +65,10 @@ public class Customer extends Model {
         this.cards = cards;
     }
 
-    public static abstract class Params extends co.omise.models.Params {
+    /**
+     * The {@link RequestBuilder} class for creating a Customer.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Customer> {
         @JsonProperty
         private String email;
         @JsonProperty
@@ -68,41 +78,202 @@ public class Customer extends Model {
         @JsonProperty
         private String card;
 
-        public Params email(String email) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+        public CreateRequestBuilder email(String email) {
             this.email = email;
             return this;
         }
 
-        public Params description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Params metadata(Map<String, Object> metadata) {
-            // TODO: We should probably do an immutable copy here.
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Params metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
             }
+            tempMap.put(key, value);
 
-            this.metadata.put(key, value);
+            this.metadata = new HashMap<>(tempMap);
             return this;
         }
 
-        public Params card(String card) {
+        public CreateRequestBuilder card(String card) {
             this.card = card;
             return this;
         }
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Customer.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        public GetRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
     }
 
-    public static class Update extends Params {
+    /**
+     * The {@link RequestBuilder} class for updating a particular Customer.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private Map<String, Object> metadata;
+        @JsonProperty
+        private String card;
+
+        public UpdateRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+
+        public UpdateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UpdateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+
+        public UpdateRequestBuilder card(String card) {
+            this.card = card;
+            return this;
+        }
+    }
+
+
+    /**
+     * The {@link RequestBuilder} class for deleting a particular Customer.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+
+        public DeleteRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Customers that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "customers", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Customer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {
+            });
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
     }
 }
-
