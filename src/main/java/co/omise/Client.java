@@ -214,18 +214,6 @@ public class Client {
     }
 
     /**
-     * Returns {@link ScheduleSpecificResource} instance for accessing
-     * schedule-specific sub-resources.
-     *
-     * @param scheduleId The id of the related schedule.
-     * @return A {@link ScheduleSpecificResource} instance.
-     * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
-     */
-    public ScheduleSpecificResource schedule(String scheduleId) {
-        return new ScheduleSpecificResource(httpClient, scheduleId);
-    }
-
-    /**
      * Relays the user generated {@link Request} to {@link Requester} for it to be carried out
      *
      * @param <T>     the {@link OmiseObjectBase} object type that is expected to be returned
