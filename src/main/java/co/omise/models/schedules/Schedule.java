@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
+import co.omise.models.Transfer;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -225,6 +226,11 @@ public class Schedule extends Model {
             return this;
         }
 
+        public CreateRequestBuilder transfer(TransferScheduling.Params transfer) {
+            this.transfer = transfer;
+            return this;
+        }
+
         @Override
         protected HttpUrl path() throws IOException {
             return buildUrl(Endpoint.API, "schedules");
@@ -331,6 +337,67 @@ public class Schedule extends Model {
         }
 
         public CustomerScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all transfer schedules that belong to an account.
+     */
+    public static class TransferScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private ScopedList.Options options;
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
+                    .segments("schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public TransferScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all transfer schedules that belong to a given recipient.
+     */
+    public static class RecipientScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+
+        private String recipientId;
+        private ScopedList.Options options;
+
+        public RecipientScheduleListRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
+                    .segments(recipientId, "schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public RecipientScheduleListRequestBuilder options(ScopedList.Options options) {
             this.options = options;
             return this;
         }
