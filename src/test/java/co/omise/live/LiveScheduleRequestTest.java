@@ -272,7 +272,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveListCustomerScheduleWithOption()   throws IOException, OmiseException {
+    public void testLiveCustomerScheduleListWithOption()   throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
@@ -322,5 +322,165 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         Schedule actualSchedule = scheduleList.getData().get(0);
         assertEquals(createdSchedule.getId(), actualSchedule.getId());
         assertEquals(customer.getId(), actualSchedule.getCharge().getCustomer());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveTransferScheduleList()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        Request<ScopedList<Schedule>> transferScheduleListRequest = new Schedule.TransferScheduleListRequestBuilder().build();
+        ScopedList<Schedule> transferScheduleList = client.sendRequest(transferScheduleListRequest);
+
+        System.out.println("get transfer schedule list: " + transferScheduleList.getTotal());
+
+        assertNotNull(transferScheduleList);
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveTransferScheduleListWithOption()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(10)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> transferScheduleListRequest = new Schedule.TransferScheduleListRequestBuilder()
+                .options(options)
+                .build();
+        ScopedList<Schedule> transferScheduleList = client.sendRequest(transferScheduleListRequest);
+
+
+        System.out.println("get transfer schedule list: " + transferScheduleList.getTotal());
+
+        assertNotNull(transferScheduleList);
+        assertEquals(10, transferScheduleList.getLimit());
+        assertEquals(Ordering.Chronological, transferScheduleList.getOrder());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRecipientScheduleList()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        Request<ScopedList<Schedule>> recipientScheduleListRequest = new Schedule.RecipientScheduleListRequestBuilder(recipient.getId())
+                .build();
+        ScopedList<Schedule> recipientScheduleList = client.sendRequest(recipientScheduleListRequest);
+
+
+        System.out.println("get recipient schedule list: " + recipientScheduleList.getTotal());
+
+        assertNotNull(recipientScheduleList);
+        Schedule recipientSchedule = recipientScheduleList.getData().get(0);
+        assertEquals(recipient.getId(), recipientSchedule.getTransfer().getRecipient());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRecipientScheduleListWithOption()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(10)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> recipientScheduleListRequest = new Schedule.RecipientScheduleListRequestBuilder(recipient.getId())
+                .options(options)
+                .build();
+        ScopedList<Schedule> recipientScheduleList = client.sendRequest(recipientScheduleListRequest);
+
+
+        System.out.println("get recipient schedule list: " + recipientScheduleList.getTotal());
+
+        assertNotNull(recipientScheduleList);
+        assertEquals(10, recipientScheduleList.getLimit());
+        assertEquals(Ordering.Chronological, recipientScheduleList.getOrder());
     }
 }
