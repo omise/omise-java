@@ -27,6 +27,7 @@ class ModelTypeResolver extends TypeIdResolverBase {
             .put("transaction", Transaction.class)
             .put("transfer", Transfer.class)
             .put("source", Source.class)
+            .put("receipt", Receipt.class)
             .build();
 
     @Override

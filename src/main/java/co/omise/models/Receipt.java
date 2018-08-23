@@ -1,6 +1,10 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
 
 /**
  * Represents Omise Receipt object.
@@ -200,5 +204,26 @@ public class Receipt extends Model {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Receipt.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Receipt> {
+        private String receiptId;
+
+        public GetRequestBuilder(String receiptId) {
+            this.receiptId = receiptId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "receipts", receiptId);
+        }
+
+        @Override
+        protected ResponseType<Receipt> type() {
+            return new ResponseType<>(Receipt.class);
+        }
     }
 }

@@ -24,10 +24,6 @@ public class ReceiptResource extends Resource {
         });
     }
 
-    public Receipt get(String receiptId) throws IOException, OmiseException {
-        return httpGet(urlFor(receiptId)).returns(Receipt.class);
-    }
-
     private HttpUrl urlFor(String receiptId) {
         return buildUrl(Endpoint.API, "receipts" , receiptId);
     }
