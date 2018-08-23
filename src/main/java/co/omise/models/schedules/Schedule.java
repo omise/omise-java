@@ -335,4 +335,31 @@ public class Schedule extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all transfer schedules that belong to an account.
+     */
+    public static class TransferScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private ScopedList.Options options;
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
+                    .segments("schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public TransferScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
 }
