@@ -192,4 +192,34 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         assertNotNull(deletedSchedule);
         assertEquals(ScheduleStatus.Deleted, deletedSchedule.getStatus());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeScheduleListGet() throws IOException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+
+        ScopedList<Schedule> scheduleList = client.sendRequest(request);
+
+        System.out.println("get charge schedule list: " + scheduleList.getTotal());
+
+        assertNotNull(scheduleList);
+        Schedule schedule= scheduleList.getData().get(0);
+        assertNotNull(schedule);
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveListChargeScheduleWithOption()   throws IOException, OmiseException {
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(3)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> request =
+                new Schedule.ChargeScheduleListRequestBuilder()
+                        .options(options)
+                        .build();
+        ScopedList<Schedule> transactions = client.sendRequest(request);
+
+        assertEquals(3, transactions.getLimit());
+        assertEquals(Ordering.Chronological, transactions.getOrder());
+    }
 }
