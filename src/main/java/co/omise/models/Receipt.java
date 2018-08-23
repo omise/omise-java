@@ -62,6 +62,26 @@ public class Receipt extends Model {
     @JsonProperty("credit_note")
     private boolean creditNote;
     private String currency;
+    private String date;
+    @JsonProperty("customer_statement_name")
+    private String customerStatementName;
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCustomerStatementName() {
+        return customerStatementName;
+    }
+
+    public void setCustomerStatementName(String customerStatementName) {
+        this.customerStatementName = customerStatementName;
+    }
 
     public String getNumber() {
         return number;
