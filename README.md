@@ -59,11 +59,13 @@ Obtain a set of API keys from the [Omise Dashboard][12] and creates a `Client` o
 Client client = new Client("pkey_test_123", "skey_test_123");
 ```
 
-Access the API by calling methods on the provided `Resource` classes, for example to get
-current balance:
+Access the API by creating `Requests` and sending them through the `Client`, for example to get
+current Balance
 
 ```java
-long money = client.balance().get().getTotal();
+Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
+Balance balance = client().sendRequest(getBalanceRequest);
+long money = balance.getTotal();
 ```
 
 Creating a charge from a token:
@@ -72,12 +74,15 @@ Creating a charge from a token:
 Client client = new Client("pkey_test_123");
 
 try {
-    Charge charge = client.charges().create(new Charge.Create()
-            .amount(100000) // THB 1,000.00
-            .currency("THB")
-            .card("tokn_test_123"));
+    Request<Charge> createChargeRequest =
+                    new Charge.CreateRequestBuilder()
+                            .amount(100000) // 1,000 THB
+                            .currency("thb")
+                            .card("card_test_4xtsoy2nbfs7ujngyyq")
+                            .build();
+    Charge charge = client().sendRequest(createChargeRequest);
+    
     System.out.println("created charge: " + charge.getId());
-
 } catch (IOException e) {
     e.printStackTrace();
 }

@@ -10,7 +10,7 @@ import java.io.IOException;
 
 /**
  * Params class encapsulate request parameterization and provides a way to builds a parameter builder
- * for resource operations. This class is meant to be subclassed and serialized to JSON to send along
+ * for creating requests. This class is meant to be subclassed and serialized to JSON to send along
  * with any API request.
  * <p>
  * Subclass should:
