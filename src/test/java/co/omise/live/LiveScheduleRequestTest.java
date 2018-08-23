@@ -222,4 +222,105 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         assertEquals(3, transactions.getLimit());
         assertEquals(Ordering.Chronological, transactions.getOrder());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveCustomerScheduleListGet() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("testLiveSchedule")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
+                .card(token.getId())
+                .description("Test customer for scheduling")
+                .email("johndoe@omise.co")
+                .build();
+
+        Customer customer = client.sendRequest(customerRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .charge(new ChargeScheduling.Params()
+                        .customer(customer.getId())
+                        .amount(2000)
+                        .currency("THB")
+                        .description("Monthly membership fee"))
+                .build();
+
+        Schedule createdSchedule = client.sendRequest(scheduleRequest);
+
+        Request<ScopedList<Schedule>> request = new Schedule.CustomerScheduleListRequestBuilder(customer.getId()).build();
+
+        ScopedList<Schedule> scheduleList = client.sendRequest(request);
+
+        System.out.println("get customer schedule list: " + scheduleList.getTotal());
+
+        assertNotNull(scheduleList);
+        Schedule actualSchedule = scheduleList.getData().get(0);
+        assertEquals(createdSchedule.getId(), actualSchedule.getId());
+        assertEquals(customer.getId(), actualSchedule.getCharge().getCustomer());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveListCustomerScheduleWithOption()   throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("testLiveSchedule")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Customer> customerRequest = new Customer.CreateRequestBuilder()
+                .card(token.getId())
+                .description("Test customer for scheduling")
+                .email("johndoe@omise.co")
+                .build();
+
+        Customer customer = client.sendRequest(customerRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .charge(new ChargeScheduling.Params()
+                        .customer(customer.getId())
+                        .amount(2000)
+                        .currency("THB")
+                        .description("Monthly membership fee"))
+                .build();
+
+        Schedule createdSchedule = client.sendRequest(scheduleRequest);
+
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(10)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> request = new Schedule.CustomerScheduleListRequestBuilder(customer.getId())
+                .options(options)
+                .build();
+
+        ScopedList<Schedule> scheduleList = client.sendRequest(request);
+
+        System.out.println("get customer schedule list: " + scheduleList.getTotal());
+
+        assertNotNull(scheduleList);
+        assertEquals(10, scheduleList.getLimit());
+        assertEquals(Ordering.Chronological, scheduleList.getOrder());
+        Schedule actualSchedule = scheduleList.getData().get(0);
+        assertEquals(createdSchedule.getId(), actualSchedule.getId());
+        assertEquals(customer.getId(), actualSchedule.getCharge().getCustomer());
+    }
 }
