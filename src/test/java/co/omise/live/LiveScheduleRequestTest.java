@@ -402,4 +402,85 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         assertEquals(Ordering.Chronological, transferScheduleList.getOrder());
     }
 
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRecipientScheduleList()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        Request<ScopedList<Schedule>> recipientScheduleListRequest = new Schedule.RecipientScheduleListRequestBuilder(recipient.getId())
+                .build();
+        ScopedList<Schedule> recipientScheduleList = client.sendRequest(recipientScheduleListRequest);
+
+
+        System.out.println("get recipient schedule list: " + recipientScheduleList.getTotal());
+
+        assertNotNull(recipientScheduleList);
+        Schedule recipientSchedule = recipientScheduleList.getData().get(0);
+        assertEquals(recipient.getId(), recipientSchedule.getTransfer().getRecipient());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveRecipientScheduleListWithOption()   throws IOException, OmiseException {
+        Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
+                .name("John Doe")
+                .email("john.doe@example.com")
+                .description("Default recipient")
+                .type(RecipientType.Individual)
+                .bankAccount(new BankAccount.Params()
+                        .brand("kbank")
+                        .number("1234567890")
+                        .name("SOMCHAI PRASERT"))
+                .build();
+        Recipient recipient = client.sendRequest(recipientRequest);
+
+        Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
+                .every(1)
+                .period(SchedulePeriod.week)
+                .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
+                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .transfer(new TransferScheduling.Params()
+                        .amount(2000L)
+                        .recipient(recipient.getId())
+                )
+                .build();
+        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+
+        ScopedList.Options options = new ScopedList.Options()
+                .limit(10)
+                .order(Ordering.Chronological);
+        Request<ScopedList<Schedule>> recipientScheduleListRequest = new Schedule.RecipientScheduleListRequestBuilder(recipient.getId())
+                .options(options)
+                .build();
+        ScopedList<Schedule> recipientScheduleList = client.sendRequest(recipientScheduleListRequest);
+
+
+        System.out.println("get recipient schedule list: " + recipientScheduleList.getTotal());
+
+        assertNotNull(recipientScheduleList);
+        assertEquals(10, recipientScheduleList.getLimit());
+        assertEquals(Ordering.Chronological, recipientScheduleList.getOrder());
+    }
 }
