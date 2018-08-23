@@ -6,7 +6,8 @@ import co.omise.models.OmiseObjectBase;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
-import co.omise.resources.*;
+import co.omise.resources.ForexResource;
+import co.omise.resources.Resource;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -42,7 +43,6 @@ public class Client {
     private final OkHttpClient httpClient;
 
     private ForexResource forexes;
-    private ReceiptResource receipts;
     private Requester requester;
 
     /**
@@ -104,7 +104,6 @@ public class Client {
      */
     private void initResources() {
         forexes = new ForexResource(httpClient);
-        receipts = new ReceiptResource(httpClient);
     }
 
     /**
@@ -187,17 +186,6 @@ public class Client {
      */
     public ForexResource forexes() {
         return forexes;
-    }
-
-    /**
-     * Returns {@link ReceiptResource} for accessing the
-     * <a href="https://www.omise.co/receipts-api">Receipts API</a>
-     *
-     * @return A {@link ReceiptResource} instance.
-     * @see <a href="https://ww.omise.co/receipts-api">Receipts API</a>
-     */
-    public ReceiptResource receipts() {
-        return receipts;
     }
 
     /**

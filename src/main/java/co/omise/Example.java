@@ -508,6 +508,18 @@ final class Example {
         System.out.printf("total no. of occurrences: %d", occurrences.getTotal());
     }
 
+    void retrieveReceipt() throws ClientException, IOException, OmiseException {
+        Request<Receipt> request = new Receipt.GetRequestBuilder("rcpt_59lezici7p7gt85hfwr").build();
+        Receipt receipt = client().sendRequest(request);
+        System.out.printf("retrieved receipt: %s", receipt.getId());
+    }
+
+    void listReceipt() throws ClientException, IOException, OmiseException {
+        Request<ScopedList<Receipt>> request = new Receipt.ListRequestBuilder().build();
+        ScopedList<Receipt> receipts = client().sendRequest(request);
+        System.out.printf("total no. of receipts: %d", receipts.getTotal());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }

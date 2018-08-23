@@ -170,23 +170,4 @@ public class LiveRecipientRequestTest extends BaseLiveTest {
         Recipient recipient = recipients.getData().get(0);
         assertNotNull(recipient);
     }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
-    public void testLiveGetListCustomerWithOptions() throws IOException, OmiseException {
-        Request<ScopedList<Customer>> request = new Customer.ListRequestBuilder()
-                .options(new ScopedList.Options()
-                        .limit(3)
-                        .order(Ordering.Chronological))
-                .build();
-
-        ScopedList<Customer> customers = client.sendRequest(request);
-
-        assertEquals(3, customers.getLimit());
-        assertTrue(customers.getData().size() > 0);
-        assertEquals(Ordering.Chronological, customers.getOrder());
-
-        Customer customer = customers.getData().get(0);
-        assertNotNull(customer);
-    }
 }
