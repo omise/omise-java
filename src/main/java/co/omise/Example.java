@@ -520,6 +520,12 @@ final class Example {
         System.out.printf("total no. of receipts: %d", receipts.getTotal());
     }
 
+    void getForex() throws ClientException, IOException, OmiseException {
+        Request<Forex> request = new Forex.GetRequestBuilder("usd").build();
+        Forex forex = client().sendRequest(request);
+        System.out.printf("forex rate: %f", forex.getRate());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }
