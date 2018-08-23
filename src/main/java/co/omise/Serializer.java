@@ -4,7 +4,6 @@ import co.omise.models.OmiseList;
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
 import co.omise.requests.RequestBuilder;
-import co.omise.resources.Resource;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +30,6 @@ import java.util.Map;
  * Use the {@link #defaultSerializer()} method to obtain an instance.
  * </p>
  *
- * @see Resource
  * @see ObjectMapper
  */
 public final class Serializer {

@@ -1,6 +1,5 @@
 package co.omise;
 
-import co.omise.resources.Resource;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import okhttp3.CertificatePinner;
@@ -17,7 +16,6 @@ import okhttp3.HttpUrl;
  * <li>Wether to use the public key or the secret key.</li>
  * </ul>
  *
- * @see Resource
  */
 public abstract class Endpoint {
     public static final Endpoint VAULT = new Endpoint() {
