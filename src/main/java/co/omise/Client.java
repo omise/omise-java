@@ -6,7 +6,6 @@ import co.omise.models.OmiseObjectBase;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
-import co.omise.resources.Resource;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
@@ -27,13 +26,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Client is the main entry point to the Omise Java library.
- * Use the resource accessor methods to access Omise API resources.
+ * Use this client to send {@link Request} to the Omise API
  * <p>
  * Clients are thread-safe and a single instance can be shared
  * for use by multiple threads.
  * </p>
  *
- * @see Resource
  * @see Config
  * @see Requester
  */
@@ -93,7 +91,7 @@ public class Client {
     }
 
     /**
-     * Returns a new {@link OkHttpClient} to use for building {@link Resource}(s). Override this to customize the HTTP
+     * Returns a new {@link OkHttpClient} to use for performing {@link Request}(s). Override this to customize the HTTP
      * client. This method will be called once during construction and the result will be cached internally.
      * <p>
      * It is generally a good idea to implement this by adding to the builder created from
@@ -155,7 +153,7 @@ public class Client {
     }
 
     /**
-     * Returns the internally cached {@link OkHttpClient} object used for building {@link Resource}(s).
+     * Returns the internally cached {@link OkHttpClient} object used for performing {@link Request}(s).
      *
      * @return Internally cached {@link OkHttpClient} object.
      */
