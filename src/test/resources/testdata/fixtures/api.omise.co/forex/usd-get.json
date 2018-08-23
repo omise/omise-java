@@ -1,0 +1,7 @@
+{
+  "object": "forex",
+  "from": "usd",
+  "to": "thb",
+  "rate": 31.553817000000002,
+  "location": "/forex/usd"
+}
