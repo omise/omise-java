@@ -301,4 +301,38 @@ public class Schedule extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all charge schedules that belong to a given customer.
+     */
+    public static class CustomerScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+
+        private String customerId;
+        private ScopedList.Options options;
+
+        public CustomerScheduleListRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                    .segments(customerId, "schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public CustomerScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
 }
