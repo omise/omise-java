@@ -6,7 +6,6 @@ import co.omise.models.OmiseObjectBase;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
-import co.omise.resources.ForexResource;
 import co.omise.resources.Resource;
 import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
@@ -41,8 +40,6 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     private final OkHttpClient httpClient;
-
-    private ForexResource forexes;
     private Requester requester;
 
     /**
@@ -78,8 +75,6 @@ public class Client {
 
         Serializer serializer = Serializer.defaultSerializer();
         requester = new RequesterImpl(httpClient, serializer);
-
-        initResources();
     }
 
     /**
@@ -95,15 +90,6 @@ public class Client {
     public Client(Requester requester) {
         this.requester = requester;
         this.httpClient = requester.getHttpClient();
-
-        initResources();
-    }
-
-    /**
-     * Initializes all the resources needed in the client (should be deprecated soon)
-     */
-    private void initResources() {
-        forexes = new ForexResource(httpClient);
     }
 
     /**
@@ -175,17 +161,6 @@ public class Client {
      */
     protected OkHttpClient httpClient() {
         return httpClient;
-    }
-
-    /**
-     * Returns {@link ForexResource} for accessing the
-     * <a href="https://www.omise.co/forex-api">Forex API</a>
-     *
-     * @return An {@link ForexResource} instance.
-     * @see <a href="https://www.omise.co/forex-api">Forex API</a>
-     */
-    public ForexResource forexes() {
-        return forexes;
     }
 
     /**
