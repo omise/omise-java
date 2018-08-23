@@ -1,6 +1,7 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
+import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
@@ -269,6 +270,35 @@ public class Schedule extends Model {
         @Override
         protected String method() {
             return DELETE;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all charge schedules that belong to an account.
+     */
+    public static class ChargeScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "charges", serializer())
+                    .segments("schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ChargeScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

@@ -80,4 +80,14 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Deleted, schedule.getStatus());
     }
+
+    @Test
+    public void testChargeScheduleList() throws IOException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+
+        ScopedList<Schedule> schedules = requester.sendRequest(request);
+
+        assertRequested("GET", "/charges/schedules", 200);
+        assertEquals(5, schedules.getTotal());
+    }
 }
