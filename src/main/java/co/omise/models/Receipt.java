@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 
 /**
@@ -224,6 +225,33 @@ public class Receipt extends Model {
         @Override
         protected ResponseType<Receipt> type() {
             return new ResponseType<>(Receipt.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Receipts that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Receipt>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "receipts", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Receipt>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Receipt>>() {
+            });
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

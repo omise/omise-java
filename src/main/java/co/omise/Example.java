@@ -514,6 +514,12 @@ final class Example {
         System.out.printf("retrieved receipt: %s", receipt.getId());
     }
 
+    void listReceipt() throws ClientException, IOException, OmiseException {
+        Request<ScopedList<Receipt>> request = new Receipt.ListRequestBuilder().build();
+        ScopedList<Receipt> receipts = client().sendRequest(request);
+        System.out.printf("total no. of receipts: %d", receipts.getTotal());
+    }
+
     private Client client() throws ClientException {
         return new Client(OMISE_SKEY);
     }
