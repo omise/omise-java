@@ -484,6 +484,13 @@ final class Example {
         System.out.printf("total no. of customer schedules: %d", schedules.getTotal());
     }
 
+    void listTransferSchedule() throws IOException, ClientException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.TransferScheduleListRequestBuilder().build();
+
+        ScopedList<Schedule> schedules = client().sendRequest(request);
+        System.out.printf("total no. of transfer schedules: %d", schedules.getTotal());
+    }
+
     void createSchedule() throws ClientException, IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
