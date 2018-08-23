@@ -80,4 +80,25 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Deleted, schedule.getStatus());
     }
+
+    @Test
+    public void testChargeScheduleList() throws IOException, OmiseException {
+        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+
+        ScopedList<Schedule> schedules = requester.sendRequest(request);
+
+        assertRequested("GET", "/charges/schedules", 200);
+        assertEquals(5, schedules.getTotal());
+    }
+
+    @Test
+    public void testCustomerScheduleList() throws IOException, OmiseException {
+        String customerId = "cust_test_4yq6txdpfadhbaqnwp3";
+        Request<ScopedList<Schedule>> request = new Schedule.CustomerScheduleListRequestBuilder(customerId).build();
+
+        ScopedList<Schedule> schedules = requester.sendRequest(request);
+
+        assertRequested("GET", "/customers/" + customerId + "/schedules", 200);
+        assertEquals(2, schedules.getTotal());
+    }
 }
