@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
+import co.omise.models.Transfer;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -222,6 +223,11 @@ public class Schedule extends Model {
 
         public CreateRequestBuilder charge(ChargeScheduling.Params charge) {
             this.charge = charge;
+            return this;
+        }
+
+        public CreateRequestBuilder transfer(TransferScheduling.Params transfer) {
+            this.transfer = transfer;
             return this;
         }
 
