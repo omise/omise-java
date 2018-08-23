@@ -111,4 +111,15 @@ public class ScheduleRequestTest extends RequestTest {
         assertRequested("GET", "/transfers/schedules", 200);
         assertEquals(1, scheduleList.getTotal());
     }
+
+    @Test
+    public void testRecipientScheduleListGet() throws IOException, OmiseException {
+        String recipientId = "recp_test_50894vc13y8z4v51iuc";
+        Request<ScopedList<Schedule>> request = new Schedule.RecipientScheduleListRequestBuilder(recipientId).build();
+
+        ScopedList<Schedule> scheduleList = requester.sendRequest(request);
+
+        assertRequested("GET", "/recipients/" + recipientId + "/schedules", 200);
+        assertEquals(1, scheduleList.getTotal());
+    }
 }

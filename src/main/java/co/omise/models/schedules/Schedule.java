@@ -368,4 +368,38 @@ public class Schedule extends Model {
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all transfer schedules that belong to a given recipient.
+     */
+    public static class RecipientScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+
+        private String recipientId;
+        private ScopedList.Options options;
+
+        public RecipientScheduleListRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
+                    .segments(recipientId, "schedules")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public RecipientScheduleListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
 }
