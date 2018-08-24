@@ -3,31 +3,35 @@ package co.omise.models;
 import co.omise.Serializer;
 import okhttp3.RequestBody;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
+import sun.jvm.hotspot.memory.LoaderConstraintEntry;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScopedList<T extends Model> extends OmiseList<T> {
-    private DateTime from;
-    private DateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
     private int offset;
     private int limit;
 
-    public DateTime getFrom() {
+    public LocalDateTime getFrom() {
         return from;
     }
 
-    public void setFrom(DateTime from) {
+    public void setFrom(LocalDateTime from) {
         this.from = from;
     }
 
-    public DateTime getTo() {
+    public LocalDateTime getTo() {
         return to;
     }
 
-    public void setTo(DateTime to) {
+    public void setTo(LocalDateTime to) {
         this.to = to;
     }
 
@@ -50,8 +54,8 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     public static class Options extends Params {
         private Integer offset;
         private Integer limit;
-        private DateTime from;
-        private DateTime to;
+        private LocalDateTime from;
+        private LocalDateTime to;
         private Ordering order;
 
         public Options offset(int offset) {
@@ -64,12 +68,12 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
             return this;
         }
 
-        public Options from(DateTime from) {
+        public Options from(LocalDateTime from) {
             this.from = from;
             return this;
         }
 
-        public Options to(DateTime to) {
+        public Options to(LocalDateTime to) {
             this.to = to;
             return this;
         }
@@ -95,10 +99,10 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
                 map.put("limit", limit.toString());
             }
             if (from != null) {
-                map.put("from", formatter.print(from));
+                map.put("from", from.format(formatter));
             }
             if (to != null) {
-                map.put("to", formatter.print(to));
+                map.put("to", to.format(formatter));
             }
 
             if (order != null) {
