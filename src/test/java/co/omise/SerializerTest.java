@@ -4,12 +4,12 @@ import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SerializerTest extends OmiseTest {
@@ -75,7 +75,7 @@ public class SerializerTest extends OmiseTest {
 
     @Test
     public void testDeserializeMap() {
-        Map<String, Object> map = Maps.newHashMapWithExpectedSize(4);
+        Map<String, Object> map = new HashMap<>(4);
         map.put("location", "/404");
         map.put("object", "dummy");
         map.put("hello", "world");
@@ -88,7 +88,7 @@ public class SerializerTest extends OmiseTest {
 
     @Test
     public void testDeserializeMapTypeRef() {
-        Map<String, Object> map = Maps.newHashMapWithExpectedSize(4);
+        Map<String, Object> map = new HashMap<>(4);
         map.put("location", "/404");
         map.put("object", "dummy");
         map.put("hello", "world");
