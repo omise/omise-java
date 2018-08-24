@@ -131,9 +131,12 @@ dependencies {
     // base
     compile 'joda-time:joda-time:2.9.9'
 
+    def jacksonVersion = "2.9.6"
+
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.8'
+    compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+    compile "com.fasterxml.jackson.datatype:jackson-modules-java8:$jacksonVersion"
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
