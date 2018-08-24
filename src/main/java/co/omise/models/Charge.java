@@ -418,7 +418,7 @@ public class Charge extends Model {
         }
 
         public UpdateRequestBuilder metadata(String key, Object value) {
-            HashMap<String, Object> tempMap = Maps.newHashMap();
+            HashMap<String, Object> tempMap = new HashMap<>();
             if (metadata != null) {
                 tempMap.putAll(metadata);
             }
@@ -504,7 +504,8 @@ public class Charge extends Model {
 
         @Override
         protected ResponseType<ScopedList<Charge>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {
+            });
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {
