@@ -1,6 +1,5 @@
 package co.omise;
 
-import com.google.common.base.Preconditions;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -16,7 +15,7 @@ public final class Configurer implements Interceptor {
     private final Config config;
 
     Configurer(Config config) {
-        Preconditions.checkNotNull(config);
+        ConditionUtility.notNull(config);
         this.config = config;
     }
 
