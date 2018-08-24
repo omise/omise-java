@@ -4,10 +4,10 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.SearchResult;
 import co.omise.models.SearchScope;
-import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class SearchRequestTest extends RequestTest {
@@ -24,10 +24,10 @@ public class SearchRequestTest extends RequestTest {
                 .build();
         SearchResult<Charge> result = getTestRequester().sendRequest(request);
 
-        Map<String, String> expects = ImmutableMap.of(
-                "scope", "charge",
-                "filters[amount]", "4096.69",
-                "query", CHARGE_ID);
+        Map<String, String> expects = new HashMap<>();
+        expects.put("scope", "charge");
+        expects.put("filters[amount]", "4096.69");
+        expects.put("query", CHARGE_ID);
 
         assertRequested("GET", "/search", 200);
 

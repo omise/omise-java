@@ -13,6 +13,7 @@ import okhttp3.RequestBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * RequestBuilder is base class, all extending classes would be used to generate a {@link Request} that would then be passed on to {@link Client} in order
@@ -53,7 +54,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      *
      * @return the url path as {@link HttpUrl}
      */
-    protected abstract HttpUrl path() throws IOException;
+    protected abstract HttpUrl path() throws IOException, IOException;
 
     /**
      * Default Content type of the HTTP Request.
@@ -170,8 +171,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
             }
 
             if (params != null) {
-                ImmutableMap<String, String> queries = params.query(serializer);
-                if (queries != null && !queries.isEmpty()) {
+                Map<String, String> queries = params.query(serializer);
+                if (!queries.isEmpty()) {
                     for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
                         builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
                     }

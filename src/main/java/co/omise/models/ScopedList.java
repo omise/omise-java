@@ -2,7 +2,6 @@ package co.omise.models;
 
 import co.omise.Serializer;
 import com.google.common.collect.ImmutableMap;
-import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
