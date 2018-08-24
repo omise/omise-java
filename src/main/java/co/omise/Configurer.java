@@ -28,7 +28,7 @@ public final class Configurer implements Interceptor {
      */
     public static Request configure(Config config, Request request) {
         String apiVersion = config.apiVersion();
-        Endpoint endpoint = Endpoint.byHost.get(request.url().host());
+        Endpoint endpoint = Endpoint.getAllEndpointsByHost().get(request.url().host());
         if (endpoint == null) {
             throw new UnsupportedOperationException("unknown endpoint: " + request.url().host());
         }
