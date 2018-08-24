@@ -1,11 +1,12 @@
 package co.omise.models;
 
-import com.google.common.collect.ImmutableList;
+import java.util.Collections;
+import java.util.List;
 
 public class OmiseList<T extends Model> extends OmiseObjectBase {
     private int total;
     private Ordering order;
-    private ImmutableList<T> data;
+    private List<T> data;
 
     public int getTotal() {
         return total;
@@ -23,12 +24,11 @@ public class OmiseList<T extends Model> extends OmiseObjectBase {
         this.order = order;
     }
 
-    public ImmutableList<T> getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(ImmutableList<T> data) {
-        this.data = data;
+    public void setData(List<T> data) {
+        this.data = Collections.unmodifiableList(data);
     }
 }
-
