@@ -1,12 +1,11 @@
 package co.omise.requests;
 
 import co.omise.Client;
+import co.omise.ConditionUtility;
 import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -54,7 +53,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      *
      * @return the url path as {@link HttpUrl}
      */
-    protected abstract HttpUrl path() throws IOException, IOException;
+    protected abstract HttpUrl path() throws IOException;
 
     /**
      * Default Content type of the HTTP Request.
@@ -127,7 +126,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
-        Preconditions.checkNotNull(params);
+        ConditionUtility.notNull(params);
         return new HttpUrlBuilder(endpoint, path, serializer).params(params).build();
     }
 
@@ -155,8 +154,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         }
 
         public HttpUrl build() {
-            Preconditions.checkNotNull(endpoint);
-            Preconditions.checkNotNull(path);
+            ConditionUtility.notNull(endpoint);
+            ConditionUtility.notNull(path);
 
             HttpUrl.Builder builder = endpoint.buildUrl().addPathSegment(path);
 
@@ -173,7 +172,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
             if (params != null) {
                 Map<String, String> queries = params.query(serializer);
                 if (!queries.isEmpty()) {
-                    for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
+                    for (Map.Entry<String, String> pair : queries.entrySet()) {
                         builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
                     }
                 }
