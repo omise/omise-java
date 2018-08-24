@@ -8,15 +8,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
-import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
-import com.fasterxml.jackson.datatype.joda.ser.LocalDateSerializer;
-import org.joda.time.format.DateTimeFormatter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
@@ -49,9 +49,11 @@ public final class Serializer {
     private final ObjectMapper objectMapper;
     private final DateTimeFormatter dateTimeFormatter;
     private final DateTimeFormatter localDateFormatter;
+    private final DateTimeFormatter zonedDateFormatter;
 
     private Serializer() {
         dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        zonedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
         localDateFormatter = DateTimeFormatter.ISO_DATE;
 
         objectMapper = new ObjectMapper()
@@ -63,6 +65,9 @@ public final class Serializer {
 //                                .withFormat(new JacksonJodaDateFormat(localDateFormatter))
 //                        )
 //                )
+                .registerModule(new JavaTimeModule()
+                        .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(dateTimeFormatter))
+                        .addSerializer(LocalDate.class, new LocalDateSerializer(localDateFormatter)))
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false); // TODO: Deprecate in vNext

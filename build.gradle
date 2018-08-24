@@ -138,7 +138,8 @@ dependencies {
     // persistence
     compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
-    compile "com.fasterxml.jackson.datatype:jackson-modules-java8:$jacksonVersion"
+    // Java 8 data/time
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.7.0'

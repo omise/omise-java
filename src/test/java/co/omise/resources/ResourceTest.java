@@ -9,15 +9,13 @@ import com.google.common.collect.ImmutableMap;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.chrono.Chronology;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 public class ResourceTest extends OmiseTest {
@@ -34,8 +32,8 @@ public class ResourceTest extends OmiseTest {
 
     @Test
     public void testListOptions() throws IOException, OmiseException {
-        LocalDateTime from = LocalDateTime.of(1964, 1, 2, 12, 22);
-        LocalDateTime to = LocalDateTime.of(1987, 2, 1, 19, 54);
+        ZonedDateTime from = ZonedDateTime.of(LocalDateTime.of(1964, 1, 2, 12, 22), ZoneId.of("Z"));
+        ZonedDateTime to = ZonedDateTime.of(LocalDateTime.of(1987, 2, 1, 19, 54), ZoneId.of("Z"));
 
         ScopedList.Options options = new ScopedList.Options()
                 .order(Ordering.ReverseChronological)

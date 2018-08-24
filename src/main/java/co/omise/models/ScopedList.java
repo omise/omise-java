@@ -2,11 +2,8 @@ package co.omise.models;
 
 import co.omise.Serializer;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-import sun.jvm.hotspot.memory.LoaderConstraintEntry;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import java.util.Collections;
@@ -14,24 +11,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScopedList<T extends Model> extends OmiseList<T> {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private ZonedDateTime from;
+    private ZonedDateTime to;
     private int offset;
     private int limit;
 
-    public LocalDateTime getFrom() {
+    public ZonedDateTime getFrom() {
         return from;
     }
 
-    public void setFrom(LocalDateTime from) {
+    public void setFrom(ZonedDateTime from) {
         this.from = from;
     }
 
-    public LocalDateTime getTo() {
+    public ZonedDateTime getTo() {
         return to;
     }
 
-    public void setTo(LocalDateTime to) {
+    public void setTo(ZonedDateTime to) {
         this.to = to;
     }
 
@@ -54,8 +51,8 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     public static class Options extends Params {
         private Integer offset;
         private Integer limit;
-        private LocalDateTime from;
-        private LocalDateTime to;
+        private ZonedDateTime from;
+        private ZonedDateTime to;
         private Ordering order;
 
         public Options offset(int offset) {
@@ -68,12 +65,12 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
             return this;
         }
 
-        public Options from(LocalDateTime from) {
+        public Options from(ZonedDateTime from) {
             this.from = from;
             return this;
         }
 
-        public Options to(LocalDateTime to) {
+        public Options to(ZonedDateTime to) {
             this.to = to;
             return this;
         }
