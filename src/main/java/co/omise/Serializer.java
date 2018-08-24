@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
@@ -58,7 +57,6 @@ public final class Serializer {
         localDateFormatter = ISODateTimeFormat.date();
 
         objectMapper = new ObjectMapper()
-                .registerModule(new GuavaModule())
                 .registerModule(new JodaModule()
                         .addSerializer(DateTime.class, new DateTimeSerializer()
                                 .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
