@@ -1,7 +1,6 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
-import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
@@ -9,9 +8,10 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  * Represents Omise Occurrence object.
@@ -21,11 +21,11 @@ import java.io.IOException;
 public class Occurrence extends Model {
     private String schedule;
     @JsonProperty("schedule_date")
-    private DateTime scheduleDate;
+    private LocalDate scheduleDate;
     @JsonProperty("retry_date")
-    private DateTime retryDate;
+    private LocalDate retryDate;
     @JsonProperty("processed_at")
-    private DateTime processedAt;
+    private ZonedDateTime processedAt;
     private OccurrenceStatus status;
     private String message;
     private String result;
@@ -38,27 +38,27 @@ public class Occurrence extends Model {
         this.schedule = schedule;
     }
 
-    public DateTime getScheduleDate() {
+    public LocalDate getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(DateTime scheduleDate) {
+    public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
-    public DateTime getRetryDate() {
+    public LocalDate getRetryDate() {
         return retryDate;
     }
 
-    public void setRetryDate(DateTime retryDate) {
+    public void setRetryDate(LocalDate retryDate) {
         this.retryDate = retryDate;
     }
 
-    public DateTime getProcessedAt() {
+    public ZonedDateTime getProcessedAt() {
         return processedAt;
     }
 
-    public void setProcessedAt(DateTime processedAt) {
+    public void setProcessedAt(ZonedDateTime processedAt) {
         this.processedAt = processedAt;
     }
 
