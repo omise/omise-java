@@ -1,7 +1,6 @@
 package co.omise.requests;
 
 import co.omise.Client;
-import co.omise.ConditionUtility;
 import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.OmiseObjectBase;
@@ -13,6 +12,7 @@ import okhttp3.RequestBody;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * RequestBuilder is base class, all extending classes would be used to generate a {@link Request} that would then be passed on to {@link Client} in order
@@ -126,7 +126,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
-        ConditionUtility.notNull(params);
+        Objects.requireNonNull(params);
         return new HttpUrlBuilder(endpoint, path, serializer).params(params).build();
     }
 
@@ -154,8 +154,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         }
 
         public HttpUrl build() {
-            ConditionUtility.notNull(endpoint);
-            ConditionUtility.notNull(path);
+            Objects.requireNonNull(endpoint);
+            Objects.requireNonNull(path);
 
             HttpUrl.Builder builder = endpoint.buildUrl().addPathSegment(path);
 

@@ -6,6 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Configurer handles HTTP requests configuration. You can use the {@link #configure(Config, Request)} method
@@ -15,7 +16,7 @@ public final class Configurer implements Interceptor {
     private final Config config;
 
     Configurer(Config config) {
-        ConditionUtility.notNull(config);
+        Objects.requireNonNull(config);
         this.config = config;
     }
 
