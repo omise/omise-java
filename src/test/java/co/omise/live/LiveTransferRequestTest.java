@@ -73,7 +73,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
         ScopedList<Transfer> transfers = getLiveClient().sendRequest(request);
 
         assertEquals(3, transfers.getLimit());
-        assertEquals(21, transfers.getTotal());
+        assertTrue(transfers.getTotal() > 0);
         assertEquals(Ordering.Chronological, transfers.getOrder());
 
         Transfer transfer = transfers.getData().get(0);

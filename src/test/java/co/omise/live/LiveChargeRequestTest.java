@@ -304,7 +304,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         ScopedList<Charge> charges = client.sendRequest(getChargeListRequest);
 
         assertEquals(20, charges.getLimit());
-        assertEquals(17, charges.getTotal()); // This can easily break as you add charges, not sure how to do it better
+        assertTrue(charges.getTotal() > 0);
 
         Charge charge = charges.getData().get(0);
         assertNotNull(charge);

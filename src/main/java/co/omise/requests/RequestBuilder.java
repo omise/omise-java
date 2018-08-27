@@ -5,14 +5,14 @@ import co.omise.Endpoint;
 import co.omise.Serializer;
 import co.omise.models.OmiseObjectBase;
 import co.omise.models.Params;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * RequestBuilder is base class, all extending classes would be used to generate a {@link Request} that would then be passed on to {@link Client} in order
@@ -126,7 +126,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * @return An {@link HttpUrl} instance.
      */
     protected HttpUrl buildUrl(Endpoint endpoint, String path, Params params) {
-        Preconditions.checkNotNull(params);
+        Objects.requireNonNull(params);
         return new HttpUrlBuilder(endpoint, path, serializer).params(params).build();
     }
 
@@ -154,8 +154,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         }
 
         public HttpUrl build() {
-            Preconditions.checkNotNull(endpoint);
-            Preconditions.checkNotNull(path);
+            Objects.requireNonNull(endpoint);
+            Objects.requireNonNull(path);
 
             HttpUrl.Builder builder = endpoint.buildUrl().addPathSegment(path);
 
@@ -170,9 +170,9 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
             }
 
             if (params != null) {
-                ImmutableMap<String, String> queries = params.query(serializer);
-                if (queries != null && !queries.isEmpty()) {
-                    for (ImmutableMap.Entry<String, String> pair : queries.entrySet()) {
+                Map<String, String> queries = params.query(serializer);
+                if (!queries.isEmpty()) {
+                    for (Map.Entry<String, String> pair : queries.entrySet()) {
                         builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
                     }
                 }

@@ -1,12 +1,14 @@
 package co.omise.models;
 
 import co.omise.Serializer;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Params class encapsulate request parameterization and provides a way to builds a parameter builder
@@ -34,10 +36,10 @@ public abstract class Params {
      *
      * @param serializer The {@link Serializer} to use to serialize parameter data.
      *                   Or `null` to use the default serializer.
-     * @return An {@link ImmutableMap} containing keys and values to adds to the URL.
+     * @return An {@link Map} containing keys and values to adds to the URL.
      */
-    public ImmutableMap<String, String> query(Serializer serializer) {
-        return ImmutableMap.of();
+    public Map<String, String> query(Serializer serializer) {
+        return Collections.unmodifiableMap(new HashMap<>());
     }
 
     /**

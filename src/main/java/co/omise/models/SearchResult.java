@@ -6,11 +6,10 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
-import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,30 +104,29 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         }
 
         @Override
-        public ImmutableMap<String, String> query(Serializer serializer) {
+        public Map<String, String> query(Serializer serializer) {
             if (serializer == null) {
                 serializer = Serializer.defaultSerializer();
             }
 
-            ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<>();
+            Map<String, String> map = new HashMap<>();
 
             if (scope != null) {
-                builder = builder.put("scope", serializer.serializeToQueryParams(scope));
+                map.put("scope", serializer.serializeToQueryParams(scope));
             }
             if (query != null && !query.isEmpty()) {
-                builder = builder.put("query", query);
+                map.put("query", query);
             }
 
             if (filters != null && !filters.isEmpty()) {
                 for (Map.Entry<String, String> entry : filters.entrySet()) {
-                    builder = builder.put("filters[" + entry.getKey() + "]", entry.getValue());
+                    map.put("filters[" + entry.getKey() + "]", entry.getValue());
                 }
             }
             if (order != null) {
-                builder = builder.put("order", serializer.serializeToQueryParams(order));
+                map.put("order", serializer.serializeToQueryParams(order));
             }
-
-            return builder.build();
+            return Collections.unmodifiableMap(map);
         }
 
         @Override
@@ -138,7 +136,7 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
     }
 
     /**
-     * The {@link RequestBuilder} class for retrieving search result with an specific data within scope that belong to an account.
+     * The {@link RequestBuilder} class for retrieving search result with a specific data within scope that belong to an account.
      */
     public static class SearchRequestBuilder<T extends Model> extends RequestBuilder<SearchResult<T>> {
 
@@ -149,13 +147,14 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "search", options);
         }
 
         @Override
         protected ResponseType<SearchResult<T>> type() {
-            return new ResponseType<>(new TypeReference<SearchResult<T>>() {});
+            return new ResponseType<>(new TypeReference<SearchResult<T>>() {
+            });
         }
     }
 }

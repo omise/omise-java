@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 public class SearchRequestTest extends RequestTest {
-    
+
     private static final String CHARGE_ID = "chrg_test_558lhfxykl6sogd1wfv";
 
     @Test
