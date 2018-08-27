@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.YearMonth;
 
 import java.io.IOException;
+import java.time.YearMonth;
 
 /**
  * Represents Omise Card object.
@@ -94,7 +94,7 @@ public class Card extends Model {
 
     @JsonIgnore
     public YearMonth getExpiration() {
-        return new YearMonth(expirationYear, expirationMonth);
+        return YearMonth.of(expirationYear, expirationMonth);
     }
 
     public int getExpirationMonth() {
@@ -190,7 +190,7 @@ public class Card extends Model {
         }
 
         public Create expiration(YearMonth expiration) {
-            return expirationMonth(expiration.getMonthOfYear())
+            return expirationMonth(expiration.getMonthValue())
                     .expirationYear(expiration.getYear());
         }
 
@@ -292,7 +292,7 @@ public class Card extends Model {
         }
 
         public UpdateRequestBuilder expiration(YearMonth expiration) {
-            return expirationMonth(expiration.getMonthOfYear())
+            return expirationMonth(expiration.getMonthValue())
                     .expirationYear(expiration.getYear());
         }
 
