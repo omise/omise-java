@@ -9,20 +9,20 @@ public class EndpointTest extends OmiseTest {
 
     @Test
     public void testAll() {
-        assertTrue(Endpoint.all.contains(Endpoint.API));
-        assertTrue(Endpoint.all.contains(Endpoint.VAULT));
+        assertTrue(Endpoint.getAllEndpoints().contains(Endpoint.API));
+        assertTrue(Endpoint.getAllEndpoints().contains(Endpoint.VAULT));
     }
 
     @Test
     public void testByHost() {
-        for (Endpoint endpoint : Endpoint.all) {
-            assertEquals(endpoint, Endpoint.byHost.get(endpoint.host()));
+        for (Endpoint endpoint : Endpoint.getAllEndpoints()) {
+            assertEquals(endpoint, Endpoint.getAllEndpointsByHost().get(endpoint.host()));
         }
     }
 
     @Test
     public void testProperties() {
-        for (Endpoint endpoint : Endpoint.all) {
+        for (Endpoint endpoint : Endpoint.getAllEndpoints()) {
             assertNotNull(endpoint.scheme());
             assertNotNull(endpoint.host());
             assertNotNull(endpoint.certificateHash());

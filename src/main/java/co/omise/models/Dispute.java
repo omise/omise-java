@@ -5,7 +5,6 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.google.common.collect.Maps;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
@@ -176,7 +175,7 @@ public class Dispute extends Model {
         }
 
         public UpdateRequestBuilder metadata(String key, Object value) {
-            HashMap<String, Object> tempMap = Maps.newHashMap();
+            HashMap<String, Object> tempMap = new HashMap<>();
             if (metadata != null) {
                 tempMap.putAll(metadata);
             }

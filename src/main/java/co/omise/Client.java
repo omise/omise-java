@@ -105,7 +105,7 @@ public class Client {
      */
     protected OkHttpClient buildHttpClient(Config config) throws ClientException {
         CertificatePinner.Builder pinner = new CertificatePinner.Builder();
-        for (Endpoint endpoint : Endpoint.all) {
+        for (Endpoint endpoint : Endpoint.getAllEndpoints()) {
             pinner = pinner.add(endpoint.host(), endpoint.certificateHash());
         }
 
