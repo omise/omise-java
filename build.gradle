@@ -124,9 +124,7 @@ shadowJar {
     }
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
-    relocate 'org.joda.time', 'co.omise.dependencies.org.joda.time'
     relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
-    relocate 'com.google', 'co.omise.dependencies.com.google'
 }
 
 dependencies {
