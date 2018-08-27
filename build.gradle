@@ -124,22 +124,15 @@ shadowJar {
     }
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
-    relocate 'org.joda.time', 'co.omise.dependencies.org.joda.time'
     relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
     relocate 'com.google', 'co.omise.dependencies.com.google'
 }
 
 dependencies {
-    // base
-    compile 'joda-time:joda-time:2.9.9'
-
-    def jacksonVersion = "2.9.6"
-
     // persistence
-    compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
-    // Java 8 data/time
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion"
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.6'
+    // Java 8 data/time serializer
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
@@ -147,5 +140,4 @@ dependencies {
     // test
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.guava:guava:20.0'
-
 }
