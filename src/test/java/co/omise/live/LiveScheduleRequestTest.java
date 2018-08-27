@@ -4,13 +4,12 @@ import co.omise.Client;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
-import org.joda.time.DateTime;
-import org.joda.time.DurationFieldType;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -81,7 +80,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().plusYears(99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -128,7 +127,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().plusYears(99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -171,7 +170,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().plusYears(99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -248,7 +247,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(1))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -295,7 +294,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -343,7 +342,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -378,7 +377,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -421,7 +420,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -460,7 +459,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .every(1)
                 .period(SchedulePeriod.week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().plusYears(1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
