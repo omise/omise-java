@@ -49,22 +49,12 @@ public final class Serializer {
     private final ObjectMapper objectMapper;
     private final DateTimeFormatter dateTimeFormatter;
     private final DateTimeFormatter localDateFormatter;
-    private final DateTimeFormatter zonedDateFormatter;
 
     private Serializer() {
-        dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        zonedDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssXXX");
+        dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         localDateFormatter = DateTimeFormatter.ISO_DATE;
 
         objectMapper = new ObjectMapper()
-//                .registerModule(new JodaModule()
-//                        .addSerializer(DateTime.class, new DateTimeSerializer()
-//                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
-//                        )
-//                        .addSerializer(LocalDate.class, new LocalDateSerializer()
-//                                .withFormat(new JacksonJodaDateFormat(localDateFormatter))
-//                        )
-//                )
                 .registerModule(new JavaTimeModule()
                         .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(dateTimeFormatter))
                         .addSerializer(LocalDate.class, new LocalDateSerializer(localDateFormatter)))

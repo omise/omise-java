@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.common.base.Objects;
 import com.google.common.collect.MapDifference;
 import com.google.common.collect.Maps;
+import com.sun.istack.internal.NotNull;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -28,7 +29,7 @@ public class SerializationTest extends OmiseTest {
         }
     }
 
-    private void assertMapEquals(String prefix, Map<String, Object> expectedMap, Map<String, Object> actualMap) {
+    private void assertMapEquals(@NotNull String prefix, Map<String, Object> expectedMap, Map<String, Object> actualMap) {
         MapDifference<String, Object> differences = Maps.difference(expectedMap, actualMap);
         if (differences.entriesDiffering().size() == 0 && differences.entriesOnlyOnLeft().size() == 0) {
             return; // all good : )
