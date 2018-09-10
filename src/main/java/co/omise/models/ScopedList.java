@@ -3,32 +3,32 @@ package co.omise.models;
 import co.omise.Serializer;
 import okhttp3.RequestBody;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScopedList<T extends Model> extends OmiseList<T> {
-    private ZonedDateTime from;
-    private ZonedDateTime to;
+    private Instant from;
+    private Instant to;
     private int offset;
     private int limit;
 
-    public ZonedDateTime getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public void setFrom(ZonedDateTime from) {
+    public void setFrom(Instant from) {
         this.from = from;
     }
 
-    public ZonedDateTime getTo() {
+    public Instant getTo() {
         return to;
     }
 
-    public void setTo(ZonedDateTime to) {
+    public void setTo(Instant to) {
         this.to = to;
     }
 
@@ -51,8 +51,8 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     public static class Options extends Params {
         private Integer offset;
         private Integer limit;
-        private ZonedDateTime from;
-        private ZonedDateTime to;
+        private Instant from;
+        private Instant to;
         private Ordering order;
 
         public Options offset(int offset) {
@@ -65,12 +65,12 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
             return this;
         }
 
-        public Options from(ZonedDateTime from) {
+        public Options from(Instant from) {
             this.from = from;
             return this;
         }
 
-        public Options to(ZonedDateTime to) {
+        public Options to(Instant to) {
             this.to = to;
             return this;
         }
@@ -96,10 +96,10 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
                 map.put("limit", limit.toString());
             }
             if (from != null) {
-                map.put("from", from.format(formatter));
+                map.put("from", from.atZone(ZoneId.of("Z")).format(formatter));
             }
             if (to != null) {
-                map.put("to", to.format(formatter));
+                map.put("to", to.atZone(ZoneId.of("Z")).format(formatter));
             }
 
             if (order != null) {
