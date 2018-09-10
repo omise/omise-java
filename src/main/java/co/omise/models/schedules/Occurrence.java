@@ -11,7 +11,7 @@ import okhttp3.HttpUrl;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 /**
  * Represents Omise Occurrence object.
@@ -25,7 +25,7 @@ public class Occurrence extends Model {
     @JsonProperty("retry_date")
     private LocalDate retryDate;
     @JsonProperty("processed_at")
-    private ZonedDateTime processedAt;
+    private Instant processedAt;
     private OccurrenceStatus status;
     private String message;
     private String result;
@@ -54,11 +54,11 @@ public class Occurrence extends Model {
         this.retryDate = retryDate;
     }
 
-    public ZonedDateTime getProcessedAt() {
+    public Instant getProcessedAt() {
         return processedAt;
     }
 
-    public void setProcessedAt(ZonedDateTime processedAt) {
+    public void setProcessedAt(Instant processedAt) {
         this.processedAt = processedAt;
     }
 
