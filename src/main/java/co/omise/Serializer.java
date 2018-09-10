@@ -55,12 +55,11 @@ public final class Serializer {
     private final DateTimeFormatter localDateFormatter;
 
     private Serializer() {
-        dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        dateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
         localDateFormatter = DateTimeFormatter.ISO_DATE;
 
         objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule()
-//                        .addSerializer(ZonedDateTime.class, new ZonedDateTimeSerializer(dateTimeFormatter))
                         .addSerializer(Instant.class, InstantSerializer.INSTANCE)
                         .addSerializer(LocalDate.class, new LocalDateSerializer(localDateFormatter)))
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
