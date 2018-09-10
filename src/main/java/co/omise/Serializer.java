@@ -9,20 +9,14 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.ser.InstantSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-
-import static com.fasterxml.jackson.datatype.jsr310.ser.InstantSerializer.INSTANCE;
 
 /**
  * Serializer wraps Jackson's {@link ObjectMapper} and provides a
@@ -55,12 +49,11 @@ public final class Serializer {
     private final DateTimeFormatter localDateFormatter;
 
     private Serializer() {
-        dateTimeFormatter = DateTimeFormatter.ISO_DATE_TIME;
+        dateTimeFormatter = DateTimeFormatter.ISO_INSTANT;
         localDateFormatter = DateTimeFormatter.ISO_DATE;
 
         objectMapper = new ObjectMapper()
                 .registerModule(new JavaTimeModule()
-                        .addSerializer(Instant.class, InstantSerializer.INSTANCE)
                         .addSerializer(LocalDate.class, new LocalDateSerializer(localDateFormatter)))
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
