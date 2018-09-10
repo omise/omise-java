@@ -142,11 +142,11 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
             }
 
             if (page > 0) {
-                map.put("page", page + "");
+                map.put("page", String.valueOf(page));
             }
 
             if (perPage > 0) {
-                map.put("per_page", perPage + "");
+                map.put("per_page",  String.valueOf(perPage));
             }
 
             return Collections.unmodifiableMap(map);
