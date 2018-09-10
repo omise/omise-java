@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CUSTOM,
@@ -18,7 +18,7 @@ public abstract class Model extends OmiseObjectBase {
     @JsonProperty("livemode")
     private boolean liveMode;
     @JsonProperty("created")
-    private ZonedDateTime created;
+    private Instant created;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
 
@@ -38,11 +38,11 @@ public abstract class Model extends OmiseObjectBase {
         this.liveMode = liveMode;
     }
 
-    public ZonedDateTime getCreated() {
+    public Instant getCreated() {
         return created;
     }
 
-    public void setCreated(ZonedDateTime created) {
+    public void setCreated(Instant created) {
         this.created = created;
     }
 

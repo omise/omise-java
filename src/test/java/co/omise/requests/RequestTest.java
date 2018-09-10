@@ -60,8 +60,8 @@ public class RequestTest extends OmiseTest {
 
         ScopedList.Options options = new ScopedList.Options()
                 .order(Ordering.ReverseChronological)
-                .from(from)
-                .to(to)
+                .from(from.toInstant())
+                .to(to.toInstant())
                 .offset(20)
                 .limit(40);
 

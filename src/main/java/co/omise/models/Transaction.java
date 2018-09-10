@@ -7,7 +7,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 /**
  * Represents Omise Transaction object.
@@ -19,7 +19,7 @@ public class Transaction extends Model {
     private String currency;
     private TransactionType type;
     private String source;
-    private ZonedDateTime transferable;
+    private Instant transferable;
 
     public long getAmount() {
         return amount;
@@ -53,11 +53,11 @@ public class Transaction extends Model {
         this.source = source;
     }
 
-    public ZonedDateTime getTransferable() {
+    public Instant getTransferable() {
         return transferable;
     }
 
-    public void setTransferable(ZonedDateTime transferable) {
+    public void setTransferable(Instant transferable) {
         this.transferable = transferable;
     }
 
