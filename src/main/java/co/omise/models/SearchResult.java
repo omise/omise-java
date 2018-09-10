@@ -72,6 +72,8 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         private String query;
         private Map<String, String> filters;
         private Ordering order;
+        private int page;
+        private int perPage;
 
         public Options scope(SearchScope scope) {
             this.scope = scope;
@@ -103,6 +105,16 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
             return this;
         }
 
+        public Options page(int page) {
+            this.page = page;
+            return this;
+        }
+
+        public Options perPage(int perPage) {
+            this.perPage = perPage;
+            return this;
+        }
+
         @Override
         public Map<String, String> query(Serializer serializer) {
             if (serializer == null) {
@@ -114,6 +126,7 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
             if (scope != null) {
                 map.put("scope", serializer.serializeToQueryParams(scope));
             }
+
             if (query != null && !query.isEmpty()) {
                 map.put("query", query);
             }
@@ -123,9 +136,19 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
                     map.put("filters[" + entry.getKey() + "]", entry.getValue());
                 }
             }
+
             if (order != null) {
                 map.put("order", serializer.serializeToQueryParams(order));
             }
+
+            if (page > 0) {
+                map.put("page", page + "");
+            }
+
+            if (perPage > 0) {
+                map.put("per_page", perPage + "");
+            }
+
             return Collections.unmodifiableMap(map);
         }
 
