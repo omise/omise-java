@@ -15,9 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.Map;
 
 public class RequestTest extends OmiseTest {
@@ -55,13 +53,13 @@ public class RequestTest extends OmiseTest {
 
     @Test
     public void testListOptions() throws IOException, OmiseException {
-        ZonedDateTime from = ZonedDateTime.of(LocalDateTime.of(1964, 1, 2, 12, 22), ZoneId.of("Z"));
-        ZonedDateTime to = ZonedDateTime.of(LocalDateTime.of(1987, 2, 1, 19, 54), ZoneId.of("Z"));
+        Instant from = LocalDateTime.of(1964, 1, 2, 12, 22).toInstant(ZoneOffset.UTC);
+        Instant to = LocalDateTime.of(1987, 2, 1, 19, 54).toInstant(ZoneOffset.UTC);
 
         ScopedList.Options options = new ScopedList.Options()
                 .order(Ordering.ReverseChronological)
-                .from(from.toInstant())
-                .to(to.toInstant())
+                .from(from)
+                .to(to)
                 .offset(20)
                 .limit(40);
 
