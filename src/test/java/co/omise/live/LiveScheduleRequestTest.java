@@ -321,6 +321,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         Schedule actualSchedule = scheduleList.getData().get(0);
         assertEquals(createdSchedule.getId(), actualSchedule.getId());
         assertEquals(customer.getId(), actualSchedule.getCharge().getCustomer());
+        assertEquals(LocalDate.now().plusYears(99).getYear(), actualSchedule.getEndDate().getYear());
     }
 
     @Test
