@@ -8,6 +8,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import static junit.framework.TestCase.*;
@@ -199,7 +200,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         Request<Charge> updateChargeRequest =
                 new Charge.UpdateRequestBuilder(createdCharge.getId())
                         .description("omise-java test charge")
-                        .metadata("test-date", ZonedDateTime.now().getDayOfMonth() + "")
+                        .metadata("test-date", String.valueOf(ZonedDateTime.now(ZoneId.of("Z")).getDayOfMonth()))
                         .metadata("library", "omise-java")
                         .build();
 
@@ -212,7 +213,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(createdCharge.getId(), updatedCharge.getId());
         assertEquals("omise-java test charge", updatedCharge.getDescription());
         assertEquals(updatedCharge.getMetadata().get("library"), "omise-java");
-        assertEquals(updatedCharge.getMetadata().get("test-date"), ZonedDateTime.now().getDayOfMonth() + "");
+        assertEquals(updatedCharge.getMetadata().get("test-date"), String.valueOf(ZonedDateTime.now(ZoneId.of("Z")).getDayOfMonth()));
         assertEquals(2000, updatedCharge.getAmount());
         assertEquals("usd", updatedCharge.getCurrency());
     }
