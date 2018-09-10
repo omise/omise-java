@@ -4,7 +4,6 @@ import co.omise.Serializer;
 import okhttp3.RequestBody;
 
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
@@ -96,10 +95,10 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
                 map.put("limit", limit.toString());
             }
             if (from != null) {
-                map.put("from", from.atZone(ZoneId.of("Z")).format(formatter));
+                map.put("from", formatter.format(from));
             }
             if (to != null) {
-                map.put("to", to.atZone(ZoneId.of("Z")).format(formatter));
+                map.put("to", formatter.format(to));
             }
 
             if (order != null) {
