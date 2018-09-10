@@ -73,7 +73,7 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
         private Map<String, String> filters;
         private Ordering order;
         private int page;
-        private int perPage;
+        private int dataPerPage;
 
         public Options scope(SearchScope scope) {
             this.scope = scope;
@@ -110,8 +110,8 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
             return this;
         }
 
-        public Options perPage(int perPage) {
-            this.perPage = perPage;
+        public Options dataPerPage(int dataPerPage) {
+            this.dataPerPage = dataPerPage;
             return this;
         }
 
@@ -145,8 +145,8 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
                 map.put("page", String.valueOf(page));
             }
 
-            if (perPage > 0) {
-                map.put("per_page",  String.valueOf(perPage));
+            if (dataPerPage > 0) {
+                map.put("per_page", String.valueOf(dataPerPage));
             }
 
             return Collections.unmodifiableMap(map);
