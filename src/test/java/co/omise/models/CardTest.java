@@ -1,8 +1,9 @@
 package co.omise.models;
 
 import co.omise.OmiseTest;
-import org.joda.time.YearMonth;
 import org.junit.Test;
+
+import java.time.YearMonth;
 
 public class CardTest extends OmiseTest {
     @Test
@@ -13,6 +14,6 @@ public class CardTest extends OmiseTest {
 
         YearMonth expiration = card.getExpiration();
         assertEquals(2099, expiration.getYear());
-        assertEquals(11, expiration.getMonthOfYear());
+        assertEquals(11, expiration.getMonthValue());
     }
 }

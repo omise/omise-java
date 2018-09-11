@@ -2,32 +2,32 @@ package co.omise.models;
 
 import co.omise.Serializer;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScopedList<T extends Model> extends OmiseList<T> {
-    private DateTime from;
-    private DateTime to;
+    private Instant from;
+    private Instant to;
     private int offset;
     private int limit;
 
-    public DateTime getFrom() {
+    public Instant getFrom() {
         return from;
     }
 
-    public void setFrom(DateTime from) {
+    public void setFrom(Instant from) {
         this.from = from;
     }
 
-    public DateTime getTo() {
+    public Instant getTo() {
         return to;
     }
 
-    public void setTo(DateTime to) {
+    public void setTo(Instant to) {
         this.to = to;
     }
 
@@ -50,8 +50,8 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     public static class Options extends Params {
         private Integer offset;
         private Integer limit;
-        private DateTime from;
-        private DateTime to;
+        private Instant from;
+        private Instant to;
         private Ordering order;
 
         public Options offset(int offset) {
@@ -64,12 +64,12 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
             return this;
         }
 
-        public Options from(DateTime from) {
+        public Options from(Instant from) {
             this.from = from;
             return this;
         }
 
-        public Options to(DateTime to) {
+        public Options to(Instant to) {
             this.to = to;
             return this;
         }
@@ -95,10 +95,10 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
                 map.put("limit", limit.toString());
             }
             if (from != null) {
-                map.put("from", formatter.print(from));
+                map.put("from", formatter.format(from));
             }
             if (to != null) {
-                map.put("to", formatter.print(to));
+                map.put("to", formatter.format(to));
             }
 
             if (order != null) {

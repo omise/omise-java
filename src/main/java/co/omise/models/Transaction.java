@@ -5,9 +5,9 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.time.Instant;
 
 /**
  * Represents Omise Transaction object.
@@ -19,7 +19,7 @@ public class Transaction extends Model {
     private String currency;
     private TransactionType type;
     private String source;
-    private DateTime transferable;
+    private Instant transferable;
 
     public long getAmount() {
         return amount;
@@ -53,11 +53,11 @@ public class Transaction extends Model {
         this.source = source;
     }
 
-    public DateTime getTransferable() {
+    public Instant getTransferable() {
         return transferable;
     }
 
-    public void setTransferable(DateTime transferable) {
+    public void setTransferable(Instant transferable) {
         this.transferable = transferable;
     }
 
