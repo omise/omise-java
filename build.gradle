@@ -128,12 +128,10 @@ shadowJar {
 }
 
 dependencies {
-    // base
-    compile 'joda-time:joda-time:2.9.9'
-
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.6'
+    // Java 8 data/time serializer
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.6'
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
@@ -141,5 +139,4 @@ dependencies {
     // test
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.guava:guava:20.0'
-
 }
