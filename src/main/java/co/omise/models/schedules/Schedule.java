@@ -1,17 +1,19 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
+import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
+import co.omise.models.Transfer;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -27,9 +29,9 @@ public class Schedule extends Model {
     @JsonProperty("in_words")
     private String inWords;
     @JsonProperty("start_date")
-    private LocalDate startDate;
+    private DateTime startDate;
     @JsonProperty("end_date")
-    private LocalDate endDate;
+    private DateTime endDate;
 
     private ChargeScheduling charge;
     private TransferScheduling transfer;
@@ -79,19 +81,19 @@ public class Schedule extends Model {
         this.inWords = inWords;
     }
 
-    public LocalDate getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public DateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(DateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -186,9 +188,9 @@ public class Schedule extends Model {
         @JsonProperty
         private ScheduleOn.Params on;
         @JsonProperty("start_date")
-        private LocalDate startDate;
+        private DateTime startDate;
         @JsonProperty("end_date")
-        private LocalDate endDate;
+        private DateTime endDate;
         @JsonProperty
         private ChargeScheduling.Params charge;
         @JsonProperty
@@ -204,12 +206,12 @@ public class Schedule extends Model {
             return this;
         }
 
-        public CreateRequestBuilder startDate(LocalDate startDate) {
+        public CreateRequestBuilder startDate(DateTime startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public CreateRequestBuilder endDate(LocalDate endDate) {
+        public CreateRequestBuilder endDate(DateTime endDate) {
             this.endDate = endDate;
             return this;
         }

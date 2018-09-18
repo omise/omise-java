@@ -3,9 +3,9 @@ package co.omise;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
@@ -503,8 +503,8 @@ final class Example {
                 .every(1)
                 .period(SchedulePeriod.month)
                 .on(new ScheduleOn.Params().daysOfMonth(2))
-                .startDate(LocalDate.of(2017, 4, 27))
-                .endDate(LocalDate.of(2018, 4, 27))
+                .startDate(DateTime.parse("2017-04-27"))
+                .endDate(DateTime.parse("2018-04-27"))
                 .charge(new ChargeScheduling.Params()
                         .customer("cust_test_55bb3hkywglfyyachha")
                         .amount(88800)
