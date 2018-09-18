@@ -1,6 +1,7 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
+import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
@@ -8,10 +9,9 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Instant;
 
 /**
  * Represents Omise Occurrence object.
@@ -21,11 +21,11 @@ import java.time.Instant;
 public class Occurrence extends Model {
     private String schedule;
     @JsonProperty("schedule_date")
-    private LocalDate scheduleDate;
+    private DateTime scheduleDate;
     @JsonProperty("retry_date")
-    private LocalDate retryDate;
+    private DateTime retryDate;
     @JsonProperty("processed_at")
-    private Instant processedAt;
+    private DateTime processedAt;
     private OccurrenceStatus status;
     private String message;
     private String result;
@@ -38,27 +38,27 @@ public class Occurrence extends Model {
         this.schedule = schedule;
     }
 
-    public LocalDate getScheduleDate() {
+    public DateTime getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(LocalDate scheduleDate) {
+    public void setScheduleDate(DateTime scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
-    public LocalDate getRetryDate() {
+    public DateTime getRetryDate() {
         return retryDate;
     }
 
-    public void setRetryDate(LocalDate retryDate) {
+    public void setRetryDate(DateTime retryDate) {
         this.retryDate = retryDate;
     }
 
-    public Instant getProcessedAt() {
+    public DateTime getProcessedAt() {
         return processedAt;
     }
 
-    public void setProcessedAt(Instant processedAt) {
+    public void setProcessedAt(DateTime processedAt) {
         this.processedAt = processedAt;
     }
 
