@@ -3,7 +3,6 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transfer;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -86,5 +85,27 @@ public class TransferRequestTest extends RequestTest {
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
         assertEquals(TRANSFER_ID, transfer.getId());
         assertTrue(transfer.isDeleted());
+    }
+
+    @Test
+    public void testTransferSentDate() throws IOException, OmiseException {
+        Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request);
+        assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
+
+        assertEquals("2015", transfer.getSentAt().year().getAsText());
+        assertEquals("10", transfer.getSentAt().hourOfDay().getAsText());
+    }
+
+    @Test
+    public void testTransferPaidDate() throws IOException, OmiseException {
+        Request<Transfer> request = new Transfer.GetRequestBuilder(TRANSFER_ID)
+                .build();
+        Transfer transfer = getTestRequester().sendRequest(request);
+        assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
+
+        assertEquals("2015", transfer.getPaidAt().year().getAsText());
+        assertEquals("10", transfer.getPaidAt().hourOfDay().getAsText());
     }
 }

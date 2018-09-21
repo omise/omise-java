@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.Map;
@@ -33,6 +34,10 @@ public class Transfer extends Model {
     private String failureMessage;
     private String transaction;
     private Map<String, Object> metadata;
+    @JsonProperty("sent_at")
+    private DateTime sentAt;
+    @JsonProperty("paid_at")
+    private DateTime paidAt;
 
     public String getRecipient() {
         return recipient;
@@ -128,6 +133,26 @@ public class Transfer extends Model {
 
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
+    }
+
+    public boolean isFailFast() {
+        return failFast;
+    }
+
+    public DateTime getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(DateTime sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public DateTime getPaidAt() {
+        return paidAt;
+    }
+
+    public void setPaidAt(DateTime paidAt) {
+        this.paidAt = paidAt;
     }
 
     /**
@@ -274,7 +299,8 @@ public class Transfer extends Model {
 
         @Override
         protected ResponseType<ScopedList<Transfer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {
+            });
         }
     }
 
