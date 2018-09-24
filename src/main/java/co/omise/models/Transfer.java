@@ -51,48 +51,24 @@ public class Transfer extends Model {
         return bankAccount;
     }
 
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
     public boolean isSent() {
         return sent;
-    }
-
-    public void setSent(boolean sent) {
-        this.sent = sent;
     }
 
     public boolean isPaid() {
         return paid;
     }
 
-    public void setPaid(boolean paid) {
-        this.paid = paid;
-    }
-
     public long getFee() {
         return fee;
-    }
-
-    public void setFee(long fee) {
-        this.fee = fee;
     }
 
     public long getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
-
     public String getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     public boolean failFast() {
@@ -143,16 +119,8 @@ public class Transfer extends Model {
         return sentAt;
     }
 
-    public void setSentAt(DateTime sentAt) {
-        this.sentAt = sentAt;
-    }
-
     public DateTime getPaidAt() {
         return paidAt;
-    }
-
-    public void setPaidAt(DateTime paidAt) {
-        this.paidAt = paidAt;
     }
 
     /**
