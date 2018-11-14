@@ -176,4 +176,24 @@ public class Client {
 
         return requester.sendRequest(request);
     }
+
+    static class Builder {
+
+        private String publicKey;
+        private String secretKey;
+
+        public Builder publicKey(String publicKey) {
+            this.publicKey = publicKey;
+            return this;
+        }
+
+        public Builder secretKey(String secretKey) {
+            this.secretKey = secretKey;
+            return this;
+        }
+
+        public Client build() throws ClientException {
+            return new Client(publicKey, secretKey);
+        }
+    }
 }

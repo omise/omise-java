@@ -16,6 +16,18 @@ public class ClientTest extends OmiseTest {
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
 
     @Test
+    public void testCreateClient() {
+        try {
+            Client client = new Client.Builder()
+                    .publicKey(LIVETEST_PKEY)
+                    .secretKey(LIVETEST_SKEY)
+                    .build();
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveErrorVault() throws ClientException {
         try {
