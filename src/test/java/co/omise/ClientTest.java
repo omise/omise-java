@@ -16,18 +16,6 @@ public class ClientTest extends OmiseTest {
     private static final String LIVETEST_SKEY = "skey_test_replaceme";
 
     @Test
-    public void testCreateClient() {
-        try {
-            Client client = new Client.Builder()
-                    .publicKey(LIVETEST_PKEY)
-                    .secretKey(LIVETEST_SKEY)
-                    .build();
-        } catch (ClientException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveErrorVault() throws ClientException {
         try {
@@ -39,7 +27,11 @@ public class ClientTest extends OmiseTest {
                             .securityCode("123"))
                     .build();
 
-            new Client("pkey_test_123", "skey_test_123").sendRequest(request);
+            Client client = new Client.Builder().publicKey("pkey_test_123")
+                    .secretKey("skey_test_123")
+                    .build();
+
+            client.sendRequest(request);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         } catch (IOException e) {
@@ -52,13 +44,17 @@ public class ClientTest extends OmiseTest {
     public void testLiveError() throws ClientException, IOException {
         try {
             Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
-            new Client("skey_test_123").sendRequest(getAccountRequest);
+            Client client = new Client.Builder().secretKey("skey_test_123").build();
+            client.sendRequest(getAccountRequest);
         } catch (OmiseException e) {
             assertEquals("authentication_failure", e.getCode());
         }
     }
 
     private Client liveTestClient() throws ClientException {
-        return new Client(LIVETEST_PKEY, LIVETEST_SKEY);
+        return new Client.Builder()
+                .publicKey(LIVETEST_PKEY)
+                .secretKey(LIVETEST_SKEY)
+                .build();
     }
 }

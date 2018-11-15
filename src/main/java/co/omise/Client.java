@@ -67,7 +67,7 @@ public class Client {
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
-    public Client(String publicKey, String secretKey) throws ClientException {
+    private Client(String publicKey, String secretKey) throws ClientException {
         Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
@@ -177,7 +177,7 @@ public class Client {
         return requester.sendRequest(request);
     }
 
-    static class Builder {
+    public static class Builder {
 
         private String publicKey;
         private String secretKey;
