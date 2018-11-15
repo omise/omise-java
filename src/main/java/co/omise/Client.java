@@ -41,18 +41,6 @@ public class Client {
     private Requester requester;
 
     /**
-     * Creates a Client with just the secret key. Always use this constructor to avoid transmitting any card data
-     * through your own server. (since token creation will fail without a public key.)
-     *
-     * @param secretKey The key with {@code skey_} prefix.
-     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
-     */
-    public Client(String secretKey) throws ClientException {
-        this(null, secretKey);
-    }
-
-    /**
      * Creates a Client that sends the specified API version string in the header to access an earlier version
      * of the Omise API.
      *
