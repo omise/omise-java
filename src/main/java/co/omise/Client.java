@@ -165,21 +165,49 @@ public class Client {
         return requester.sendRequest(request);
     }
 
+    /**
+     * Builds and returns a {@link Client} that sends the specified API version string in the header to access an earlier version
+     * of the Omise API.
+     *
+     * <p>
+     * Note: Please ensure to have at least one of the keys supplied to have the client function correctly.
+     * </p>
+     *
+     * @see Serializer
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
+     */
     public static class Builder {
 
         private String publicKey;
         private String secretKey;
 
+        /**
+         * Public key.
+         *
+         * @param publicKey  The key with the {@code pkey_} prefix.
+         */
         public Builder publicKey(String publicKey) {
             this.publicKey = publicKey;
             return this;
         }
 
+        /**
+         * Secret key.
+         *
+         * @param secretKey  The key with the {@code skey_} prefix.
+         */
         public Builder secretKey(String secretKey) {
             this.secretKey = secretKey;
             return this;
         }
 
+        /**
+         * Creates a new {@link Client} instance.
+         *
+         * @return the {@link Client}
+         * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+         */
         public Client build() throws ClientException {
             return new Client(publicKey, secretKey);
         }
