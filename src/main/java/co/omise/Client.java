@@ -56,6 +56,10 @@ public class Client {
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
     private Client(String publicKey, String secretKey) throws ClientException {
+        if (publicKey == null && secretKey == null) {
+            throw new ClientException(
+                    new IllegalArgumentException("The key must have at least one key."));
+        }
         Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
@@ -183,7 +187,7 @@ public class Client {
         private String secretKey;
 
         /**
-         * Public key.
+         * Set public key.
          *
          * @param publicKey  The key with the {@code pkey_} prefix.
          */
@@ -193,7 +197,7 @@ public class Client {
         }
 
         /**
-         * Secret key.
+         * Set secret key.
          *
          * @param secretKey  The key with the {@code skey_} prefix.
          */
