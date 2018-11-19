@@ -12,6 +12,9 @@ class BaseLiveTest {
     }
 
     Client getLiveClient() throws Exception {
-        return new Client(LIVETEST_PKEY, LIVETEST_SKEY);
+        return new Client.Builder()
+                .publicKey(LIVETEST_PKEY)
+                .secretKey(LIVETEST_SKEY)
+                .build();
     }
 }
