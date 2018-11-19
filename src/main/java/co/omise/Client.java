@@ -41,18 +41,6 @@ public class Client {
     private Requester requester;
 
     /**
-     * Creates a Client with just the secret key. Always use this constructor to avoid transmitting any card data
-     * through your own server. (since token creation will fail without a public key.)
-     *
-     * @param secretKey The key with {@code skey_} prefix.
-     * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
-     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
-     */
-    public Client(String secretKey) throws ClientException {
-        this(null, secretKey);
-    }
-
-    /**
      * Creates a Client that sends the specified API version string in the header to access an earlier version
      * of the Omise API.
      *
@@ -67,7 +55,11 @@ public class Client {
      * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
      * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
      */
-    public Client(String publicKey, String secretKey) throws ClientException {
+    private Client(String publicKey, String secretKey) throws ClientException {
+        if (publicKey == null && secretKey == null) {
+            throw new ClientException(
+                    new IllegalArgumentException("The key must have at least one key."));
+        }
         Config config = new Config(Endpoint.API_VERSION, publicKey, secretKey);
         httpClient = buildHttpClient(config);
 
@@ -175,5 +167,53 @@ public class Client {
         if (requester == null) return null;
 
         return requester.sendRequest(request);
+    }
+
+    /**
+     * Builds and returns a {@link Client} that sends the specified API version string in the header to access an earlier version
+     * of the Omise API.
+     *
+     * <p>
+     * Note: Please ensure to have at least one of the keys supplied to have the client function correctly.
+     * </p>
+     *
+     * @see Serializer
+     * @see <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>
+     * @see <a href="https://www.omise.co/api-versioning">Versioning</a>
+     */
+    public static class Builder {
+
+        private String publicKey;
+        private String secretKey;
+
+        /**
+         * Set public key.
+         *
+         * @param publicKey  The key with the {@code pkey_} prefix.
+         */
+        public Builder publicKey(String publicKey) {
+            this.publicKey = publicKey;
+            return this;
+        }
+
+        /**
+         * Set secret key.
+         *
+         * @param secretKey  The key with the {@code skey_} prefix.
+         */
+        public Builder secretKey(String secretKey) {
+            this.secretKey = secretKey;
+            return this;
+        }
+
+        /**
+         * Creates a new {@link Client} instance.
+         *
+         * @return the {@link Client}
+         * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
+         */
+        public Client build() throws ClientException {
+            return new Client(publicKey, secretKey);
+        }
     }
 }

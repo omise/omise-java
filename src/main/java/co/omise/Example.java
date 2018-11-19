@@ -555,6 +555,8 @@ final class Example {
     }
 
     private Client client() throws ClientException {
-        return new Client(OMISE_SKEY);
+        return new Client.Builder()
+                .secretKey(OMISE_SKEY)
+                .build();
     }
 }
