@@ -123,6 +123,38 @@ public class Transfer extends Model {
         return paidAt;
     }
 
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
+    }
+
+    public void setSent(boolean sent) {
+        this.sent = sent;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
+    }
+
+    public void setAmount(long amount) {
+        this.amount = amount;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setSentAt(DateTime sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public void setPaidAt(DateTime paidAt) {
+        this.paidAt = paidAt;
+    }
+
     /**
      * The {@link RequestBuilder} class for creating a transfer.
      */
