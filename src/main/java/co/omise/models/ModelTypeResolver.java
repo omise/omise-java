@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 class ModelTypeResolver extends TypeIdResolverBase {
     private static Map<String, Class> types;
@@ -71,8 +70,10 @@ class ModelTypeResolver extends TypeIdResolverBase {
     }
 
     private Map<Class, String> reverse(Map<String, Class> map) {
-        return map.entrySet()
-                .stream()
-                .collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey));
+        Map<Class, String> reversedMap = new HashMap<>();
+        for (Map.Entry<String, Class> entry: map.entrySet()) {
+            reversedMap.put(entry.getValue(), entry.getKey());
+        }
+        return reversedMap;
     }
 }
