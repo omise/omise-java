@@ -331,4 +331,37 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertNotNull(charge);
     }
 
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeStateFlags() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .build();
+        Charge createdCharge = client.sendRequest(createChargeRequest);
+
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(createdCharge.getId()).build();
+        Charge actualCharge = client.sendRequest(getChargeRequest);
+
+
+        System.out.println("Retrieved charge: " + actualCharge.getId());
+
+        assertEquals(createdCharge.isDisputable(), actualCharge.isDisputable());
+        assertEquals(createdCharge.isCapturable(), actualCharge.isCapturable());
+        assertEquals(createdCharge.isReversible(), actualCharge.isReversible());
+        assertEquals(createdCharge.isRefundable(), actualCharge.isRefundable());
+    }
 }
