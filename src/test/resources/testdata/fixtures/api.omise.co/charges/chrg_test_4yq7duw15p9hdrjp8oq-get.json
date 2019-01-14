@@ -54,5 +54,9 @@
   },
   "customer": "cust_test_4yq6txdpfadhbaqnwp3",
   "ip": null,
-  "created": "2015-01-15T05:00:29Z"
+  "created": "2015-01-15T05:00:29Z",
+  "disputable": false,
+  "capturable": false,
+  "reversible": false,
+  "refundable": false
 }
