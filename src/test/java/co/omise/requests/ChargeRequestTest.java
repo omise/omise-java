@@ -117,4 +117,44 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(CHARGE_ID, charge.getId());
     }
 
+    @Test
+    public void testDisputable() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + CHARGE_ID, 200);
+        assertEquals(false, charge.isDisputable());
+    }
+
+    @Test
+    public void testCapturable() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + CHARGE_ID, 200);
+        assertEquals(false, charge.isCapturable());
+    }
+
+    @Test
+    public void testReversible() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + CHARGE_ID, 200);
+        assertEquals(false, charge.isReversible());
+    }
+
+    @Test
+    public void testRefundable() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(CHARGE_ID).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + CHARGE_ID, 200);
+        assertEquals(false, charge.isRefundable());
+    }
+
 }

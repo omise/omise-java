@@ -333,7 +333,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveChargeStateFlags() throws IOException, OmiseException {
+    public void testLiveChargeDisputableFlag() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("Omise Co., Ltd. - testLiveCharge")
@@ -360,8 +360,98 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         System.out.println("Retrieved charge: " + actualCharge.getId());
 
         assertEquals(createdCharge.isDisputable(), actualCharge.isDisputable());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeCapturableFlag() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .build();
+        Charge createdCharge = client.sendRequest(createChargeRequest);
+
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(createdCharge.getId()).build();
+        Charge actualCharge = client.sendRequest(getChargeRequest);
+
+
+        System.out.println("Retrieved charge: " + actualCharge.getId());
+
         assertEquals(createdCharge.isCapturable(), actualCharge.isCapturable());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeReversibleFlag() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .build();
+        Charge createdCharge = client.sendRequest(createChargeRequest);
+
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(createdCharge.getId()).build();
+        Charge actualCharge = client.sendRequest(getChargeRequest);
+
+
+        System.out.println("Retrieved charge: " + actualCharge.getId());
+
         assertEquals(createdCharge.isReversible(), actualCharge.isReversible());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeRefundableFlag() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2020))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(2000) // $20
+                        .currency("usd")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .build();
+        Charge createdCharge = client.sendRequest(createChargeRequest);
+
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(createdCharge.getId()).build();
+        Charge actualCharge = client.sendRequest(getChargeRequest);
+
+
+        System.out.println("Retrieved charge: " + actualCharge.getId());
+
         assertEquals(createdCharge.isRefundable(), actualCharge.isRefundable());
     }
 }
