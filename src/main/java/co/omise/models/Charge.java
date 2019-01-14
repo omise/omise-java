@@ -48,6 +48,10 @@ public class Charge extends Model {
     @JsonProperty("installment_terms")
     private int installmentTerms;
     private Source source;
+    private boolean disputable;
+    private boolean capturable;
+    private boolean reversible;
+    private boolean refundable;
 
     public ChargeStatus getStatus() {
         return status;
@@ -240,6 +244,22 @@ public class Charge extends Model {
     public void setSource(Source source) {
         this.source = source;
     }
+
+    public boolean isDisputable() { return disputable; }
+
+    public void setDisputable(boolean disputable) { this.disputable = disputable; }
+
+    public boolean isCapturable() { return capturable; }
+
+    public void setCapturable(boolean capturable) { this.capturable = capturable; }
+
+    public boolean isReversible() { return reversible; }
+
+    public void setReversible(boolean reversible) { this.reversible = reversible; }
+
+    public boolean isRefundable() { return refundable; }
+
+    public void setRefundable(boolean refundable) { this.refundable = refundable; }
 
     /**
      * The {@link RequestBuilder} class for creating a Charge.
