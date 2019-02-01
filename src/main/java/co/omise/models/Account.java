@@ -12,6 +12,7 @@ import okhttp3.HttpUrl;
  */
 public class Account extends Model {
     private String email;
+    private String currency;
 
     public String getEmail() {
         return email;
@@ -19,6 +20,14 @@ public class Account extends Model {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     /**
