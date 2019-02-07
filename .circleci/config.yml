@@ -13,7 +13,7 @@ jobs:
         command: /sbin/init
     steps:
       - checkout
-      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS
+      - run: mkdir -p $CIRCLE_TEST_REPORTS
       - run:
           working_directory: ~/omise/omise-java
           command: sudo update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java; sudo update-alternatives --set javac /usr/lib/jvm/java-8-openjdk-amd64/bin/javac; echo -e "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> $BASH_ENV
@@ -26,20 +26,9 @@ jobs:
       - save_cache:
           key: v1-dep-{{ .Branch }}-{{ epoch }}
           paths:
-            - vendor/bundle
-            - ~/virtualenvs
-            - ~/.m2
-            - ~/.ivy2
-            - ~/.bundle
-            - ~/.go_workspace
             - ~/.gradle
-            - ~/.cache/bower
       - run: ./gradlew test
       - run: mkdir -p $CIRCLE_TEST_REPORTS/junit/
       - run: find . -type f -regex ".*/target/surefire-reports/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;
       - store_test_results:
-          path: /tmp/circleci-test-results
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
           path: /tmp/circleci-test-results
