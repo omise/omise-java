@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+#2.7.7
+**FIXED** Updated Jackson to version 2.9.8 to fix vulnerability issue.
+
 #2.7.6
 **FIXED** Fixed `sourceOfFund` in Charge no longer in Charge API.
 
