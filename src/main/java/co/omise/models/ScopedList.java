@@ -7,6 +7,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ScopedList<T extends Model> extends OmiseList<T> {
@@ -14,6 +15,14 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     private DateTime to;
     private int offset;
     private int limit;
+
+    public ScopedList(String object, String location, int total, Ordering order, List<T> data, DateTime from, DateTime to, int offset, int limit) {
+        super(object, location, total, order, data);
+        this.from = from;
+        this.to = to;
+        this.offset = offset;
+        this.limit = limit;
+    }
 
     public DateTime getFrom() {
         return from;

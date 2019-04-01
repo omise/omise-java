@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -52,6 +53,38 @@ public class Charge extends Model {
     private boolean capturable;
     private boolean reversible;
     private boolean refundable;
+
+    public Charge(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, ChargeStatus status, long amount, String currency, String description, Map<String, Object> metadata, boolean capture, boolean authorized, boolean reversed, boolean paid, String transaction, SourceOfFunds sourceOfFund, Card card, long refunded, ScopedList<Refund> refunds, String failureCode, String failureMessage, String customer, String ip, Dispute dispute, String returnUri, String authorizeUri, OffsiteTypes offsite, int installmentTerms, Source source, boolean disputable, boolean capturable, boolean reversible, boolean refundable) {
+        super(object, location, id, liveMode, created, deleted);
+        this.status = status;
+        this.amount = amount;
+        this.currency = currency;
+        this.description = description;
+        this.metadata = metadata;
+        this.capture = capture;
+        this.authorized = authorized;
+        this.reversed = reversed;
+        this.paid = paid;
+        this.transaction = transaction;
+        this.sourceOfFund = sourceOfFund;
+        this.card = card;
+        this.refunded = refunded;
+        this.refunds = refunds;
+        this.failureCode = failureCode;
+        this.failureMessage = failureMessage;
+        this.customer = customer;
+        this.ip = ip;
+        this.dispute = dispute;
+        this.returnUri = returnUri;
+        this.authorizeUri = authorizeUri;
+        this.offsite = offsite;
+        this.installmentTerms = installmentTerms;
+        this.source = source;
+        this.disputable = disputable;
+        this.capturable = capturable;
+        this.reversible = reversible;
+        this.refundable = refundable;
+    }
 
     public ChargeStatus getStatus() {
         return status;

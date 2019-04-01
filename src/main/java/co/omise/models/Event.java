@@ -5,6 +5,7 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import org.joda.time.DateTime;
 
 /**
  * Represents Omise Event object.
@@ -15,6 +16,12 @@ public class Event<T extends Model> extends Model {
     private String key;
 
     private T data;
+
+    public Event(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String key, T data) {
+        super(object, location, id, liveMode, created, deleted);
+        this.key = key;
+        this.data = data;
+    }
 
     public String getKey() {
         return key;

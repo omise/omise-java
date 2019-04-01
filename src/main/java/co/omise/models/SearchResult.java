@@ -11,6 +11,7 @@ import okhttp3.RequestBody;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -26,6 +27,15 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
     private int page;
     @JsonProperty("total_pages")
     private int totalPages;
+
+    public SearchResult(String object, String location, int total, Ordering order, List<T> data, SearchScope scope, String query, Map<String, String> filters, int page, int totalPages) {
+        super(object, location, total, order, data);
+        this.scope = scope;
+        this.query = query;
+        this.filters = filters;
+        this.page = page;
+        this.totalPages = totalPages;
+    }
 
     public SearchScope getScope() {
         return scope;

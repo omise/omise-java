@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import okhttp3.HttpUrl;
+import org.joda.time.DateTime;
 
 /**
  * Represents Omise Account object and contains its {@link RequestBuilder}.
@@ -13,6 +14,12 @@ import okhttp3.HttpUrl;
 public class Account extends Model {
     private String email;
     private String currency;
+
+    public Account(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String email, String currency) {
+        super(object, location, id, liveMode, created, deleted);
+        this.email = email;
+        this.currency = currency;
+    }
 
     public String getEmail() {
         return email;

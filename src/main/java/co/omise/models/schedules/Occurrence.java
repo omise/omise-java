@@ -30,6 +30,17 @@ public class Occurrence extends Model {
     private String message;
     private String result;
 
+    public Occurrence(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String schedule, DateTime scheduleDate, DateTime retryDate, DateTime processedAt, OccurrenceStatus status, String message, String result) {
+        super(object, location, id, liveMode, created, deleted);
+        this.schedule = schedule;
+        this.scheduleDate = scheduleDate;
+        this.retryDate = retryDate;
+        this.processedAt = processedAt;
+        this.status = status;
+        this.message = message;
+        this.result = result;
+    }
+
     public String getSchedule() {
         return schedule;
     }

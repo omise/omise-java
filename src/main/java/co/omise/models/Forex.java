@@ -4,11 +4,19 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import okhttp3.HttpUrl;
+import org.joda.time.DateTime;
 
 public class Forex extends Model {
     private double rate;
     private String from;
     private String to;
+
+    public Forex(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, double rate, String from, String to) {
+        super(object, location, id, liveMode, created, deleted);
+        this.rate = rate;
+        this.from = from;
+        this.to = to;
+    }
 
     public String getFrom() {
         return from;

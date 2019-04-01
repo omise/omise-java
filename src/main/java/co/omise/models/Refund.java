@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,6 +24,15 @@ public class Refund extends Model {
     private String charge;
     private String transaction;
     private Map<String, Object> metadata;
+
+    public Refund(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, long amount, String currency, String charge, String transaction, Map<String, Object> metadata) {
+        super(object, location, id, liveMode, created, deleted);
+        this.amount = amount;
+        this.currency = currency;
+        this.charge = charge;
+        this.transaction = transaction;
+        this.metadata = metadata;
+    }
 
     public long getAmount() {
         return amount;

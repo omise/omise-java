@@ -1,6 +1,7 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 
 /**
  * Represents Omise Bank Account object.
@@ -13,6 +14,14 @@ public class BankAccount extends Model {
     @JsonProperty("last_digits")
     private String lastDigits;
     private String name;
+
+    public BankAccount(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String brand, String number, String lastDigits, String name) {
+        super(object, location, id, liveMode, created, deleted);
+        this.brand = brand;
+        this.number = number;
+        this.lastDigits = lastDigits;
+        this.name = name;
+    }
 
     public String getBrand() {
         return brand;

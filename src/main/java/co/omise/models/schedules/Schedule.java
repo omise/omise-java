@@ -41,6 +41,21 @@ public class Schedule extends Model {
     @JsonProperty("next_occurrence_dates")
     private List<String> nextOccurrenceDates;
 
+    public Schedule(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, ScheduleStatus status, int every, SchedulePeriod period, ScheduleOn on, String inWords, DateTime startDate, DateTime endDate, ChargeScheduling charge, TransferScheduling transfer, ScopedList<Occurrence> occurrences, List<String> nextOccurrenceDates) {
+        super(object, location, id, liveMode, created, deleted);
+        this.status = status;
+        this.every = every;
+        this.period = period;
+        this.on = on;
+        this.inWords = inWords;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.charge = charge;
+        this.transfer = transfer;
+        this.occurrences = occurrences;
+        this.nextOccurrenceDates = nextOccurrenceDates;
+    }
+
     public ScheduleStatus getStatus() {
         return status;
     }

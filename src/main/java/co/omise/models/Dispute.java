@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +25,16 @@ public class Dispute extends Model {
     private String message;
     private String charge;
     private Map<String, Object> metadata;
+
+    public Dispute(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, long amount, String currency, DisputeStatus status, String message, String charge, Map<String, Object> metadata) {
+        super(object, location, id, liveMode, created, deleted);
+        this.amount = amount;
+        this.currency = currency;
+        this.status = status;
+        this.message = message;
+        this.charge = charge;
+        this.metadata = metadata;
+    }
 
     public long getAmount() {
         return amount;

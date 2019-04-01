@@ -6,6 +6,7 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import org.joda.time.DateTime;
 
 /**
  * Represents Omise Receipt object.
@@ -66,6 +67,29 @@ public class Receipt extends Model {
     @JsonProperty("customer_statement_name")
     private String customerStatementName;
 
+    public Receipt(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String number, String customerName, String customerAddress, String customerTaxId, String customerEmail, String customerStatement, String companyName, String companyAddress, String companyTaxId, long chargeFee, long voidedFee, long transferFee, long subtotal, long vat, long wht, long total, boolean creditNote, String currency, String date, String customerStatementName) {
+        super(object, location, id, liveMode, created, deleted);
+        this.number = number;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerTaxId = customerTaxId;
+        this.customerEmail = customerEmail;
+        this.customerStatement = customerStatement;
+        this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyTaxId = companyTaxId;
+        this.chargeFee = chargeFee;
+        this.voidedFee = voidedFee;
+        this.transferFee = transferFee;
+        this.subtotal = subtotal;
+        this.vat = vat;
+        this.wht = wht;
+        this.total = total;
+        this.creditNote = creditNote;
+        this.currency = currency;
+        this.date = date;
+        this.customerStatementName = customerStatementName;
+    }
 
     public String getDate() {
         return date;
