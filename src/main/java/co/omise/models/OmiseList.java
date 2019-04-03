@@ -8,11 +8,7 @@ public class OmiseList<T extends Model> extends OmiseObjectBase {
     private Ordering order;
     private List<T> data;
 
-    public OmiseList(String object, String location, int total, Ordering order, List<T> data) {
-        super(object, location);
-        this.total = total;
-        this.order = order;
-        this.data = data;
+    public OmiseList() {
     }
 
     public int getTotal() {

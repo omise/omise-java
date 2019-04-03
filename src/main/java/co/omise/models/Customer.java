@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,13 +25,7 @@ public class Customer extends Model {
     private Map<String, Object> metadata;
     private ScopedList<Card> cards;
 
-    public Customer(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String defaultCard, String email, String description, Map<String, Object> metadata, ScopedList<Card> cards) {
-        super(object, location, id, liveMode, created, deleted);
-        this.defaultCard = defaultCard;
-        this.email = email;
-        this.description = description;
-        this.metadata = metadata;
-        this.cards = cards;
+    public Customer() {
     }
 
     public String getDefaultCard() {

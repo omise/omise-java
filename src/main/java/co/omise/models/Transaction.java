@@ -21,13 +21,7 @@ public class Transaction extends Model {
     private String source;
     private DateTime transferable;
 
-    public Transaction(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, long amount, String currency, TransactionType type, String source, DateTime transferable) {
-        super(object, location, id, liveMode, created, deleted);
-        this.amount = amount;
-        this.currency = currency;
-        this.type = type;
-        this.source = source;
-        this.transferable = transferable;
+    public Transaction() {
     }
 
     public long getAmount() {
@@ -114,7 +108,8 @@ public class Transaction extends Model {
 
         @Override
         protected ResponseType<ScopedList<Transaction>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {
+            });
         }
     }
 }

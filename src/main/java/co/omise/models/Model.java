@@ -21,12 +21,7 @@ public abstract class Model extends OmiseObjectBase {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
 
-    public Model(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted) {
-        super(object, location);
-        this.id = id;
-        this.liveMode = liveMode;
-        this.created = created;
-        this.deleted = deleted;
+    public Model() {
     }
 
     public String getId() {

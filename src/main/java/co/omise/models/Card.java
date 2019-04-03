@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 import org.joda.time.YearMonth;
 
 import java.io.IOException;
@@ -37,20 +36,7 @@ public class Card extends Model {
     @JsonProperty("security_code_check")
     private boolean securityCodeCheck;
 
-    public Card(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String country, String city, String bank, String postalCode, String financing, String lastDigits, String brand, int expirationMonth, int expirationYear, String fingerprint, String name, boolean securityCodeCheck) {
-        super(object, location, id, liveMode, created, deleted);
-        this.country = country;
-        this.city = city;
-        this.bank = bank;
-        this.postalCode = postalCode;
-        this.financing = financing;
-        this.lastDigits = lastDigits;
-        this.brand = brand;
-        this.expirationMonth = expirationMonth;
-        this.expirationYear = expirationYear;
-        this.fingerprint = fingerprint;
-        this.name = name;
-        this.securityCodeCheck = securityCodeCheck;
+    public Card() {
     }
 
     public String getCountry() {

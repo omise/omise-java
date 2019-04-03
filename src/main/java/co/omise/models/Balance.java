@@ -4,7 +4,6 @@ import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import okhttp3.HttpUrl;
-import org.joda.time.DateTime;
 
 /**
  * Represents Omise Balance object and contains its {@link RequestBuilder}
@@ -16,11 +15,7 @@ public class Balance extends Model {
     private long total;
     private String currency;
 
-    public Balance(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, long available, long total, String currency) {
-        super(object, location, id, liveMode, created, deleted);
-        this.available = available;
-        this.total = total;
-        this.currency = currency;
+    public Balance() {
     }
 
     public long getAvailable() {

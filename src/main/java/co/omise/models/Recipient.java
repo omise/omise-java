@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 
@@ -30,17 +29,7 @@ public class Recipient extends Model {
     @JsonProperty("failure_code")
     private String failureCode;
 
-    public Recipient(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, boolean verified, boolean active, String name, String email, String description, RecipientType type, String taxId, BankAccount bankAccount, String failureCode) {
-        super(object, location, id, liveMode, created, deleted);
-        this.verified = verified;
-        this.active = active;
-        this.name = name;
-        this.email = email;
-        this.description = description;
-        this.type = type;
-        this.taxId = taxId;
-        this.bankAccount = bankAccount;
-        this.failureCode = failureCode;
+    public Recipient() {
     }
 
     public boolean isVerified() {

@@ -39,22 +39,7 @@ public class Transfer extends Model {
     @JsonProperty("paid_at")
     private DateTime paidAt;
 
-    public Transfer(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String recipient, BankAccount bankAccount, boolean sent, boolean paid, long fee, long amount, String currency, boolean failFast, String failureCode, String failureMessage, String transaction, Map<String, Object> metadata, DateTime sentAt, DateTime paidAt) {
-        super(object, location, id, liveMode, created, deleted);
-        this.recipient = recipient;
-        this.bankAccount = bankAccount;
-        this.sent = sent;
-        this.paid = paid;
-        this.fee = fee;
-        this.amount = amount;
-        this.currency = currency;
-        this.failFast = failFast;
-        this.failureCode = failureCode;
-        this.failureMessage = failureMessage;
-        this.transaction = transaction;
-        this.metadata = metadata;
-        this.sentAt = sentAt;
-        this.paidAt = paidAt;
+    public Transfer() {
     }
 
     public String getRecipient() {

@@ -1,7 +1,6 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
-import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
 import co.omise.requests.RequestBuilder;
@@ -30,15 +29,7 @@ public class Occurrence extends Model {
     private String message;
     private String result;
 
-    public Occurrence(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, String schedule, DateTime scheduleDate, DateTime retryDate, DateTime processedAt, OccurrenceStatus status, String message, String result) {
-        super(object, location, id, liveMode, created, deleted);
-        this.schedule = schedule;
-        this.scheduleDate = scheduleDate;
-        this.retryDate = retryDate;
-        this.processedAt = processedAt;
-        this.status = status;
-        this.message = message;
-        this.result = result;
+    public Occurrence() {
     }
 
     public String getSchedule() {
@@ -123,7 +114,8 @@ public class Occurrence extends Model {
 
         @Override
         protected ResponseType<ScopedList<Occurrence>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {
+            });
         }
 
         public Occurrence.ListRequestBuilder options(ScopedList.Options options) {
@@ -135,11 +127,11 @@ public class Occurrence extends Model {
     /**
      * The {@link RequestBuilder} class for retrieving a particular occurrence.
      */
-    public static class GetRequestBuilder extends RequestBuilder<Occurrence>{
+    public static class GetRequestBuilder extends RequestBuilder<Occurrence> {
         private String occurrenceId;
 
         public GetRequestBuilder(String occurrenceId) {
-            this.occurrenceId= occurrenceId;
+            this.occurrenceId = occurrenceId;
         }
 
         @Override

@@ -7,9 +7,7 @@ public abstract class OmiseObjectBase implements OmiseObject, Serializable {
     private String object;
     private String location;
 
-    public OmiseObjectBase(String object, String location) {
-        this.object = object;
-        this.location = location;
+    public OmiseObjectBase() {
     }
 
     @Override

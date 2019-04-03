@@ -6,7 +6,6 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 
@@ -33,10 +32,7 @@ public class Token extends Model {
     private boolean used;
     private Card card;
 
-    public Token(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, boolean used, Card card) {
-        super(object, location, id, liveMode, created, deleted);
-        this.used = used;
-        this.card = card;
+    public Token() {
     }
 
     public boolean isUsed() {

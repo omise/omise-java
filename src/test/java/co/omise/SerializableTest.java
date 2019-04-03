@@ -1,7 +1,7 @@
 package co.omise;
 
 import co.omise.models.Account;
-import org.joda.time.DateTime;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
@@ -9,16 +9,15 @@ import java.io.*;
 public class SerializableTest {
     private String filename = "file.ser";
 
-    private Account account = new Account(
-            "account",
-            "omise",
-            "id",
-            true,
-            DateTime.now(),
-            false,
-            "a@b.com",
-            "thb"
-    );
+    private Account account;
+
+    @Before
+    public void setup(){
+        account = new Account();
+
+        account.setEmail("a@b.com");
+        account.setCurrency("thb");
+    }
 
     @Test
     public void testSerialize() {

@@ -25,7 +25,7 @@ public class SerializerTest extends OmiseTest {
     @Test
     public void testSerialize() throws IOException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        serializer().serialize(outputStream, new Dummy("dummy", "/404", "world"));
+        serializer().serialize(outputStream, new Dummy());
 
         byte[] bytes = outputStream.toByteArray();
         assertEquals(DUMMY_JSON, new String(bytes, 0, bytes.length));
@@ -65,7 +65,7 @@ public class SerializerTest extends OmiseTest {
 
     @Test
     public void testSerializeMap() {
-        Map<String, Object> map = serializer().serializeToMap(new Dummy("dummy", "/404", "world"));
+        Map<String, Object> map = serializer().serializeToMap(new Dummy());
 
         assertNotNull(map);
         assertEquals("/404", map.get("location"));
@@ -110,9 +110,10 @@ public class SerializerTest extends OmiseTest {
     public static final class Dummy extends OmiseObjectBase {
         private String hello;
 
-        public Dummy(String object, String location, String hello) {
-            super(object, location);
-            this.hello = hello;
+        public Dummy() {
+            setLocation("/404");
+            setObject("dummy");
+            setHello("world");
         }
 
         public String getHello() {

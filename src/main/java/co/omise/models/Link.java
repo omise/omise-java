@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 
@@ -27,16 +26,7 @@ public class Link extends Model {
     @JsonProperty("payment_uri")
     private String paymentUri;
 
-    public Link(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, long amount, String currency, boolean used, boolean multiple, String title, String description, ScopedList<Charge> charges, String paymentUri) {
-        super(object, location, id, liveMode, created, deleted);
-        this.amount = amount;
-        this.currency = currency;
-        this.used = used;
-        this.multiple = multiple;
-        this.title = title;
-        this.description = description;
-        this.charges = charges;
-        this.paymentUri = paymentUri;
+    public Link() {
     }
 
     public long getAmount() {

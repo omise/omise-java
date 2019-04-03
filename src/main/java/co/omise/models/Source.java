@@ -6,7 +6,6 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 
@@ -32,18 +31,7 @@ public class Source extends Model {
     @JsonProperty("installment_terms")
     private String installmentTerms;
 
-    public Source(String object, String location, String id, boolean liveMode, DateTime created, boolean deleted, SourceType type, FlowType flow, long amount, String currency, String barcode, References references, String storeId, String storeName, String terminalId, String installmentTerms) {
-        super(object, location, id, liveMode, created, deleted);
-        this.type = type;
-        this.flow = flow;
-        this.amount = amount;
-        this.currency = currency;
-        this.barcode = barcode;
-        this.references = references;
-        this.storeId = storeId;
-        this.storeName = storeName;
-        this.terminalId = terminalId;
-        this.installmentTerms = installmentTerms;
+    public Source() {
     }
 
     public SourceType getType() {
