@@ -3,7 +3,9 @@ package co.omise.models.schedules;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class TransferScheduling {
+import java.io.Serializable;
+
+public class TransferScheduling implements Serializable {
     private String recipient;
     private long amount;
     @JsonProperty("percentage_of_balance")
@@ -24,7 +26,7 @@ public class TransferScheduling {
     public void setAmount(long amount) {
         this.amount = amount;
     }
-   
+
     public float getPercentageOfBalance() {
         return percentageOfBalance;
     }

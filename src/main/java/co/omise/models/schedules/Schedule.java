@@ -1,10 +1,8 @@
 package co.omise.models.schedules;
 
 import co.omise.Endpoint;
-import co.omise.models.Charge;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
-import co.omise.models.Transfer;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +38,9 @@ public class Schedule extends Model {
 
     @JsonProperty("next_occurrence_dates")
     private List<String> nextOccurrenceDates;
+
+    public Schedule() {
+    }
 
     public ScheduleStatus getStatus() {
         return status;
@@ -146,7 +147,8 @@ public class Schedule extends Model {
 
         @Override
         protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {
+            });
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {
@@ -299,7 +301,8 @@ public class Schedule extends Model {
 
         @Override
         protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {
+            });
         }
 
         public ChargeScheduleListRequestBuilder options(ScopedList.Options options) {
@@ -333,7 +336,8 @@ public class Schedule extends Model {
 
         @Override
         protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {
+            });
         }
 
         public CustomerScheduleListRequestBuilder options(ScopedList.Options options) {
@@ -347,6 +351,7 @@ public class Schedule extends Model {
      */
     public static class TransferScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
+
         @Override
         protected HttpUrl path() {
             if (options == null) {
@@ -360,7 +365,8 @@ public class Schedule extends Model {
 
         @Override
         protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {
+            });
         }
 
         public TransferScheduleListRequestBuilder options(ScopedList.Options options) {
@@ -394,7 +400,8 @@ public class Schedule extends Model {
 
         @Override
         protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {
+            });
         }
 
         public RecipientScheduleListRequestBuilder options(ScopedList.Options options) {

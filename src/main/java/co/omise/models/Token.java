@@ -32,6 +32,9 @@ public class Token extends Model {
     private boolean used;
     private Card card;
 
+    public Token() {
+    }
+
     public boolean isUsed() {
         return used;
     }

@@ -25,6 +25,9 @@ public class Dispute extends Model {
     private String charge;
     private Map<String, Object> metadata;
 
+    public Dispute() {
+    }
+
     public long getAmount() {
         return amount;
     }
@@ -116,7 +119,8 @@ public class Dispute extends Model {
 
         @Override
         protected ResponseType<ScopedList<Dispute>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Dispute>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Dispute>>() {
+            });
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

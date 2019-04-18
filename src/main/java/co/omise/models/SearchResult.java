@@ -27,6 +27,9 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
     @JsonProperty("total_pages")
     private int totalPages;
 
+    public SearchResult() {
+    }
+
     public SearchScope getScope() {
         return scope;
     }

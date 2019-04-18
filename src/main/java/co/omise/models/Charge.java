@@ -53,6 +53,9 @@ public class Charge extends Model {
     private boolean reversible;
     private boolean refundable;
 
+    public Charge() {
+    }
+
     public ChargeStatus getStatus() {
         return status;
     }
@@ -245,21 +248,37 @@ public class Charge extends Model {
         this.source = source;
     }
 
-    public boolean isDisputable() { return disputable; }
+    public boolean isDisputable() {
+        return disputable;
+    }
 
-    public void setDisputable(boolean disputable) { this.disputable = disputable; }
+    public void setDisputable(boolean disputable) {
+        this.disputable = disputable;
+    }
 
-    public boolean isCapturable() { return capturable; }
+    public boolean isCapturable() {
+        return capturable;
+    }
 
-    public void setCapturable(boolean capturable) { this.capturable = capturable; }
+    public void setCapturable(boolean capturable) {
+        this.capturable = capturable;
+    }
 
-    public boolean isReversible() { return reversible; }
+    public boolean isReversible() {
+        return reversible;
+    }
 
-    public void setReversible(boolean reversible) { this.reversible = reversible; }
+    public void setReversible(boolean reversible) {
+        this.reversible = reversible;
+    }
 
-    public boolean isRefundable() { return refundable; }
+    public boolean isRefundable() {
+        return refundable;
+    }
 
-    public void setRefundable(boolean refundable) { this.refundable = refundable; }
+    public void setRefundable(boolean refundable) {
+        this.refundable = refundable;
+    }
 
     /**
      * The {@link RequestBuilder} class for creating a Charge.

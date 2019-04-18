@@ -21,6 +21,9 @@ public abstract class Model extends OmiseObjectBase {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
 
+    public Model() {
+    }
+
     public String getId() {
         return id;
     }

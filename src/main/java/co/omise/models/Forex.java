@@ -10,6 +10,9 @@ public class Forex extends Model {
     private String from;
     private String to;
 
+    public Forex() {
+    }
+
     public String getFrom() {
         return from;
     }

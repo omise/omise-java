@@ -26,6 +26,9 @@ public class Link extends Model {
     @JsonProperty("payment_uri")
     private String paymentUri;
 
+    public Link() {
+    }
+
     public long getAmount() {
         return amount;
     }

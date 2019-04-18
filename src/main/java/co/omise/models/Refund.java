@@ -24,6 +24,9 @@ public class Refund extends Model {
     private String transaction;
     private Map<String, Object> metadata;
 
+    public Refund() {
+    }
+
     public long getAmount() {
         return amount;
     }

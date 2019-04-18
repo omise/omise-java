@@ -8,6 +8,9 @@ public class OmiseList<T extends Model> extends OmiseObjectBase {
     private Ordering order;
     private List<T> data;
 
+    public OmiseList() {
+    }
+
     public int getTotal() {
         return total;
     }

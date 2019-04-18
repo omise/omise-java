@@ -66,6 +66,8 @@ public class Receipt extends Model {
     @JsonProperty("customer_statement_name")
     private String customerStatementName;
 
+    public Receipt() {
+    }
 
     public String getDate() {
         return date;

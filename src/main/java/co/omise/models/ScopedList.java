@@ -15,6 +15,9 @@ public class ScopedList<T extends Model> extends OmiseList<T> {
     private int offset;
     private int limit;
 
+    public ScopedList() {
+    }
+
     public DateTime getFrom() {
         return from;
     }
