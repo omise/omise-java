@@ -25,6 +25,9 @@ public class Customer extends Model {
     private Map<String, Object> metadata;
     private ScopedList<Card> cards;
 
+    public Customer() {
+    }
+
     public String getDefaultCard() {
         return defaultCard;
     }

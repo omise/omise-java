@@ -14,6 +14,9 @@ public class Account extends Model {
     private String email;
     private String currency;
 
+    public Account() {
+    }
+
     public String getEmail() {
         return email;
     }

@@ -36,6 +36,9 @@ public class Card extends Model {
     @JsonProperty("security_code_check")
     private boolean securityCodeCheck;
 
+    public Card() {
+    }
+
     public String getCountry() {
         return country;
     }

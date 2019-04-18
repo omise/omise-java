@@ -39,6 +39,9 @@ public class Transfer extends Model {
     @JsonProperty("paid_at")
     private DateTime paidAt;
 
+    public Transfer() {
+    }
+
     public String getRecipient() {
         return recipient;
     }

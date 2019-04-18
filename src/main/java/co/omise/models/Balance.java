@@ -15,6 +15,9 @@ public class Balance extends Model {
     private long total;
     private String currency;
 
+    public Balance() {
+    }
+
     public long getAvailable() {
         return available;
     }

@@ -3,7 +3,9 @@ package co.omise.models.schedules;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ChargeScheduling {
+import java.io.Serializable;
+
+public class ChargeScheduling implements Serializable {
     private long amount;
     private String currency;
     private String customer;

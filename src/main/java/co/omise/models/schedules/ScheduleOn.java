@@ -3,8 +3,10 @@ package co.omise.models.schedules;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
+
 // key presence meaningful, must not send nulls or []s
-public class ScheduleOn {
+public class ScheduleOn implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonProperty("weekdays")
     private Weekdays[] weekdays;
@@ -56,7 +58,7 @@ public class ScheduleOn {
          * Specify that a schedule should run only on certain weekdays.
          *
          * @param weekdays A list of {@link Weekdays} values.
-         *                 @return itself, for chaining.
+         * @return itself, for chaining.
          */
         public Params weekdays(Weekdays... weekdays) {
             this.weekdays = weekdays;

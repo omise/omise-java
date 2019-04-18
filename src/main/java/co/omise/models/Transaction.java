@@ -21,6 +21,9 @@ public class Transaction extends Model {
     private String source;
     private DateTime transferable;
 
+    public Transaction() {
+    }
+
     public long getAmount() {
         return amount;
     }
@@ -105,7 +108,8 @@ public class Transaction extends Model {
 
         @Override
         protected ResponseType<ScopedList<Transaction>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {
+            });
         }
     }
 }

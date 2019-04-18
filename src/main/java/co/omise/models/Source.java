@@ -37,6 +37,9 @@ public class Source extends Model {
     @JsonProperty("installment_terms")
     private String installmentTerms;
 
+    public Source() {
+    }
+
     public SourceType getType() {
         return type;
     }

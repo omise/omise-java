@@ -29,6 +29,9 @@ public class Recipient extends Model {
     @JsonProperty("failure_code")
     private String failureCode;
 
+    public Recipient() {
+    }
+
     public boolean isVerified() {
         return verified;
     }

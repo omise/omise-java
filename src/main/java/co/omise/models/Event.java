@@ -16,6 +16,9 @@ public class Event<T extends Model> extends Model {
 
     private T data;
 
+    public Event() {
+    }
+
     public String getKey() {
         return key;
     }
@@ -70,7 +73,8 @@ public class Event<T extends Model> extends Model {
 
         @Override
         protected ResponseType<ScopedList<Event>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {
+            });
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

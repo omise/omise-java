@@ -14,6 +14,9 @@ public class BankAccount extends Model {
     private String lastDigits;
     private String name;
 
+    public BankAccount() {
+    }
+
     public String getBrand() {
         return brand;
     }
