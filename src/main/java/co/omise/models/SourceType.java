@@ -18,6 +18,8 @@ public enum SourceType {
     BillPaymentTescoLotus,
     @JsonProperty("barcode_alipay")
     BarcodeAlipay;
+    @JsonProperty("econtext")
+    Econtext;
 
     @Override
     public String toString() {
@@ -36,6 +38,8 @@ public enum SourceType {
                 return "alipay";
             case BarcodeAlipay:
                 return "barcode_alipay";
+            case Econtext:
+                return "econtext";
             default:
                 return "";
         }
