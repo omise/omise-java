@@ -26,7 +26,9 @@ public enum SourceType {
     @JsonProperty("installment_ktc")
     InstKtc,
     @JsonProperty("installment_kbank")
-    InstKBank;
+    InstKBank,
+    @JsonProperty("truemoney")
+    TrueMoney;
 
     @Override
     public String toString() {
@@ -55,6 +57,8 @@ public enum SourceType {
                 return "installment_ktc";
             case InstKBank:
                 return "installment_kbank";
+            case TrueMoney:
+                return "truemoney";
             default:
                 return "";
         }
