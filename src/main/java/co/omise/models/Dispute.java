@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +25,13 @@ public class Dispute extends Model {
     private String message;
     private String charge;
     private Map<String, Object> metadata;
+    private String transaction;
+    @JsonProperty("reason_code")
+    private DisputeReasonCode reasonCode;
+    @JsonProperty("reason_message")
+    private String reasonMessage;
+    @JsonProperty("closed_at")
+    private DateTime closedDate;
 
     public Dispute() {
     }
@@ -74,6 +82,38 @@ public class Dispute extends Model {
 
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
+    }
+
+    public void setReasonCode(DisputeReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+    }
+
+    public DisputeReasonCode getReasonCode() {
+        return reasonCode;
+    }
+
+    public void setReasonMessage(String reasonMessage) {
+        this.reasonMessage = reasonMessage;
+    }
+
+    public String getReasonMessage() {
+        return reasonMessage;
+    }
+
+    public String getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(String transaction) {
+        this.transaction = transaction;
+    }
+
+    public DateTime getClosedDate() {
+        return closedDate;
+    }
+
+    public void setClosedDate(DateTime closedDate) {
+        this.closedDate = closedDate;
     }
 
     /**

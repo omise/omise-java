@@ -2,6 +2,7 @@ package co.omise.requests;
 
 import co.omise.models.Dispute;
 import co.omise.models.DisputeStatus;
+import co.omise.models.DisputeReasonCode;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import org.junit.Test;
@@ -57,6 +58,9 @@ public class DisputeRequestTest extends RequestTest {
         assertEquals("chrg_test_5089odjlzg9j7tw4i1q", dispute.getCharge());
         assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
+        assertEquals("trxn_test_59bqoovjrgehphloams", dispute.getTransaction());
+        assertEquals(DisputeReasonCode.goodsOrServicesNotProvided, dispute.getReasonCode());
+        assertEquals("Services not provided or Merchandise not received", dispute.getReasonMessage());
     }
 
     @Test
