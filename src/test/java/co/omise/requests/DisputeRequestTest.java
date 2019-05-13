@@ -1,10 +1,13 @@
 package co.omise.requests;
 
+import co.omise.Serializer;
 import co.omise.models.Dispute;
 import co.omise.models.DisputeStatus;
 import co.omise.models.DisputeReasonCode;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -61,6 +64,10 @@ public class DisputeRequestTest extends RequestTest {
         assertEquals("trxn_test_59bqoovjrgehphloams", dispute.getTransaction());
         assertEquals(DisputeReasonCode.goodsOrServicesNotProvided, dispute.getReasonCode());
         assertEquals("Services not provided or Merchandise not received", dispute.getReasonMessage());
+
+        DateTimeFormatter formatter = Serializer.defaultSerializer().dateTimeFormatter();
+        LocalDateTime closedAt = LocalDateTime.parse("2015-03-23T01:24:39Z", formatter);
+        assertEquals(closedAt, dispute.getClosedDate().toLocalDateTime());
     }
 
     @Test
