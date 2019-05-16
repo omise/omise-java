@@ -115,6 +115,35 @@ public class ClientTest extends OmiseTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
+    public void testLiveEcontextCharge() throws ClientException, IOException, OmiseException {
+        DateTime expiryDateTime = DateTime.now().plusDays(1);
+
+        Source source = liveTestClient().sources().create(new Source.Create()
+                .type(SourceType.Econtext)
+                .amount(150)
+                .currency("jpy")
+                .name("John Doe")
+                .phoneNumber("0123456789")
+                .email("test@omise.co"));
+
+        System.out.println("created source: " + source.getId());
+
+        Charge charge = liveTestClient().charges().create(new Charge.Create()
+                .amount(150)
+                .currency("jpy")
+                .description("omise-java test")
+                .source(source.getId())
+                .expiresAt(expiryDateTime));
+
+        System.out.println("created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(SourceType.Econtext, charge.getSource().getType());
+        assertEquals(expiryDateTime.toLocalDate(), charge.getExpiresAt().toLocalDate());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveSchedule() throws ClientException, IOException, OmiseException {
         Client client = liveTestClient();
         Token token = client.tokens().create(new Token.Create()
@@ -363,6 +392,7 @@ public class ClientTest extends OmiseTest {
         assertEquals("DESCRIPTION", refund.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", refund.getMetadata().get("invoice_id"));
     }
+
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveDispute() throws ClientException, IOException, OmiseException {
