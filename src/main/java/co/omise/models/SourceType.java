@@ -17,7 +17,7 @@ public enum SourceType {
     @JsonProperty("bill_payment_tesco_lotus")
     BillPaymentTescoLotus,
     @JsonProperty("barcode_alipay")
-    BarcodeAlipay;
+    BarcodeAlipay,
     @JsonProperty("econtext")
     Econtext;
 

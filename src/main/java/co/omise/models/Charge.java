@@ -2,6 +2,7 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.Maps;
+import org.joda.time.DateTime;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ public class Charge extends Model {
     @JsonProperty("installment_terms")
     private int installmentTerms;
     private Source source;
+    @JsonProperty("expires_at")
+    private DateTime expiresAt;
 
     public ChargeStatus getStatus() {
         return status;
@@ -238,6 +241,14 @@ public class Charge extends Model {
         this.source = source;
     }
 
+    public DateTime getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(DateTime expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
     public static class Create extends Params {
         @JsonProperty
         private String customer;
@@ -261,6 +272,8 @@ public class Charge extends Model {
         private String returnUri;
         @JsonProperty
         private String source;
+        @JsonProperty("expires_at")
+        private DateTime expiresAt;
 
         public Create customer(String customer) {
             this.customer = customer;
@@ -324,6 +337,11 @@ public class Charge extends Model {
 
         public Create source(String source) {
             this.source = source;
+            return this;
+        }
+
+        public Create expiresAt(DateTime expiresAt) throws IllegalStateException {
+            this.expiresAt = expiresAt;
             return this;
         }
     }
