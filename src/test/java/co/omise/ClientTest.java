@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientTest extends OmiseTest {
-    private static final String LIVETEST_PKEY = "pkey_test_5cotumuix3r6g414148";
-    private static final String LIVETEST_SKEY = "skey_test_5aqk7hvzd3c54bi1fe0";
+    private static final String LIVETEST_PKEY = "pkey_test_replaceme";
+    private static final String LIVETEST_SKEY = "skey_test_replaceme";
     private static final String LIVETEST_CUST = "cust_test_replaceme";
     private static final String LIVETEST_REFUND = "chrg_test_replaceme";
     private static final String LIVETEST_DIPUTE = "dspt_test_replaceme";
@@ -102,7 +102,6 @@ public class ClientTest extends OmiseTest {
                 .amount(2000) // $20
                 .currency("usd")
                 .description("omise-java test")
-                .expiresAt(DateTime.now().plusDays(1))
                 .card(token.getId()));
 
         charge = client.charges().update(charge.getId(), new Charge.Update()
@@ -117,6 +116,8 @@ public class ClientTest extends OmiseTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveEcontextCharge() throws ClientException, IOException, OmiseException {
+        DateTime expiryDateTime = DateTime.now().plusDays(1);
+
         Source source = liveTestClient().sources().create(new Source.Create()
                 .type(SourceType.Econtext)
                 .amount(150)
@@ -132,13 +133,13 @@ public class ClientTest extends OmiseTest {
                 .currency("jpy")
                 .description("omise-java test")
                 .source(source.getId())
-                .expiresAt(DateTime.now().plusDays(1)));
+                .expiresAt(expiryDateTime));
 
         System.out.println("created charge: " + charge.getId());
 
         assertNotNull(charge.getId());
         assertEquals(SourceType.Econtext, charge.getSource().getType());
-        assertEquals(DateTime.now().plusDays(1), charge.getExpiresAt());
+        assertEquals(expiryDateTime.toLocalDate(), charge.getExpiresAt().toLocalDate());
     }
 
     @Test
