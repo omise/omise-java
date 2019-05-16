@@ -16,5 +16,6 @@ public class SourceTypeTest {
         assertEquals("alipay", SourceType.Alipay.toString());
         assertEquals("barcode_alipay", SourceType.BarcodeAlipay.toString());
         assertEquals("econtext", SourceType.Econtext.toString());
+        assertEquals("truemoney", SourceType.TrueMoney.toString());
     }
 }

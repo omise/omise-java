@@ -19,7 +19,9 @@ public enum SourceType {
     @JsonProperty("barcode_alipay")
     BarcodeAlipay,
     @JsonProperty("econtext")
-    Econtext;
+    Econtext,
+    @JsonProperty("truemoney")
+    TrueMoney;
 
     @Override
     public String toString() {
@@ -40,6 +42,8 @@ public enum SourceType {
                 return "barcode_alipay";
             case Econtext:
                 return "econtext";
+            case TrueMoney:
+                return "truemoney";
             default:
                 return "";
         }
