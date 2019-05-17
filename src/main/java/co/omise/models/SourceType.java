@@ -1,5 +1,6 @@
 package co.omise.models;
 
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum SourceType {
@@ -28,7 +29,9 @@ public enum SourceType {
     @JsonProperty("installment_kbank")
     InstKBank,
     @JsonProperty("truemoney")
-    TrueMoney;
+    TrueMoney,
+    @JsonEnumDefaultValue
+    Unknown;
 
     @Override
     public String toString() {
