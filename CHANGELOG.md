@@ -1,5 +1,12 @@
 # CHANGE LOG
 
+#2.7.8
+**NEW** Add metadata fields to Source
+**NEW** Add metadata fields to creating a Source
+**NEW** Add metadata fields to creating a Charge
+**NEW** Add Econtext as a Source type
+**NEW** Add TrueMoney as a Source type
+
 #2.7.7
 **FIXED** Updated Jackson to version 2.9.8 to fix vulnerability issue.
 
