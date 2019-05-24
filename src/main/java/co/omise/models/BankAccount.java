@@ -13,6 +13,12 @@ public class BankAccount extends Model {
     @JsonProperty("last_digits")
     private String lastDigits;
     private String name;
+    @JsonProperty("bank_code")
+    private String bankCode;
+    @JsonProperty("branch_code")
+    private String branchCode;
+    @JsonProperty("account_type")
+    private String accountType;
 
     public BankAccount() {
     }
@@ -49,6 +55,30 @@ public class BankAccount extends Model {
         this.name = name;
     }
 
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
     public static class Params extends co.omise.models.Params {
         @JsonProperty
         private String brand;
@@ -56,6 +86,12 @@ public class BankAccount extends Model {
         private String number;
         @JsonProperty
         private String name;
+        @JsonProperty("bank_code")
+        private String bankCode;
+        @JsonProperty("branch_code")
+        private String branchCode;
+        @JsonProperty("account_type")
+        private String accountType;
 
         public Params brand(String brand) {
             this.brand = brand;
@@ -69,6 +105,21 @@ public class BankAccount extends Model {
 
         public Params name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Params bankCode(String bankCode) {
+            this.bankCode = bankCode;
+            return this;
+        }
+
+        public Params branchCode(String branchCode) {
+            this.branchCode = branchCode;
+            return this;
+        }
+
+        public Params accountType(String accountType) {
+            this.accountType = accountType;
             return this;
         }
     }
