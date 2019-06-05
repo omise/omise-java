@@ -19,9 +19,9 @@ import java.io.IOException;
  */
 public class Occurrence extends Model {
     private String schedule;
-    @JsonProperty("schedule_date")
+    @JsonProperty("scheduled_on")
     private DateTime scheduleDate;
-    @JsonProperty("retry_date")
+    @JsonProperty("retry_on")
     private DateTime retryDate;
     @JsonProperty("processed_at")
     private DateTime processedAt;

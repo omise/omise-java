@@ -64,7 +64,7 @@ public class LiveOccurrenceRequestTest extends BaseLiveTest {
         ScopedList<Occurrence> occurrences = client.sendRequest(scopedListRequest);
 
         Occurrence expectedOccurrence = occurrences.getData().get(0);
-        Request<Occurrence> occurrenceRequest  = new Occurrence.GetRequestBuilder(expectedOccurrence.getId()).build();
+        Request<Occurrence> occurrenceRequest = new Occurrence.GetRequestBuilder(expectedOccurrence.getId()).build();
         Occurrence actualOccurrence = client.sendRequest(occurrenceRequest);
 
         System.out.println("get occurrence: " + actualOccurrence.getId());
