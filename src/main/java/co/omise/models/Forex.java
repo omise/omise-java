@@ -7,26 +7,26 @@ import okhttp3.HttpUrl;
 
 public class Forex extends Model {
     private double rate;
-    private String from;
-    private String to;
+    private String base;
+    private String quote;
 
     public Forex() {
     }
 
-    public String getFrom() {
-        return from;
+    public String getBase() {
+        return base;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setBase(String base) {
+        this.base = base;
     }
 
-    public String getTo() {
-        return to;
+    public String getQuote() {
+        return quote;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setQuote(String quote) {
+        this.quote = quote;
     }
 
     public double getRate() {
