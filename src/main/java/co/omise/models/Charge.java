@@ -31,7 +31,8 @@ public class Charge extends Model {
     @JsonProperty("source_of_fund")
     private SourceOfFunds sourceOfFund;
     private Card card;
-    private long refunded;
+    @JsonProperty("refunded_amount")
+    private long refundedAmount;
     private ScopedList<Refund> refunds;
     @JsonProperty("failure_code")
     private String failureCode;
@@ -152,12 +153,12 @@ public class Charge extends Model {
         this.card = card;
     }
 
-    public long getRefunded() {
-        return refunded;
+    public long getRefundedAmount() {
+        return refundedAmount;
     }
 
-    public void setRefunded(long refunded) {
-        this.refunded = refunded;
+    public void setRefundedAmount(long refundedAmount) {
+        this.refundedAmount = refundedAmount;
     }
 
     public ScopedList<Refund> getRefunds() {
