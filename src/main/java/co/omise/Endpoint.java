@@ -13,7 +13,7 @@ import java.util.*;
  * <ul>
  * <li>Host and network scheme (defaults to HTTPS.)</li>
  * <li>The certificate hash to pin against.</li>
- * <li>Wether to use the public key or the secret key.</li>
+ * <li>Whether to use the public key or the secret key.</li>
  * </ul>
  */
 public abstract class Endpoint {

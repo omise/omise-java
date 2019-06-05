@@ -17,7 +17,7 @@ public class BankAccount extends Model {
     private String bankCode;
     @JsonProperty("branch_code")
     private String branchCode;
-    @JsonProperty("account_type")
+    @JsonProperty("type")
     private String accountType;
 
     public BankAccount() {
