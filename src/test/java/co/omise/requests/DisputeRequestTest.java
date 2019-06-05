@@ -61,7 +61,7 @@ public class DisputeRequestTest extends RequestTest {
         assertEquals("chrg_test_5089odjlzg9j7tw4i1q", dispute.getCharge());
         assertEquals("DESCRIPTION", dispute.getMetadata().get("description"));
         assertEquals("inv_N1ayTWJ2FV", dispute.getMetadata().get("invoice_id"));
-        assertEquals("trxn_test_59bqoovjrgehphloams", dispute.getTransaction());
+        assertEquals("trxn_test_5d1cy88q3esdr60yr4m", dispute.getTransactions().get(0).getId());
         assertEquals(DisputeReasonCode.goodsOrServicesNotProvided, dispute.getReasonCode());
         assertEquals("Services not provided or Merchandise not received", dispute.getReasonMessage());
 

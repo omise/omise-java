@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,7 +26,7 @@ public class Dispute extends Model {
     private String message;
     private String charge;
     private Map<String, Object> metadata;
-    private String transaction;
+    private List<Transaction> transactions;
     @JsonProperty("reason_code")
     private DisputeReasonCode reasonCode;
     @JsonProperty("reason_message")
@@ -100,12 +101,12 @@ public class Dispute extends Model {
         return reasonMessage;
     }
 
-    public String getTransaction() {
-        return transaction;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(String transaction) {
-        this.transaction = transaction;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public DateTime getClosedDate() {
