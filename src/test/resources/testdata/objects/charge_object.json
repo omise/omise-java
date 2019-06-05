@@ -10,7 +10,7 @@
   "authorized": true,
   "paid": true,
   "transaction": "trxn_test_5086xltqqbv4qpmu0ri",
-  "refunded": 0,
+  "refunded_amount": 0,
   "reversed": false,
   "refunds": {
     "object": "list",

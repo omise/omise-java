@@ -10,7 +10,7 @@
   "authorized": true,
   "captured": true,
   "transaction": "trxn_test_4yq7duwb9jts1vxgqua",
-  "refunded": 10000,
+  "refunded_amount": 10000,
   "refunds": {
     "object": "list",
     "from": "1970-01-01T00:00:00+00:00",

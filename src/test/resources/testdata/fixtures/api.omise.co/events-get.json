@@ -322,7 +322,7 @@
         "authorized": true,
         "transaction": "trxn_test_5232t6i17qfpaa0099m",
         "paid": true,
-        "refunded": 0,
+        "refunded_amount": 0,
         "refunds": {
           "object": "list",
           "from": "1970-01-01T00:00:00+00:00",
@@ -381,7 +381,7 @@
         "authorized": true,
         "transaction": "trxn_test_5232t6i17qfpaa0099m",
         "paid": true,
-        "refunded": 0,
+        "refunded_amount": 0,
         "refunds": {
           "object": "list",
           "from": "1970-01-01T00:00:00+00:00",
@@ -440,7 +440,7 @@
         "authorized": true,
         "paid": false,
         "transaction": null,
-        "refunded": 0,
+        "refunded_amount": 0,
         "refunds": {
           "object": "list",
           "from": "1970-01-01T00:00:00+00:00",
@@ -499,7 +499,7 @@
         "authorized": true,
         "transaction": "trxn_test_5232t6v2dow26g8ua2s",
         "paid": true,
-        "refunded": 0,
+        "refunded_amount": 0,
         "refunds": {
           "object": "list",
           "from": "1970-01-01T00:00:00+00:00",
@@ -744,7 +744,7 @@
         "authorized": true,
         "transaction": "trxn_test_5232t7h3e1700tpnr6i",
         "paid": true,
-        "refunded": 0,
+        "refunded_amount": 0,
         "refunds": {
           "object": "list",
           "from": "1970-01-01T00:00:00+00:00",
