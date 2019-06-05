@@ -10,6 +10,7 @@ import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -98,7 +99,7 @@ public class Client {
     protected OkHttpClient buildHttpClient(Config config) throws ClientException {
         CertificatePinner.Builder pinner = new CertificatePinner.Builder();
         for (Endpoint endpoint : Endpoint.getAllEndpoints()) {
-            pinner = pinner.add(endpoint.host(), endpoint.certificateHash());
+            pinner.add(endpoint.host(), endpoint.certificateHash());
         }
 
         SSLContext sslContext;
@@ -189,7 +190,7 @@ public class Client {
         /**
          * Set public key.
          *
-         * @param publicKey  The key with the {@code pkey_} prefix.
+         * @param publicKey The key with the {@code pkey_} prefix.
          */
         public Builder publicKey(String publicKey) {
             this.publicKey = publicKey;
@@ -199,7 +200,7 @@ public class Client {
         /**
          * Set secret key.
          *
-         * @param secretKey  The key with the {@code skey_} prefix.
+         * @param secretKey The key with the {@code skey_} prefix.
          */
         public Builder secretKey(String secretKey) {
             this.secretKey = secretKey;
