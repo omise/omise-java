@@ -3,7 +3,7 @@
   "id":"schd_test_57s33hm9fg1pzcqihxs",
   "livemode":false,
   "location":"/schedules/schd_test_57s33hm9fg1pzcqihxs",
-  "status":"active",
+  "status":"running",
   "every":1,
   "period":"month",
   "on":{
@@ -46,7 +46,7 @@
       }
     ]
   },
-  "next_occurrence_dates":[
+  "next_occurrences_on":[
     "2017-06-02",
     "2017-07-02",
     "2017-08-02",

@@ -3,7 +3,7 @@
   "id":"schd_test_57s33hm9fg1pzcqihxs",
   "livemode":false,
   "location":"/schedules/schd_test_57s33hm9fg1pzcqihxs",
-  "status":"active",
+  "status":"running",
   "every":1,
   "period":"month",
   "on":{
@@ -12,8 +12,8 @@
     ]
   },
   "in_words":"Every 1 month(s) on the 2nd",
-  "start_date":"2017-04-27",
-  "end_date":"2018-04-27",
+  "start_on":"2017-04-27",
+  "end_on":"2018-04-27",
   "charge":{
     "amount":88800,
     "currency":"thb",
@@ -46,7 +46,7 @@
       }
     ]
   },
-  "next_occurrence_dates":[
+  "next_occurrences_on":[
     "2017-06-02",
     "2017-07-02",
     "2017-08-02",
