@@ -39,7 +39,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("internet_banking_bay", source.getType().toString());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("internet_banking_ktb", source.getType().toString());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -79,7 +79,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("internet_banking_scb", source.getType().toString());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -99,7 +99,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("internet_banking_bbl", source.getType().toString());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -120,7 +120,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("offline", source.getFlow().toString());
         assertNotNull(source.getType());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -140,7 +140,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("alipay", source.getType().toString());
         assertEquals("redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 
     @Test
@@ -165,7 +165,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("barcode_alipay", source.getType().toString());
         assertEquals("offline", source.getFlow().toString());
         assertEquals(200000, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
         assertEquals("1234567890", source.getBarcode());
         assertEquals("store_1", source.getStoreId());
         assertEquals("store 1", source.getStoreName());
@@ -179,7 +179,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
                 .currency("thb")
-                .installmentTerms("4")
+                .installmentTerm(4)
                 .build();
 
         Source source = client.sendRequest(request);
@@ -188,8 +188,8 @@ public class LiveSourceRequestTest extends BaseLiveTest {
 
         assertNotNull(source);
         assertEquals(SourceType.InstBankingBay, source.getType());
-        assertEquals("4", source.getInstallmentTerms());
+        assertEquals(4, source.getInstallmentTerm());
         assertEquals(500000L, source.getAmount());
-        assertEquals("thb", source.getCurrency());
+        assertEquals("THB", source.getCurrency());
     }
 }

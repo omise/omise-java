@@ -4,6 +4,6 @@
   "type": "installment_bay",
   "flow": "redirect",
   "amount": 500000,
-  "installment_terms": "4",
+  "installment_term": 4,
   "currency": "thb"
 }

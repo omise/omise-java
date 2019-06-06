@@ -439,7 +439,7 @@ final class Example {
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
                 .currency("thb")
-                .installmentTerms("4")
+                .installmentTerm(4)
                 .build();
 
         Source source = client().sendRequest(request);
