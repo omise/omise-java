@@ -18,6 +18,7 @@ public class Transaction extends Model {
     private TransactionDirection direction;
     private String origin;
     private DateTime transferable;
+    private String key;
 
     public Transaction() {
     }
@@ -60,6 +61,14 @@ public class Transaction extends Model {
 
     public void setTransferable(DateTime transferable) {
         this.transferable = transferable;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     /**
