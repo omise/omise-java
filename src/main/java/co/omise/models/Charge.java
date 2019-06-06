@@ -53,6 +53,13 @@ public class Charge extends Model {
     private boolean capturable;
     private boolean reversible;
     private boolean refundable;
+    private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    private long interest;
+    @JsonProperty("interest_vat")
+    private long interestVat;
+    private long net;
 
     public Charge() {
     }
@@ -279,6 +286,46 @@ public class Charge extends Model {
 
     public void setRefundable(boolean refundable) {
         this.refundable = refundable;
+    }
+
+    public long getFee() {
+        return fee;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
+    }
+
+    public long getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(long feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public long getInterest() {
+        return interest;
+    }
+
+    public void setInterest(long interest) {
+        this.interest = interest;
+    }
+
+    public long getInterestVat() {
+        return interestVat;
+    }
+
+    public void setInterestVat(long interestVat) {
+        this.interestVat = interestVat;
+    }
+
+    public long getNet() {
+        return net;
+    }
+
+    public void setNet(long net) {
+        this.net = net;
     }
 
     /**
