@@ -55,7 +55,7 @@ public abstract class Endpoint {
         return Collections.unmodifiableMap(endpoints);
     }
 
-    public static final String API_VERSION = "2017-11-02";
+    static final String API_VERSION = "2019-05-29";
 
     /**
      * The scheme to use, defaults to HTTPS.
