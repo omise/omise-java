@@ -3,6 +3,7 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.OmiseException;
 import co.omise.models.Refund;
+import co.omise.models.RefundStatus;
 import co.omise.models.ScopedList;
 import co.omise.requests.Request;
 import org.junit.Before;
@@ -51,6 +52,7 @@ public class LiveRefundRequestTest extends BaseLiveTest {
         System.out.println("retrieved refund: " + refund.getId());
 
         assertEquals(LIVETEST_REFUND, refund.getId());
+        assertEquals(RefundStatus.Closed, refund.getStatus());
     }
 
     @Test
