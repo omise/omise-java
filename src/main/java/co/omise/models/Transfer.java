@@ -25,6 +25,11 @@ public class Transfer extends Model {
     private boolean sent;
     private boolean paid;
     private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    @JsonProperty("total_fee")
+    private long totalFee;
+    private long net;
     private long amount;
     private String currency;
     @JsonProperty("fail_fast")
@@ -157,6 +162,30 @@ public class Transfer extends Model {
 
     public void setPaidAt(DateTime paidAt) {
         this.paidAt = paidAt;
+    }
+
+    public long getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(long feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public long getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(long totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public long getNet() {
+        return net;
+    }
+
+    public void setNet(long net) {
+        this.net = net;
     }
 
     /**
