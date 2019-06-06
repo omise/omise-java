@@ -30,14 +30,12 @@ public class Schedule extends Model {
     private DateTime startDate;
     @JsonProperty("end_on")
     private DateTime endDate;
-
     private ChargeScheduling charge;
     private TransferScheduling transfer;
-
     private ScopedList<Occurrence> occurrences;
-
     @JsonProperty("next_occurrences_on")
     private List<String> nextOccurrencesDates;
+    private boolean active;
 
     public Schedule() {
     }
@@ -130,6 +128,14 @@ public class Schedule extends Model {
         this.nextOccurrencesDates = nextOccurrencesDates;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     /**
      * The {@link RequestBuilder} class for retrieving all schedules that belong to an account.
      */
@@ -169,7 +175,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules", scheduleId);
         }
 
@@ -234,7 +240,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules");
         }
 
@@ -266,7 +272,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules", scheduleId);
         }
 

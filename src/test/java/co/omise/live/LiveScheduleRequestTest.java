@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class LiveScheduleRequestTest extends BaseLiveTest {
 
@@ -101,6 +100,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         assertNotNull(schedule);
         assertEquals(ScheduleStatus.Running, schedule.getStatus());
+        assertTrue(schedule.isActive());
     }
 
     @Test
