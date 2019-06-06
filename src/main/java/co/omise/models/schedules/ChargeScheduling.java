@@ -10,6 +10,8 @@ public class ChargeScheduling implements Serializable {
     private String currency;
     private String customer;
     private String card;
+    @JsonProperty("default_card")
+    private boolean isDefaultCard;
 
     public long getAmount() {
         return amount;
@@ -41,6 +43,14 @@ public class ChargeScheduling implements Serializable {
 
     public void setCard(String card) {
         this.card = card;
+    }
+
+    public boolean isDefaultCard() {
+        return isDefaultCard;
+    }
+
+    public void setDefaultCard(boolean defaultCard) {
+        isDefaultCard = defaultCard;
     }
 
     public static class Params extends co.omise.models.Params {
