@@ -33,6 +33,10 @@ public class Dispute extends Model {
     private String reasonMessage;
     @JsonProperty("closed_at")
     private DateTime closedDate;
+    @JsonProperty("funding_amount")
+    private long fundingAmount;
+    @JsonProperty("funding_currency")
+    private String fundingCurrency;
 
     public Dispute() {
     }
@@ -115,6 +119,22 @@ public class Dispute extends Model {
 
     public void setClosedDate(DateTime closedDate) {
         this.closedDate = closedDate;
+    }
+
+    public long getFundingAmount() {
+        return fundingAmount;
+    }
+
+    public void setFundingAmount(long fundingAmount) {
+        this.fundingAmount = fundingAmount;
+    }
+
+    public String getFundingCurrency() {
+        return fundingCurrency;
+    }
+
+    public void setFundingCurrency(String fundingCurrency) {
+        this.fundingCurrency = fundingCurrency;
     }
 
     /**
