@@ -55,7 +55,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
         ScopedList<Transfer> transfers = getLiveClient().sendRequest(request);
 
         assertEquals(20, transfers.getLimit());
-        assertEquals(21, transfers.getTotal());
+        assertTrue(transfers.getTotal() > 0);
 
         Transfer transfer = transfers.getData().get(0);
         assertNotNull(transfer);
@@ -132,5 +132,19 @@ public class LiveTransferRequestTest extends BaseLiveTest {
         System.out.println("Destroy transfer: " + actualTransfer.getId());
         assertEquals(expectedTransfer.getId(), actualTransfer.getId());
         assertTrue(actualTransfer.isDeleted());
+    }
+
+    @Test
+    @Ignore("only hit when test on live")
+    public void testLiveGetTransferWithTransactions() throws Exception {
+        Client client = getLiveClient();
+        String transferId = "trsf_test_5d42nihd8nytnfya02r";
+
+        Request<Transfer> request = new Transfer.GetRequestBuilder(transferId)
+                .build();
+        Transfer transfer = client.sendRequest(request);
+
+        System.out.println("Transfer retrieved: " + transfer.getId());
+        assertTrue(transfer.getTransactions().size() > 0);
     }
 }

@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,7 +33,7 @@ public class Transfer extends Model {
     private String failureCode;
     @JsonProperty("failure_message")
     private String failureMessage;
-    private String transaction;
+    private List<Transaction> transactions;
     private Map<String, Object> metadata;
     @JsonProperty("sent_at")
     private DateTime sentAt;
@@ -98,12 +99,12 @@ public class Transfer extends Model {
         this.failureMessage = failureMessage;
     }
 
-    public String getTransaction() {
-        return transaction;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(String transaction) {
-        this.transaction = transaction;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public Map<String, Object> getMetadata() {
