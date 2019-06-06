@@ -13,7 +13,7 @@
       "id": "schd_test_5d07kn6k5yfxnetcryv",
       "livemode": false,
       "location": "/schedules/schd_test_5d07kn6k5yfxnetcryv",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "month",
       "on": {
