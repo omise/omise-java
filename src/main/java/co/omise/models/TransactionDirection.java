@@ -2,7 +2,7 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum TransactionType {
+public enum TransactionDirection {
     @JsonProperty("credit")Credit,
     @JsonProperty("debit")Debit,
 }

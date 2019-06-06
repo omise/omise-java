@@ -12,23 +12,23 @@
       "object": "transaction",
       "id": "trxn_test_4yq7duwb9jts1vxgqua",
       "location": "/transactions/trxn_test_52u2h7jtftwyhgd283f",
-      "type": "credit",
+      "direction": "credit",
       "amount": 96094,
       "currency": "THB",
       "created": "2015-01-15T05:00:29Z",
       "transferable": "2016-01-28T05:58:28Z",
-      "source": "chrg_test_52u2h7igf601x172g23"
+      "origin": "chrg_test_52u2h7igf601x172g23"
     },
     {
       "object": "transaction",
       "id": "trxn_test_4yqafnvlztbf3908vs1",
-      "type": "debit",
+      "direction": "debit",
       "amount": 192188,
       "currency": "THB",
       "created": "2015-01-15T10:12:25Z",
       "location": "/transactions/trxn_test_52u2h7rxsbg06m2nyqb",
       "transferable": "2016-01-28T05:58:30Z",
-      "source": "chrg_test_52u2h7q6a1fz4msrqdk"
+      "origin": "chrg_test_52u2h7q6a1fz4msrqdk"
     }
   ]
 }

@@ -7,8 +7,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
 
-import java.io.IOException;
-
 /**
  * Represents Omise Transaction object.
  *
@@ -17,8 +15,8 @@ import java.io.IOException;
 public class Transaction extends Model {
     private long amount;
     private String currency;
-    private TransactionType type;
-    private String source;
+    private TransactionDirection direction;
+    private String origin;
     private DateTime transferable;
 
     public Transaction() {
@@ -40,20 +38,20 @@ public class Transaction extends Model {
         this.currency = currency;
     }
 
-    public TransactionType getType() {
-        return type;
+    public TransactionDirection getDirection() {
+        return direction;
     }
 
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setDirection(TransactionDirection direction) {
+        this.direction = direction;
     }
 
-    public String getSource() {
-        return source;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public DateTime getTransferable() {
@@ -76,7 +74,7 @@ public class Transaction extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "transactions", transactionId);
         }
 
@@ -99,7 +97,7 @@ public class Transaction extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
             }
