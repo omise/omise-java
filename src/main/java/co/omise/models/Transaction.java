@@ -3,6 +3,7 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
@@ -17,6 +18,7 @@ public class Transaction extends Model {
     private String currency;
     private TransactionDirection direction;
     private String origin;
+    @JsonProperty("transferable_at")
     private DateTime transferable;
     private String key;
 
