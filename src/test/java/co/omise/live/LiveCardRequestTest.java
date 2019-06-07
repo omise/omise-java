@@ -75,7 +75,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
 
         // These can change (card specific details, like size or the details of the first card)
         assertNotNull(cards);
-        assertEquals(3, cards.getData().size());
+        assertTrue(cards.getData().size() > 0);
         assertEquals(10, cards.getLimit());
         assertEquals(Ordering.Chronological, cards.getOrder());
         assertNotNull(cards.getData().get(0));

@@ -349,7 +349,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         Request<ScopedList<Schedule>> transferScheduleListRequest = new Schedule.TransferScheduleListRequestBuilder().build();
         ScopedList<Schedule> transferScheduleList = client.sendRequest(transferScheduleListRequest);
@@ -384,7 +384,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         ScopedList.Options options = new ScopedList.Options()
                 .limit(10)
