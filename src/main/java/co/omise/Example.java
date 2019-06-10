@@ -497,7 +497,7 @@ final class Example {
         ScopedList<Schedule> schedules = client().sendRequest(request);
         System.out.printf("total no. of recipient schedules: %d", schedules.getTotal());
     }
-    
+
     void createSchedule() throws ClientException, IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
@@ -552,6 +552,12 @@ final class Example {
         Request<Forex> request = new Forex.GetRequestBuilder("usd").build();
         Forex forex = client().sendRequest(request);
         System.out.printf("forex rate: %f", forex.getRate());
+    }
+
+    void getCapapabilities() throws ClientException, IOException, OmiseException {
+        Request<Capability> request = new Capability.GetRequestBuilder().build();
+        Capability capability = client().sendRequest(request);
+        System.out.printf("capability isZeroInterestInstallments flag: %b", capability.isZeroInterestInstallments());
     }
 
     private Client client() throws ClientException {
