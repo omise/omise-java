@@ -29,10 +29,10 @@ public class ScheduleRequestTest extends RequestTest {
         assertRequested("GET", "/schedules/" + SCHEDULE_ID, 200);
 
         assertEquals(SCHEDULE_ID, schedule.getId());
-        assertEquals(ScheduleStatus.Active, schedule.getStatus());
+        assertEquals(ScheduleStatus.Running, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrenceDates().size());
+        assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrenceDates().size());
+        assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 
     @Test

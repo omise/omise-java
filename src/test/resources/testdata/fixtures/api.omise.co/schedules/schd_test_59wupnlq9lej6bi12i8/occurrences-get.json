@@ -19,7 +19,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_59x0i8ff4ujlzkbo3ki",
-      "created": "2017-11-09T15:37:31Z"
+      "created_at": "2017-11-09T15:37:31Z"
     },
     {
       "object": "occurrence",
@@ -33,7 +33,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_59zr2knk3zw4pvt7uos",
-      "created": "2017-11-10T01:30:04Z"
+      "created_at": "2017-11-10T01:30:04Z"
     },
     {
       "object": "occurrence",
@@ -47,7 +47,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5a2hmxbtf1llc40shcj",
-      "created": "2017-11-17T01:30:05Z"
+      "created_at": "2017-11-17T01:30:05Z"
     },
     {
       "object": "occurrence",
@@ -61,7 +61,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5a5879w7y3x417j1k4q",
-      "created": "2017-11-24T01:30:05Z"
+      "created_at": "2017-11-24T01:30:05Z"
     },
     {
       "object": "occurrence",
@@ -75,7 +75,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5a7yrmgej4pc43q11d7",
-      "created": "2017-12-01T01:30:02Z"
+      "created_at": "2017-12-01T01:30:02Z"
     },
     {
       "object": "occurrence",
@@ -89,7 +89,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5aapbz6wk524giicoec",
-      "created": "2017-12-08T01:30:02Z"
+      "created_at": "2017-12-08T01:30:02Z"
     },
     {
       "object": "occurrence",
@@ -103,7 +103,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5adfwgq27tuaz6voaom",
-      "created": "2017-12-15T01:30:02Z"
+      "created_at": "2017-12-15T01:30:02Z"
     },
     {
       "object": "occurrence",
@@ -117,7 +117,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5ag6gt57dm41joyt3l4",
-      "created": "2017-12-22T01:30:25Z"
+      "created_at": "2017-12-22T01:30:25Z"
     },
     {
       "object": "occurrence",
@@ -131,7 +131,7 @@
       "status": "successful",
       "message": null,
       "result": "chrg_test_5aix1v7hhi5tzvpd5s0",
-      "created": "2017-12-29T01:30:23Z"
+      "created_at": "2017-12-29T01:30:23Z"
     }
   ]
 }

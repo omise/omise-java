@@ -26,18 +26,16 @@ public class Schedule extends Model {
     private ScheduleOn on;
     @JsonProperty("in_words")
     private String inWords;
-    @JsonProperty("start_date")
+    @JsonProperty("start_on")
     private DateTime startDate;
-    @JsonProperty("end_date")
+    @JsonProperty("end_on")
     private DateTime endDate;
-
     private ChargeScheduling charge;
     private TransferScheduling transfer;
-
     private ScopedList<Occurrence> occurrences;
-
-    @JsonProperty("next_occurrence_dates")
-    private List<String> nextOccurrenceDates;
+    @JsonProperty("next_occurrences_on")
+    private List<String> nextOccurrencesDates;
+    private boolean active;
 
     public Schedule() {
     }
@@ -122,12 +120,20 @@ public class Schedule extends Model {
         this.occurrences = occurrences;
     }
 
-    public List<String> getNextOccurrenceDates() {
-        return this.nextOccurrenceDates;
+    public List<String> getNextOccurrencesDates() {
+        return this.nextOccurrencesDates;
     }
 
-    public void setNextOccurrenceDates(List<String> nextOccurrenceDates) {
-        this.nextOccurrenceDates = nextOccurrenceDates;
+    public void setNextOccurrencesDates(List<String> nextOccurrencesDates) {
+        this.nextOccurrencesDates = nextOccurrencesDates;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     /**
@@ -169,7 +175,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules", scheduleId);
         }
 
@@ -234,7 +240,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules");
         }
 
@@ -266,7 +272,7 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules", scheduleId);
         }
 

@@ -10,6 +10,7 @@ import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +25,11 @@ public class Transfer extends Model {
     private boolean sent;
     private boolean paid;
     private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    @JsonProperty("total_fee")
+    private long totalFee;
+    private long net;
     private long amount;
     private String currency;
     @JsonProperty("fail_fast")
@@ -32,7 +38,7 @@ public class Transfer extends Model {
     private String failureCode;
     @JsonProperty("failure_message")
     private String failureMessage;
-    private String transaction;
+    private List<Transaction> transactions;
     private Map<String, Object> metadata;
     @JsonProperty("sent_at")
     private DateTime sentAt;
@@ -98,12 +104,12 @@ public class Transfer extends Model {
         this.failureMessage = failureMessage;
     }
 
-    public String getTransaction() {
-        return transaction;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(String transaction) {
-        this.transaction = transaction;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public Map<String, Object> getMetadata() {
@@ -156,6 +162,30 @@ public class Transfer extends Model {
 
     public void setPaidAt(DateTime paidAt) {
         this.paidAt = paidAt;
+    }
+
+    public long getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(long feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public long getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(long totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public long getNet() {
+        return net;
+    }
+
+    public void setNet(long net) {
+        this.net = net;
     }
 
     /**

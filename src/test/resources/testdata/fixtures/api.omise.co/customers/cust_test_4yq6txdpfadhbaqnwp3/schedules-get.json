@@ -13,7 +13,7 @@
       "id": "schd_test_5d072xedkx1kdhc1sum",
       "livemode": false,
       "location": "/schedules/schd_test_5d072xedkx1kdhc1sum",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -74,14 +74,14 @@
         "2019-03-11",
         "2019-03-18"
       ],
-      "created": "2018-08-21T07:42:17Z"
+      "created_at": "2018-08-21T07:42:17Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d07igpdbqckw0f56ld",
       "livemode": false,
       "location": "/schedules/schd_test_5d07igpdbqckw0f56ld",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "month",
       "on": {
@@ -116,7 +116,7 @@
         "2018-11-01",
         "2018-12-01"
       ],
-      "created": "2018-08-21T08:26:25Z"
+      "created_at": "2018-08-21T08:26:25Z"
     }
   ]
 }

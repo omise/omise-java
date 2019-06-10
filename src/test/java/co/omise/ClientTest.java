@@ -35,7 +35,7 @@ public class ClientTest extends OmiseTest {
     @Test
     public void testBuildClientWithoutAnyKeyError() {
         try {
-            Client client = new Client.Builder().build();
+            new Client.Builder().build();
         } catch (ClientException e) {
             assertEquals("Client initialization failure.", e.getMessage());
             assertEquals("The key must have at least one key.", e.getCause().getMessage());

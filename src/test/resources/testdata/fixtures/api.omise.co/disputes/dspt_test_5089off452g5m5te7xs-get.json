@@ -8,12 +8,39 @@
   "status": "open",
   "message": null,
   "charge": "chrg_test_5089odjlzg9j7tw4i1q",
-  "created": "2015-06-02T10:22:32Z",
+  "created_at": "2015-06-02T10:22:32Z",
   "metadata": {
     "description": "DESCRIPTION",
     "invoice_id": "inv_N1ayTWJ2FV"
   },
-  "transaction": "trxn_test_59bqoovjrgehphloams",
+  "transactions": [
+    {
+      "object": "transaction",
+      "id": "trxn_test_5d1cy88q3esdr60yr4m",
+      "livemode": false,
+      "location": "/transactions/trxn_test_5d1cy88q3esdr60yr4m",
+      "created_at": "2018-08-24T07:04:09Z",
+      "direction": "credit",
+      "key": "dispute.won.credit",
+      "origin": "dspt_test_5d1cxubh15mr1xk9vl7",
+      "amount": 63042,
+      "currency": "THB",
+      "transferable_at": "2018-08-24T05:38:40Z"
+    },
+    {
+      "object": "transaction",
+      "id": "trxn_test_5d1cxubozz3i3lodsst",
+      "livemode": false,
+      "location": "/transactions/trxn_test_5d1cxubozz3i3lodsst",
+      "created_at": "2018-08-24T07:03:04Z",
+      "direction": "debit",
+      "key": "dispute.started.debit",
+      "origin": "dspt_test_5d1cxubh15mr1xk9vl7",
+      "amount": 63042,
+      "currency": "THB",
+      "transferable_at": "2018-08-24T05:38:40Z"
+    }
+  ],
   "reason_code": "goods_or_services_not_provided",
   "reason_message": "Services not provided or Merchandise not received",
   "closed_at": "2015-03-23T01:24:39Z"

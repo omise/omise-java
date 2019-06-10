@@ -22,8 +22,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2017-10-20",
-      "end_date": "2116-10-20",
+      "start_on": "2017-10-20",
+      "end_on": "2116-10-20",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -53,7 +53,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59oushmt6bnjbzi8g7x",
-            "created": "2017-10-20T04:52:36Z"
+            "created_at": "2017-10-20T04:52:36Z"
           },
           {
             "object": "occurrence",
@@ -67,7 +67,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59rjdiu3s9xkeuj85oe",
-            "created": "2017-10-20T04:52:37Z"
+            "created_at": "2017-10-20T04:52:37Z"
           },
           {
             "object": "occurrence",
@@ -81,7 +81,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59u9xvef06tvmldc0os",
-            "created": "2017-10-27T01:30:05Z"
+            "created_at": "2017-10-27T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -95,7 +95,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59x0i817td36c85afjn",
-            "created": "2017-11-03T01:30:04Z"
+            "created_at": "2017-11-03T01:30:04Z"
           },
           {
             "object": "occurrence",
@@ -109,7 +109,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59zr2kt6pdt6zb0sncv",
-            "created": "2017-11-10T01:30:06Z"
+            "created_at": "2017-11-10T01:30:06Z"
           },
           {
             "object": "occurrence",
@@ -123,7 +123,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a2hmxamyrcqpr32v0c",
-            "created": "2017-11-17T01:30:08Z"
+            "created_at": "2017-11-17T01:30:08Z"
           },
           {
             "object": "occurrence",
@@ -137,7 +137,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a587a2tjhl95vk902n",
-            "created": "2017-11-24T01:30:05Z"
+            "created_at": "2017-11-24T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -151,7 +151,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a7yrmgtlpxgek50sl2",
-            "created": "2017-12-01T01:30:04Z"
+            "created_at": "2017-12-01T01:30:04Z"
           },
           {
             "object": "occurrence",
@@ -165,7 +165,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aapbz7h4f72cyo24zt",
-            "created": "2017-12-08T01:30:03Z"
+            "created_at": "2017-12-08T01:30:03Z"
           },
           {
             "object": "occurrence",
@@ -179,7 +179,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5adfwook3nacm7b78vp",
-            "created": "2017-12-15T01:30:03Z"
+            "created_at": "2017-12-15T01:30:03Z"
           },
           {
             "object": "occurrence",
@@ -193,7 +193,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5ag6h9b3vg7pfmi6yua",
-            "created": "2017-12-22T01:31:03Z"
+            "created_at": "2017-12-22T01:31:03Z"
           },
           {
             "object": "occurrence",
@@ -207,12 +207,12 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aix26bg5uss4vn16wp",
-            "created": "2017-12-29T01:31:40Z"
+            "created_at": "2017-12-29T01:31:40Z"
           }
         ]
       },
-      "next_occurrence_dates": [],
-      "created": "2017-10-20T04:52:36Z"
+      "next_occurrences_on": [],
+      "created_at": "2017-10-20T04:52:36Z"
     },
     {
       "object": "schedule",
@@ -228,8 +228,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2017-11-09",
-      "end_date": "2116-11-09",
+      "start_on": "2017-11-09",
+      "end_on": "2116-11-09",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -259,7 +259,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59x0i8fjim4xyvpy3hs",
-            "created": "2017-11-09T14:55:50Z"
+            "created_at": "2017-11-09T14:55:50Z"
           },
           {
             "object": "occurrence",
@@ -273,7 +273,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59zr2kokscu8yz5fuhs",
-            "created": "2017-11-10T01:30:04Z"
+            "created_at": "2017-11-10T01:30:04Z"
           },
           {
             "object": "occurrence",
@@ -287,7 +287,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a2hmxai2gq0srg6wjk",
-            "created": "2017-11-17T01:30:05Z"
+            "created_at": "2017-11-17T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -301,7 +301,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a587a2do5xn02t9bd9",
-            "created": "2017-11-24T01:30:05Z"
+            "created_at": "2017-11-24T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -315,7 +315,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a7yrmg5s50qmddp1j9",
-            "created": "2017-12-01T01:30:03Z"
+            "created_at": "2017-12-01T01:30:03Z"
           },
           {
             "object": "occurrence",
@@ -329,7 +329,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aapbz72lgqdnu14u76",
-            "created": "2017-12-08T01:30:02Z"
+            "created_at": "2017-12-08T01:30:02Z"
           },
           {
             "object": "occurrence",
@@ -343,7 +343,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5adfww3vn90hw0bvvqi",
-            "created": "2017-12-15T01:30:04Z"
+            "created_at": "2017-12-15T01:30:04Z"
           },
           {
             "object": "occurrence",
@@ -357,7 +357,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5ag6h9bie1j3ehtedp3",
-            "created": "2017-12-22T01:31:37Z"
+            "created_at": "2017-12-22T01:31:37Z"
           },
           {
             "object": "occurrence",
@@ -371,12 +371,12 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aix2bqpkuwkii94z75",
-            "created": "2017-12-29T01:31:41Z"
+            "created_at": "2017-12-29T01:31:41Z"
           }
         ]
       },
-      "next_occurrence_dates": [],
-      "created": "2017-11-09T14:55:50Z"
+      "next_occurrences_on": [],
+      "created_at": "2017-11-09T14:55:50Z"
     },
     {
       "object": "schedule",
@@ -392,8 +392,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2017-11-09",
-      "end_date": "2116-11-09",
+      "start_on": "2017-11-09",
+      "end_on": "2116-11-09",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -423,7 +423,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59x0i8ff4ujlzkbo3ki",
-            "created": "2017-11-09T15:37:31Z"
+            "created_at": "2017-11-09T15:37:31Z"
           },
           {
             "object": "occurrence",
@@ -437,7 +437,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_59zr2knk3zw4pvt7uos",
-            "created": "2017-11-10T01:30:04Z"
+            "created_at": "2017-11-10T01:30:04Z"
           },
           {
             "object": "occurrence",
@@ -451,7 +451,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a2hmxbtf1llc40shcj",
-            "created": "2017-11-17T01:30:05Z"
+            "created_at": "2017-11-17T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -465,7 +465,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a5879w7y3x417j1k4q",
-            "created": "2017-11-24T01:30:05Z"
+            "created_at": "2017-11-24T01:30:05Z"
           },
           {
             "object": "occurrence",
@@ -479,7 +479,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5a7yrmgej4pc43q11d7",
-            "created": "2017-12-01T01:30:02Z"
+            "created_at": "2017-12-01T01:30:02Z"
           },
           {
             "object": "occurrence",
@@ -493,7 +493,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aapbz6wk524giicoec",
-            "created": "2017-12-08T01:30:02Z"
+            "created_at": "2017-12-08T01:30:02Z"
           },
           {
             "object": "occurrence",
@@ -507,7 +507,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5adfwgq27tuaz6voaom",
-            "created": "2017-12-15T01:30:02Z"
+            "created_at": "2017-12-15T01:30:02Z"
           },
           {
             "object": "occurrence",
@@ -521,7 +521,7 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5ag6gt57dm41joyt3l4",
-            "created": "2017-12-22T01:30:25Z"
+            "created_at": "2017-12-22T01:30:25Z"
           },
           {
             "object": "occurrence",
@@ -535,19 +535,19 @@
             "status": "successful",
             "message": null,
             "result": "chrg_test_5aix1v7hhi5tzvpd5s0",
-            "created": "2017-12-29T01:30:23Z"
+            "created_at": "2017-12-29T01:30:23Z"
           }
         ]
       },
-      "next_occurrence_dates": [],
-      "created": "2017-11-09T15:37:31Z"
+      "next_occurrences_on": [],
+      "created_at": "2017-11-09T15:37:31Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d072xedkx1kdhc1sum",
       "livemode": false,
       "location": "/schedules/schd_test_5d072xedkx1kdhc1sum",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -556,8 +556,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Monday",
-      "start_date": "2018-08-21",
-      "end_date": "2019-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2019-08-21",
       "charge": {
         "amount": 50000,
         "currency": "thb",
@@ -576,7 +576,7 @@
         "location": "/schedules/schd_test_5d072xedkx1kdhc1sum/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-08-27",
         "2018-09-03",
         "2018-09-10",
@@ -608,14 +608,14 @@
         "2019-03-11",
         "2019-03-18"
       ],
-      "created": "2018-08-21T07:42:17Z"
+      "created_at": "2018-08-21T07:42:17Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d07igpdbqckw0f56ld",
       "livemode": false,
       "location": "/schedules/schd_test_5d07igpdbqckw0f56ld",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "month",
       "on": {
@@ -624,8 +624,8 @@
         ]
       },
       "in_words": "Every 1 month(s) on the 1st",
-      "start_date": "2018-08-29",
-      "end_date": "2018-12-29",
+      "start_on": "2018-08-29",
+      "end_on": "2018-12-29",
       "charge": {
         "amount": 100000,
         "currency": "thb",
@@ -644,20 +644,20 @@
         "location": "/schedules/schd_test_5d07igpdbqckw0f56ld/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-09-01",
         "2018-10-01",
         "2018-11-01",
         "2018-12-01"
       ],
-      "created": "2018-08-21T08:26:25Z"
+      "created_at": "2018-08-21T08:26:25Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d07kn6k5yfxnetcryv",
       "livemode": false,
       "location": "/schedules/schd_test_5d07kn6k5yfxnetcryv",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "month",
       "on": {
@@ -666,8 +666,8 @@
         ]
       },
       "in_words": "Every 1 month(s) on the 1st",
-      "start_date": "2018-08-21",
-      "end_date": "2019-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2019-08-21",
       "transfer": {
         "recipient": "recp_test_59cjdciys3wm0x2ehvw",
         "amount": 100000,
@@ -685,7 +685,7 @@
         "location": "/schedules/schd_test_5d07kn6k5yfxnetcryv/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-09-01",
         "2018-10-01",
         "2018-11-01",
@@ -699,14 +699,14 @@
         "2019-07-01",
         "2019-08-01"
       ],
-      "created": "2018-08-21T08:32:37Z"
+      "created_at": "2018-08-21T08:32:37Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d085ff4jqw8f8sf0xv",
       "livemode": false,
       "location": "/schedules/schd_test_5d085ff4jqw8f8sf0xv",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -715,8 +715,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2018-08-21",
-      "end_date": "2117-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2117-08-21",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -735,7 +735,7 @@
         "location": "/schedules/schd_test_5d085ff4jqw8f8sf0xv/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-08-24",
         "2018-08-31",
         "2018-09-07",
@@ -767,14 +767,14 @@
         "2019-03-08",
         "2019-03-15"
       ],
-      "created": "2018-08-21T09:31:39Z"
+      "created_at": "2018-08-21T09:31:39Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d085ode2284831t7la",
       "livemode": false,
       "location": "/schedules/schd_test_5d085ode2284831t7la",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -783,8 +783,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2018-08-21",
-      "end_date": "2117-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2117-08-21",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -803,7 +803,7 @@
         "location": "/schedules/schd_test_5d085ode2284831t7la/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-08-24",
         "2018-08-31",
         "2018-09-07",
@@ -835,7 +835,7 @@
         "2019-03-08",
         "2019-03-15"
       ],
-      "created": "2018-08-21T09:32:22Z"
+      "created_at": "2018-08-21T09:32:22Z"
     },
     {
       "object": "schedule",
@@ -851,8 +851,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2018-08-21",
-      "end_date": "2117-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2117-08-21",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -871,15 +871,15 @@
         "location": "/schedules/schd_test_5d08c0thqbuxy7c12tn/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [],
-      "created": "2018-08-21T09:50:23Z"
+      "next_occurrences_on": [],
+      "created_at": "2018-08-21T09:50:23Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d08gm5nofzvnrlx9zb",
       "livemode": false,
       "location": "/schedules/schd_test_5d08gm5nofzvnrlx9zb",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -888,8 +888,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2018-08-21",
-      "end_date": "2117-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2117-08-21",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -908,7 +908,7 @@
         "location": "/schedules/schd_test_5d08gm5nofzvnrlx9zb/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-08-24",
         "2018-08-31",
         "2018-09-07",
@@ -940,14 +940,14 @@
         "2019-03-08",
         "2019-03-15"
       ],
-      "created": "2018-08-21T10:03:26Z"
+      "created_at": "2018-08-21T10:03:26Z"
     },
     {
       "object": "schedule",
       "id": "schd_test_5d08gq4f6o04drsqrm6",
       "livemode": false,
       "location": "/schedules/schd_test_5d08gq4f6o04drsqrm6",
-      "status": "active",
+      "status": "running",
       "every": 1,
       "period": "week",
       "on": {
@@ -956,8 +956,8 @@
         ]
       },
       "in_words": "Every 1 week(s) on Friday",
-      "start_date": "2018-08-21",
-      "end_date": "2117-08-21",
+      "start_on": "2018-08-21",
+      "end_on": "2117-08-21",
       "charge": {
         "amount": 2000,
         "currency": "thb",
@@ -976,7 +976,7 @@
         "location": "/schedules/schd_test_5d08gq4f6o04drsqrm6/occurrences",
         "data": []
       },
-      "next_occurrence_dates": [
+      "next_occurrences_on": [
         "2018-08-24",
         "2018-08-31",
         "2018-09-07",
@@ -1008,7 +1008,7 @@
         "2019-03-08",
         "2019-03-15"
       ],
-      "created": "2018-08-21T10:03:45Z"
+      "created_at": "2018-08-21T10:03:45Z"
     }
   ]
 }

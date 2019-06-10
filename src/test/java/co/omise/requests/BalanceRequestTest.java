@@ -17,7 +17,7 @@ public class BalanceRequestTest extends RequestTest {
 
         assertEquals("balance", balance.getObject());
         assertEquals("/balance", balance.getLocation());
-        assertEquals(12995317L, balance.getAvailable());
+        assertEquals(12995317L, balance.getTransferable());
         assertEquals(96094L, balance.getTotal());
     }
 }

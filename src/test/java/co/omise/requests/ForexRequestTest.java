@@ -17,7 +17,7 @@ public class ForexRequestTest extends RequestTest {
 
         assertRequested("GET", "/forex/usd", 200);
 
-        assertEquals("usd", forex.getFrom());
-        assertEquals("thb", forex.getTo());
+        assertEquals("USD", forex.getBase());
+        assertEquals("THB", forex.getQuote());
     }
 }

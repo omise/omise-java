@@ -11,19 +11,19 @@ import okhttp3.HttpUrl;
  * @see <a href="https://www.omise.co/balance-api">Balance API</a>
  */
 public class Balance extends Model {
-    private long available;
+    private long transferable;
     private long total;
     private String currency;
 
     public Balance() {
     }
 
-    public long getAvailable() {
-        return available;
+    public long getTransferable() {
+        return transferable;
     }
 
-    public void setAvailable(long available) {
-        this.available = available;
+    public void setTransferable(long transferable) {
+        this.transferable = transferable;
     }
 
     public long getTotal() {

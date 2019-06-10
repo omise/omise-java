@@ -34,8 +34,8 @@ public class Source extends Model {
     private String email;
     @JsonProperty("phone_number")
     private String phoneNumber;
-    @JsonProperty("installment_terms")
-    private String installmentTerms;
+    @JsonProperty("installment_term")
+    private int installmentTerm;
 
     public Source() {
     }
@@ -136,12 +136,12 @@ public class Source extends Model {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getInstallmentTerms() {
-        return installmentTerms;
+    public int getInstallmentTerm() {
+        return installmentTerm;
     }
 
-    public void setInstallmentTerms(String installmentTerms) {
-        this.installmentTerms = installmentTerms;
+    public void setInstallmentTerm(int installmentTerm) {
+        this.installmentTerm = installmentTerm;
     }
 
     /**
@@ -170,8 +170,8 @@ public class Source extends Model {
         private String email;
         @JsonProperty("phone_number")
         private String phoneNumber;
-        @JsonProperty("installment_terms")
-        private String installmentTerms;
+        @JsonProperty("installment_term")
+        private int installmentTerm;
 
         @Override
         protected String method() {
@@ -248,8 +248,8 @@ public class Source extends Model {
             return this;
         }
 
-        public CreateRequestBuilder installmentTerms(String installmentTerms) {
-            this.installmentTerms = installmentTerms;
+        public CreateRequestBuilder installmentTerm(int installmentTerm) {
+            this.installmentTerm = installmentTerm;
             return this;
         }
     }

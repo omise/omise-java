@@ -18,8 +18,8 @@ public class LiveForexRequestTest extends BaseLiveTest {
         Forex forex = getLiveClient().sendRequest(request);
 
         assertNotNull(forex);
-        assertEquals("usd", forex.getFrom());
-        assertEquals("thb", forex.getTo());
+        assertEquals("USD", forex.getBase());
+        assertEquals("THB", forex.getQuote());
         assertTrue(forex.getRate() > 0);
     }
 }

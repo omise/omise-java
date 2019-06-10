@@ -3,6 +3,7 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
 
 /**
@@ -13,6 +14,8 @@ import okhttp3.HttpUrl;
 public class Account extends Model {
     private String email;
     private String currency;
+    @JsonProperty("team")
+    private String teamId;
 
     public Account() {
     }
@@ -31,6 +34,14 @@ public class Account extends Model {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     /**

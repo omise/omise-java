@@ -33,7 +33,7 @@ public class SourceRequestTest extends RequestTest {
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
                 .currency("thb")
-                .installmentTerms("4")
+                .installmentTerm(4)
                 .build();
 
         Source source = getTestRequester().sendRequest(request);
@@ -41,7 +41,7 @@ public class SourceRequestTest extends RequestTest {
         assertRequested("POST", "/sources/installments", 200);
         assertEquals(500000L, source.getAmount());
         assertEquals(SourceType.InstBankingBay, source.getType());
-        assertEquals("4", source.getInstallmentTerms());
+        assertEquals(4, source.getInstallmentTerm());
         assertEquals("thb", source.getCurrency());
         assertEquals("redirect", source.getFlow().toString());
     }

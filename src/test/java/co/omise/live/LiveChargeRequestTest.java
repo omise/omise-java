@@ -80,7 +80,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
         assertNotNull(charge.getId());
         assertEquals(2000, charge.getAmount());
-        assertEquals("usd", charge.getCurrency());
+        assertEquals("USD", charge.getCurrency());
         assertEquals(token.getCard().getLastDigits(), charge.getCard().getLastDigits());
     }
 
@@ -109,7 +109,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
         assertNotNull(charge.getId());
         assertEquals(10000, charge.getAmount());
-        assertEquals("thb", charge.getCurrency());
+        assertEquals("THB", charge.getCurrency());
         assertEquals(SourceType.InternetBankingBay, charge.getSource().getType());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
@@ -139,7 +139,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
         assertNotNull(charge.getId());
         assertEquals(10000, charge.getAmount());
-        assertEquals("thb", charge.getCurrency());
+        assertEquals("THB", charge.getCurrency());
         assertEquals(SourceType.BillPaymentTescoLotus, charge.getSource().getType());
     }
 
@@ -214,7 +214,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(updatedCharge.getMetadata().get("library"), "omise-java");
         assertEquals(updatedCharge.getMetadata().get("test-date"), DateTime.now().dayOfMonth().toString());
         assertEquals(2000, updatedCharge.getAmount());
-        assertEquals("usd", updatedCharge.getCurrency());
+        assertEquals("USD", updatedCharge.getCurrency());
     }
 
     @Test
