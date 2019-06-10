@@ -80,6 +80,8 @@ public class SerializationTest extends OmiseTest {
     private String objectJsonName(Class klass) {
         if (Objects.equal(klass, BankAccount.class)) {
             return "/testdata/objects/bank_account_object.json";
+        } else if (Objects.equal(klass, PaymentMethod.class)) {
+            return "/testdata/objects/payment_method_object.json";
         } else {
             return "/testdata/objects/" + klass.getSimpleName().toLowerCase() + "_object.json";
         }
