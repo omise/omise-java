@@ -11,6 +11,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,13 +26,17 @@ public class Dispute extends Model {
     private String message;
     private String charge;
     private Map<String, Object> metadata;
-    private String transaction;
+    private List<Transaction> transactions;
     @JsonProperty("reason_code")
     private DisputeReasonCode reasonCode;
     @JsonProperty("reason_message")
     private String reasonMessage;
     @JsonProperty("closed_at")
     private DateTime closedDate;
+    @JsonProperty("funding_amount")
+    private long fundingAmount;
+    @JsonProperty("funding_currency")
+    private String fundingCurrency;
 
     public Dispute() {
     }
@@ -100,12 +105,12 @@ public class Dispute extends Model {
         return reasonMessage;
     }
 
-    public String getTransaction() {
-        return transaction;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setTransaction(String transaction) {
-        this.transaction = transaction;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public DateTime getClosedDate() {
@@ -114,6 +119,22 @@ public class Dispute extends Model {
 
     public void setClosedDate(DateTime closedDate) {
         this.closedDate = closedDate;
+    }
+
+    public long getFundingAmount() {
+        return fundingAmount;
+    }
+
+    public void setFundingAmount(long fundingAmount) {
+        this.fundingAmount = fundingAmount;
+    }
+
+    public String getFundingCurrency() {
+        return fundingCurrency;
+    }
+
+    public void setFundingCurrency(String fundingCurrency) {
+        this.fundingCurrency = fundingCurrency;
     }
 
     /**

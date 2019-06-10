@@ -18,9 +18,10 @@ public class LiveBalanceRequestTest extends BaseLiveTest {
         Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
         Balance actualBalance = client.sendRequest(getBalanceRequest);
 
-        System.out.println("Balance retrieved: " + Long.toString(actualBalance.getTotal()));
+        System.out.println("Balance retrieved total: " + actualBalance.getTotal()
+                + " , transferable: " + actualBalance.getTransferable());
 
         assertTrue(actualBalance.getTotal() > 100000);
+        assertTrue(actualBalance.getTransferable() > 0);
     }
-
 }

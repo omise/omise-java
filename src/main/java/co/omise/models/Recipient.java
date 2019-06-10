@@ -9,6 +9,7 @@ import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Represents Omise Recipient object.
@@ -28,6 +29,7 @@ public class Recipient extends Model {
     private BankAccount bankAccount;
     @JsonProperty("failure_code")
     private String failureCode;
+    private Map<String, Object> metadata;
 
     public Recipient() {
     }
@@ -102,6 +104,14 @@ public class Recipient extends Model {
 
     public void setFailureCode(String failureCode) {
         this.failureCode = failureCode;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 
     /**

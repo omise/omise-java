@@ -23,6 +23,11 @@ public class Refund extends Model {
     private String charge;
     private String transaction;
     private Map<String, Object> metadata;
+    private RefundStatus status;
+    @JsonProperty("funding_amount")
+    private long fundingAmount;
+    @JsonProperty("funding_currency")
+    private String fundingCurrency;
 
     public Refund() {
     }
@@ -65,6 +70,30 @@ public class Refund extends Model {
 
     public void setMetadata(Map<String, Object> metadata) {
         this.metadata = metadata;
+    }
+
+    public RefundStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RefundStatus status) {
+        this.status = status;
+    }
+
+    public long getFundingAmount() {
+        return fundingAmount;
+    }
+
+    public void setFundingAmount(long fundingAmount) {
+        this.fundingAmount = fundingAmount;
+    }
+
+    public String getFundingCurrency() {
+        return fundingCurrency;
+    }
+
+    public void setFundingCurrency(String fundingCurrency) {
+        this.fundingCurrency = fundingCurrency;
     }
 
     /**
@@ -169,7 +198,8 @@ public class Refund extends Model {
 
         @Override
         protected ResponseType<ScopedList<Refund>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {
+            });
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

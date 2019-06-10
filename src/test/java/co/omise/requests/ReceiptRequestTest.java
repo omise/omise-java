@@ -2,7 +2,6 @@ package co.omise.requests;
 
 import co.omise.models.OmiseException;
 import co.omise.models.Receipt;
-import co.omise.models.Recipient;
 import co.omise.models.ScopedList;
 import org.junit.Test;
 
@@ -24,11 +23,10 @@ public class ReceiptRequestTest extends RequestTest {
         assertEquals("John Doe", receipt.getCustomerName());
         assertEquals("Tax ID 1234", receipt.getCustomerTaxId());
         assertEquals(3906, receipt.getTotal());
-
     }
 
     @Test
-    public void testList() throws IOException, OmiseException{
+    public void testList() throws IOException, OmiseException {
         Request<ScopedList<Receipt>> request = new Receipt.ListRequestBuilder()
                 .build();
         ScopedList<Receipt> receipts = getTestRequester().sendRequest(request);

@@ -3,7 +3,7 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.Transaction;
-import co.omise.models.TransactionType;
+import co.omise.models.TransactionDirection;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class TransactionRequestTest extends RequestTest {
 
         Transaction transaction = list.getData().get(0);
         assertEquals(TRANSACTION_ID, transaction.getId());
-        assertEquals(TransactionType.Credit, transaction.getType());
+        assertEquals(TransactionDirection.Credit, transaction.getDirection());
         assertEquals(96094L, transaction.getAmount());
         assertEquals("THB", transaction.getCurrency());
     }
@@ -34,7 +34,7 @@ public class TransactionRequestTest extends RequestTest {
         assertRequested("GET", "/transactions/" + TRANSACTION_ID, 200);
 
         assertEquals(TRANSACTION_ID, transaction.getId());
-        assertEquals(TransactionType.Credit, transaction.getType());
+        assertEquals(TransactionDirection.Credit, transaction.getDirection());
         assertEquals(96094L, transaction.getAmount());
         assertEquals("THB", transaction.getCurrency());
     }

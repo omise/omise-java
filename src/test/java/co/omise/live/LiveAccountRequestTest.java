@@ -18,9 +18,10 @@ public class LiveAccountRequestTest extends BaseLiveTest {
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
         Account account = client.sendRequest(getAccountRequest);
 
-        System.out.println("Account retrieved: " + account.getEmail());
+        System.out.println("Account retrieved: " + account.getEmail()
+                + " with id: " + account.getTeamId());
 
         assertEquals(getUserEmail(), account.getEmail());
-        assertEquals("thb", account.getCurrency());
+        assertEquals("THB", account.getCurrency().toUpperCase());
     }
 }

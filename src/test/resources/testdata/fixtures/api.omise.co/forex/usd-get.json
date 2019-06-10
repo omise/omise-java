@@ -1,7 +1,7 @@
 {
   "object": "forex",
-  "from": "usd",
-  "to": "thb",
+  "base": "USD",
+  "quote": "THB",
   "rate": 31.553817000000002,
   "location": "/forex/usd"
 }

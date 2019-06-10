@@ -12,7 +12,7 @@
   "reversed": true,
   "paid": true,
   "transaction": "trxn_test_4yq7duwb9jts1vxgqua",
-  "refunded": 0,
+  "refunded_amount": 0,
   "refunds": {
     "object": "list",
     "from": "1970-01-01T00:00:00+00:00",
@@ -44,10 +44,10 @@
     "fingerprint": "mJnCcSbRLzwfV62Do9MAmjpXlzDBVJ/hvu8go4JYyqU=",
     "name": "JOHN DOE",
     "security_code_check": true,
-    "created": "2016-07-14T07:08:09Z"
+    "created_at": "2016-07-14T07:08:09Z"
   },
   "customer": null,
   "ip": null,
   "dispute": null,
-  "created": "2016-07-14T07:09:08Z"
+  "created_at": "2016-07-14T07:09:08Z"
 }

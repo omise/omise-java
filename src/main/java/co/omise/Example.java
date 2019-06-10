@@ -19,7 +19,7 @@ final class Example {
     void retrieveBalance() throws IOException, OmiseException, ClientException {
         Request<Balance> getBalanceRequest = new Balance.GetRequestBuilder().build();
         Balance balance = client().sendRequest(getBalanceRequest);
-        System.out.printf("available balance: %d", balance.getAvailable());
+        System.out.printf("transferable balance: %d", balance.getTransferable());
     }
 
     void destroyCard() throws IOException, OmiseException, ClientException {
@@ -439,7 +439,7 @@ final class Example {
                 .type(SourceType.InstBankingBay)
                 .amount(500000)
                 .currency("thb")
-                .installmentTerms("4")
+                .installmentTerm(4)
                 .build();
 
         Source source = client().sendRequest(request);

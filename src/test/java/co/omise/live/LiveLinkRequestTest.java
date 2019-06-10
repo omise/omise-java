@@ -33,7 +33,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
         System.out.printf("Link created: %s", link.getId());
 
         assertEquals(100000, link.getAmount());
-        assertEquals("thb", link.getCurrency());
+        assertEquals("THB", link.getCurrency());
         assertEquals("Omise Sale", link.getTitle());
         assertEquals("Medium size T-Shirt (Blue)", link.getDescription());
         assertTrue(link.isMultiple());
@@ -83,7 +83,7 @@ public class LiveLinkRequestTest extends BaseLiveTest {
         ScopedList<Link> links = client.sendRequest(request);
 
         assertEquals(10, links.getLimit());
-        assertEquals(18, links.getTotal()); // This can easily break as you add charges, not sure how to do it better
+        assertTrue(links.getTotal() > 0);
         assertEquals(Ordering.Chronological, links.getOrder());
 
         Link link = links.getData().get(0);

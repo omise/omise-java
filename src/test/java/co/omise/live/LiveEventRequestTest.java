@@ -46,7 +46,7 @@ public class LiveEventRequestTest extends BaseLiveTest {
         ScopedList<Event> events = client.sendRequest(request);
 
         assertEquals(20, events.getLimit());
-        assertEquals(114, events.getTotal()); // This can easily break as you add events,
+        assertTrue( events.getTotal() > 0);
 
         Event event = events.getData().get(0);
         assertNotNull(event);

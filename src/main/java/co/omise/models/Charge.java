@@ -31,7 +31,8 @@ public class Charge extends Model {
     @JsonProperty("source_of_fund")
     private SourceOfFunds sourceOfFund;
     private Card card;
-    private long refunded;
+    @JsonProperty("refunded_amount")
+    private long refundedAmount;
     private ScopedList<Refund> refunds;
     @JsonProperty("failure_code")
     private String failureCode;
@@ -52,6 +53,13 @@ public class Charge extends Model {
     private boolean capturable;
     private boolean reversible;
     private boolean refundable;
+    private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    private long interest;
+    @JsonProperty("interest_vat")
+    private long interestVat;
+    private long net;
 
     public Charge() {
     }
@@ -152,12 +160,12 @@ public class Charge extends Model {
         this.card = card;
     }
 
-    public long getRefunded() {
-        return refunded;
+    public long getRefundedAmount() {
+        return refundedAmount;
     }
 
-    public void setRefunded(long refunded) {
-        this.refunded = refunded;
+    public void setRefundedAmount(long refundedAmount) {
+        this.refundedAmount = refundedAmount;
     }
 
     public ScopedList<Refund> getRefunds() {
@@ -278,6 +286,46 @@ public class Charge extends Model {
 
     public void setRefundable(boolean refundable) {
         this.refundable = refundable;
+    }
+
+    public long getFee() {
+        return fee;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
+    }
+
+    public long getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(long feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public long getInterest() {
+        return interest;
+    }
+
+    public void setInterest(long interest) {
+        this.interest = interest;
+    }
+
+    public long getInterestVat() {
+        return interestVat;
+    }
+
+    public void setInterestVat(long interestVat) {
+        this.interestVat = interestVat;
+    }
+
+    public long getNet() {
+        return net;
+    }
+
+    public void setNet(long net) {
+        this.net = net;
     }
 
     /**

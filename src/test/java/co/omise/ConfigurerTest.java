@@ -4,22 +4,21 @@ import okhttp3.Credentials;
 import okhttp3.Request;
 import org.junit.Test;
 
-import java.io.IOException;
-
 import static co.omise.ConfigTest.*;
 
 public class ConfigurerTest extends OmiseTest {
+
     @Test
     public void testCtor() {
         try {
             new Configurer(null);
             fail("exception expected");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ignored) {
         }
     }
 
     @Test
-    public void testUserAgent() throws IOException {
+    public void testUserAgent() {
         Request req = configure(new Request.Builder()
                 .url("http://api.omise.co")
                 .build());
@@ -28,7 +27,7 @@ public class ConfigurerTest extends OmiseTest {
     }
 
     @Test
-    public void testApiVersion() throws IOException {
+    public void testApiVersion() {
         Request req = configure(new Request.Builder()
                 .url("https://api.omise.co")
                 .build());
@@ -37,7 +36,7 @@ public class ConfigurerTest extends OmiseTest {
     }
 
     @Test
-    public void testVaultRequest() throws IOException {
+    public void testVaultRequest() {
         Request req = configure(new Request.Builder()
                 .url("https://vault.omise.co/tokens")
                 .build());
@@ -47,7 +46,7 @@ public class ConfigurerTest extends OmiseTest {
     }
 
     @Test
-    public void testApiRequest() throws IOException {
+    public void testApiRequest() {
         Request req = configure(new Request.Builder()
                 .url("https://api.omise.co/charges")
                 .build());
@@ -57,14 +56,10 @@ public class ConfigurerTest extends OmiseTest {
     }
 
     private Request configure(Request req) {
-        return configurer().configure(config(), req);
+        return Configurer.configure(config(), req);
     }
 
     private Config config() {
         return ConfigTest.config();
-    }
-
-    private Configurer configurer() {
-        return new Configurer(config());
     }
 }

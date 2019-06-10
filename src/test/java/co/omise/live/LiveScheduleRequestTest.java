@@ -12,8 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class LiveScheduleRequestTest extends BaseLiveTest {
 
@@ -36,7 +35,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         System.out.println("get schedule list: " + scheduleList.getTotal());
 
         assertNotNull(scheduleList);
-        Schedule schedule= scheduleList.getData().get(0);
+        Schedule schedule = scheduleList.getData().get(0);
         assertNotNull(schedule);
     }
 
@@ -100,7 +99,8 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         System.out.println("get schedule: " + schedule.getId());
 
         assertNotNull(schedule);
-        assertEquals(ScheduleStatus.Active, schedule.getStatus());
+        assertEquals(ScheduleStatus.Running, schedule.getStatus());
+        assertTrue(schedule.isActive());
     }
 
     @Test
@@ -203,13 +203,13 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         System.out.println("get charge schedule list: " + scheduleList.getTotal());
 
         assertNotNull(scheduleList);
-        Schedule schedule= scheduleList.getData().get(0);
+        Schedule schedule = scheduleList.getData().get(0);
         assertNotNull(schedule);
     }
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveListChargeScheduleWithOption()   throws IOException, OmiseException {
+    public void testLiveListChargeScheduleWithOption() throws IOException, OmiseException {
         ScopedList.Options options = new ScopedList.Options()
                 .limit(3)
                 .order(Ordering.Chronological);
@@ -272,7 +272,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveCustomerScheduleListWithOption()   throws IOException, OmiseException {
+    public void testLiveCustomerScheduleListWithOption() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()
                         .name("testLiveSchedule")
@@ -326,7 +326,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveTransferScheduleList()   throws IOException, OmiseException {
+    public void testLiveTransferScheduleList() throws IOException, OmiseException {
         Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
                 .name("John Doe")
                 .email("john.doe@example.com")
@@ -349,7 +349,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         Request<ScopedList<Schedule>> transferScheduleListRequest = new Schedule.TransferScheduleListRequestBuilder().build();
         ScopedList<Schedule> transferScheduleList = client.sendRequest(transferScheduleListRequest);
@@ -361,7 +361,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveTransferScheduleListWithOption()   throws IOException, OmiseException {
+    public void testLiveTransferScheduleListWithOption() throws IOException, OmiseException {
         Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
                 .name("John Doe")
                 .email("john.doe@example.com")
@@ -384,7 +384,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         ScopedList.Options options = new ScopedList.Options()
                 .limit(10)
@@ -404,7 +404,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveRecipientScheduleList()   throws IOException, OmiseException {
+    public void testLiveRecipientScheduleList() throws IOException, OmiseException {
         Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
                 .name("John Doe")
                 .email("john.doe@example.com")
@@ -427,7 +427,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         Request<ScopedList<Schedule>> recipientScheduleListRequest = new Schedule.RecipientScheduleListRequestBuilder(recipient.getId())
                 .build();
@@ -443,7 +443,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveRecipientScheduleListWithOption()   throws IOException, OmiseException {
+    public void testLiveRecipientScheduleListWithOption() throws IOException, OmiseException {
         Request<Recipient> recipientRequest = new Recipient.CreateRequestBuilder()
                 .name("John Doe")
                 .email("john.doe@example.com")
@@ -466,7 +466,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .recipient(recipient.getId())
                 )
                 .build();
-        Schedule transferSchedule = client.sendRequest(scheduleRequest);
+        client.sendRequest(scheduleRequest);
 
         ScopedList.Options options = new ScopedList.Options()
                 .limit(10)
