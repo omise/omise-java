@@ -36,6 +36,8 @@ class ModelTypeResolver extends TypeIdResolverBase {
             types.put("source", Source.class);
             types.put("receipt", Receipt.class);
             types.put("forex", Forex.class);
+            types.put("capability", Capability.class);
+            types.put("payment_method", PaymentMethod.class);
         }
         return Collections.unmodifiableMap(types);
     }
@@ -71,7 +73,7 @@ class ModelTypeResolver extends TypeIdResolverBase {
 
     private Map<Class, String> reverse(Map<String, Class> map) {
         Map<Class, String> reversedMap = new HashMap<>();
-        for (Map.Entry<String, Class> entry: map.entrySet()) {
+        for (Map.Entry<String, Class> entry : map.entrySet()) {
             reversedMap.put(entry.getValue(), entry.getKey());
         }
         return reversedMap;
