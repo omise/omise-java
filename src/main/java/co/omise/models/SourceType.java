@@ -32,8 +32,6 @@ public enum SourceType {
     InstKtc,
     @JsonProperty("installment_kbank")
     InstKBank,
-    @JsonProperty("truemoney")
-    TrueMoney,
     @JsonEnumDefaultValue
     Unknown;
 
@@ -68,8 +66,6 @@ public enum SourceType {
                 return "installment_ktc";
             case InstKBank:
                 return "installment_kbank";
-            case TrueMoney:
-                return "truemoney";
             default:
                 return "";
         }
