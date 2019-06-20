@@ -6,7 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 
 group 'co.omise'
-version '2.7.8'
+version '3.0.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -107,7 +107,7 @@ uploadArchives {
  * because this method read data from `META-INF/MANIFEST.MF` that contain in `.jar`.
  * If need to check it, you have to run directly to `.jar` will return correct value.
  *
- * Run `gradle shadowJar` and `unzip -p build/libs/omise-java-2.7.0-all.jar META-INF/MANIFEST.MF`
+ * Run `gradle shadowJar` and `unzip -p build/libs/omise-java-3.0.0-all.jar META-INF/MANIFEST.MF`
  * will return attributes in manifest file.
  */
 jar {
