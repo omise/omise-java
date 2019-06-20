@@ -6,28 +6,41 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;
-import com.google.common.collect.ImmutableBiMap;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 class ModelTypeResolver extends TypeIdResolverBase {
-    static final ImmutableBiMap<String, Class> KNOWN_TYPES = new ImmutableBiMap.Builder<String, Class>()
-            .put("account", Account.class)
-            .put("balance", Balance.class)
-            .put("bank_account", BankAccount.class)
-            .put("card", Card.class)
-            .put("charge", Charge.class)
-            .put("customer", Customer.class)
-            .put("dispute", Dispute.class)
-            .put("event", Event.class)
-            .put("link", Link.class)
-            .put("refund", Refund.class)
-            .put("recipient", Recipient.class)
-            .put("schedule", Schedule.class)
-            .put("occurrence", Occurrence.class)
-            .put("token", Token.class)
-            .put("transaction", Transaction.class)
-            .put("transfer", Transfer.class)
-            .put("source", Source.class)
-            .build();
+    private static Map<String, Class> types;
+
+    static Map<String, Class> getKnownTypes() {
+        if (types == null) {
+            types = new HashMap<>();
+            types.put("account", Account.class);
+            types.put("balance", Balance.class);
+            types.put("bank_account", BankAccount.class);
+            types.put("card", Card.class);
+            types.put("charge", Charge.class);
+            types.put("customer", Customer.class);
+            types.put("dispute", Dispute.class);
+            types.put("event", Event.class);
+            types.put("link", Link.class);
+            types.put("refund", Refund.class);
+            types.put("recipient", Recipient.class);
+            types.put("schedule", Schedule.class);
+            types.put("occurrence", Occurrence.class);
+            types.put("token", Token.class);
+            types.put("transaction", Transaction.class);
+            types.put("transfer", Transfer.class);
+            types.put("source", Source.class);
+            types.put("receipt", Receipt.class);
+            types.put("forex", Forex.class);
+            types.put("capability", Capability.class);
+            types.put("payment_method", PaymentMethod.class);
+        }
+        return Collections.unmodifiableMap(types);
+    }
 
     @Override
     public JsonTypeInfo.Id getMechanism() {
@@ -41,12 +54,12 @@ class ModelTypeResolver extends TypeIdResolverBase {
 
     @Override
     public String idFromValueAndType(Object value, Class<?> suggestedType) {
-        return KNOWN_TYPES.inverse().get(suggestedType);
+        return reverse(getKnownTypes()).get(suggestedType);
     }
 
     @Override
     public JavaType typeFromId(DatabindContext context, String id) {
-        Class klass = KNOWN_TYPES.get(id);
+        Class klass = getKnownTypes().get(id);
         if (klass == null) {
             return null;
         }
@@ -56,5 +69,13 @@ class ModelTypeResolver extends TypeIdResolverBase {
                 new JavaType[]{};
 
         return context.getTypeFactory().constructSimpleType(klass, typeArgs);
+    }
+
+    private Map<Class, String> reverse(Map<String, Class> map) {
+        Map<Class, String> reversedMap = new HashMap<>();
+        for (Map.Entry<String, Class> entry : map.entrySet()) {
+            reversedMap.put(entry.getValue(), entry.getKey());
+        }
+        return reversedMap;
     }
 }

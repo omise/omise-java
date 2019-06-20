@@ -14,9 +14,9 @@ import java.util.Map;
 
 public class SerializationTest extends OmiseTest {
     @Test
-    public void testModelSerializability() throws IOException, IllegalAccessException, InstantiationException {
+    public void testModelSerializability() throws IOException {
         Serializer serializer = Serializer.defaultSerializer();
-        for (Map.Entry<String, Class> testcase : ModelTypeResolver.KNOWN_TYPES.entrySet()) {
+        for (Map.Entry<String, Class> testcase : ModelTypeResolver.getKnownTypes().entrySet()) {
             byte[] sampleBytes = getResourceBytes(objectJsonName(testcase.getValue()));
             OmiseObject instance = serializer.deserialize(new ByteArrayInputStream(sampleBytes), testcase.getValue());
 
@@ -80,6 +80,8 @@ public class SerializationTest extends OmiseTest {
     private String objectJsonName(Class klass) {
         if (Objects.equal(klass, BankAccount.class)) {
             return "/testdata/objects/bank_account_object.json";
+        } else if (Objects.equal(klass, PaymentMethod.class)) {
+            return "/testdata/objects/payment_method_object.json";
         } else {
             return "/testdata/objects/" + klass.getSimpleName().toLowerCase() + "_object.json";
         }

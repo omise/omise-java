@@ -16,10 +16,13 @@ public abstract class Model extends OmiseObjectBase {
     private String id;
     @JsonProperty("livemode")
     private boolean liveMode;
-    @JsonProperty("created")
+    @JsonProperty("created_at")
     private DateTime created;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
+
+    public Model() {
+    }
 
     public String getId() {
         return id;

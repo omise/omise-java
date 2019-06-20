@@ -1,0 +1,9 @@
+{
+  "object": "source",
+  "id": "src_test_5929boxipb803ak7o06",
+  "type": "installment_bay",
+  "flow": "redirect",
+  "amount": 500000,
+  "installment_term": 4,
+  "currency": "thb"
+}

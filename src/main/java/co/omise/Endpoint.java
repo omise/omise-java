@@ -1,10 +1,9 @@
 package co.omise;
 
-import co.omise.resources.Resource;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.CertificatePinner;
 import okhttp3.HttpUrl;
+
+import java.util.*;
 
 /**
  * Endpoints encapsulates information about a particular Omise API endpoint.
@@ -14,10 +13,8 @@ import okhttp3.HttpUrl;
  * <ul>
  * <li>Host and network scheme (defaults to HTTPS.)</li>
  * <li>The certificate hash to pin against.</li>
- * <li>Wether to use the public key or the secret key.</li>
+ * <li>Whether to use the public key or the secret key.</li>
  * </ul>
- *
- * @see Resource
  */
 public abstract class Endpoint {
     public static final Endpoint VAULT = new Endpoint() {
@@ -44,19 +41,21 @@ public abstract class Endpoint {
         }
     };
 
-    public static ImmutableList<Endpoint> all =
-            new ImmutableList.Builder<Endpoint>()
-                    .add(VAULT)
-                    .add(API)
-                    .build();
+    public static List<Endpoint> getAllEndpoints() {
+        List<Endpoint> endpoints = new ArrayList<>();
+        endpoints.add(VAULT);
+        endpoints.add(API);
+        return Collections.unmodifiableList(endpoints);
+    }
 
-    public static ImmutableMap<String, Endpoint> byHost =
-            new ImmutableMap.Builder<String, Endpoint>()
-                    .put(VAULT.host(), VAULT)
-                    .put(API.host(), API)
-                    .build();
+    public static Map<String, Endpoint> getAllEndpointsByHost() {
+        Map<String, Endpoint> endpoints = new HashMap<>();
+        endpoints.put(VAULT.host(), VAULT);
+        endpoints.put(API.host(), API);
+        return Collections.unmodifiableMap(endpoints);
+    }
 
-    public static final String API_VERSION = "2017-11-02";
+    static final String API_VERSION = "2019-05-29";
 
     /**
      * The scheme to use, defaults to HTTPS.
@@ -100,4 +99,3 @@ public abstract class Endpoint {
                 .host(host());
     }
 }
-

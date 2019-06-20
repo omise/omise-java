@@ -1,13 +1,20 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.collect.Maps;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents Omise Charge object.
+ * Represents Omise Charge object and contains all of its {@link RequestBuilder}.
  *
  * @see <a href="https://www.omise.co/charges-api">Charges API</a>
  */
@@ -25,7 +32,8 @@ public class Charge extends Model {
     @JsonProperty("source_of_fund")
     private SourceOfFunds sourceOfFund;
     private Card card;
-    private long refunded;
+    @JsonProperty("refunded_amount")
+    private long refundedAmount;
     private ScopedList<Refund> refunds;
     @JsonProperty("failure_code")
     private String failureCode;
@@ -44,6 +52,20 @@ public class Charge extends Model {
     private Source source;
     @JsonProperty("expires_at")
     private DateTime expiresAt;
+    private boolean disputable;
+    private boolean capturable;
+    private boolean reversible;
+    private boolean refundable;
+    private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    private long interest;
+    @JsonProperty("interest_vat")
+    private long interestVat;
+    private long net;
+
+    public Charge() {
+    }
 
     public ChargeStatus getStatus() {
         return status;
@@ -145,12 +167,12 @@ public class Charge extends Model {
         this.card = card;
     }
 
-    public long getRefunded() {
-        return refunded;
+    public long getRefundedAmount() {
+        return refundedAmount;
     }
 
-    public void setRefunded(long refunded) {
-        this.refunded = refunded;
+    public void setRefundedAmount(long refundedAmount) {
+        this.refundedAmount = refundedAmount;
     }
 
     public ScopedList<Refund> getRefunds() {
@@ -249,7 +271,82 @@ public class Charge extends Model {
         this.expiresAt = expiresAt;
     }
 
-    public static class Create extends Params {
+    public boolean isDisputable() {
+        return disputable;
+    }
+
+    public void setDisputable(boolean disputable) {
+        this.disputable = disputable;
+    }
+
+    public boolean isCapturable() {
+        return capturable;
+    }
+
+    public void setCapturable(boolean capturable) {
+        this.capturable = capturable;
+    }
+
+    public boolean isReversible() {
+        return reversible;
+    }
+
+    public void setReversible(boolean reversible) {
+        this.reversible = reversible;
+    }
+
+    public boolean isRefundable() {
+        return refundable;
+    }
+
+    public void setRefundable(boolean refundable) {
+        this.refundable = refundable;
+    }
+
+    public long getFee() {
+        return fee;
+    }
+
+    public void setFee(long fee) {
+        this.fee = fee;
+    }
+
+    public long getFeeVat() {
+        return feeVat;
+    }
+
+    public void setFeeVat(long feeVat) {
+        this.feeVat = feeVat;
+    }
+
+    public long getInterest() {
+        return interest;
+    }
+
+    public void setInterest(long interest) {
+        this.interest = interest;
+    }
+
+    public long getInterestVat() {
+        return interestVat;
+    }
+
+    public void setInterestVat(long interestVat) {
+        this.interestVat = interestVat;
+    }
+
+    public long getNet() {
+        return net;
+    }
+
+    public void setNet(long net) {
+        this.net = net;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for creating a Charge.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Charge> {
         @JsonProperty
         private String customer;
         @JsonProperty
@@ -275,100 +372,252 @@ public class Charge extends Model {
         @JsonProperty("expires_at")
         private DateTime expiresAt;
 
-        public Create customer(String customer) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        public CreateRequestBuilder customer(String customer) {
             this.customer = customer;
             return this;
         }
 
-        public Create card(String card) {
+        public CreateRequestBuilder card(String card) {
             this.card = card;
             return this;
         }
 
-        public Create amount(long amount) {
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create currency(String currency) {
+        public CreateRequestBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public Create description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Create metadata(Map<String, Object> metadata) {
-            // TODO: We should probably do an immutable copy here.
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
         }
 
-        public Create metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
-            }
-
-            this.metadata.put(key, value);
-            return this;
-        }
-
-        public Create capture(Boolean capture) {
+        public CreateRequestBuilder capture(boolean capture) {
             this.capture = capture;
             return this;
         }
 
-        public Create installmentTerms(Integer terms) {
-            this.installmentTerms = terms;
-            return this;
-        }
-
-        public Create offsite(OffsiteTypes offsite) {
+        public CreateRequestBuilder offsite(OffsiteTypes offsite) {
             this.offsite = offsite;
             return this;
         }
 
-        public Create returnUri(String returnUri) {
+        public CreateRequestBuilder installmentTerms(int installmentTerms) {
+            this.installmentTerms = installmentTerms;
+            return this;
+        }
+
+        public CreateRequestBuilder returnUri(String returnUri) {
             this.returnUri = returnUri;
             return this;
         }
 
-        public Create source(String source) {
+        public CreateRequestBuilder source(String source) {
             this.source = source;
             return this;
         }
 
-        public Create expiresAt(DateTime expiresAt) throws IllegalStateException {
+        public CreateRequestBuilder expiresAt(DateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }
     }
 
-    public static class Update extends Params {
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Charge.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
+        public GetRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId);
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for updating a particular Charge.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
         @JsonProperty
         private String description;
         @JsonProperty
         private Map<String, Object> metadata;
 
-        public Update description(String description) {
+        public UpdateRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId);
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        public UpdateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Update metadata(Map<String, Object> metadata) {
-            // TODO: We should probably do an immutable copy here.
-            this.metadata = metadata;
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = tempMap;
             return this;
         }
 
-        public Update metadata(String key, Object value) {
-            if (this.metadata == null) {
-                this.metadata = Maps.newHashMap();
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = new HashMap<>(metadata);
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for capturing a particular Charge. Keep in mind, capturing only works for credit card transfers that are not auto-captured.
+     */
+    public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
+        public CaptureRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId, "capture");
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+    }
+
+
+    /**
+     * The {@link RequestBuilder} class for reversing a particular Charge.
+     */
+    public static class ReverseRequestBuilder extends RequestBuilder<Charge> {
+        private String chargeId;
+
+        public ReverseRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId, "reverse");
+        }
+
+        @Override
+        protected ResponseType<Charge> type() {
+            return new ResponseType<>(Charge.class);
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Charges that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
             }
 
-            this.metadata.put(key, value);
+            return buildUrl(Endpoint.API, "charges", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Charge>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {
+            });
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
             return this;
         }
     }

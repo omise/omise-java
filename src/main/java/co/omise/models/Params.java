@@ -1,16 +1,18 @@
 package co.omise.models;
 
 import co.omise.Serializer;
-import com.google.common.collect.ImmutableMap;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Params class encapsulate request parameterization and provides a way to builds a parameter builder
- * for resource operations. This class is meant to be subclassed and serialized to JSON to send along
+ * for creating requests. This class is meant to be subclassed and serialized to JSON to send along
  * with any API request.
  * <p>
  * Subclass should:
@@ -21,11 +23,10 @@ import java.io.IOException;
  * <li>Overrides the {@link #body(Serializer)} method to returns a custom OkHttp {@link RequestBody}.</li>
  * </ul>
  * <p>
- * For an example, see the {@link ScopedList.Options} or the {@link Charge.Create} class
+ * For an example, see the {@link ScopedList.Options}
  * </p>
  *
  * @see ScopedList.Options
- * @see Charge.Create
  */
 public abstract class Params {
     private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
@@ -35,10 +36,10 @@ public abstract class Params {
      *
      * @param serializer The {@link Serializer} to use to serialize parameter data.
      *                   Or `null` to use the default serializer.
-     * @return An {@link ImmutableMap} containing keys and values to adds to the URL.
+     * @return An {@link Map} containing keys and values to adds to the URL.
      */
-    public ImmutableMap<String, String> query(Serializer serializer) {
-        return ImmutableMap.of();
+    public Map<String, String> query(Serializer serializer) {
+        return Collections.unmodifiableMap(new HashMap<String, String>());
     }
 
     /**

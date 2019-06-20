@@ -1,6 +1,13 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Source object.
@@ -27,7 +34,12 @@ public class Source extends Model {
     private String email;
     @JsonProperty("phone_number")
     private String phoneNumber;
-    
+    @JsonProperty("installment_term")
+    private int installmentTerm;
+
+    public Source() {
+    }
+
     public SourceType getType() {
         return type;
     }
@@ -99,7 +111,7 @@ public class Source extends Model {
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -107,7 +119,7 @@ public class Source extends Model {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -115,7 +127,7 @@ public class Source extends Model {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -124,8 +136,18 @@ public class Source extends Model {
         this.phoneNumber = phoneNumber;
     }
 
-    public static class Create extends Params {
+    public int getInstallmentTerm() {
+        return installmentTerm;
+    }
 
+    public void setInstallmentTerm(int installmentTerm) {
+        this.installmentTerm = installmentTerm;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for creating a Source.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Source> {
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -148,59 +170,86 @@ public class Source extends Model {
         private String email;
         @JsonProperty("phone_number")
         private String phoneNumber;
+        @JsonProperty("installment_term")
+        private int installmentTerm;
 
-        public Create amount(long amount) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "sources");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Source> type() {
+            return new ResponseType<>(Source.class);
+        }
+
+        public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Create currency(String currency) {
+        public CreateRequestBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public Create type(SourceType type) {
+        public CreateRequestBuilder type(SourceType type) {
             this.type = type;
             return this;
         }
 
-        public Create description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Create barcode(String barcode) {
+        public CreateRequestBuilder barcode(String barcode) {
             this.barcode = barcode;
             return this;
         }
 
-        public Create storeId(String storeId) {
+        public CreateRequestBuilder storeId(String storeId) {
             this.storeId = storeId;
             return this;
         }
 
-        public Create storeName(String storeName) {
+        public CreateRequestBuilder storeName(String storeName) {
             this.storeName = storeName;
             return this;
         }
 
-        public Create terminalId(String terminalId) {
+        public CreateRequestBuilder terminalId(String terminalId) {
             this.terminalId = terminalId;
             return this;
         }
-        
-        public Create name(String name) {
+
+        public CreateRequestBuilder name(String name) {
             this.name = name;
             return this;
         }
-        
-        public Create email(String email) {
+
+        public CreateRequestBuilder email(String email) {
             this.email = email;
             return this;
         }
-        
-        public Create phoneNumber(String phoneNumber) {
+
+        public CreateRequestBuilder phoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public CreateRequestBuilder installmentTerm(int installmentTerm) {
+            this.installmentTerm = installmentTerm;
             return this;
         }
     }

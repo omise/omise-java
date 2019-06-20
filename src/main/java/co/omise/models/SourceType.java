@@ -1,6 +1,6 @@
 package co.omise.models;
 
-
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum SourceType {
@@ -21,7 +21,19 @@ public enum SourceType {
     @JsonProperty("econtext")
     Econtext,
     @JsonProperty("truemoney")
-    TrueMoney;
+    TrueMoney,
+    @JsonProperty("installment_bay")
+    InstBankingBay,
+    @JsonProperty("installment_first_choice")
+    InstFirstChoice,
+    @JsonProperty("installment_bbl")
+    InstBbl,
+    @JsonProperty("installment_ktc")
+    InstKtc,
+    @JsonProperty("installment_kbank")
+    InstKBank,
+    @JsonEnumDefaultValue
+    Unknown;
 
     @Override
     public String toString() {
@@ -44,6 +56,16 @@ public enum SourceType {
                 return "econtext";
             case TrueMoney:
                 return "truemoney";
+            case InstBankingBay:
+                return "installment_bay";
+            case InstFirstChoice:
+                return "installment_first_choice";
+            case InstBbl:
+                return "installment_bbl";
+            case InstKtc:
+                return "installment_ktc";
+            case InstKBank:
+                return "installment_kbank";
             default:
                 return "";
         }

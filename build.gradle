@@ -8,8 +8,8 @@ apply plugin: 'com.github.ben-manes.versions'
 group 'co.omise'
 version '2.7.8'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -48,9 +48,10 @@ distributions {
     }
 }
 
-signing {
-    sign configurations.archives
-}
+//TODO Turn the signing action back on before merging this into the master
+//signing {
+//    sign configurations.archives
+//}
 
 artifacts {
     archives javadocJar, sourcesJar
@@ -123,24 +124,22 @@ shadowJar {
     }
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
-    relocate 'org.joda.time', 'co.omise.dependencies.org.joda.time'
     relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
-    relocate 'com.google', 'co.omise.dependencies.com.google'
 }
 
 dependencies {
     // base
     compile 'joda-time:joda-time:2.9.9'
-    compile 'com.google.guava:guava:20.0'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.8'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.9.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.8'
 
     // networking
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
 
     // test
     testCompile 'junit:junit:4.12'
+    testCompile 'com.google.guava:guava:20.0'
+
 }

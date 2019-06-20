@@ -1,5 +1,11 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
 
 /**
@@ -10,9 +16,14 @@ import org.joda.time.DateTime;
 public class Transaction extends Model {
     private long amount;
     private String currency;
-    private TransactionType type;
-    private String source;
+    private TransactionDirection direction;
+    private String origin;
+    @JsonProperty("transferable_at")
     private DateTime transferable;
+    private String key;
+
+    public Transaction() {
+    }
 
     public long getAmount() {
         return amount;
@@ -30,20 +41,20 @@ public class Transaction extends Model {
         this.currency = currency;
     }
 
-    public TransactionType getType() {
-        return type;
+    public TransactionDirection getDirection() {
+        return direction;
     }
 
-    public void setType(TransactionType type) {
-        this.type = type;
+    public void setDirection(TransactionDirection direction) {
+        this.direction = direction;
     }
 
-    public String getSource() {
-        return source;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public DateTime getTransferable() {
@@ -52,5 +63,62 @@ public class Transaction extends Model {
 
     public void setTransferable(DateTime transferable) {
         this.transferable = transferable;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular transaction.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Transaction> {
+
+        private String transactionId;
+
+        public GetRequestBuilder(String transactionId) {
+            this.transactionId = transactionId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transactions", transactionId);
+        }
+
+        @Override
+        protected ResponseType<Transaction> type() {
+            return new ResponseType<>(Transaction.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all transactions that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return buildUrl(Endpoint.API, "transactions", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Transaction>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {
+            });
+        }
     }
 }

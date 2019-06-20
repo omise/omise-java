@@ -1,8 +1,17 @@
 package co.omise.models.schedules;
 
+import co.omise.Endpoint;
 import co.omise.models.Model;
+import co.omise.models.ScopedList;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Occurrence object.
@@ -11,15 +20,18 @@ import org.joda.time.DateTime;
  */
 public class Occurrence extends Model {
     private String schedule;
-    @JsonProperty("schedule_date")
-    private DateTime scheduleDate;
-    @JsonProperty("retry_date")
-    private DateTime retryDate;
+    @JsonProperty("scheduled_on")
+    private LocalDate scheduleDate;
+    @JsonProperty("retry_on")
+    private LocalDate retryDate;
     @JsonProperty("processed_at")
     private DateTime processedAt;
     private OccurrenceStatus status;
     private String message;
     private String result;
+
+    public Occurrence() {
+    }
 
     public String getSchedule() {
         return schedule;
@@ -29,19 +41,19 @@ public class Occurrence extends Model {
         this.schedule = schedule;
     }
 
-    public DateTime getScheduleDate() {
+    public LocalDate getScheduleDate() {
         return scheduleDate;
     }
 
-    public void setScheduleDate(DateTime scheduleDate) {
+    public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
-    public DateTime getRetryDate() {
+    public LocalDate getRetryDate() {
         return retryDate;
     }
 
-    public void setRetryDate(DateTime retryDate) {
+    public void setRetryDate(LocalDate retryDate) {
         this.retryDate = retryDate;
     }
 
@@ -75,5 +87,62 @@ public class Occurrence extends Model {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all occurrences that belong to a schedule.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
+
+        private String scheduleId;
+        private ScopedList.Options options;
+
+        public ListRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return new HttpUrlBuilder(Endpoint.API, "schedules", serializer())
+                    .segments(scheduleId, "occurrences")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Occurrence>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {
+            });
+        }
+
+        public Occurrence.ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular occurrence.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Occurrence> {
+        private String occurrenceId;
+
+        public GetRequestBuilder(String occurrenceId) {
+            this.occurrenceId = occurrenceId;
+        }
+
+        @Override
+        protected HttpUrl path() throws IOException {
+            return buildUrl(Endpoint.API, "occurrences", occurrenceId);
+        }
+
+        @Override
+        protected ResponseType<Occurrence> type() {
+            return new ResponseType<>(Occurrence.class);
+        }
     }
 }

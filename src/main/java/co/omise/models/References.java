@@ -1,9 +1,11 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class References {
+public class References implements Serializable {
 
     @JsonProperty("va_code")
     private String vaCode;

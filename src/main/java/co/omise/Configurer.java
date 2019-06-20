@@ -1,12 +1,12 @@
 package co.omise;
 
-import com.google.common.base.Preconditions;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Configurer handles HTTP requests configuration. You can use the {@link #configure(Config, Request)} method
@@ -16,7 +16,7 @@ public final class Configurer implements Interceptor {
     private final Config config;
 
     Configurer(Config config) {
-        Preconditions.checkNotNull(config);
+        Objects.requireNonNull(config);
         this.config = config;
     }
 
@@ -29,7 +29,7 @@ public final class Configurer implements Interceptor {
      */
     public static Request configure(Config config, Request request) {
         String apiVersion = config.apiVersion();
-        Endpoint endpoint = Endpoint.byHost.get(request.url().host());
+        Endpoint endpoint = Endpoint.getAllEndpointsByHost().get(request.url().host());
         if (endpoint == null) {
             throw new UnsupportedOperationException("unknown endpoint: " + request.url().host());
         }

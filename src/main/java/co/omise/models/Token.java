@@ -1,6 +1,13 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
 
 /**
  * <p>
@@ -15,14 +22,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Sending card data from server requires a valid PCI-DSS certification.
  * You can learn more about this in <a href="https://www.omise.co/security-best-practices">Security Best Practices</a>.
  * </p>
- *
+ * <p>
  * This class represents Omise Token object.
+ * </p>
  *
  * @see <a href="https://www.omise.co/tokens-api">Tokens API</a>
  */
 public class Token extends Model {
     private boolean used;
     private Card card;
+
+    public Token() {
+    }
 
     public boolean isUsed() {
         return used;
@@ -40,13 +51,58 @@ public class Token extends Model {
         this.card = card;
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder} class for creating a Token.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Token> {
         @JsonProperty
         private Card.Create card;
 
-        public Create card(Card.Create card) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.VAULT, "tokens");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Token> type() {
+            return new ResponseType<>(Token.class);
+        }
+
+        public CreateRequestBuilder card(Card.Create card) {
             this.card = card;
             return this;
         }
     }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Token.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Token> {
+        private String tokenId;
+
+        public GetRequestBuilder(String tokenId) {
+            this.tokenId = tokenId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.VAULT, "tokens", tokenId);
+        }
+
+        @Override
+        protected ResponseType<Token> type() {
+            return new ResponseType<>(Token.class);
+        }
+    }
+
 }

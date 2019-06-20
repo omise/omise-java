@@ -1,13 +1,13 @@
 package co.omise;
 
+import co.omise.models.OmiseList;
 import co.omise.models.OmiseObject;
 import co.omise.models.Params;
-import co.omise.resources.Resource;
+import co.omise.requests.RequestBuilder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.fasterxml.jackson.datatype.joda.JodaModule;
 import com.fasterxml.jackson.datatype.joda.cfg.JacksonJodaDateFormat;
 import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
@@ -29,7 +29,6 @@ import java.util.Map;
  * Use the {@link #defaultSerializer()} method to obtain an instance.
  * </p>
  *
- * @see Resource
  * @see ObjectMapper
  */
 public final class Serializer {
@@ -58,17 +57,17 @@ public final class Serializer {
         localDateFormatter = ISODateTimeFormat.date();
 
         objectMapper = new ObjectMapper()
-                .registerModule(new GuavaModule())
                 .registerModule(new JodaModule()
                         .addSerializer(DateTime.class, new DateTimeSerializer()
-                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter),0 )
+                                .withFormat(new JacksonJodaDateFormat(dateTimeFormatter))
                         )
                         .addSerializer(LocalDate.class, new LocalDateSerializer()
-                                .withFormat(new JacksonJodaDateFormat(localDateFormatter), 0)
+                                .withFormat(new JacksonJodaDateFormat(localDateFormatter))
                         )
                 )
 
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE, true)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false); // TODO: Deprecate in vNext
     }
@@ -199,5 +198,30 @@ public final class Serializer {
      */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
         return (String) objectMapper.convertValue(value, String.class);
+    }
+
+    /**
+     * Deserialize an instance of the given type reference from the input stream, used for deserializing lists.
+     *
+     * @param input The {@link InputStream} that contains the data to deserialize.
+     * @param ref   The {@link TypeReference} of the type to deserialize the result into.
+     * @param <T>   The type to deserialize the result into.
+     * @return An instance of the given type T deserialized from the input stream.
+     * @throws IOException on general I/O error.
+     */
+    public <T extends OmiseList> T deserializeList(InputStream input, TypeReference<T> ref) throws IOException {
+        return objectMapper.readerFor(ref).readValue(input);
+    }
+
+    /**
+     * Serializes the given {@link RequestBuilder} object to the provided output stream.
+     *
+     * @param outputStream The {@link OutputStream} to serialize the parameter into.
+     * @param builder      The {@link RequestBuilder} to serialize.
+     * @param <T>          The type of the parameter object to serialize.
+     * @throws IOException on general I/O error.
+     */
+    public <T extends RequestBuilder> void serializeRequestBuilder(OutputStream outputStream, T builder) throws IOException {
+        objectMapper.writerFor(builder.getClass()).writeValue(outputStream, builder);
     }
 }

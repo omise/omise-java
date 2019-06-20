@@ -1,6 +1,15 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
+
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Represents Omise Recipient object.
@@ -20,6 +29,10 @@ public class Recipient extends Model {
     private BankAccount bankAccount;
     @JsonProperty("failure_code")
     private String failureCode;
+    private Map<String, Object> metadata;
+
+    public Recipient() {
+    }
 
     public boolean isVerified() {
         return verified;
@@ -93,7 +106,18 @@ public class Recipient extends Model {
         this.failureCode = failureCode;
     }
 
-    public static class Params extends co.omise.models.Params {
+    public Map<String, Object> getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
+    /**
+     * The {@link RequestBuilder} class for creating a Recipient.
+     */
+    public static class CreateRequestBuilder extends RequestBuilder<Recipient> {
         @JsonProperty("bank_account")
         private BankAccount.Params bankAccount;
         @JsonProperty
@@ -107,40 +131,202 @@ public class Recipient extends Model {
         @JsonProperty
         private String taxId;
 
-        public Params name(String name) {
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients");
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+
+        public CreateRequestBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Params email(String email) {
+        public CreateRequestBuilder email(String email) {
             this.email = email;
             return this;
         }
 
-        public Params description(String description) {
+        public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
         }
 
-        public Params type(RecipientType type) {
+        public CreateRequestBuilder type(RecipientType type) {
             this.type = type;
             return this;
         }
 
-        public Params taxId(String taxId) {
+        public CreateRequestBuilder taxId(String taxId) {
             this.taxId = taxId;
             return this;
         }
 
-        public Params bankAccount(BankAccount.Params bankAccount) {
+        public CreateRequestBuilder bankAccount(BankAccount.Params bankAccount) {
             this.bankAccount = bankAccount;
             return this;
         }
     }
 
-    public static class Create extends Params {
+    /**
+     * The {@link RequestBuilder} class for retrieving a Recipient.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        public GetRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
     }
 
-    public static class Update extends Params {
+    /**
+     * The {@link RequestBuilder} class for updating a Recipient.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        @JsonProperty("bank_account")
+        private BankAccount.Params bankAccount;
+        @JsonProperty
+        private String name;
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private RecipientType type;
+        @JsonProperty
+        private String taxId;
+
+        public UpdateRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+
+        public UpdateRequestBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UpdateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UpdateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder type(RecipientType type) {
+            this.type = type;
+            return this;
+        }
+
+        public UpdateRequestBuilder taxId(String taxId) {
+            this.taxId = taxId;
+            return this;
+        }
+
+        public UpdateRequestBuilder bankAccount(BankAccount.Params bankAccount) {
+            this.bankAccount = bankAccount;
+            return this;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for deleting a Recipient.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+
+        public DeleteRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId);
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Recipients that belong to an account.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Recipient>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return buildUrl(Endpoint.API, "recipients", options);
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Recipient>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Recipient>>() {
+            });
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
     }
 }

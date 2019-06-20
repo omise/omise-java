@@ -1,8 +1,16 @@
 package co.omise.models;
 
+import co.omise.Endpoint;
+import co.omise.requests.RequestBuilder;
+import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.YearMonth;
+
+import java.io.IOException;
 
 /**
  * Represents Omise Card object.
@@ -27,6 +35,9 @@ public class Card extends Model {
     private String name;
     @JsonProperty("security_code_check")
     private boolean securityCodeCheck;
+
+    public Card() {
+    }
 
     public String getCountry() {
         return country;
@@ -192,7 +203,36 @@ public class Card extends Model {
         }
     }
 
-    public static class Update extends co.omise.models.Params {
+    /**
+     * The {@link RequestBuilder} class for retrieving a particular Card.
+     */
+    public static class GetRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
+
+        public GetRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for updating a particular Card.
+     */
+    public static class UpdateRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
+
         @JsonProperty
         private String name;
         @JsonProperty
@@ -204,39 +244,128 @@ public class Card extends Model {
         @JsonProperty("expiration_year")
         private int expirationYear;
 
-        public Update name(String name) {
+        public UpdateRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        public UpdateRequestBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Update city(String city) {
+        public UpdateRequestBuilder city(String city) {
             this.city = city;
             return this;
         }
 
-        public Update postalCode(String postalCode) {
+        public UpdateRequestBuilder postalCode(String postalCode) {
             this.postalCode = postalCode;
             return this;
         }
 
-        public Update expirationMonth(int expirationMonth) {
+        public UpdateRequestBuilder expirationMonth(int expirationMonth) {
             this.expirationMonth = expirationMonth;
             return this;
         }
 
-        public Update expirationYear(int expirationYear) {
+        public UpdateRequestBuilder expirationYear(int expirationYear) {
             this.expirationYear = expirationYear;
             return this;
         }
 
-        public Update expiration(YearMonth expiration) {
+        public UpdateRequestBuilder expiration(YearMonth expiration) {
             return expirationMonth(expiration.getMonthOfYear())
                     .expirationYear(expiration.getYear());
         }
 
-        public Update expiration(int month, int year) {
+        public UpdateRequestBuilder expiration(int month, int year) {
             return expirationMonth(month)
                     .expirationYear(year);
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for deleting a particular Customer.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Card> {
+        private String cardId;
+        private String customerId;
+
+        public DeleteRequestBuilder(String cardId, String customerId) {
+            this.cardId = cardId;
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+    }
+
+    /**
+     * The {@link RequestBuilder} class for retrieving all Cards that belong to a customer.
+     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
+        private String customerId;
+
+        private ScopedList.Options options;
+
+        public ListRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+
+            return new HttpUrlBuilder(
+                    Endpoint.API, "customers", serializer())
+                    .segments(customerId, "cards")
+                    .params(options)
+                    .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Card>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Card>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

@@ -3,11 +3,15 @@ package co.omise.models.schedules;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ChargeScheduling {
+import java.io.Serializable;
+
+public class ChargeScheduling implements Serializable {
     private long amount;
     private String currency;
     private String customer;
     private String card;
+    @JsonProperty("default_card")
+    private boolean isDefaultCard;
 
     public long getAmount() {
         return amount;
@@ -39,6 +43,14 @@ public class ChargeScheduling {
 
     public void setCard(String card) {
         this.card = card;
+    }
+
+    public boolean isDefaultCard() {
+        return isDefaultCard;
+    }
+
+    public void setDefaultCard(boolean defaultCard) {
+        isDefaultCard = defaultCard;
     }
 
     public static class Params extends co.omise.models.Params {
