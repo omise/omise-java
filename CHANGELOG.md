@@ -1,22 +1,30 @@
 # CHANGE LOG
 
-#2.7.8
-**NEW** Add metadata fields to Source
-**NEW** Add metadata fields to creating a Source
-**NEW** Add metadata fields to creating a Charge
-**NEW** Add Econtext as a Source type
-**NEW** Add TrueMoney as a Source type
+#v3.0.0
+**CHANGED** Changed the way Omise API is accessed through `Omise-Java`.
+**CHANGED** Used latest API version (`2019-05-29`).
+**NEW** Added `Capabilities` API.
+**NEW** Added `Installment` as a source type.
+**NEW** Made data models `Serializable`.
+**REMOVED** Removed Guava from dependencies.
 
-#2.7.7
+#v2.7.8
+**NEW** Add metadata fields to Source.
+**NEW** Add metadata fields to creating a Source.
+**NEW** Add metadata fields to creating a Charge.
+**NEW** Add Econtext as a Source type.
+**NEW** Add TrueMoney as a Source type.
+
+#v2.7.7
 **FIXED** Updated Jackson to version 2.9.8 to fix vulnerability issue.
 
-#2.7.6
+#v2.7.6
 **FIXED** Fixed `sourceOfFund` in Charge no longer in Charge API.
 
-#2.7.5
-**REMOVED:** Removed Sinarmas virtual account as a payment source type
+#v2.7.5
+**REMOVED:** Removed Sinarmas virtual account as a payment source type.
 
-#2.7.4
+#v2.7.4
 **CHANGED:** Changed variable names for Alipay barcode payment
 **NEW:** Add metadata field to creating and updating a Transfer.
 **NEW:** Add metadata field to creating a Refund.
