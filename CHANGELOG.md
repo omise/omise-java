@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+#v3.0.1
+**NEW** Added `firstDigits` field to Card.
+
 #v3.0.0
 **CHANGED** Changed the way Omise API is accessed through `Omise-Java`.
 **CHANGED** Used latest API version (`2019-05-29`).
