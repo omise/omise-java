@@ -24,6 +24,8 @@ public class Card extends Model {
     @JsonProperty("postal_code")
     private String postalCode;
     private String financing;
+    @JsonProperty("first_digits")
+    private String firstDigits;
     @JsonProperty("last_digits")
     private String lastDigits;
     private String brand;
@@ -77,6 +79,14 @@ public class Card extends Model {
 
     public void setFinancing(String financing) {
         this.financing = financing;
+    }
+
+    public String getFirstDigits() {
+        return firstDigits;
+    }
+
+    public void setFirstDigits(String firstDigits) {
+        this.firstDigits = firstDigits;
     }
 
     public String getLastDigits() {
