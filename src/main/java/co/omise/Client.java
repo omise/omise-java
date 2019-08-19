@@ -6,10 +6,10 @@ import co.omise.models.OmiseObjectBase;
 import co.omise.requests.Request;
 import co.omise.requests.Requester;
 import co.omise.requests.RequesterImpl;
-import okhttp3.CertificatePinner;
 import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.TlsVersion;
+
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
@@ -95,11 +95,6 @@ public class Client {
      * @throws ClientException if client configuration fails (e.g. when TLSv1.2 is not supported)
      */
     protected OkHttpClient buildHttpClient(Config config) throws ClientException {
-        CertificatePinner.Builder pinner = new CertificatePinner.Builder();
-        for (Endpoint endpoint : Endpoint.getAllEndpoints()) {
-            pinner.add(endpoint.host(), endpoint.certificateHash());
-        }
-
         SSLContext sslContext;
         X509TrustManager trustManager;
         try {
