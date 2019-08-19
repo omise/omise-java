@@ -1,6 +1,5 @@
 package co.omise;
 
-import okhttp3.CertificatePinner;
 import okhttp3.HttpUrl;
 
 import java.util.*;
@@ -72,17 +71,6 @@ public abstract class Endpoint {
      * @return A {@link String} containing the host name to connect to.
      */
     public abstract String host();
-
-    /**
-     * The certificate hash to use with OkHttp's {@link CertificatePinner}.
-     * The default implementation returns a certificate hash for {@code *.omise.co} domains.
-     *
-     * @return A {@link String} containing the cert hash to pin against or {@code null} to
-     * pin no certificate.
-     */
-    public String certificateHash() {
-        return "sha256/maqNsxEnwszR+xCmoGUiV636PvSM5zvBIBuupBn9AB8=";
-    }
 
     /**
      * The authentication key to use. The key should be taken from the given {@link Config} object.
