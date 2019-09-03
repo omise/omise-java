@@ -28,10 +28,6 @@ buildscript {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
-}
-
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
