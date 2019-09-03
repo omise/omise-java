@@ -6,6 +6,7 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import org.joda.time.LocalDate;
 
 /**
  * Represents Omise Receipt object.
@@ -63,18 +64,18 @@ public class Receipt extends Model {
     private boolean creditNote;
     private String currency;
     @JsonProperty("issued_on")
-    private String issuedDate;
+    private LocalDate issuedDate;
     @JsonProperty("customer_statement_name")
     private String customerStatementName;
 
     public Receipt() {
     }
 
-    public String getIssuedDate() {
+    public LocalDate getIssuedDate() {
         return issuedDate;
     }
 
-    public void setIssuedDate(String issuedDate) {
+    public void setIssuedDate(LocalDate issuedDate) {
         this.issuedDate = issuedDate;
     }
 
