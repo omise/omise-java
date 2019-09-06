@@ -338,8 +338,35 @@ public class Transfer extends Model {
     }
 
     /**
+     * The {@link RequestBuilder} class for deleting a particular Transfer.
+     */
+    public static class DeleteRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+
+        public DeleteRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+    }
+
+    /**
      * The {@link RequestBuilder} class for destroying a particular transfer.
      */
+    @Deprecated
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
 

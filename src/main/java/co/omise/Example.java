@@ -265,7 +265,7 @@ final class Example {
     }
 
     void destroyTransfer() throws IOException, OmiseException, ClientException {
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
+        Request<Transfer> request = new Transfer.DeleteRequestBuilder("trsf_test_4xs5px8c36dsanuwztf")
                 .build();
         Transfer transfer = client().sendRequest(request);
         System.out.printf("destroyed transfer: %s", transfer.getId());
