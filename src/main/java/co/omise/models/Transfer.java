@@ -365,6 +365,8 @@ public class Transfer extends Model {
 
     /**
      * The {@link RequestBuilder} class for destroying a particular transfer.
+     *
+     * @deprecated use {@link DeleteRequestBuilder} instead
      */
     @Deprecated
     public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
