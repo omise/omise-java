@@ -150,7 +150,6 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.BarcodeAlipay)
                 .amount(200000)
                 .currency("thb")
-                .description("barcode alipay charge")
                 .barcode("1234567890")
                 .storeId("store_1")
                 .storeName("store 1")

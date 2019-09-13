@@ -424,7 +424,6 @@ final class Example {
                 .type(SourceType.InternetBankingBay)
                 .amount(100000) // 1,000 THB
                 .currency("thb")
-                .description("Medium size T-Shirt (Blue)")
                 .terminalId("test_term_id")
                 .storeId("test_store_id")
                 .storeName("Omise Shop")

@@ -155,8 +155,6 @@ public class Source extends Model {
         @JsonProperty
         private SourceType type;
         @JsonProperty
-        private String description;
-        @JsonProperty
         private String barcode;
         @JsonProperty("store_id")
         private String storeId;
@@ -205,11 +203,6 @@ public class Source extends Model {
 
         public CreateRequestBuilder type(SourceType type) {
             this.type = type;
-            return this;
-        }
-
-        public CreateRequestBuilder description(String description) {
-            this.description = description;
             return this;
         }
 
