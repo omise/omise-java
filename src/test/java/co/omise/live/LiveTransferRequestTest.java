@@ -126,7 +126,7 @@ public class LiveTransferRequestTest extends BaseLiveTest {
                 .build();
         Transfer expectedTransfer = client.sendRequest(creatingTransferRequest);
 
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder(expectedTransfer.getId())
+        Request<Transfer> request = new Transfer.DeleteRequestBuilder(expectedTransfer.getId())
                 .build();
         Transfer actualTransfer = client.sendRequest(request);
 

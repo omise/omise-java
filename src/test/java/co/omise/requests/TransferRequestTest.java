@@ -79,7 +79,7 @@ public class TransferRequestTest extends RequestTest {
 
     @Test
     public void testDestroy() throws IOException, OmiseException {
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder(TRANSFER_ID)
+        Request<Transfer> request = new Transfer.DeleteRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("DELETE", "/transfers/" + TRANSFER_ID, 200);
