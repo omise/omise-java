@@ -31,7 +31,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Running, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
-        assertEquals(SchedulePeriod.month, schedule.getPeriod());
+        assertEquals(SchedulePeriod.Month, schedule.getPeriod());
         assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 
@@ -49,7 +49,7 @@ public class ScheduleRequestTest extends RequestTest {
     public void testCreate() throws IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.month)
+                .period(SchedulePeriod.Month)
                 .on(new ScheduleOn.Params().daysOfMonth(2))
                 .startDate(LocalDate.parse("2017-04-27"))
                 .endDate(LocalDate.parse("2018-04-27"))
@@ -65,7 +65,7 @@ public class ScheduleRequestTest extends RequestTest {
 
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
-        assertEquals(SchedulePeriod.month, schedule.getPeriod());
+        assertEquals(SchedulePeriod.Month, schedule.getPeriod());
         assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 
