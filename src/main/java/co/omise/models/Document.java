@@ -40,7 +40,6 @@ public class Document extends Model {
         this.location = location;
     }
 
-
     public static class DeleteRequestBuilder extends RequestBuilder<Document> {
         private String disputeId;
         private String documentId;
