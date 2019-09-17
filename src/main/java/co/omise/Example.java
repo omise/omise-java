@@ -500,7 +500,7 @@ final class Example {
     void createSchedule() throws ClientException, IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.month)
+                .period(SchedulePeriod.Month)
                 .on(new ScheduleOn.Params().daysOfMonth(2))
                 .startDate(LocalDate.parse("2017-04-27"))
                 .endDate(LocalDate.parse("2018-04-27"))
