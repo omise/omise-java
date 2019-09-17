@@ -2,6 +2,8 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.lang.reflect.Field;
+
 public enum SourceType {
     @JsonProperty("alipay")Alipay,
     @JsonProperty("barcode_alipay")BarcodeAlipay,
@@ -16,7 +18,19 @@ public enum SourceType {
     @JsonProperty("internet_banking_bbl")InternetBankingBbl,
     @JsonProperty("internet_banking_ktb")InternetBankingKtb,
     @JsonProperty("internet_banking_scb")InternetBankingScb,
-    @JsonProperty("truemoney")TrueMoney,
-    @JsonProperty("points")Points,
     @JsonProperty("paynow")Paynow,
+    @JsonProperty("points")Points,
+    @JsonProperty("truemoney")TrueMoney;
+
+    @Override
+    public String toString() {
+        String name = super.toString();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for(Field field : fields) {
+            if (field.getName() == name && field.isAnnotationPresent(JsonProperty.class)) {
+                return field.getAnnotation(JsonProperty.class).value();
+            }
+        }
+        return name;
+    }
 }
