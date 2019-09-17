@@ -28,7 +28,7 @@ public class DisputeRequestTest extends RequestTest {
     @Test
     public void testListWithStatus() throws IOException, OmiseException {
         Request<ScopedList<Dispute>> wonDisputesRequest = new Dispute.ListRequestBuilder()
-                .status(DisputeStatus.Won)
+                .status(DisputeStatus.Closed)
                 .build();
         ScopedList<Dispute> wonDisputes = getTestRequester().sendRequest(wonDisputesRequest);
         assertRequested("GET", "/disputes/closed", 200);
