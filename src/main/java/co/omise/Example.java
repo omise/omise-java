@@ -435,7 +435,7 @@ final class Example {
 
     void createSourceInstallment() throws IOException, ClientException, OmiseException {
         Request<Source> request = new Source.CreateRequestBuilder()
-                .type(SourceType.InstBankingBay)
+                .type(SourceType.InstallmentBay)
                 .amount(500000)
                 .currency("thb")
                 .installmentTerm(4)
