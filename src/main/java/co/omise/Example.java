@@ -191,9 +191,9 @@ final class Example {
     }
 
     void listClosedDiputes() throws IOException, OmiseException, ClientException {
-        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Won).build();
+        Request<ScopedList<Dispute>> request = new Dispute.ListRequestBuilder().status(DisputeStatus.Closed).build();
         ScopedList<Dispute> disputes = client().sendRequest(request);
-        System.out.printf("won disputes: %d", disputes.getTotal());
+        System.out.printf("closed disputes: %d", disputes.getTotal());
     }
 
     void listOpenDiputes() throws IOException, OmiseException, ClientException {
