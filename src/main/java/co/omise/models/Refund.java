@@ -12,76 +12,46 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Represents Omise Refund object.
- *
- * @see <a href="https://www.omise.co/refunds-api">Refunds API</a>
- */
 public class Refund extends Model {
     private long amount;
-    private String currency;
     private String charge;
-    private String transaction;
-    private Map<String, Object> metadata;
-    private RefundStatus status;
+    private String currency;
     @JsonProperty("funding_amount")
     private long fundingAmount;
     @JsonProperty("funding_currency")
     private String fundingCurrency;
-
-    public Refund() {
-    }
+    private String location;
+    private Map<String, Object> metadata;
+    private RefundStatus status;
+    private String transaction;
+    private boolean voided;
 
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getCharge() {
-        return charge;
+        return this.charge;
     }
 
     public void setCharge(String charge) {
         this.charge = charge;
     }
 
-    public String getTransaction() {
-        return transaction;
+    public String getCurrency() {
+        return this.currency;
     }
 
-    public void setTransaction(String transaction) {
-        this.transaction = transaction;
-    }
-
-    public Map<String, Object> getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Map<String, Object> metadata) {
-        this.metadata = metadata;
-    }
-
-    public RefundStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(RefundStatus status) {
-        this.status = status;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public long getFundingAmount() {
-        return fundingAmount;
+        return this.fundingAmount;
     }
 
     public void setFundingAmount(long fundingAmount) {
@@ -89,30 +59,64 @@ public class Refund extends Model {
     }
 
     public String getFundingCurrency() {
-        return fundingCurrency;
+        return this.fundingCurrency;
     }
 
     public void setFundingCurrency(String fundingCurrency) {
         this.fundingCurrency = fundingCurrency;
     }
 
-    /**
-     * The {@link RequestBuilder} class for creating a Refund.
-     */
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
+    public RefundStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(RefundStatus status) {
+        this.status = status;
+    }
+
+    public String getTransaction() {
+        return this.transaction;
+    }
+
+    public void setTransaction(String transaction) {
+        this.transaction = transaction;
+    }
+
+    public boolean isVoided() {
+        return this.voided;
+    }
+
+    public void setVoided(boolean voided) {
+        this.voided = voided;
+    }
+
     public static class CreateRequestBuilder extends RequestBuilder<Refund> {
         private String chargeId;
+
         @JsonProperty
         private long amount;
         @JsonProperty
         private Map<String, Object> metadata;
-
+        @JsonProperty("void")
+        private boolean isVoid;
         public CreateRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
         }
 
         @Override
@@ -121,8 +125,8 @@ public class Refund extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId, "refunds");
         }
 
         @Override
@@ -140,27 +144,34 @@ public class Refund extends Model {
             return this;
         }
 
+        public CreateRequestBuilder isVoid(boolean isVoid) {
+            this.isVoid = isVoid;
+            return this;
+        }
+
         public CreateRequestBuilder metadata(String key, Object value) {
             HashMap<String, Object> tempMap = new HashMap<>();
             if (metadata != null) {
                 tempMap.putAll(metadata);
             }
             tempMap.put(key, value);
+
             this.metadata = new HashMap<>(tempMap);
             return this;
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Refund.
-     */
     public static class GetRequestBuilder extends RequestBuilder<Refund> {
-        private final String chargeId;
-        private final String refundId;
-
+        private String chargeId;
+        private String refundId;
         public GetRequestBuilder(String chargeId, String refundId) {
             this.chargeId = chargeId;
             this.refundId = refundId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -174,15 +185,16 @@ public class Refund extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving all Refunds that belong to a particular Charge.
-     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
-        private final String chargeId;
+        private String chargeId;
         private ScopedList.Options options;
-
         public ListRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -191,15 +203,14 @@ public class Refund extends Model {
                 options = new ScopedList.Options();
             }
             return new HttpUrlBuilder(Endpoint.API, "charges", serializer())
-                    .segments(chargeId, "refunds")
-                    .params(options)
-                    .build();
+                  .segments(chargeId, "refunds")
+                  .params(options)
+                  .build();
         }
 
         @Override
         protected ResponseType<ScopedList<Refund>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {
-            });
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

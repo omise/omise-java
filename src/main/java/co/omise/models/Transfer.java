@@ -10,27 +10,14 @@ import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Represents Omise Transfer object and contains all of its {@link RequestBuilder}.
- *
- * @see <a href="https://www.omise.co/transfers-api">Tranfers API</a>
- */
 public class Transfer extends Model {
-    private String recipient;
+    private long amount;
     @JsonProperty("bank_account")
     private BankAccount bankAccount;
-    private boolean sent;
-    private boolean paid;
-    private long fee;
-    @JsonProperty("fee_vat")
-    private long feeVat;
-    @JsonProperty("total_fee")
-    private long totalFee;
-    private long net;
-    private long amount;
     private String currency;
     @JsonProperty("fail_fast")
     private boolean failFast;
@@ -38,50 +25,50 @@ public class Transfer extends Model {
     private String failureCode;
     @JsonProperty("failure_message")
     private String failureMessage;
-    private List<Transaction> transactions;
+    private long fee;
+    @JsonProperty("fee_vat")
+    private long feeVat;
+    private String location;
     private Map<String, Object> metadata;
-    @JsonProperty("sent_at")
-    private DateTime sentAt;
+    private long net;
+    private boolean paid;
     @JsonProperty("paid_at")
     private DateTime paidAt;
+    private String recipient;
+    private boolean sendable;
+    private boolean sent;
+    @JsonProperty("sent_at")
+    private DateTime sentAt;
+    @JsonProperty("total_fee")
+    private long totalFee;
+    private List<Transaction> transactions;
 
-    public Transfer() {
+    public long getAmount() {
+        return this.amount;
     }
 
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setAmount(long amount) {
+        this.amount = amount;
     }
 
     public BankAccount getBankAccount() {
-        return bankAccount;
+        return this.bankAccount;
     }
 
-    public boolean isSent() {
-        return sent;
-    }
-
-    public boolean isPaid() {
-        return paid;
-    }
-
-    public long getFee() {
-        return fee;
-    }
-
-    public long getAmount() {
-        return amount;
+    public void setBankAccount(BankAccount bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     public String getCurrency() {
-        return currency;
+        return this.currency;
     }
 
-    public boolean failFast() {
-        return failFast;
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public boolean isFailFast() {
+        return this.failFast;
     }
 
     public void setFailFast(boolean failFast) {
@@ -89,7 +76,7 @@ public class Transfer extends Model {
     }
 
     public String getFailureCode() {
-        return failureCode;
+        return this.failureCode;
     }
 
     public void setFailureCode(String failureCode) {
@@ -97,118 +84,249 @@ public class Transfer extends Model {
     }
 
     public String getFailureMessage() {
-        return failureMessage;
+        return this.failureMessage;
     }
 
     public void setFailureMessage(String failureMessage) {
         this.failureMessage = failureMessage;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
-    public Map<String, Object> getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Map<String, Object> metadata) {
-        this.metadata = metadata;
-    }
-
-    public boolean isFailFast() {
-        return failFast;
-    }
-
-    public DateTime getSentAt() {
-        return sentAt;
-    }
-
-    public DateTime getPaidAt() {
-        return paidAt;
-    }
-
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
-    public void setSent(boolean sent) {
-        this.sent = sent;
-    }
-
-    public void setPaid(boolean paid) {
-        this.paid = paid;
+    public long getFee() {
+        return this.fee;
     }
 
     public void setFee(long fee) {
         this.fee = fee;
     }
 
-    public void setAmount(long amount) {
-        this.amount = amount;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public void setSentAt(DateTime sentAt) {
-        this.sentAt = sentAt;
-    }
-
-    public void setPaidAt(DateTime paidAt) {
-        this.paidAt = paidAt;
-    }
-
     public long getFeeVat() {
-        return feeVat;
+        return this.feeVat;
     }
 
     public void setFeeVat(long feeVat) {
         this.feeVat = feeVat;
     }
 
-    public long getTotalFee() {
-        return totalFee;
+    public String getLocation() {
+        return this.location;
     }
 
-    public void setTotalFee(long totalFee) {
-        this.totalFee = totalFee;
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 
     public long getNet() {
-        return net;
+        return this.net;
     }
 
     public void setNet(long net) {
         this.net = net;
     }
 
-    /**
-     * The {@link RequestBuilder} class for creating a transfer.
-     */
+    public boolean isPaid() {
+        return this.paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
+    }
+
+    public DateTime getPaidAt() {
+        return this.paidAt;
+    }
+
+    public void setPaidAt(DateTime paidAt) {
+        this.paidAt = paidAt;
+    }
+
+    public String getRecipient() {
+        return this.recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public boolean isSendable() {
+        return this.sendable;
+    }
+
+    public void setSendable(boolean sendable) {
+        this.sendable = sendable;
+    }
+
+    public boolean isSent() {
+        return this.sent;
+    }
+
+    public void setSent(boolean sent) {
+        this.sent = sent;
+    }
+
+    public DateTime getSentAt() {
+        return this.sentAt;
+    }
+
+    public void setSentAt(DateTime sentAt) {
+        this.sentAt = sentAt;
+    }
+
+    public long getTotalFee() {
+        return this.totalFee;
+    }
+
+    public void setTotalFee(long totalFee) {
+        this.totalFee = totalFee;
+    }
+
+    public List<Transaction> getTransactions() {
+        return this.transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+        public DeleteRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Transfer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
+                  .segments("schedules")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Transfer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {});
+        }
+
+        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+        public GetRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+    }
+
     public static class CreateRequestBuilder extends RequestBuilder<Transfer> {
 
         @JsonProperty
         private long amount;
-        @JsonProperty
-        private String recipient;
         @JsonProperty("fail_fast")
         private boolean failFast;
         @JsonProperty
         private Map<String, Object> metadata;
+        @JsonProperty
+        private String recipient;
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers");
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
 
         public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
-            return this;
-        }
-
-        public CreateRequestBuilder recipient(String recipient) {
-            this.recipient = recipient;
             return this;
         }
 
@@ -222,9 +340,27 @@ public class Transfer extends Model {
             return this;
         }
 
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers");
+        public CreateRequestBuilder recipient(String recipient) {
+            this.recipient = recipient;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
+    public static class MarkAsPaidRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+        public MarkAsPaidRequestBuilder(String transferId) {
+            this.transferId = transferId;
         }
 
         @Override
@@ -233,8 +369,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId, "mark_as_paid");
         }
 
         @Override
@@ -243,18 +379,52 @@ public class Transfer extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for updating a particular transfer.
-     */
+    public static class MarkAsSentRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+        public MarkAsSentRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId, "mark_as_sent");
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+    }
+
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
         private String transferId;
+
         @JsonProperty
         private long amount;
         @JsonProperty
         private Map<String, Object> metadata;
-
         public UpdateRequestBuilder(String transferId) {
             this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
         }
 
         public UpdateRequestBuilder amount(long amount) {
@@ -267,128 +437,15 @@ public class Transfer extends Model {
             return this;
         }
 
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected String method() {
-            return PATCH;
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular transfer.
-     */
-    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
-
-        private String transferId;
-
-        public GetRequestBuilder(String transferId) {
-            this.transferId = transferId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving all transfers that belong to an account.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
-
-        private ScopedList.Options options;
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
             }
-            return buildUrl(Endpoint.API, "transfers", options);
-        }
+            tempMap.put(key, value);
 
-        @Override
-        protected ResponseType<ScopedList<Transfer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {
-            });
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for deleting a particular Transfer.
-     */
-    public static class DeleteRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
-
-        public DeleteRequestBuilder(String transferId) {
-            this.transferId = transferId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected String method() {
-            return DELETE;
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for destroying a particular transfer.
-     *
-     * @deprecated use {@link DeleteRequestBuilder} instead
-     */
-    @Deprecated
-    public static class DestroyRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
-
-        public DestroyRequestBuilder(String transferId) {
-            this.transferId = transferId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected String method() {
-            return DELETE;
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
+            this.metadata = new HashMap<>(tempMap);
+            return this;
         }
     }
 }

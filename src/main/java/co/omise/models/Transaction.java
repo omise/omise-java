@@ -6,27 +6,23 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
-/**
- * Represents Omise Transaction object.
- *
- * @see <a href="https://www.omise.co/transactions-api">Transactions API</a>
- */
+import java.io.IOException;
+
 public class Transaction extends Model {
     private long amount;
     private String currency;
     private TransactionDirection direction;
+    private String key;
+    private String location;
     private String origin;
     @JsonProperty("transferable_at")
-    private DateTime transferable;
-    private String key;
-
-    public Transaction() {
-    }
+    private DateTime transferableAt;
 
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
@@ -34,7 +30,7 @@ public class Transaction extends Model {
     }
 
     public String getCurrency() {
-        return currency;
+        return this.currency;
     }
 
     public void setCurrency(String currency) {
@@ -42,46 +38,54 @@ public class Transaction extends Model {
     }
 
     public TransactionDirection getDirection() {
-        return direction;
+        return this.direction;
     }
 
     public void setDirection(TransactionDirection direction) {
         this.direction = direction;
     }
 
-    public String getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(String origin) {
-        this.origin = origin;
-    }
-
-    public DateTime getTransferable() {
-        return transferable;
-    }
-
-    public void setTransferable(DateTime transferable) {
-        this.transferable = transferable;
-    }
-
     public String getKey() {
-        return key;
+        return this.key;
     }
 
     public void setKey(String key) {
         this.key = key;
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular transaction.
-     */
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getOrigin() {
+        return this.origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public DateTime getTransferableAt() {
+        return this.transferableAt;
+    }
+
+    public void setTransferableAt(DateTime transferableAt) {
+        this.transferableAt = transferableAt;
+    }
+
     public static class GetRequestBuilder extends RequestBuilder<Transaction> {
-
         private String transactionId;
-
         public GetRequestBuilder(String transactionId) {
             this.transactionId = transactionId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -95,16 +99,12 @@ public class Transaction extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving all transactions that belong to an account.
-     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
-
         private ScopedList.Options options;
 
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -112,13 +112,20 @@ public class Transaction extends Model {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-            return buildUrl(Endpoint.API, "transactions", options);
+            return new HttpUrlBuilder(Endpoint.API, "transactions", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
         }
 
         @Override
         protected ResponseType<ScopedList<Transaction>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {
-            });
+            return new ResponseType<>(new TypeReference<ScopedList<Transaction>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

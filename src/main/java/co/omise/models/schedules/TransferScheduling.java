@@ -1,56 +1,73 @@
 package co.omise.models.schedules;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
 public class TransferScheduling implements Serializable {
-    private String recipient;
     private long amount;
+    private String currency;
     @JsonProperty("percentage_of_balance")
     private float percentageOfBalance;
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
+    private String recipient;
 
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
     }
 
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public float getPercentageOfBalance() {
-        return percentageOfBalance;
+        return this.percentageOfBalance;
     }
 
     public void setPercentageOfBalance(float percentageOfBalance) {
         this.percentageOfBalance = percentageOfBalance;
     }
 
+    public String getRecipient() {
+        return this.recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
     public static class Params extends co.omise.models.Params {
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Long amount;
-        @JsonProperty("precentage_of_balance")
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Float percentageOfBalance;
+        @JsonProperty
+        private long amount;
+
+        @JsonProperty
+        private String currency;
+
+        @JsonProperty("percentage_of_balance")
+        private float percentageOfBalance;
+
         @JsonProperty
         private String recipient;
 
-        public Params amount(Long amount) {
+        public Params amount(long amount) {
             this.amount = amount;
             return this;
         }
 
-        public Params percentageOfBalance(Float percent) {
-            this.percentageOfBalance = percent;
+        public Params currency(String currency) {
+            this.currency = currency;
+            return this;
+        }
+
+        public Params percentageOfBalance(float percentageOfBalance) {
+            this.percentageOfBalance = percentageOfBalance;
             return this;
         }
 

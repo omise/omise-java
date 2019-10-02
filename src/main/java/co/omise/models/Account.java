@@ -5,49 +5,66 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
-/**
- * Represents Omise Account object and contains its {@link RequestBuilder}.
- *
- * @see <a href="https://www.omise.co/account-api">Account API</a>
- */
+import java.io.IOException;
+import java.util.List;
+
 public class Account extends Model {
-    private String email;
     private String currency;
+    private String email;
+    private String location;
+    @JsonProperty("supported_currencies")
+    private List<String> supportedCurrencies;
     @JsonProperty("team")
     private String teamId;
 
-    public Account() {
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getCurrency() {
-        return currency;
+        return this.currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<String> getSupportedCurrencies() {
+        return this.supportedCurrencies;
+    }
+
+    public void setSupportedCurrencies(List<String> supportedCurrencies) {
+        this.supportedCurrencies = supportedCurrencies;
+    }
+
     public String getTeamId() {
-        return teamId;
+        return this.teamId;
     }
 
     public void setTeamId(String teamId) {
         this.teamId = teamId;
     }
 
-    /**
-     * The {@link RequestBuilder} class for getting the user's Account. This class only overrides the path() method from its parent.
-     */
     public static class GetRequestBuilder extends RequestBuilder<Account> {
+
+        @Override
+        protected String method() {
+            return GET;
+        }
 
         @Override
         protected HttpUrl path() {

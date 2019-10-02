@@ -5,44 +5,48 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
-/**
- * Represents Omise Event object.
- *
- * @see <a href="https://www.omise.co/events-api">Events API</a>
- */
+import java.io.IOException;
+
 public class Event<T extends Model> extends Model {
-    private String key;
-
     private T data;
-
-    public Event() {
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
+    private String key;
+    private String location;
 
     public T getData() {
-        return data;
+        return this.data;
     }
 
     public void setData(T data) {
         this.data = data;
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Event.
-     */
+    public String getKey() {
+        return this.key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public static class GetRequestBuilder extends RequestBuilder<Event> {
         private String eventId;
-
         public GetRequestBuilder(String eventId) {
             this.eventId = eventId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -56,25 +60,28 @@ public class Event<T extends Model> extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving all Events that belong to an account.
-     */
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Event>> {
         private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
 
         @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-
-            return buildUrl(Endpoint.API, "events", options);
+            return new HttpUrlBuilder(Endpoint.API, "events", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
         }
 
         @Override
         protected ResponseType<ScopedList<Event>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {
-            });
+            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {});
         }
 
         public ListRequestBuilder options(ScopedList.Options options) {

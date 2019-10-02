@@ -6,217 +6,90 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.LocalDate;
 
-/**
- * Represents Omise Receipt object.
- *
- * @see <a href="https://www.omise.co/receipt-api">Receipts API</a>
- */
-/*
-number	string The receipt number.
-customer_name	string The customer's name.
-customer_address	string The customer's address.
-customer_tax_id	string The customer's tax id.
-customer_email	string The customer's email.
-customer_statement_name	string The customer's statement name.
-company_name	string Omise company name
-company_address	string Omise address
-company_tax_id	string Omise tax id
-charge_fee	integer The charge fee in the smallest currency unit (e.g. satang, cent).
-voided_fee	integer The voided fee in the smallest currency unit (e.g. satang, cent).
-transfer_fee	integer The transfer fee in the smallest currency unit (e.g. satang, cent).
-subtotal	integer The result of (charge_fee - voided_fee) + transfer_fee.
-vat	integer The Value-Added Tax of subtotal.
-wht	integer The Withholding Tax of subtotal.
-total	integer The total amount in the smallest currency unit (e.g. satang, cent, ...).
-credit_note	boolean Whether this is a negative (true) or positive (false) fee subunit.
-currency	string The currency as its lower-cased international 3-letter code, defined by the ISO 4217 standard.*/
+import java.io.IOException;
+
 public class Receipt extends Model {
-    private String number;
-    @JsonProperty("customer_name")
-    private String customerName;
-    @JsonProperty("customer_address")
-    private String customerAddress;
-    @JsonProperty("customer_tax_id")
-    private String customerTaxId;
-    @JsonProperty("customer_email")
-    private String customerEmail;
-    @JsonProperty("customer_statement")
-    private String customerStatement;
-    @JsonProperty("company_name")
-    private String companyName;
-    @JsonProperty("company_address")
-    private String companyAddress;
-    @JsonProperty("company_tax_id")
-    private String companyTaxId;
+    @JsonProperty("adjustment_transaction")
+    private String adjustmentTransaction;
     @JsonProperty("charge_fee")
     private long chargeFee;
-    @JsonProperty("voided_fee")
-    private long voidedFee;
-    @JsonProperty("transfer_fee")
-    private long transferFee;
-    private long subtotal;
-    private long vat;
-    private long wht;
-    private long total;
+    @JsonProperty("company_address")
+    private String companyAddress;
+    @JsonProperty("company_name")
+    private String companyName;
+    @JsonProperty("company_tax_id")
+    private String companyTaxId;
     @JsonProperty("credit_note")
     private boolean creditNote;
     private String currency;
-    @JsonProperty("issued_on")
-    private LocalDate issuedDate;
+    @JsonProperty("customer_address")
+    private String customerAddress;
+    @JsonProperty("customer_email")
+    private String customerEmail;
+    @JsonProperty("customer_name")
+    private String customerName;
     @JsonProperty("customer_statement_name")
     private String customerStatementName;
+    @JsonProperty("customer_tax_id")
+    private String customerTaxId;
+    @JsonProperty("issued_on")
+    private LocalDate issuedDate;
+    private String location;
+    private String number;
+    private long subtotal;
+    private long total;
+    @JsonProperty("transfer_fee")
+    private long transferFee;
+    private long vat;
+    @JsonProperty("voided_fee")
+    private long voidedFee;
+    private long wht;
 
-    public Receipt() {
+    public String getAdjustmentTransaction() {
+        return this.adjustmentTransaction;
     }
 
-    public LocalDate getIssuedDate() {
-        return issuedDate;
-    }
-
-    public void setIssuedDate(LocalDate issuedDate) {
-        this.issuedDate = issuedDate;
-    }
-
-    public String getCustomerStatementName() {
-        return customerStatementName;
-    }
-
-    public void setCustomerStatementName(String customerStatementName) {
-        this.customerStatementName = customerStatementName;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public String getCustomerTaxId() {
-        return customerTaxId;
-    }
-
-    public void setCustomerTaxId(String customerTaxId) {
-        this.customerTaxId = customerTaxId;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerStatement() {
-        return customerStatement;
-    }
-
-    public void setCustomerStatement(String customerStatement) {
-        this.customerStatement = customerStatement;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyAddress() {
-        return companyAddress;
-    }
-
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
-    }
-
-    public String getCompanyTaxId() {
-        return companyTaxId;
-    }
-
-    public void setCompanyTaxId(String companyTaxId) {
-        this.companyTaxId = companyTaxId;
+    public void setAdjustmentTransaction(String adjustmentTransaction) {
+        this.adjustmentTransaction = adjustmentTransaction;
     }
 
     public long getChargeFee() {
-        return chargeFee;
+        return this.chargeFee;
     }
 
     public void setChargeFee(long chargeFee) {
         this.chargeFee = chargeFee;
     }
 
-    public long getVoidedFee() {
-        return voidedFee;
+    public String getCompanyAddress() {
+        return this.companyAddress;
     }
 
-    public void setVoidedFee(long voidedFee) {
-        this.voidedFee = voidedFee;
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
-    public long getTransferFee() {
-        return transferFee;
+    public String getCompanyName() {
+        return this.companyName;
     }
 
-    public void setTransferFee(long transferFee) {
-        this.transferFee = transferFee;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public long getSubtotal() {
-        return subtotal;
+    public String getCompanyTaxId() {
+        return this.companyTaxId;
     }
 
-    public void setSubtotal(long subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public long getVat() {
-        return vat;
-    }
-
-    public void setVat(long vat) {
-        this.vat = vat;
-    }
-
-    public long getWht() {
-        return wht;
-    }
-
-    public void setWht(long wht) {
-        this.wht = wht;
-    }
-
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
+    public void setCompanyTaxId(String companyTaxId) {
+        this.companyTaxId = companyTaxId;
     }
 
     public boolean isCreditNote() {
-        return creditNote;
+        return this.creditNote;
     }
 
     public void setCreditNote(boolean creditNote) {
@@ -224,21 +97,164 @@ public class Receipt extends Model {
     }
 
     public String getCurrency() {
-        return currency;
+        return this.currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Receipt.
-     */
+    public String getCustomerAddress() {
+        return this.customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
+    public String getCustomerEmail() {
+        return this.customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public String getCustomerName() {
+        return this.customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerStatementName() {
+        return this.customerStatementName;
+    }
+
+    public void setCustomerStatementName(String customerStatementName) {
+        this.customerStatementName = customerStatementName;
+    }
+
+    public String getCustomerTaxId() {
+        return this.customerTaxId;
+    }
+
+    public void setCustomerTaxId(String customerTaxId) {
+        this.customerTaxId = customerTaxId;
+    }
+
+    public LocalDate IssuedDate() {
+        return this.issuedDate;
+    }
+
+    public void setIssuedDate(LocalDate issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public long getSubtotal() {
+        return this.subtotal;
+    }
+
+    public void setSubtotal(long subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public long getTotal() {
+        return this.total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public long getTransferFee() {
+        return this.transferFee;
+    }
+
+    public void setTransferFee(long transferFee) {
+        this.transferFee = transferFee;
+    }
+
+    public long getVat() {
+        return this.vat;
+    }
+
+    public void setVat(long vat) {
+        this.vat = vat;
+    }
+
+    public long getVoidedFee() {
+        return this.voidedFee;
+    }
+
+    public void setVoidedFee(long voidedFee) {
+        this.voidedFee = voidedFee;
+    }
+
+    public long getWht() {
+        return this.wht;
+    }
+
+    public void setWht(long wht) {
+        this.wht = wht;
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Receipt>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "receipts", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Receipt>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Receipt>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
     public static class GetRequestBuilder extends RequestBuilder<Receipt> {
         private String receiptId;
-
         public GetRequestBuilder(String receiptId) {
             this.receiptId = receiptId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -249,33 +265,6 @@ public class Receipt extends Model {
         @Override
         protected ResponseType<Receipt> type() {
             return new ResponseType<>(Receipt.class);
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving all Receipts that belong to an account.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Receipt>> {
-        private ScopedList.Options options;
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-
-            return buildUrl(Endpoint.API, "receipts", options);
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Receipt>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Receipt>>() {
-            });
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
         }
     }
 }
