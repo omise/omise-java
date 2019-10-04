@@ -78,7 +78,7 @@ public class TransferRequestTest extends RequestTest {
     }
 
     @Test
-    public void testDestroy() throws IOException, OmiseException {
+    public void testDelete() throws IOException, OmiseException {
         Request<Transfer> request = new Transfer.DeleteRequestBuilder(TRANSFER_ID)
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);

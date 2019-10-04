@@ -3,7 +3,7 @@ package co.omise.requests;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.schedules.*;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(ScheduleStatus.Running, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
-        assertEquals(SchedulePeriod.month, schedule.getPeriod());
+        assertEquals(SchedulePeriod.Month, schedule.getPeriod());
         assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 
@@ -49,10 +49,10 @@ public class ScheduleRequestTest extends RequestTest {
     public void testCreate() throws IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.month)
+                .period(SchedulePeriod.Month)
                 .on(new ScheduleOn.Params().daysOfMonth(2))
-                .startDate(DateTime.parse("2017-04-27"))
-                .endDate(DateTime.parse("2018-04-27"))
+                .startDate(LocalDate.parse("2017-04-27"))
+                .endDate(LocalDate.parse("2018-04-27"))
                 .charge(new ChargeScheduling.Params()
                         .customer("cust_test_55bb3hkywglfyyachha")
                         .amount(88800)
@@ -65,7 +65,7 @@ public class ScheduleRequestTest extends RequestTest {
 
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
-        assertEquals(SchedulePeriod.month, schedule.getPeriod());
+        assertEquals(SchedulePeriod.Month, schedule.getPeriod());
         assertEquals(11, schedule.getNextOccurrencesDates().size());
     }
 

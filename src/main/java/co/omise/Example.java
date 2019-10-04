@@ -3,7 +3,7 @@ package co.omise;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 
@@ -424,7 +424,6 @@ final class Example {
                 .type(SourceType.InternetBankingBay)
                 .amount(100000) // 1,000 THB
                 .currency("thb")
-                .description("Medium size T-Shirt (Blue)")
                 .terminalId("test_term_id")
                 .storeId("test_store_id")
                 .storeName("Omise Shop")
@@ -436,7 +435,7 @@ final class Example {
 
     void createSourceInstallment() throws IOException, ClientException, OmiseException {
         Request<Source> request = new Source.CreateRequestBuilder()
-                .type(SourceType.InstBankingBay)
+                .type(SourceType.InstallmentBay)
                 .amount(500000)
                 .currency("thb")
                 .installmentTerm(4)
@@ -501,10 +500,10 @@ final class Example {
     void createSchedule() throws ClientException, IOException, OmiseException {
         Request<Schedule> request = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.month)
+                .period(SchedulePeriod.Month)
                 .on(new ScheduleOn.Params().daysOfMonth(2))
-                .startDate(DateTime.parse("2017-04-27"))
-                .endDate(DateTime.parse("2018-04-27"))
+                .startDate(LocalDate.parse("2017-04-27"))
+                .endDate(LocalDate.parse("2018-04-27"))
                 .charge(new ChargeScheduling.Params()
                         .customer("cust_test_55bb3hkywglfyyachha")
                         .amount(88800)

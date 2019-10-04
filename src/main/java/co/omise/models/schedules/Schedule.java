@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.io.IOException;
@@ -197,9 +196,9 @@ public class Schedule extends Model {
         @JsonProperty
         private ScheduleOn.Params on;
         @JsonProperty("start_date")
-        private DateTime startDate;
+        private LocalDate startDate;
         @JsonProperty("end_date")
-        private DateTime endDate;
+        private LocalDate endDate;
         @JsonProperty
         private ChargeScheduling.Params charge;
         @JsonProperty
@@ -215,12 +214,12 @@ public class Schedule extends Model {
             return this;
         }
 
-        public CreateRequestBuilder startDate(DateTime startDate) {
+        public CreateRequestBuilder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public CreateRequestBuilder endDate(DateTime endDate) {
+        public CreateRequestBuilder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }
