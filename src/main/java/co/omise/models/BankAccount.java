@@ -31,14 +31,6 @@ public class BankAccount extends Model {
         this.brand = brand;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     public String getLastDigits() {
         return lastDigits;
     }

@@ -231,11 +231,6 @@ public class Source extends Model {
             return this;
         }
 
-        public CreateRequestBuilder description(String description) {
-            this.description = description;
-            return this;
-        }
-
         public CreateRequestBuilder barcode(String barcode) {
             this.barcode = barcode;
             return this;
