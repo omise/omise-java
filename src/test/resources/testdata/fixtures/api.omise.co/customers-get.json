@@ -44,7 +44,11 @@
             "fingerprint": "sRF/oMw2UQJJp/WbU+2/ZbVzwROjpMf1lyhOHhOqziw=",
             "name": "JOHN DOE",
             "security_code_check": true,
-            "created_at": "2015-01-15T04:03:40Z"
+            "created_at": "2015-01-15T04:03:40Z",
+            "phone_number": "0123456789",
+            "street1": "",
+            "street2": "",
+            "state": ""
           }
         ]
       }

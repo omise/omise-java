@@ -27,7 +27,11 @@
       "expiration_year": 2016,
       "fingerprint": "mJnCcSbRLzwfV62Do9MAmjpXlzDBVJ/hvu8go4JYyqU=",
       "name": "Chakrit Wichian",
-      "security_code_check": true
+      "security_code_check": true,
+      "phone_number": "0123456789",
+      "street1": "",
+      "street2": "",
+      "state": ""
     }
   ]
 }

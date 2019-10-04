@@ -37,6 +37,11 @@ public class Card extends Model {
     private String name;
     @JsonProperty("security_code_check")
     private boolean securityCodeCheck;
+    private String street1;
+    private String street2;
+    private String state;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
 
     public Card() {
     }
@@ -148,6 +153,38 @@ public class Card extends Model {
 
     public void setSecurityCodeCheck(boolean securityCodeCheck) {
         this.securityCodeCheck = securityCodeCheck;
+    }
+
+    public String getStreet1() {
+        return this.street1;
+    }
+
+    public void setStreet1(String street1) {
+        this.street1 = street1;
+    }
+
+    public String getStreet2() {
+        return this.street2;
+    }
+
+    public void setStreet2(String street2) {
+        this.street2 = street2;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     // Duplicated, for now. Since we don't people trying to update card numbers.

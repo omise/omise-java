@@ -27,6 +27,7 @@ public class Dispute extends Model {
     private String charge;
     private Map<String, Object> metadata;
     private List<Transaction> transactions;
+    private ScopedList<Document> documents;
     @JsonProperty("reason_code")
     private DisputeReasonCode reasonCode;
     @JsonProperty("reason_message")
@@ -71,6 +72,14 @@ public class Dispute extends Model {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public ScopedList<Document> getDocuments() {
+        return this.documents;
+    }
+
+    public void setDocuments(ScopedList<Document> documents) {
+        this.documents = documents;
     }
 
     public String getCharge() {

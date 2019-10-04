@@ -149,7 +149,6 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.BarcodeAlipay)
                 .amount(200000)
                 .currency("thb")
-                .description("barcode alipay charge")
                 .barcode("1234567890")
                 .storeId("store_1")
                 .storeName("store 1")
@@ -175,7 +174,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveSourceInstallment() throws IOException, OmiseException {
         Request<Source> request = new Source.CreateRequestBuilder()
-                .type(SourceType.InstBankingBay)
+                .type(SourceType.InstallmentBay)
                 .amount(500000)
                 .currency("thb")
                 .installmentTerm(4)
@@ -186,7 +185,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         System.out.printf("created source: %s, type = %s", source.getId(), source.getType());
 
         assertNotNull(source);
-        assertEquals(SourceType.InstBankingBay, source.getType());
+        assertEquals(SourceType.InstallmentBay, source.getType());
         assertEquals(4, source.getInstallmentTerm());
         assertEquals(500000L, source.getAmount());
         assertEquals("THB", source.getCurrency());

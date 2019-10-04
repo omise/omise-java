@@ -29,8 +29,6 @@ public class Charge extends Model {
     private boolean reversed;
     private boolean paid;
     private String transaction;
-    @JsonProperty("source_of_fund")
-    private SourceOfFunds sourceOfFund;
     private Card card;
     @JsonProperty("refunded_amount")
     private long refundedAmount;
@@ -46,7 +44,6 @@ public class Charge extends Model {
     private String returnUri;
     @JsonProperty("authorize_uri")
     private String authorizeUri;
-    private OffsiteTypes offsite;
     @JsonProperty("installment_terms")
     private int installmentTerms;
     private Source source;
@@ -149,18 +146,6 @@ public class Charge extends Model {
         this.transaction = transaction;
     }
 
-    public SourceOfFunds getSourceOfFund() {
-        if (sourceOfFund != null) {
-            return sourceOfFund;
-        } else {
-            return card != null ? SourceOfFunds.Card : SourceOfFunds.Offsite;
-        }
-    }
-
-    public void setSourceOfFund(SourceOfFunds sourceOfFund) {
-        this.sourceOfFund = sourceOfFund;
-    }
-
     public Card getCard() {
         return card;
     }
@@ -239,14 +224,6 @@ public class Charge extends Model {
 
     public void setAuthorizeUri(String authorizeUri) {
         this.authorizeUri = authorizeUri;
-    }
-
-    public OffsiteTypes getOffsite() {
-        return offsite;
-    }
-
-    public void setOffsite(OffsiteTypes offsite) {
-        this.offsite = offsite;
     }
 
     public int getInstallmentTerms() {
@@ -371,8 +348,6 @@ public class Charge extends Model {
         private Map<String, Object> metadata;
         @JsonProperty
         private Boolean capture;
-        @JsonProperty
-        private OffsiteTypes offsite;
         @JsonProperty("installment_terms")
         private Integer installmentTerms;
         @JsonProperty("return_uri")
@@ -447,11 +422,6 @@ public class Charge extends Model {
 
         public CreateRequestBuilder capture(boolean capture) {
             this.capture = capture;
-            return this;
-        }
-
-        public CreateRequestBuilder offsite(OffsiteTypes offsite) {
-            this.offsite = offsite;
             return this;
         }
 
