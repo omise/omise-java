@@ -9,6 +9,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Token object
+ *
+ * @see <a href="https://www.omise.co/tokens-api">Token API</a>
+ */
 public class Token extends Model {
     private Card card;
     private String location;

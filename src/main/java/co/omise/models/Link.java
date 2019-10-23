@@ -11,6 +11,11 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 
+/**
+ * Links object
+ *
+ * @see <a href="https://www.omise.co/links-api">Links API</a>
+ */
 public class Link extends Model {
     private long amount;
     private ScopedList<Charge> charges;

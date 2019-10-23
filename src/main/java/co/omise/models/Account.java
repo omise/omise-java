@@ -10,6 +10,11 @@ import okhttp3.RequestBody;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Account object
+ *
+ * @see <a href="https://www.omise.co/account-api">Account API</a>
+ */
 public class Account extends Model {
     private String currency;
     private String email;

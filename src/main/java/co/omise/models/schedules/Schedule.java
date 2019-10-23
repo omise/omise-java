@@ -15,6 +15,11 @@ import org.joda.time.LocalDate;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Schedule object
+ *
+ * @see <a href="https://www.omise.co/schedules-api">Schedule API</a>
+ */
 public class Schedule extends Model {
     private boolean active;
     private ChargeScheduling charge;
@@ -200,7 +205,7 @@ public class Schedule extends Model {
         }
     }
 
-    public static class ListOccurrencesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+    public static class ListOccurrencesRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
         private String scheduleId;
         private ScopedList.Options options;
         public ListOccurrencesRequestBuilder(String scheduleId) {
@@ -224,8 +229,8 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        protected ResponseType<ScopedList<Occurrence>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {});
         }
 
         public ListOccurrencesRequestBuilder options(ScopedList.Options options) {

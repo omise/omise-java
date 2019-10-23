@@ -37,8 +37,8 @@ public enum SourceType {
     InternetBankingScb,
     @JsonProperty("paynow")
     Paynow,
-    @JsonProperty("points")
-    Points,
+    @JsonProperty("points_citi")
+    PointsCiti,
     @JsonProperty("truemoney")
     TrueMoney;
 

@@ -12,6 +12,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Customer object
+ *
+ * @see <a href="https://www.omise.co/customers-api">Customer API</a>
+ */
 public class Customer extends Model {
     private ScopedList<Card> cards;
     @JsonProperty("default_card")
@@ -121,7 +126,7 @@ public class Customer extends Model {
         }
     }
 
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private String customerId;
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String customerId) {
@@ -145,8 +150,8 @@ public class Customer extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Customer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {});
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
         }
 
         public ListSchedulesRequestBuilder options(ScopedList.Options options) {

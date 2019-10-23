@@ -10,6 +10,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Source object
+ *
+ * @see <a href="https://www.omise.co/sources-api">Source API</a>
+ */
 public class Source extends Model {
     private long amount;
     private String barcode;

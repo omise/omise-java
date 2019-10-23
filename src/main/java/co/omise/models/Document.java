@@ -10,6 +10,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Document object
+ *
+ * @see <a href="https://www.omise.co/documents-api">Document API</a>
+ */
 public class Document extends Model {
     @JsonProperty("download_uri")
     private String downloadUri;

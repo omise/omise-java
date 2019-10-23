@@ -8,6 +8,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Balance object
+ *
+ * @see <a href="https://www.omise.co/balance-api">Balance API</a>
+ */
 public class Balance extends Model {
     private String currency;
     private String location;

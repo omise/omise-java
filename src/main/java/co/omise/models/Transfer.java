@@ -14,6 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Transfer object
+ *
+ * @see <a href="https://www.omise.co/transfers-api">Transfer API</a>
+ */
 public class Transfer extends Model {
     private long amount;
     @JsonProperty("bank_account")
@@ -247,7 +252,7 @@ public class Transfer extends Model {
         }
     }
 
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
 
         @Override
@@ -267,8 +272,8 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Transfer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Transfer>>() {});
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
         }
 
         public ListSchedulesRequestBuilder options(ScopedList.Options options) {

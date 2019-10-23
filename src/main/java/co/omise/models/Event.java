@@ -9,6 +9,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Event object
+ *
+ * @see <a href="https://www.omise.co/events-api">Event API</a>
+ */
 public class Event<T extends Model> extends Model {
     private T data;
     private String key;

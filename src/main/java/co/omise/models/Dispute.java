@@ -14,6 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Dispute object
+ *
+ * @see <a href="https://www.omise.co/disputes-api">Dispute API</a>
+ */
 public class Dispute extends Model {
     @JsonProperty("admin_message")
     private String adminMessage;

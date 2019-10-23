@@ -12,6 +12,11 @@ import org.joda.time.YearMonth;
 
 import java.io.IOException;
 
+/**
+ * Card object
+ *
+ * @see <a href="https://www.omise.co/cards-api">Card API</a>
+ */
 public class Card extends Model {
     private String bank;
     private String brand;

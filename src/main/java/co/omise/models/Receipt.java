@@ -11,6 +11,11 @@ import org.joda.time.LocalDate;
 
 import java.io.IOException;
 
+/**
+ * Receipt object
+ *
+ * @see <a href="https://www.omise.co/receipts-api">Receipt API</a>
+ */
 public class Receipt extends Model {
     @JsonProperty("adjustment_transaction")
     private String adjustmentTransaction;

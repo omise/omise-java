@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Charge object
+ *
+ * @see <a href="https://www.omise.co/charges-api">Charge API</a>
+ */
 public class Charge extends Model {
     private long amount;
     @JsonProperty("authorize_uri")
@@ -427,7 +432,7 @@ public class Charge extends Model {
         }
     }
 
-    public static class ListRefundsRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
+    public static class ListRefundsRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
         private String chargeId;
         private ScopedList.Options options;
         public ListRefundsRequestBuilder(String chargeId) {
@@ -451,8 +456,8 @@ public class Charge extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Charge>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
+        protected ResponseType<ScopedList<Refund>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
         }
 
         public ListRefundsRequestBuilder options(ScopedList.Options options) {
@@ -461,7 +466,7 @@ public class Charge extends Model {
         }
     }
 
-    public static class ListEventsRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
+    public static class ListEventsRequestBuilder extends RequestBuilder<ScopedList<Event>> {
         private String chargeId;
         private ScopedList.Options options;
         public ListEventsRequestBuilder(String chargeId) {
@@ -485,8 +490,8 @@ public class Charge extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Charge>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
+        protected ResponseType<ScopedList<Event>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Event>>() {});
         }
 
         public ListEventsRequestBuilder options(ScopedList.Options options) {
@@ -495,7 +500,7 @@ public class Charge extends Model {
         }
     }
 
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
 
         @Override
@@ -515,8 +520,8 @@ public class Charge extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Charge>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
         }
 
         public ListSchedulesRequestBuilder options(ScopedList.Options options) {

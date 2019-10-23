@@ -11,6 +11,11 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 
+/**
+ * Transaction object
+ *
+ * @see <a href="https://www.omise.co/transactions-api">Transaction API</a>
+ */
 public class Transaction extends Model {
     private long amount;
     private String currency;

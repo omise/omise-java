@@ -10,6 +10,11 @@ import okhttp3.RequestBody;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Capability object
+ *
+ * @see <a href="https://www.omise.co/capability-api">Capability API</a>
+ */
 public class Capability extends Model {
     private List<String> banks;
     private String location;

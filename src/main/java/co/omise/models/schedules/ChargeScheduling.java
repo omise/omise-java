@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
+/**
+ * Charge Schedule object
+ *
+ * @see <a href="https://www.omise.co/charge-schedules-api">Charge Schedule API</a>
+ */
 public class ChargeScheduling implements Serializable {
     private long amount;
     private String card;

@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
+/**
+ * Transfer object
+ *
+ * @see <a href="https://www.omise.co/transfer-schedules-api">Transfer API</a>
+ */
 public class TransferScheduling implements Serializable {
     private long amount;
     private String currency;

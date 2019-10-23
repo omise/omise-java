@@ -12,6 +12,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Refund object
+ *
+ * @see <a href="https://www.omise.co/refunds-api">Refund API</a>
+ */
 public class Refund extends Model {
     private long amount;
     private String charge;

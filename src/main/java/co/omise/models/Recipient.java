@@ -13,6 +13,11 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * Recipient object
+ *
+ * @see <a href="https://www.omise.co/recipients-api">Recipient API</a>
+ */
 public class Recipient extends Model {
     @JsonProperty("activated_at")
     private DateTime activatedAt;
@@ -208,7 +213,7 @@ public class Recipient extends Model {
         }
     }
 
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Recipient>> {
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private String recipientId;
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String recipientId) {
@@ -232,8 +237,8 @@ public class Recipient extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<Recipient>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Recipient>>() {});
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
         }
 
         public ListSchedulesRequestBuilder options(ScopedList.Options options) {

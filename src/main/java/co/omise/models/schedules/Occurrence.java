@@ -14,6 +14,11 @@ import org.joda.time.LocalDate;
 
 import java.io.IOException;
 
+/**
+ * Occurrence object
+ *
+ * @see <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
+ */
 public class Occurrence extends Model {
     private String location;
     private String message;

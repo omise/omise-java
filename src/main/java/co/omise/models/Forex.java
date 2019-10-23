@@ -8,6 +8,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Forex object
+ *
+ * @see <a href="https://www.omise.co/forex-api">Forex API</a>
+ */
 public class Forex extends Model {
     private String base;
     private String location;

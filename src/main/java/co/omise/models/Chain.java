@@ -9,6 +9,11 @@ import okhttp3.RequestBody;
 
 import java.io.IOException;
 
+/**
+ * Chain object
+ *
+ * @see <a href="https://www.omise.co/chains-api">Chain API</a>
+ */
 public class Chain extends Model {
     private String email;
     private String key;
