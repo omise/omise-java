@@ -1,6 +1,7 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
+import co.omise.models.schedules.Schedule;
 import co.omise.models.schedules.TransferScheduling;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;

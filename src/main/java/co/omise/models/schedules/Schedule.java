@@ -3,6 +3,7 @@ package co.omise.models.schedules;
 import co.omise.Endpoint;
 import co.omise.models.Model;
 import co.omise.models.ScopedList;
+import co.omise.models.schedules.Schedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
