@@ -1,6 +1,7 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
+import co.omise.models.schedules.Schedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,134 +14,76 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents Omise Customer object.
+ * Customer object
  *
- * @see <a href="https://www.omise.co/customers-api">Charges API</a>
+ * @see <a href="https://www.omise.co/customers-api">Customer API</a>
  */
 public class Customer extends Model {
+    private ScopedList<Card> cards;
     @JsonProperty("default_card")
     private String defaultCard;
-    private String email;
     private String description;
+    private String email;
+    private String location;
     private Map<String, Object> metadata;
-    private ScopedList<Card> cards;
-
-    public Customer() {
-    }
-
-    public String getDefaultCard() {
-        return defaultCard;
-    }
-
-    public void setDefaultCard(String defaultCard) {
-        this.defaultCard = defaultCard;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Map<String, Object> getMetadata() {
-        return metadata;
-    }
-
-    public void setMetadata(Map<String, Object> metadata) {
-        this.metadata = metadata;
-    }
 
     public ScopedList<Card> getCards() {
-        return cards;
+        return this.cards;
     }
 
     public void setCards(ScopedList<Card> cards) {
         this.cards = cards;
     }
 
-    /**
-     * The {@link RequestBuilder} class for creating a Customer.
-     */
-    public static class CreateRequestBuilder extends RequestBuilder<Customer> {
-        @JsonProperty
-        private String email;
-        @JsonProperty
-        private String description;
-        @JsonProperty
-        private Map<String, Object> metadata;
-        @JsonProperty
-        private String card;
+    public String getDefaultCard() {
+        return this.defaultCard;
+    }
+
+    public void setDefaultCard(String defaultCard) {
+        this.defaultCard = defaultCard;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
+    }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+        public DeleteRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
 
         @Override
         protected String method() {
-            return POST;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "customers");
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        @Override
-        protected ResponseType<Customer> type() {
-            return new ResponseType<>(Customer.class);
-        }
-
-        public CreateRequestBuilder email(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public CreateRequestBuilder description(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        public CreateRequestBuilder metadata(String key, Object value) {
-            HashMap<String, Object> tempMap = new HashMap<>();
-            if (metadata != null) {
-                tempMap.putAll(metadata);
-            }
-            tempMap.put(key, value);
-
-            this.metadata = new HashMap<>(tempMap);
-            return this;
-        }
-
-        public CreateRequestBuilder card(String card) {
-            this.card = card;
-            return this;
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Customer.
-     */
-    public static class GetRequestBuilder extends RequestBuilder<Customer> {
-        private String customerId;
-
-        public GetRequestBuilder(String customerId) {
-            this.customerId = customerId;
+            return DELETE;
         }
 
         @Override
@@ -154,21 +97,105 @@ public class Customer extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for updating a particular Customer.
-     */
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Customer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private String customerId;
+        private ScopedList.Options options;
+        public ListSchedulesRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments(customerId, "schedules")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Customer> {
+        private String customerId;
+        public GetRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId);
+        }
+
+        @Override
+        protected ResponseType<Customer> type() {
+            return new ResponseType<>(Customer.class);
+        }
+    }
+
     public static class UpdateRequestBuilder extends RequestBuilder<Customer> {
         private String customerId;
 
         @JsonProperty
-        private String email;
+        private String card;
+        @JsonProperty("default_card")
+        private String defaultCard;
         @JsonProperty
         private String description;
         @JsonProperty
-        private Map<String, Object> metadata;
+        private String email;
         @JsonProperty
-        private String card;
-
+        private Map<String, Object> metadata;
         public UpdateRequestBuilder(String customerId) {
             this.customerId = customerId;
         }
@@ -184,23 +211,27 @@ public class Customer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        @Override
         protected ResponseType<Customer> type() {
             return new ResponseType<>(Customer.class);
         }
 
+        public UpdateRequestBuilder card(String card) {
+            this.card = card;
+            return this;
+        }
 
-        public UpdateRequestBuilder email(String email) {
-            this.email = email;
+        public UpdateRequestBuilder defaultCard(String defaultCard) {
+            this.defaultCard = defaultCard;
             return this;
         }
 
         public UpdateRequestBuilder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public UpdateRequestBuilder email(String email) {
+            this.email = email;
             return this;
         }
 
@@ -219,27 +250,27 @@ public class Customer extends Model {
             this.metadata = new HashMap<>(tempMap);
             return this;
         }
-
-        public UpdateRequestBuilder card(String card) {
-            this.card = card;
-            return this;
-        }
     }
 
+    public static class CreateRequestBuilder extends RequestBuilder<Customer> {
 
-    /**
-     * The {@link RequestBuilder} class for deleting a particular Customer.
-     */
-    public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
-        private String customerId;
+        @JsonProperty
+        private String card;
+        @JsonProperty
+        private String description;
+        @JsonProperty
+        private String email;
+        @JsonProperty
+        private Map<String, Object> metadata;
 
-        public DeleteRequestBuilder(String customerId) {
-            this.customerId = customerId;
+        @Override
+        protected String method() {
+            return POST;
         }
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "customers", customerId);
+            return buildUrl(Endpoint.API, "customers");
         }
 
         @Override
@@ -247,35 +278,34 @@ public class Customer extends Model {
             return new ResponseType<>(Customer.class);
         }
 
-        @Override
-        protected String method() {
-            return DELETE;
+        public CreateRequestBuilder card(String card) {
+            this.card = card;
+            return this;
         }
-    }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving all Customers that belong to an account.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
-        private ScopedList.Options options;
+        public CreateRequestBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
 
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
+        public CreateRequestBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
             }
+            tempMap.put(key, value);
 
-            return buildUrl(Endpoint.API, "customers", options);
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Customer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {
-            });
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
+            this.metadata = new HashMap<>(tempMap);
             return this;
         }
     }

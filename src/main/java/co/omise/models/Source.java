@@ -3,6 +3,7 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -10,23 +11,23 @@ import okhttp3.RequestBody;
 import java.io.IOException;
 
 /**
- * Represents Omise Source object.
+ * Source object
  *
- * @see <a href="https://www.omise.co/source-api">Source API</a>
+ * @see <a href="https://www.omise.co/sources-api">Source API</a>
  */
 public class Source extends Model {
-
-    private SourceType type;
-    private FlowType flow;
     private long amount;
-    private String currency;
     private String barcode;
-    private References references;
+    private String currency;
     private String email;
+    private FlowType flow;
+    @JsonProperty("installment_term")
+    private long installmentTerm;
     private String location;
     @JsonProperty("mobile_number")
     private String mobileNumber;
     private String name;
+    private References references;
     @JsonProperty("phone_number")
     private String phoneNumber;
     @JsonProperty("scannable_code")
@@ -37,56 +38,84 @@ public class Source extends Model {
     private String storeName;
     @JsonProperty("terminal_id")
     private String terminalId;
-    @JsonProperty("installment_term")
-    private int installmentTerm;
+    private SourceType type;
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
 
-    public Source() {
-    }
-
-    public SourceType getType() {
-        return type;
-    }
-
-    public void setType(SourceType type) {
-        this.type = type;
-    }
-
-    public FlowType getFlow() {
-        return flow;
-    }
-
-    public void setFlow(FlowType flow) {
-        this.flow = flow;
-    }
-
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
     public String getBarcode() {
-        return barcode;
+        return this.barcode;
     }
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public FlowType getFlow() {
+        return this.flow;
+    }
+
+    public void setFlow(FlowType flow) {
+        this.flow = flow;
+    }
+
+    public long getInstallmentTerm() {
+        return this.installmentTerm;
+    }
+
+    public void setInstallmentTerm(long installmentTerm) {
+        this.installmentTerm = installmentTerm;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMobileNumber() {
+        return this.mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public References getReferences() {
-        return references;
+        return this.references;
     }
 
     public void setReferences(References references) {
@@ -102,7 +131,7 @@ public class Source extends Model {
     }
 
     public String getStoreId() {
-        return storeId;
+        return this.storeId;
     }
 
     public void setStoreId(String storeId) {
@@ -110,7 +139,7 @@ public class Source extends Model {
     }
 
     public String getStoreName() {
-        return storeName;
+        return this.storeName;
     }
 
     public void setStoreName(String storeName) {
@@ -118,43 +147,19 @@ public class Source extends Model {
     }
 
     public String getTerminalId() {
-        return terminalId;
+        return this.terminalId;
     }
 
     public void setTerminalId(String terminalId) {
         this.terminalId = terminalId;
     }
 
-    public String getName() {
-        return name;
+    public SourceType getType() {
+        return this.type;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getInstallmentTerm() {
-        return installmentTerm;
-    }
-
-    public void setInstallmentTerm(int installmentTerm) {
-        this.installmentTerm = installmentTerm;
+    public void setType(SourceType type) {
+        this.type = type;
     }
 
     public boolean isZeroInterestInstallments() {
@@ -165,32 +170,28 @@ public class Source extends Model {
         this.zeroInterestInstallments = zeroInterestInstallments;
     }
 
-    /**
-     * The {@link RequestBuilder} class for creating a Source.
-     */
     public static class CreateRequestBuilder extends RequestBuilder<Source> {
+
         @JsonProperty
         private long amount;
         @JsonProperty
+        private String barcode;
+        @JsonProperty
         private String currency;
         @JsonProperty
-        private String description;
+        private String email;
+        @JsonProperty("installment_term")
+        private long installmentTerm;
+        @JsonProperty("mobile_number")
+        private String mobileNumber;
         @JsonProperty
-        private String barcode;
+        private String name;
         @JsonProperty("store_id")
         private String storeId;
         @JsonProperty("store_name")
         private String storeName;
         @JsonProperty("terminal_id")
         private String terminalId;
-        @JsonProperty("name")
-        private String name;
-        @JsonProperty("email")
-        private String email;
-        @JsonProperty("phone_number")
-        private String phoneNumber;
-        @JsonProperty("installment_term")
-        private int installmentTerm;
         @JsonProperty
         private SourceType type;
         @JsonProperty("zero_interest_installments")
@@ -207,11 +208,6 @@ public class Source extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        @Override
         protected ResponseType<Source> type() {
             return new ResponseType<>(Source.class);
         }
@@ -221,18 +217,33 @@ public class Source extends Model {
             return this;
         }
 
+        public CreateRequestBuilder barcode(String barcode) {
+            this.barcode = barcode;
+            return this;
+        }
+
         public CreateRequestBuilder currency(String currency) {
             this.currency = currency;
             return this;
         }
 
-        public CreateRequestBuilder type(SourceType type) {
-            this.type = type;
+        public CreateRequestBuilder email(String email) {
+            this.email = email;
             return this;
         }
 
-        public CreateRequestBuilder barcode(String barcode) {
-            this.barcode = barcode;
+        public CreateRequestBuilder installmentTerm(long installmentTerm) {
+            this.installmentTerm = installmentTerm;
+            return this;
+        }
+
+        public CreateRequestBuilder mobileNumber(String mobileNumber) {
+            this.mobileNumber = mobileNumber;
+            return this;
+        }
+
+        public CreateRequestBuilder name(String name) {
+            this.name = name;
             return this;
         }
 
@@ -251,8 +262,8 @@ public class Source extends Model {
             return this;
         }
 
-        public CreateRequestBuilder name(String name) {
-            this.name = name;
+        public CreateRequestBuilder type(SourceType type) {
+            this.type = type;
             return this;
         }
 
@@ -260,20 +271,27 @@ public class Source extends Model {
             this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
+    }
 
-        public CreateRequestBuilder email(String email) {
-            this.email = email;
-            return this;
+    public static class GetRequestBuilder extends RequestBuilder<Source> {
+        private String sourceId;
+        public GetRequestBuilder(String sourceId) {
+            this.sourceId = sourceId;
         }
 
-        public CreateRequestBuilder phoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
+        @Override
+        protected String method() {
+            return GET;
         }
 
-        public CreateRequestBuilder installmentTerm(int installmentTerm) {
-            this.installmentTerm = installmentTerm;
-            return this;
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "sources", sourceId);
+        }
+
+        @Override
+        protected ResponseType<Source> type() {
+            return new ResponseType<>(Source.class);
         }
     }
 }

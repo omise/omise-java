@@ -1,28 +1,41 @@
 package co.omise.models.schedules;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
+/**
+ * Charge Schedule object
+ *
+ * @see <a href="https://www.omise.co/charge-schedules-api">Charge Schedule API</a>
+ */
 public class ChargeScheduling implements Serializable {
     private long amount;
+    private String card;
     private String currency;
     private String customer;
-    private String card;
     @JsonProperty("default_card")
-    private boolean isDefaultCard;
+    private boolean defaultCard;
+    private String description;
 
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
     }
 
+    public String getCard() {
+        return this.card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
+    }
+
     public String getCurrency() {
-        return currency;
+        return this.currency;
     }
 
     public void setCurrency(String currency) {
@@ -30,45 +43,52 @@ public class ChargeScheduling implements Serializable {
     }
 
     public String getCustomer() {
-        return customer;
+        return this.customer;
     }
 
     public void setCustomer(String customer) {
         this.customer = customer;
     }
 
-    public String getCard() {
-        return card;
-    }
-
-    public void setCard(String card) {
-        this.card = card;
-    }
-
     public boolean isDefaultCard() {
-        return isDefaultCard;
+        return this.defaultCard;
     }
 
     public void setDefaultCard(boolean defaultCard) {
-        isDefaultCard = defaultCard;
+        this.defaultCard = defaultCard;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public static class Params extends co.omise.models.Params {
         @JsonProperty
         private long amount;
+
+        @JsonProperty
+        private String card;
+
         @JsonProperty
         private String currency;
+
+        @JsonProperty
+        private String customer;
+
         @JsonProperty
         private String description;
-        @JsonProperty
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String customer;
-        @JsonProperty
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String card;
 
         public Params amount(long amount) {
             this.amount = amount;
+            return this;
+        }
+
+        public Params card(String card) {
+            this.card = card;
             return this;
         }
 
@@ -77,18 +97,13 @@ public class ChargeScheduling implements Serializable {
             return this;
         }
 
-        public Params description(String description) {
-            this.description = description;
-            return this;
-        }
-
         public Params customer(String customer) {
             this.customer = customer;
             return this;
         }
 
-        public Params card(String card) {
-            this.card = card;
+        public Params description(String description) {
+            this.description = description;
             return this;
         }
     }
