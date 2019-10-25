@@ -8,33 +8,72 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.io.IOException;
 
 /**
- * Represents Omise Occurrence object.
+ * Occurrence object
  *
  * @see <a href="https://www.omise.co/occurrences-api">Occurrence API</a>
  */
 public class Occurrence extends Model {
+    private String location;
+    private String message;
+    @JsonProperty("processed_at")
+    private DateTime processedAt;
+    private String result;
+    @JsonProperty("retry_on")
+    private LocalDate retryDate;
     private String schedule;
     @JsonProperty("scheduled_on")
     private LocalDate scheduleDate;
-    @JsonProperty("retry_on")
-    private LocalDate retryDate;
-    @JsonProperty("processed_at")
-    private DateTime processedAt;
     private OccurrenceStatus status;
-    private String message;
-    private String result;
 
-    public Occurrence() {
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public DateTime getProcessedAt() {
+        return this.processedAt;
+    }
+
+    public void setProcessedAt(DateTime processedAt) {
+        this.processedAt = processedAt;
+    }
+
+    public String getResult() {
+        return this.result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public LocalDate getRetryDate() {
+        return this.retryDate;
+    }
+
+    public void setRetryDate(LocalDate retryDate) {
+        this.retryDate = retryDate;
     }
 
     public String getSchedule() {
-        return schedule;
+        return this.schedule;
     }
 
     public void setSchedule(String schedule) {
@@ -42,107 +81,74 @@ public class Occurrence extends Model {
     }
 
     public LocalDate getScheduleDate() {
-        return scheduleDate;
+        return this.scheduleDate;
     }
 
     public void setScheduleDate(LocalDate scheduleDate) {
         this.scheduleDate = scheduleDate;
     }
 
-    public LocalDate getRetryDate() {
-        return retryDate;
-    }
-
-    public void setRetryDate(LocalDate retryDate) {
-        this.retryDate = retryDate;
-    }
-
-    public DateTime getProcessedAt() {
-        return processedAt;
-    }
-
-    public void setProcessedAt(DateTime processedAt) {
-        this.processedAt = processedAt;
-    }
-
     public OccurrenceStatus getStatus() {
-        return status;
+        return this.status;
     }
 
     public void setStatus(OccurrenceStatus status) {
         this.status = status;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving all occurrences that belong to a schedule.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
-
-        private String scheduleId;
-        private ScopedList.Options options;
-
-        public ListRequestBuilder(String scheduleId) {
-            this.scheduleId = scheduleId;
-        }
-
-        @Override
-        protected HttpUrl path() throws IOException {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-
-            return new HttpUrlBuilder(Endpoint.API, "schedules", serializer())
-                    .segments(scheduleId, "occurrences")
-                    .params(options)
-                    .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Occurrence>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {
-            });
-        }
-
-        public Occurrence.ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular occurrence.
-     */
     public static class GetRequestBuilder extends RequestBuilder<Occurrence> {
         private String occurrenceId;
-
         public GetRequestBuilder(String occurrenceId) {
             this.occurrenceId = occurrenceId;
         }
 
         @Override
-        protected HttpUrl path() throws IOException {
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
             return buildUrl(Endpoint.API, "occurrences", occurrenceId);
         }
 
         @Override
         protected ResponseType<Occurrence> type() {
             return new ResponseType<>(Occurrence.class);
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
+        private String scheduleId;
+        private ScopedList.Options options;
+        public ListRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "schedules", serializer())
+                  .segments(scheduleId, "occurrences")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Occurrence>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Occurrence>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

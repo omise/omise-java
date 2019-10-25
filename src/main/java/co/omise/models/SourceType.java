@@ -39,10 +39,10 @@ public enum SourceType {
     Paynow,
     @JsonProperty("points_citi")
     PointsCiti,
-    @JsonProperty("truemoney")
-    TrueMoney,
     @JsonProperty("promptpay")
-    PromptPay;
+    PromptPay,
+    @JsonProperty("truemoney")
+    TrueMoney;
 
     @Override
     public String toString() {
