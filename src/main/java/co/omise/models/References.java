@@ -12,7 +12,7 @@ public class References implements Serializable {
     @JsonProperty("customer_currency")
     private String customerCurrency;
     @JsonProperty("customer_exchange_rate")
-    private float customerExchangeRate;
+    private Double customerExchangeRate;
     @JsonProperty("device_id")
     private String deviceId;
     @JsonProperty("expires_at")
@@ -52,11 +52,11 @@ public class References implements Serializable {
         this.customerCurrency = customerCurrency;
     }
 
-    public float getCustomerExchangeRate() {
+    public Double getCustomerExchangeRate() {
         return this.customerExchangeRate;
     }
 
-    public void setCustomerExchangeRate(float customerExchangeRate) {
+    public void setCustomerExchangeRate(Double customerExchangeRate) {
         this.customerExchangeRate = customerExchangeRate;
     }
 

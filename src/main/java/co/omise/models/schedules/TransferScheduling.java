@@ -13,7 +13,7 @@ public class TransferScheduling implements Serializable {
     private long amount;
     private String currency;
     @JsonProperty("percentage_of_balance")
-    private float percentageOfBalance;
+    private Double percentageOfBalance;
     private String recipient;
 
     public long getAmount() {
@@ -32,11 +32,11 @@ public class TransferScheduling implements Serializable {
         this.currency = currency;
     }
 
-    public float getPercentageOfBalance() {
+    public Double getPercentageOfBalance() {
         return this.percentageOfBalance;
     }
 
-    public void setPercentageOfBalance(float percentageOfBalance) {
+    public void setPercentageOfBalance(Double percentageOfBalance) {
         this.percentageOfBalance = percentageOfBalance;
     }
 
@@ -56,7 +56,7 @@ public class TransferScheduling implements Serializable {
         private String currency;
 
         @JsonProperty("percentage_of_balance")
-        private float percentageOfBalance;
+        private Double percentageOfBalance;
 
         @JsonProperty
         private String recipient;
@@ -71,7 +71,7 @@ public class TransferScheduling implements Serializable {
             return this;
         }
 
-        public Params percentageOfBalance(float percentageOfBalance) {
+        public Params percentageOfBalance(Double percentageOfBalance) {
             this.percentageOfBalance = percentageOfBalance;
             return this;
         }
