@@ -2,7 +2,7 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlatformFee extends Model {
+public class PlatformFee {
     private long amount;
     private long fixed;
     private float percentage;
