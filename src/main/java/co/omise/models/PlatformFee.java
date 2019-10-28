@@ -2,10 +2,10 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlatformFee extends Model {
+public class PlatformFee {
     private long amount;
     private long fixed;
-    private float percentage;
+    private Double percentage;
 
     public long getAmount() {
         return this.amount;
@@ -23,11 +23,11 @@ public class PlatformFee extends Model {
         this.fixed = fixed;
     }
 
-    public float getPercentage() {
+    public Double getPercentage() {
         return this.percentage;
     }
 
-    public void setPercentage(float percentage) {
+    public void setPercentage(Double percentage) {
         this.percentage = percentage;
     }
 
@@ -39,7 +39,7 @@ public class PlatformFee extends Model {
         private long fixed;
 
         @JsonProperty
-        private float percentage;
+        private Double percentage;
 
         public Params amount(long amount) {
             this.amount = amount;
@@ -51,7 +51,7 @@ public class PlatformFee extends Model {
             return this;
         }
 
-        public Params percentage(float percentage) {
+        public Params percentage(Double percentage) {
             this.percentage = percentage;
             return this;
         }
