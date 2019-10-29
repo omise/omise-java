@@ -351,6 +351,11 @@ public class Transfer extends Model {
             return this;
         }
 
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
         public CreateRequestBuilder metadata(String key, Object value) {
             HashMap<String, Object> tempMap = new HashMap<>();
             if (metadata != null) {
@@ -441,6 +446,11 @@ public class Transfer extends Model {
         public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
             return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
         }
 
         public UpdateRequestBuilder metadata(String key, Object value) {

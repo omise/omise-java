@@ -451,5 +451,10 @@ public class Card extends Model {
             return expirationMonth(month)
                .expirationYear(year);
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 }

@@ -270,5 +270,10 @@ public class Link extends Model {
             this.title = title;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 }
