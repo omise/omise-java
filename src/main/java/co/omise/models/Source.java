@@ -271,6 +271,11 @@ public class Source extends Model {
             this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Source> {
