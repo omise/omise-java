@@ -333,6 +333,11 @@ public class Recipient extends Model {
             this.type = type;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class VerifyRequestBuilder extends RequestBuilder<Recipient> {
@@ -415,6 +420,11 @@ public class Recipient extends Model {
         public CreateRequestBuilder type(RecipientType type) {
             this.type = type;
             return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
         }
     }
 }

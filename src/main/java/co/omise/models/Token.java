@@ -67,6 +67,11 @@ public class Token extends Model {
             this.card = card;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Token> {

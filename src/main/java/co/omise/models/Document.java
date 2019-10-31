@@ -155,5 +155,10 @@ public class Document extends Model {
             this.file = file;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 }
