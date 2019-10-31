@@ -154,6 +154,11 @@ public class Refund extends Model {
             return this;
         }
 
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
+
         public CreateRequestBuilder metadata(String key, Object value) {
             HashMap<String, Object> tempMap = new HashMap<>();
             if (metadata != null) {

@@ -328,6 +328,11 @@ public class Schedule extends Model {
             this.transfer = transfer;
             return this;
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class CustomerScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
