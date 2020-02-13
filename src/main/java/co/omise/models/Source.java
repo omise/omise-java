@@ -36,6 +36,8 @@ public class Source extends Model {
     private String phoneNumber;
     @JsonProperty("installment_term")
     private int installmentTerm;
+    @JsonProperty("zero_interest_installments")
+    private boolean zeroInterestInstallments;
 
     public Source() {
     }
@@ -142,6 +144,14 @@ public class Source extends Model {
 
     public void setInstallmentTerm(int installmentTerm) {
         this.installmentTerm = installmentTerm;
+    }
+
+    public boolean isZeroInterestInstallments() {
+        return this.zeroInterestInstallments;
+    }
+
+    public void setZeroInterestInstallments(boolean zeroInterestInstallments) {
+        this.zeroInterestInstallments = zeroInterestInstallments;
     }
 
     /**
