@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+#3.0.2
+**NEW** Add `zeroInterestInstallments` field to Source.
+
 #v3.0.1
 **NEW** Added `firstDigits` field to Card.
 
