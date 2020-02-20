@@ -381,6 +381,8 @@ public class Charge extends Model {
         private String source;
         @JsonProperty("expires_at")
         private DateTime expiresAt;
+         @JsonProperty("zero_interest_installments")
+        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
@@ -465,6 +467,11 @@ public class Charge extends Model {
 
         public CreateRequestBuilder source(String source) {
             this.source = source;
+            return this;
+        }
+        
+        public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
+            this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
 
