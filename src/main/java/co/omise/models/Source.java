@@ -192,6 +192,8 @@ public class Source extends Model {
         private String terminalId;
         @JsonProperty
         private SourceType type;
+        @JsonProperty("zero_interest_installments")
+        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
@@ -260,6 +262,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder type(SourceType type) {
             this.type = type;
+            return this;
+        }
+        
+        public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
+            this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
 
