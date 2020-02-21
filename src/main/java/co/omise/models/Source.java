@@ -163,8 +163,6 @@ public class Source extends Model {
         @JsonProperty
         private String currency;
         @JsonProperty
-        private SourceType type;
-        @JsonProperty
         private String description;
         @JsonProperty
         private String barcode;
@@ -182,6 +180,10 @@ public class Source extends Model {
         private String phoneNumber;
         @JsonProperty("installment_term")
         private int installmentTerm;
+        @JsonProperty
+        private SourceType type;
+        @JsonProperty("zero_interest_installments")
+        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
@@ -245,6 +247,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder name(String name) {
             this.name = name;
+            return this;
+        }
+        
+        public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
+            this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
 

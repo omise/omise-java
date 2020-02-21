@@ -63,6 +63,8 @@ public class Charge extends Model {
     @JsonProperty("interest_vat")
     private long interestVat;
     private long net;
+    @JsonProperty("zero_interest_installments")
+    private boolean zeroInterestInstallments;
 
     public Charge() {
     }
@@ -270,6 +272,14 @@ public class Charge extends Model {
     public void setExpiresAt(DateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
+    
+    public boolean isZeroInterestInstallments() {
+        return this.zeroInterestInstallments;
+    }
+
+    public void setZeroInterestInstallments(boolean zeroInterestInstallments) {
+        this.zeroInterestInstallments = zeroInterestInstallments;
+    }
 
     public boolean isDisputable() {
         return disputable;
@@ -371,6 +381,8 @@ public class Charge extends Model {
         private String source;
         @JsonProperty("expires_at")
         private DateTime expiresAt;
+         @JsonProperty("zero_interest_installments")
+        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
@@ -455,6 +467,11 @@ public class Charge extends Model {
 
         public CreateRequestBuilder source(String source) {
             this.source = source;
+            return this;
+        }
+        
+        public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
+            this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
 
