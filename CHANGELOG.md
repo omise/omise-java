@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+#3.0.3
+**NEW** Add `zeroInterestInstallments` field to Charge.
+**NEW** Add `zeroInterestInstallments` field to Charge.CreateRequestBuilder.
+**NEW** Add `zeroInterestInstallments` field to Source.CreateRequestBuilder.
+
 #3.0.2
 **NEW** Add `zeroInterestInstallments` field to Source.
 
