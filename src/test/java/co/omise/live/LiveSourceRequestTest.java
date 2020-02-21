@@ -11,8 +11,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class LiveSourceRequestTest extends BaseLiveTest {
     private Client client;
@@ -191,5 +190,28 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals(4, source.getInstallmentTerm());
         assertEquals(500000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceZeroInterestInstallments() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.InstBankingBay)
+                .amount(500000)
+                .currency("thb")
+                .installmentTerm(4)
+                .zeroInterestInstallments(true)
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.printf("created source: %s, type = %s", source.getId(), source.getType());
+
+        assertNotNull(source);
+        assertEquals(SourceType.InstBankingBay, source.getType());
+        assertEquals(4, source.getInstallmentTerm());
+        assertEquals(500000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+        assertTrue(source.isZeroInterestInstallments());
     }
 }
