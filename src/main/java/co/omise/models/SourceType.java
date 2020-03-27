@@ -33,7 +33,13 @@ public enum SourceType {
     @JsonProperty("installment_kbank")
     InstKBank,
     @JsonEnumDefaultValue
-    Unknown;
+    Unknown,
+    @JsonProperty("paynow")
+    Paynow,
+    @JsonProperty("points_citi")
+    PointsCiti,
+    @JsonProperty("promptpay")
+    Promptpay;
 
     @Override
     public String toString() {
