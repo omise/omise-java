@@ -1,6 +1,5 @@
 package co.omise.models;
 
-
 public class Barcode extends Model {
     private Document image;
     private String type;
