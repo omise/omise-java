@@ -1,5 +1,6 @@
 package co.omise.requests;
 
+import co.omise.models.Barcode;
 import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
@@ -60,6 +61,7 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(CHARGE_ID, charge.getId());
         assertEquals("src_test_5929c3tjts3omoi7ti2", charge.getSource().getId());
         assertEquals(SourceType.InternetBankingScb, charge.getSource().getType());
+        assertEquals(Barcode.class, charge.getSource().getScannableCode().getClass());
         assertEquals(100000L, charge.getAmount());
     }
 
