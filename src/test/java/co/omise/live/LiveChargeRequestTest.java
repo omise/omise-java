@@ -203,6 +203,8 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
 
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithPromptpay() throws IOException, OmiseException {
         Request<Source> sourceRequest = new Source.CreateRequestBuilder()
                 .type(SourceType.PromptPay)
