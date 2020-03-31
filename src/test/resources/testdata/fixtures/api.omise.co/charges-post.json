@@ -59,6 +59,20 @@
       "barcode": "https://api.omise.co/charges/chrg_test_59o3j8ukevxlvj1vo5p/documents/docu_test_59o3j8xlm2n5qew173e/downloads/6B5B4C0F8DE54221",
       "expires_at": "2017-10-19T06:25:08Z"
     },
+    "scannable_code": {
+      "object": "barcode",
+      "type": "qr",
+      "image": {
+        "object": "document",
+        "livemode": false,
+        "id": "docu_test_5jdqwq09nqt0dgqxln3",
+        "deleted": false,
+        "filename": "barcode.jpg",
+        "location": "/charges/chrg_test_5jdqwpynn761fah9ytu/documents/docu_test_5jdqwq09nqt0dgqxln3",
+        "download_uri": "https://api.omise.co/charges/chrg_test_5jdqwpynn761fah9ytu/documents/docu_test_5jdqwq09nqt0dgqxln3/downloads/4A26C70C744CDCD0",
+        "created_at": "2020-03-30T05:01:03Z"
+      }
+    },
     "type": "internet_banking_scb",
     "flow": "redirect",
     "amount": 100000,
