@@ -1,12 +1,19 @@
 # CHANGE LOG
 
+#3.1.0
+**NEW** Added `PromptPay` source type to Source.
+**NEW** Added `PayNow` source type to Source.
+**NEW** Added `PointsCiti` source type to Source.
+**NEW** Added `mobileNumber` field to Source.
+**NEW** Added `scannableCode` field to Source.
+
 #3.0.3
-**NEW** Add `zeroInterestInstallments` field to Charge.
-**NEW** Add `zeroInterestInstallments` field to Charge.CreateRequestBuilder.
-**NEW** Add `zeroInterestInstallments` field to Source.CreateRequestBuilder.
+**NEW** Added `zeroInterestInstallments` field to Charge.
+**NEW** Added `zeroInterestInstallments` field to Charge.CreateRequestBuilder.
+**NEW** Added `zeroInterestInstallments` field to Source.CreateRequestBuilder.
 
 #3.0.2
-**NEW** Add `zeroInterestInstallments` field to Source.
+**NEW** Added `zeroInterestInstallments` field to Source.
 
 #v3.0.1
 **NEW** Added `firstDigits` field to Card.
