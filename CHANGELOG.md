@@ -1,6 +1,6 @@
 # CHANGE LOG
 
-#3.0.4
+#3.1.0
 **NEW** Added `PromptPay` source type to Source.
 **NEW** Added `PayNow` source type to Source.
 **NEW** Added `PointsCiti` source type to Source.
