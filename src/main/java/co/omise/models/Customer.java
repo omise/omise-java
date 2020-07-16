@@ -97,70 +97,6 @@ public class Customer extends Model {
         }
     }
 
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
-        private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
-                  .segments()
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Customer>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {});
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String customerId;
-        private ScopedList.Options options;
-        public ListSchedulesRequestBuilder(String customerId) {
-            this.customerId = customerId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
-                  .segments(customerId, "schedules")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
-        }
-
-        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
     public static class GetRequestBuilder extends RequestBuilder<Customer> {
         private String customerId;
         public GetRequestBuilder(String customerId) {
@@ -241,7 +177,7 @@ public class Customer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
 
@@ -253,6 +189,36 @@ public class Customer extends Model {
             tempMap.put(key, value);
 
             this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Customer>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Customer>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
             return this;
         }
     }
@@ -304,7 +270,7 @@ public class Customer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
 
@@ -316,6 +282,40 @@ public class Customer extends Model {
             tempMap.put(key, value);
 
             this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private String customerId;
+        private ScopedList.Options options;
+        public ListSchedulesRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments(customerId, "schedules")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
             return this;
         }
     }

@@ -1,15 +1,14 @@
 package co.omise.models.schedules;
 
+import co.omise.models.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.io.Serializable;
 
 /**
  * Transfer object
  *
  * @see <a href="https://www.omise.co/transfer-schedules-api">Transfer API</a>
  */
-public class TransferScheduling implements Serializable {
+public class TransferSchedule extends Model {
     private long amount;
     private String currency;
     @JsonProperty("percentage_of_balance")

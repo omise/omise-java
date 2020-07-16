@@ -18,6 +18,8 @@ import java.io.IOException;
 public class Source extends Model {
     private long amount;
     private String barcode;
+    @JsonProperty("charge_status")
+    private ChargeStatus chargeStatus;
     private String currency;
     private String email;
     private FlowType flow;
@@ -27,6 +29,8 @@ public class Source extends Model {
     @JsonProperty("mobile_number")
     private String mobileNumber;
     private String name;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
     private References references;
     @JsonProperty("phone_number")
     private String phoneNumber;
@@ -56,6 +60,14 @@ public class Source extends Model {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+
+    public ChargeStatus getChargeStatus() {
+        return this.chargeStatus;
+    }
+
+    public void setChargeStatus(ChargeStatus chargeStatus) {
+        this.chargeStatus = chargeStatus;
     }
 
     public String getCurrency() {
@@ -112,6 +124,14 @@ public class Source extends Model {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public References getReferences() {
@@ -273,7 +293,7 @@ public class Source extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
     }

@@ -13,6 +13,8 @@ public enum SourceType {
     Alipay,
     @JsonProperty("barcode_alipay")
     BarcodeAlipay,
+    @JsonProperty("barcode_wechat")
+    BarcodeWechat,
     @JsonProperty("bill_payment_tesco_lotus")
     BillPaymentTescoLotus,
     @JsonProperty("econtext")

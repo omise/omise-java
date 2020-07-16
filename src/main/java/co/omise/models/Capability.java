@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class Capability extends Model {
     private List<String> banks;
+    private String country;
     private String location;
     @JsonProperty("payment_methods")
     private List<PaymentMethod> paymentMethods;
@@ -29,6 +30,14 @@ public class Capability extends Model {
 
     public void setBanks(List<String> banks) {
         this.banks = banks;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getLocation() {

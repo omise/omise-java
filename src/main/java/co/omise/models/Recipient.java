@@ -2,7 +2,7 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.models.schedules.Schedule;
-import co.omise.models.schedules.TransferScheduling;
+import co.omise.models.schedules.TransferSchedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -184,70 +185,6 @@ public class Recipient extends Model {
         }
     }
 
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Recipient>> {
-        private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
-                  .segments()
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Recipient>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Recipient>>() {});
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String recipientId;
-        private ScopedList.Options options;
-        public ListSchedulesRequestBuilder(String recipientId) {
-            this.recipientId = recipientId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
-                  .segments(recipientId, "schedules")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
-        }
-
-        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
     public static class GetRequestBuilder extends RequestBuilder<Recipient> {
         private String recipientId;
         public GetRequestBuilder(String recipientId) {
@@ -279,6 +216,8 @@ public class Recipient extends Model {
         private String description;
         @JsonProperty
         private String email;
+        @JsonProperty
+        private Map<String, Object> metadata;
         @JsonProperty
         private String name;
         @JsonProperty("tax_id")
@@ -319,6 +258,11 @@ public class Recipient extends Model {
             return this;
         }
 
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
         public UpdateRequestBuilder name(String name) {
             this.name = name;
             return this;
@@ -335,30 +279,49 @@ public class Recipient extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
+        }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
         }
     }
 
-    public static class VerifyRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
-        public VerifyRequestBuilder(String recipientId) {
-            this.recipientId = recipientId;
-        }
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Recipient>> {
+        private ScopedList.Options options;
 
         @Override
         protected String method() {
-            return PATCH;
+            return GET;
         }
 
         @Override
         protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "recipients", recipientId, "verify");
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
         }
 
         @Override
-        protected ResponseType<Recipient> type() {
-            return new ResponseType<>(Recipient.class);
+        protected ResponseType<ScopedList<Recipient>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Recipient>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 
@@ -370,6 +333,8 @@ public class Recipient extends Model {
         private String description;
         @JsonProperty
         private String email;
+        @JsonProperty
+        private Map<String, Object> metadata;
         @JsonProperty
         private String name;
         @JsonProperty("tax_id")
@@ -407,6 +372,11 @@ public class Recipient extends Model {
             return this;
         }
 
+        public CreateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
         public CreateRequestBuilder name(String name) {
             this.name = name;
             return this;
@@ -423,8 +393,75 @@ public class Recipient extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
+        }
+
+        public CreateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
+        private String recipientId;
+        private ScopedList.Options options;
+        public ListSchedulesRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "recipients", serializer())
+                  .segments(recipientId, "schedules")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
+        }
+
+        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class VerifyRequestBuilder extends RequestBuilder<Recipient> {
+        private String recipientId;
+        public VerifyRequestBuilder(String recipientId) {
+            this.recipientId = recipientId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "recipients", recipientId, "verify");
+        }
+
+        @Override
+        protected ResponseType<Recipient> type() {
+            return new ResponseType<>(Recipient.class);
         }
     }
 }

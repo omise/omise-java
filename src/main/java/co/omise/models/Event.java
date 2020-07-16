@@ -3,11 +3,13 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Event object
@@ -18,6 +20,8 @@ public class Event<T extends Model> extends Model {
     private T data;
     private String key;
     private String location;
+    @JsonProperty("webhook_deliveries")
+    private List<WebhookDelivery> webhookDeliveries;
 
     public T getData() {
         return this.data;
@@ -41,6 +45,14 @@ public class Event<T extends Model> extends Model {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public List<WebhookDelivery> getWebhookDeliveries() {
+        return this.webhookDeliveries;
+    }
+
+    public void setWebhookDeliveries(List<WebhookDelivery> webhookDeliveries) {
+        this.webhookDeliveries = webhookDeliveries;
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Event> {

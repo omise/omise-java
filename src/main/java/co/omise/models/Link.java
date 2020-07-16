@@ -184,40 +184,6 @@ public class Link extends Model {
         }
     }
 
-    public static class ListChargesRequestBuilder extends RequestBuilder<ScopedList<Link>> {
-        private String linkId;
-        private ScopedList.Options options;
-        public ListChargesRequestBuilder(String linkId) {
-            this.linkId = linkId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "links", serializer())
-                  .segments(linkId, "charges")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Link>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Link>>() {});
-        }
-
-        public ListChargesRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
     public static class CreateRequestBuilder extends RequestBuilder<Link> {
 
         @JsonProperty
@@ -272,8 +238,42 @@ public class Link extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
+        }
+    }
+
+    public static class ListChargesRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
+        private String linkId;
+        private ScopedList.Options options;
+        public ListChargesRequestBuilder(String linkId) {
+            this.linkId = linkId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "links", serializer())
+                  .segments(linkId, "charges")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Charge>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
+        }
+
+        public ListChargesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

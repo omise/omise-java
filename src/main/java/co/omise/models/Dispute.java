@@ -311,7 +311,7 @@ public class Dispute extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
 
@@ -324,6 +324,85 @@ public class Dispute extends Model {
 
             this.metadata = new HashMap<>(tempMap);
             return this;
+        }
+    }
+
+    public static class CloseRequestBuilder extends RequestBuilder<Dispute> {
+        private String disputeId;
+
+        @JsonProperty
+        private DisputeStatus status;
+        public CloseRequestBuilder(String disputeId) {
+            this.disputeId = disputeId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "disputes", disputeId, "close");
+        }
+
+        @Override
+        protected ResponseType<Dispute> type() {
+            return new ResponseType<>(Dispute.class);
+        }
+
+        public CloseRequestBuilder status(DisputeStatus status) {
+            this.status = status;
+            return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException  {
+            return serialize();
+        }
+    }
+
+    public static class AcceptRequestBuilder extends RequestBuilder<Dispute> {
+        private String disputeId;
+        public AcceptRequestBuilder(String disputeId) {
+            this.disputeId = disputeId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "disputes", disputeId, "accept");
+        }
+
+        @Override
+        protected ResponseType<Dispute> type() {
+            return new ResponseType<>(Dispute.class);
+        }
+    }
+
+    public static class CreateDisputeRequestBuilder extends RequestBuilder<Dispute> {
+        private String chargeId;
+        public CreateDisputeRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "charges", chargeId, "disputes");
+        }
+
+        @Override
+        protected ResponseType<Dispute> type() {
+            return new ResponseType<>(Dispute.class);
         }
     }
 }
