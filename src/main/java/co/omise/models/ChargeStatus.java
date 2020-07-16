@@ -12,5 +12,7 @@ public enum ChargeStatus {
     @JsonProperty("reversed")
     Reversed,
     @JsonProperty("successful")
-    Successful;
+    Successful,
+    @JsonProperty("unknown")
+    Unknown;
 }

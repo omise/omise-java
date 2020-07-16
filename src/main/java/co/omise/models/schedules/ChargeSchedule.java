@@ -1,15 +1,16 @@
 package co.omise.models.schedules;
 
+import co.omise.models.Model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Charge Schedule object
  *
  * @see <a href="https://www.omise.co/charge-schedules-api">Charge Schedule API</a>
  */
-public class ChargeScheduling implements Serializable {
+public class ChargeSchedule extends Model {
     private long amount;
     private String card;
     private String currency;
@@ -17,6 +18,7 @@ public class ChargeScheduling implements Serializable {
     @JsonProperty("default_card")
     private boolean defaultCard;
     private String description;
+    private Map<String, Object> metadata;
 
     public long getAmount() {
         return this.amount;
@@ -64,6 +66,14 @@ public class ChargeScheduling implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    public void setMetadata(Map<String, Object> metadata) {
+        this.metadata = metadata;
     }
 
     public static class Params extends co.omise.models.Params {

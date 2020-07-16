@@ -28,6 +28,7 @@ public class Refund extends Model {
     private String location;
     private Map<String, Object> metadata;
     private RefundStatus status;
+    private String terminal;
     private String transaction;
     private boolean voided;
 
@@ -95,6 +96,14 @@ public class Refund extends Model {
         this.status = status;
     }
 
+    public String getTerminal() {
+        return this.terminal;
+    }
+
+    public void setTerminal(String terminal) {
+        this.terminal = terminal;
+    }
+
     public String getTransaction() {
         return this.transaction;
     }
@@ -109,6 +118,70 @@ public class Refund extends Model {
 
     public void setVoided(boolean voided) {
         this.voided = voided;
+    }
+
+    public static class ListRefundsRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "refunds", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Refund>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
+        }
+
+        public ListRefundsRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
+        private String chargeId;
+        private ScopedList.Options options;
+        public ListRequestBuilder(String chargeId) {
+            this.chargeId = chargeId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "charges", serializer())
+                  .segments(chargeId, "refunds")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Refund>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Refund> {
@@ -155,7 +228,7 @@ public class Refund extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
 
@@ -192,40 +265,6 @@ public class Refund extends Model {
         @Override
         protected ResponseType<Refund> type() {
             return new ResponseType<>(Refund.class);
-        }
-    }
-
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
-        private String chargeId;
-        private ScopedList.Options options;
-        public ListRequestBuilder(String chargeId) {
-            this.chargeId = chargeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "charges", serializer())
-                  .segments(chargeId, "refunds")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Refund>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Refund>>() {});
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
         }
     }
 }

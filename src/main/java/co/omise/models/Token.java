@@ -16,6 +16,8 @@ import java.io.IOException;
  */
 public class Token extends Model {
     private Card card;
+    @JsonProperty("charge_status")
+    private ChargeStatus chargeStatus;
     private String location;
     private boolean used;
 
@@ -25,6 +27,14 @@ public class Token extends Model {
 
     public void setCard(Card card) {
         this.card = card;
+    }
+
+    public ChargeStatus getChargeStatus() {
+        return this.chargeStatus;
+    }
+
+    public void setChargeStatus(ChargeStatus chargeStatus) {
+        this.chargeStatus = chargeStatus;
     }
 
     public String getLocation() {
@@ -69,7 +79,7 @@ public class Token extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
     }

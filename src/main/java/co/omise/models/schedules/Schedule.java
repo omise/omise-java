@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class Schedule extends Model {
     private boolean active;
-    private ChargeScheduling charge;
+    private ChargeSchedule charge;
     @JsonProperty("end_on")
     private LocalDate endDate;
     @JsonProperty("ended_at")
@@ -40,7 +40,7 @@ public class Schedule extends Model {
     @JsonProperty("start_on")
     private LocalDate startDate;
     private ScheduleStatus status;
-    private TransferScheduling transfer;
+    private TransferSchedule transfer;
 
     public boolean isActive() {
         return this.active;
@@ -50,11 +50,11 @@ public class Schedule extends Model {
         this.active = active;
     }
 
-    public ChargeScheduling getCharge() {
+    public ChargeSchedule getCharge() {
         return this.charge;
     }
 
-    public void setCharge(ChargeScheduling charge) {
+    public void setCharge(ChargeSchedule charge) {
         this.charge = charge;
     }
 
@@ -146,11 +146,11 @@ public class Schedule extends Model {
         this.status = status;
     }
 
-    public TransferScheduling getTransfer() {
+    public TransferSchedule getTransfer() {
         return this.transfer;
     }
 
-    public void setTransfer(TransferScheduling transfer) {
+    public void setTransfer(TransferSchedule transfer) {
         this.transfer = transfer;
     }
 
@@ -163,6 +163,28 @@ public class Schedule extends Model {
         @Override
         protected String method() {
             return DELETE;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "schedules", scheduleId);
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Schedule> {
+        private String scheduleId;
+        public GetRequestBuilder(String scheduleId) {
+            this.scheduleId = scheduleId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override
@@ -206,6 +228,79 @@ public class Schedule extends Model {
         }
     }
 
+    public static class CreateRequestBuilder extends RequestBuilder<Schedule> {
+
+        @JsonProperty
+        private ChargeSchedule.Params charge;
+        @JsonProperty("end_date")
+        private LocalDate endDate;
+        @JsonProperty
+        private long every;
+        @JsonProperty
+        private ScheduleOn.Params on;
+        @JsonProperty
+        private SchedulePeriod period;
+        @JsonProperty("start_date")
+        private LocalDate startDate;
+        @JsonProperty
+        private TransferSchedule.Params transfer;
+
+        @Override
+        protected String method() {
+            return POST;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "schedules");
+        }
+
+        @Override
+        protected ResponseType<Schedule> type() {
+            return new ResponseType<>(Schedule.class);
+        }
+
+        public CreateRequestBuilder charge(ChargeSchedule.Params charge) {
+            this.charge = charge;
+            return this;
+        }
+
+        public CreateRequestBuilder endDate(LocalDate endDate) {
+            this.endDate = endDate;
+            return this;
+        }
+
+        public CreateRequestBuilder every(long every) {
+            this.every = every;
+            return this;
+        }
+
+        public CreateRequestBuilder on(ScheduleOn.Params on) {
+            this.on = on;
+            return this;
+        }
+
+        public CreateRequestBuilder period(SchedulePeriod period) {
+            this.period = period;
+            return this;
+        }
+
+        public CreateRequestBuilder startDate(LocalDate startDate) {
+            this.startDate = startDate;
+            return this;
+        }
+
+        public CreateRequestBuilder transfer(TransferSchedule.Params transfer) {
+            this.transfer = transfer;
+            return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException  {
+            return serialize();
+        }
+    }
+
     public static class ListOccurrencesRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
         private String scheduleId;
         private ScopedList.Options options;
@@ -237,101 +332,6 @@ public class Schedule extends Model {
         public ListOccurrencesRequestBuilder options(ScopedList.Options options) {
             this.options = options;
             return this;
-        }
-    }
-
-    public static class GetRequestBuilder extends RequestBuilder<Schedule> {
-        private String scheduleId;
-        public GetRequestBuilder(String scheduleId) {
-            this.scheduleId = scheduleId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "schedules", scheduleId);
-        }
-
-        @Override
-        protected ResponseType<Schedule> type() {
-            return new ResponseType<>(Schedule.class);
-        }
-    }
-
-    public static class CreateRequestBuilder extends RequestBuilder<Schedule> {
-
-        @JsonProperty
-        private ChargeScheduling.Params charge;
-        @JsonProperty("end_date")
-        private LocalDate endDate;
-        @JsonProperty
-        private long every;
-        @JsonProperty
-        private ScheduleOn.Params on;
-        @JsonProperty
-        private SchedulePeriod period;
-        @JsonProperty("start_date")
-        private LocalDate startDate;
-        @JsonProperty
-        private TransferScheduling.Params transfer;
-
-        @Override
-        protected String method() {
-            return POST;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "schedules");
-        }
-
-        @Override
-        protected ResponseType<Schedule> type() {
-            return new ResponseType<>(Schedule.class);
-        }
-
-        public CreateRequestBuilder charge(ChargeScheduling.Params charge) {
-            this.charge = charge;
-            return this;
-        }
-
-        public CreateRequestBuilder endDate(LocalDate endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
-        public CreateRequestBuilder every(long every) {
-            this.every = every;
-            return this;
-        }
-
-        public CreateRequestBuilder on(ScheduleOn.Params on) {
-            this.on = on;
-            return this;
-        }
-
-        public CreateRequestBuilder period(SchedulePeriod period) {
-            this.period = period;
-            return this;
-        }
-
-        public CreateRequestBuilder startDate(LocalDate startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public CreateRequestBuilder transfer(TransferScheduling.Params transfer) {
-            this.transfer = transfer;
-            return this;
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
         }
     }
 
@@ -398,36 +398,6 @@ public class Schedule extends Model {
         }
 
         public RecipientScheduleListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
-    public static class ChargeScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "charges", serializer())
-                  .segments("schedules")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
-        }
-
-        public ChargeScheduleListRequestBuilder options(ScopedList.Options options) {
             this.options = options;
             return this;
         }

@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class Receipt extends Model {
     @JsonProperty("adjustment_transaction")
-    private String adjustmentTransaction;
+    private Transaction adjustmentTransaction;
     @JsonProperty("charge_fee")
     private long chargeFee;
     @JsonProperty("company_address")
@@ -53,11 +53,11 @@ public class Receipt extends Model {
     private long voidedFee;
     private long wht;
 
-    public String getAdjustmentTransaction() {
+    public Transaction getAdjustmentTransaction() {
         return this.adjustmentTransaction;
     }
 
-    public void setAdjustmentTransaction(String adjustmentTransaction) {
+    public void setAdjustmentTransaction(Transaction adjustmentTransaction) {
         this.adjustmentTransaction = adjustmentTransaction;
     }
 

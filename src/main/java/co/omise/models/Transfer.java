@@ -1,7 +1,7 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
-import co.omise.models.schedules.Schedule;
+import co.omise.models.schedules.TransferSchedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,6 +41,7 @@ public class Transfer extends Model {
     @JsonProperty("paid_at")
     private DateTime paidAt;
     private String recipient;
+    private String schedule;
     private boolean sendable;
     private boolean sent;
     @JsonProperty("sent_at")
@@ -161,6 +162,14 @@ public class Transfer extends Model {
         this.recipient = recipient;
     }
 
+    public String getSchedule() {
+        return this.schedule;
+    }
+
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
+    }
+
     public boolean isSendable() {
         return this.sendable;
     }
@@ -223,6 +232,81 @@ public class Transfer extends Model {
         }
     }
 
+    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+        public GetRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+    }
+
+    public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
+        private String transferId;
+
+        @JsonProperty
+        private long amount;
+        @JsonProperty
+        private Map<String, Object> metadata;
+        public UpdateRequestBuilder(String transferId) {
+            this.transferId = transferId;
+        }
+
+        @Override
+        protected String method() {
+            return PATCH;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "transfers", transferId);
+        }
+
+        @Override
+        protected ResponseType<Transfer> type() {
+            return new ResponseType<>(Transfer.class);
+        }
+
+        public UpdateRequestBuilder amount(long amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
+            return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException  {
+            return serialize();
+        }
+
+        public UpdateRequestBuilder metadata(String key, Object value) {
+            HashMap<String, Object> tempMap = new HashMap<>();
+            if (metadata != null) {
+                tempMap.putAll(metadata);
+            }
+            tempMap.put(key, value);
+
+            this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
         private ScopedList.Options options;
 
@@ -250,58 +334,6 @@ public class Transfer extends Model {
         public ListRequestBuilder options(ScopedList.Options options) {
             this.options = options;
             return this;
-        }
-    }
-
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
-                  .segments("schedules")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Schedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
-        }
-
-        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
-    public static class GetRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
-        public GetRequestBuilder(String transferId) {
-            this.transferId = transferId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
         }
     }
 
@@ -352,7 +384,7 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
         }
 
@@ -364,6 +396,36 @@ public class Transfer extends Model {
             tempMap.put(key, value);
 
             this.metadata = new HashMap<>(tempMap);
+            return this;
+        }
+    }
+
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<TransferSchedule>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "transfers", serializer())
+                  .segments("schedules")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<TransferSchedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<TransferSchedule>>() {});
+        }
+
+        public ListSchedulesRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
             return this;
         }
     }
@@ -409,59 +471,6 @@ public class Transfer extends Model {
         @Override
         protected ResponseType<Transfer> type() {
             return new ResponseType<>(Transfer.class);
-        }
-    }
-
-    public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
-
-        @JsonProperty
-        private long amount;
-        @JsonProperty
-        private Map<String, Object> metadata;
-        public UpdateRequestBuilder(String transferId) {
-            this.transferId = transferId;
-        }
-
-        @Override
-        protected String method() {
-            return PATCH;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "transfers", transferId);
-        }
-
-        @Override
-        protected ResponseType<Transfer> type() {
-            return new ResponseType<>(Transfer.class);
-        }
-
-        public UpdateRequestBuilder amount(long amount) {
-            this.amount = amount;
-            return this;
-        }
-
-        public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
-            this.metadata = metadata;
-            return this;
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        public UpdateRequestBuilder metadata(String key, Object value) {
-            HashMap<String, Object> tempMap = new HashMap<>();
-            if (metadata != null) {
-                tempMap.putAll(metadata);
-            }
-            tempMap.put(key, value);
-
-            this.metadata = new HashMap<>(tempMap);
-            return this;
         }
     }
 }

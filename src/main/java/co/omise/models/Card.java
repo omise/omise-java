@@ -325,40 +325,6 @@ public class Card extends Model {
         }
     }
 
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
-        private String customerId;
-        private ScopedList.Options options;
-        public ListRequestBuilder(String customerId) {
-            this.customerId = customerId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            if (options == null) {
-                options = new ScopedList.Options();
-            }
-            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
-                  .segments(customerId, "cards")
-                  .params(options)
-                  .build();
-        }
-
-        @Override
-        protected ResponseType<ScopedList<Card>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Card>>() {});
-        }
-
-        public ListRequestBuilder options(ScopedList.Options options) {
-            this.options = options;
-            return this;
-        }
-    }
-
     public static class GetRequestBuilder extends RequestBuilder<Card> {
         private String customerId;
         private String cardId;
@@ -453,8 +419,42 @@ public class Card extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException {
+        protected RequestBody payload() throws IOException  {
             return serialize();
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
+        private String customerId;
+        private ScopedList.Options options;
+        public ListRequestBuilder(String customerId) {
+            this.customerId = customerId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments(customerId, "cards")
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Card>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Card>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
         }
     }
 }

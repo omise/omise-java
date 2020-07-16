@@ -68,9 +68,6 @@ public class BankAccount extends Model {
     }
 
     public static class Params extends co.omise.models.Params {
-        @JsonProperty("account_type")
-        private String accountType;
-
         @JsonProperty("bank_code")
         private String bankCode;
 
@@ -86,10 +83,8 @@ public class BankAccount extends Model {
         @JsonProperty
         private String number;
 
-        public Params accountType(String accountType) {
-            this.accountType = accountType;
-            return this;
-        }
+        @JsonProperty("type")
+        private String accountType;
 
         public Params bankCode(String bankCode) {
             this.bankCode = bankCode;
@@ -113,6 +108,11 @@ public class BankAccount extends Model {
 
         public Params number(String number) {
             this.number = number;
+            return this;
+        }
+
+        public Params accountType(String accountType) {
+            this.accountType = accountType;
             return this;
         }
     }
