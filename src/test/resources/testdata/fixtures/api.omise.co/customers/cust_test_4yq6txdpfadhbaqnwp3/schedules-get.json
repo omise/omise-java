@@ -25,6 +25,7 @@
       "start_date": "2018-08-21",
       "end_date": "2019-08-21",
       "charge": {
+        "object": "scheduled_charge",
         "amount": 50000,
         "currency": "thb",
         "description": "Test schedule",

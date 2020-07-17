@@ -1,0 +1,15 @@
+{
+  "object": "scheduled_charge",
+  "id": "rchg_test_no1t4tnemucod0e51mo",
+  "livemode": false,
+  "currency": "THB",
+  "amount": 12345,
+  "default_card": true,
+  "card": "card_test_no1t4tnemucod0e51mo",
+  "customer": "cust_test_no1t4tnemucod0e51mo",
+  "description": "Subscription for coffee beans",
+  "metadata": {
+    "answer": 42
+  },
+  "created_at": "2019-12-31T12:59:59Z"
+}

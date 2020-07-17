@@ -1,7 +1,10 @@
 package co.omise.models;
 
+import co.omise.models.schedules.ChargeSchedule;
 import co.omise.models.schedules.Occurrence;
 import co.omise.models.schedules.Schedule;
+import co.omise.models.schedules.TransferSchedule;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.DatabindContext;
 import com.fasterxml.jackson.databind.JavaType;
@@ -22,6 +25,8 @@ class ModelTypeResolver extends TypeIdResolverBase {
             types.put("bank_account", BankAccount.class);
             types.put("card", Card.class);
             types.put("charge", Charge.class);
+            types.put("scheduled_charge", ChargeSchedule.class);
+            types.put("scheduled_transfer", TransferSchedule.class);
             types.put("customer", Customer.class);
             types.put("dispute", Dispute.class);
             types.put("event", Event.class);

@@ -1,0 +1,10 @@
+{
+  "object": "scheduled_transfer",
+  "id": "rtrf_test_no1t4tnemucod0e51mo",
+  "livemode": false,
+  "amount": 12345,
+  "currency": "THB",
+  "percentage_of_balance": null,
+  "recipient": "recp_test_no1t4tnemucod0e51mo",
+  "created_at": "2019-12-31T12:59:59Z"
+}
