@@ -25,6 +25,7 @@
       "start_date": "2018-08-21",
       "end_date": "2019-08-21",
       "transfer": {
+        "object": "scheduled_transfer",
         "recipient": "recp_test_50894vc13y8z4v51iuc",
         "amount": 100000,
         "percentage_of_balance": null,

@@ -25,6 +25,7 @@
       "start_on": "2017-10-20",
       "end_on": "2116-10-20",
       "charge": {
+        "object": "scheduled_charge",
         "amount": 2000,
         "currency": "thb",
         "description": null,

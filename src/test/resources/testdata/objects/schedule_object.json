@@ -16,6 +16,7 @@
   "start_on": "2017-05-08",
   "end_on": "2116-05-08",
   "charge": {
+    "object": "scheduled_charge",
     "amount": 2000,
     "currency": "thb",
     "customer": "cust_test_57wedy5a1tdt0bf89iy",

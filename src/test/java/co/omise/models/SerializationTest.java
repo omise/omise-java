@@ -83,7 +83,8 @@ public class SerializationTest extends OmiseTest {
         } else if (Objects.equal(klass, PaymentMethod.class)) {
             return "/testdata/objects/payment_method_object.json";
         } else {
-            return "/testdata/objects/" + klass.getSimpleName().toLowerCase() + "_object.json";
+            String fileName = klass.getSimpleName().replaceAll("([A-Z])", "_$1").toLowerCase().substring(1);
+            return "/testdata/objects/" + fileName + "_object.json";
         }
     }
 }
