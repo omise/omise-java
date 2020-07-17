@@ -470,9 +470,9 @@ final class Example {
     }
 
     void listChargeSchedule() throws IOException, ClientException, OmiseException {
-        Request<ScopedList<ChargeSchedule>> request = new Charge.ListSchedulesRequestBuilder().build();
+        Request<ScopedList<Schedule>> request = new Charge.ListSchedulesRequestBuilder().build();
 
-        ScopedList<ChargeSchedule> schedules = client().sendRequest(request);
+        ScopedList<Schedule> schedules = client().sendRequest(request);
         System.out.printf("total no. of charge schedules: %d", schedules.getTotal());
     }
 

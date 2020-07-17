@@ -2,6 +2,7 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.models.schedules.ChargeSchedule;
+import co.omise.models.schedules.Schedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -484,7 +485,6 @@ public class Charge extends Model {
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
-
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -650,7 +650,7 @@ public class Charge extends Model {
         }
     }
 
-    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<ChargeSchedule>> {
+    public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
 
         @Override
@@ -670,8 +670,8 @@ public class Charge extends Model {
         }
 
         @Override
-        protected ResponseType<ScopedList<ChargeSchedule>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<ChargeSchedule>>() {});
+        protected ResponseType<ScopedList<Schedule>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Schedule>>() {});
         }
 
         public ListSchedulesRequestBuilder options(ScopedList.Options options) {
