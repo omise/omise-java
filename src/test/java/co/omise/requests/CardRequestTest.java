@@ -15,7 +15,7 @@ public class CardRequestTest extends RequestTest {
     @Test
     public void testGet() throws IOException, OmiseException {
 
-        Request<Card> request = new Card.GetRequestBuilder(CARD_ID, CUSTOMER_ID).build();
+        Request<Card> request = new Card.GetRequestBuilder(CUSTOMER_ID, CARD_ID).build();
         Card card = getTestRequester().sendRequest(request);
 
         assertRequested("GET", "/customers/" + CUSTOMER_ID + "/cards/" + CARD_ID, 200);
@@ -29,7 +29,7 @@ public class CardRequestTest extends RequestTest {
     @Test
     public void testUpdate() throws IOException, OmiseException {
         Request<Card> request = new Card.UpdateRequestBuilder(
-                CARD_ID, CUSTOMER_ID)
+                CUSTOMER_ID, CARD_ID)
                 .name("JOHN W. DOE")
                 .build();
         Card card = getTestRequester().sendRequest(request);
@@ -61,7 +61,7 @@ public class CardRequestTest extends RequestTest {
     @Test
     public void testDestroy() throws IOException, OmiseException {
         Request<Card> request =
-                new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
+                new Card.DeleteRequestBuilder(CUSTOMER_ID, CARD_ID)
                         .build();
         Card card = getTestRequester().sendRequest(request);
 
