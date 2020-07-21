@@ -48,7 +48,7 @@ public class Document extends Model {
     public static class DeleteRequestBuilder extends RequestBuilder<Document> {
         private String disputeId;
         private String documentId;
-        public DeleteRequestBuilder(String documentId, String disputeId) {
+        public DeleteRequestBuilder(String disputeId, String documentId) {
             this.disputeId = disputeId;
             this.documentId = documentId;
         }
@@ -72,7 +72,7 @@ public class Document extends Model {
     public static class GetRequestBuilder extends RequestBuilder<Document> {
         private String disputeId;
         private String documentId;
-        public GetRequestBuilder(String documentId, String disputeId) {
+        public GetRequestBuilder(String disputeId, String documentId) {
             this.disputeId = disputeId;
             this.documentId = documentId;
         }

@@ -32,8 +32,6 @@ public class Source extends Model {
     @JsonProperty("phone_number")
     private String phoneNumber;
     private References references;
-    @JsonProperty("phone_number")
-    private String phoneNumber;
     @JsonProperty("scannable_code")
     private Barcode scannableCode;
     @JsonProperty("store_id")
