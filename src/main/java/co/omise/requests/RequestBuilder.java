@@ -52,6 +52,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * Abstract method that needs to be implement by all children of this class to provide API Path
      *
      * @return the url path as {@link HttpUrl}
+     * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
      */
     protected abstract HttpUrl path() throws IOException;
 
@@ -68,7 +69,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * Additional parameters for the request, which is null by default to avoid crashes for requests that do not accept params (eg: GET)
      *
      * @return the params as a {@link RequestBody}
-     * * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
+     * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
      */
     protected RequestBody payload() throws IOException {
         //Has to be null as it would fail for GET requests

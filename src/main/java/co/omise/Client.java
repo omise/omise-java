@@ -189,6 +189,7 @@ public class Client {
          * Set public key.
          *
          * @param publicKey The key with the {@code pkey_} prefix.
+         * @return this
          */
         public Builder publicKey(String publicKey) {
             this.publicKey = publicKey;
@@ -199,6 +200,7 @@ public class Client {
          * Set secret key.
          *
          * @param secretKey The key with the {@code skey_} prefix.
+         * @return this
          */
         public Builder secretKey(String secretKey) {
             this.secretKey = secretKey;
