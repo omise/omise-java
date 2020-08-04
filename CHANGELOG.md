@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+## 3.1.1
+**REMOVED** Removed certificate pinning
+
 ## 3.1.0
 **NEW** Added `PromptPay` source type to Source.
 **NEW** Added `PayNow` source type to Source.
@@ -15,7 +18,7 @@
 ## 3.0.2
 **NEW** Added `zeroInterestInstallments` field to Source.
 
-## v3.0.1
+## 3.0.1
 **NEW** Added `firstDigits` field to Card.
 
 ## v3.0.0
