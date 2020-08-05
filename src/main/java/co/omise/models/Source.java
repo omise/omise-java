@@ -22,18 +22,21 @@ public class Source extends Model {
     private String currency;
     private String barcode;
     private References references;
+    private String email;
+    private String location;
+    @JsonProperty("mobile_number")
+    private String mobileNumber;
+    private String name;
+    @JsonProperty("phone_number")
+    private String phoneNumber;
+    @JsonProperty("scannable_code")
+    private Barcode scannableCode;
     @JsonProperty("store_id")
     private String storeId;
     @JsonProperty("store_name")
     private String storeName;
     @JsonProperty("terminal_id")
     private String terminalId;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("email")
-    private String email;
-    @JsonProperty("phone_number")
-    private String phoneNumber;
     @JsonProperty("installment_term")
     private int installmentTerm;
     @JsonProperty("zero_interest_installments")
@@ -88,6 +91,14 @@ public class Source extends Model {
 
     public void setReferences(References references) {
         this.references = references;
+    }
+
+    public Barcode getScannableCode() {
+        return this.scannableCode;
+    }
+
+    public void setScannableCode(Barcode scannableCode) {
+        this.scannableCode = scannableCode;
     }
 
     public String getStoreId() {
@@ -163,8 +174,6 @@ public class Source extends Model {
         @JsonProperty
         private String currency;
         @JsonProperty
-        private SourceType type;
-        @JsonProperty
         private String description;
         @JsonProperty
         private String barcode;
@@ -182,6 +191,10 @@ public class Source extends Model {
         private String phoneNumber;
         @JsonProperty("installment_term")
         private int installmentTerm;
+        @JsonProperty
+        private SourceType type;
+        @JsonProperty("zero_interest_installments")
+        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
@@ -245,6 +258,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder name(String name) {
             this.name = name;
+            return this;
+        }
+
+        public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
+            this.zeroInterestInstallments = zeroInterestInstallments;
             return this;
         }
 

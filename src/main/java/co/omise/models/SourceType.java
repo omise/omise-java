@@ -33,7 +33,13 @@ public enum SourceType {
     @JsonProperty("installment_kbank")
     InstKBank,
     @JsonEnumDefaultValue
-    Unknown;
+    Unknown,
+    @JsonProperty("paynow")
+    Paynow,
+    @JsonProperty("points_citi")
+    PointsCiti,
+    @JsonProperty("promptpay")
+    PromptPay;
 
     @Override
     public String toString() {
@@ -66,6 +72,12 @@ public enum SourceType {
                 return "installment_ktc";
             case InstKBank:
                 return "installment_kbank";
+            case Paynow:
+                return "paynow";
+            case PointsCiti:
+                return "points_citi";
+            case PromptPay:
+                return "promptpay";
             default:
                 return "";
         }

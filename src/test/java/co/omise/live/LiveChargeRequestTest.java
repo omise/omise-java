@@ -173,6 +173,68 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
+    public void testLiveChargeWithZeroInterestsInstallments() throws IOException, OmiseException {
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
+                .type(SourceType.InstKBank)
+                .zeroInterestInstallments(true)
+                .installmentTerm(4)
+                .amount(300000)
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .source(source.getId())
+                        .amount(300000)
+                        .currency("thb")
+                        .zeroInterestInstallments(true)
+                        .returnUri("http://example.com/orders/345678/complete")
+                        .build();
+
+        Charge charge = client.sendRequest(createChargeRequest);
+
+        System.out.println("Created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(SourceType.InstKBank, charge.getSource().getType());
+        assertTrue(charge.isZeroInterestInstallments());
+        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeWithPromptpay() throws IOException, OmiseException {
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
+                .type(SourceType.PromptPay)
+                .amount(10000)
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .source(source.getId())
+                        .amount(10000)
+                        .currency("thb")
+                        .returnUri("http://example.com/orders/345678/complete")
+                        .build();
+
+        Charge charge = client.sendRequest(createChargeRequest);
+
+        System.out.println("created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(10000, charge.getAmount());
+        assertEquals("THB", charge.getCurrency());
+        assertEquals(SourceType.PromptPay, charge.getSource().getType());
+        assertEquals(Barcode.class, charge.getSource().getScannableCode().getClass());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveChargeUpdate() throws IOException, OmiseException {
         Request<Token> tokenRequest = new Token.CreateRequestBuilder()
                 .card(new Card.Create()

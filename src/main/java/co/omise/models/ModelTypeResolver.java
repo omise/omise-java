@@ -38,6 +38,8 @@ class ModelTypeResolver extends TypeIdResolverBase {
             types.put("forex", Forex.class);
             types.put("capability", Capability.class);
             types.put("payment_method", PaymentMethod.class);
+            types.put("barcode", Barcode.class);
+            types.put("document", Document.class);
         }
         return Collections.unmodifiableMap(types);
     }
