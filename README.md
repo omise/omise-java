@@ -1,6 +1,6 @@
 # OMISE-JAVA
 
-[![Maven Central][9]][10] [![Circle CI][0]][1] [![Discourse Forum][14]][15]
+[![Maven Central][9]][10] [![Github Actions][0]][1] [![Discourse Forum][14]][15]
 
 `Omise-java` provides a set of Java bindings to the [Omise REST API][5].  Please contact
  [support@omise.co][7] if you have any questions regarding this
@@ -98,8 +98,8 @@ System.out.println("created charge: " + charge.getId());
 
 [MIT license][13]
 
-[0]: https://img.shields.io/circleci/project/omise/omise-java.svg?style=flat-square
-[1]: https://circleci.com/gh/omise/omise-java/tree/master
+[0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg 
+[1]: https://github.com/omise/omise-java/actions
 [2]: https://img.shields.io/gitter/room/omise/omise-java.svg?style=flat-square
 [3]: https://gitter.im/omise/omise-java
 [4]: https://github.com/omise/omise-java/tree/v1.0
