@@ -1,55 +1,66 @@
 # CHANGE LOG
 
-## 3.1.1
-**REMOVED** Removed certificate pinning
+## v3.1.1
 
-## 3.1.0
-**NEW** Added `PromptPay` source type to Source.
-**NEW** Added `PayNow` source type to Source.
-**NEW** Added `PointsCiti` source type to Source.
-**NEW** Added `mobileNumber` field to Source.
-**NEW** Added `scannableCode` field to Source.
+* **REMOVED** Removed certificate pinning
 
-## 3.0.3
-**NEW** Added `zeroInterestInstallments` field to Charge.
-**NEW** Added `zeroInterestInstallments` field to Charge.CreateRequestBuilder.
-**NEW** Added `zeroInterestInstallments` field to Source.CreateRequestBuilder.
+## v3.1.0
 
-## 3.0.2
-**NEW** Added `zeroInterestInstallments` field to Source.
+* **NEW** Added `PromptPay` source type to Source.
+* **NEW** Added `PayNow` source type to Source.
+* **NEW** Added `PointsCiti` source type to Source.
+* **NEW** Added `mobileNumber` field to Source.
+* **NEW** Added `scannableCode` field to Source.
+
+## v3.0.3
+
+* **NEW** Added `zeroInterestInstallments` field to Charge.
+* **NEW** Added `zeroInterestInstallments` field to Charge.CreateRequestBuilder.
+* **NEW** Added `zeroInterestInstallments` field to Source.CreateRequestBuilder.
+
+## v3.0.2
+
+* **NEW** Added `zeroInterestInstallments` field to Source.
 
 ## 3.0.1
-**NEW** Added `firstDigits` field to Card.
+
+* **NEW** Added `firstDigits` field to Card.
 
 ## v3.0.0
-**CHANGED** Changed the way Omise API is accessed through `Omise-Java`.
-**CHANGED** Used latest API version (`2019-05-29`).
-**NEW** Added `Capabilities` API.
-**NEW** Added `Installment` as a source type.
-**NEW** Made data models `Serializable`.
-**REMOVED** Removed Guava from dependencies.
+
+* **CHANGED** Changed the way Omise API is accessed through `Omise-Java`.
+* **CHANGED** Used latest API version (`2019-05-29`).
+* **NEW** Added `Capabilities` API.
+* **NEW** Added `Installment` as a source type.
+* **NEW** Made data models `Serializable`.
+* **REMOVED** Removed Guava from dependencies.
 
 ## v2.7.8
-**NEW** Add metadata fields to Source.
-**NEW** Add metadata fields to creating a Source.
-**NEW** Add metadata fields to creating a Charge.
-**NEW** Add Econtext as a Source type.
-**NEW** Add TrueMoney as a Source type.
+
+* **NEW** Add metadata fields to Source.
+* **NEW** Add metadata fields to creating a Source.
+* **NEW** Add metadata fields to creating a Charge.
+* **NEW** Add Econtext as a Source type.
+* **NEW** Add TrueMoney as a Source type.
 
 ## v2.7.7
-**FIXED** Updated Jackson to version 2.9.8 to fix vulnerability issue.
+
+* **FIXED** Updated Jackson to version 2.9.8 to fix vulnerability issue.
 
 ## v2.7.6
-**FIXED** Fixed `sourceOfFund` in Charge no longer in Charge API.
+
+* **FIXED** Fixed `sourceOfFund` in Charge no longer in Charge API.
 
 ## v2.7.5
-**REMOVED:** Removed Sinarmas virtual account as a payment source type.
+
+* **REMOVED:** Removed Sinarmas virtual account as a payment source type.
 
 ## v2.7.4
-**CHANGED:** Changed variable names for Alipay barcode payment
-**NEW:** Add metadata field to creating and updating a Transfer.
-**NEW:** Add metadata field to creating a Refund.
-**NEW:** Add metadata field to updating a Dispute.
+
+* **CHANGED:** Changed variable names for Alipay barcode payment
+* **NEW:** Add metadata field to creating and updating a Transfer.
+* **NEW:** Add metadata field to creating a Refund.
+* **NEW:** Add metadata field to updating a Dispute.
 
 ## v2.7.3
 
@@ -59,11 +70,11 @@
 
 * **FIXED:** Add missing `ChargeStatus.Expired` status.
 
-## v.2.7.1
+## v2.7.1
 
 * **FIXED:** `omise-java` version sent `null` to User-Agent. Add manifest to sent correctly implementation version.
 
-## v.2.7.0
+## v2.7.0
 
 * **NEW:** Support `source-api`.
 
