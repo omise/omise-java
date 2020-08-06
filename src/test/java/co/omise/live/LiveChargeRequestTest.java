@@ -175,7 +175,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithZeroInterestsInstallments() throws IOException, OmiseException {
         Request<Source> sourceRequest = new Source.CreateRequestBuilder()
-                .type(SourceType.InstKBank)
+                .type(SourceType.InstallmentKbank)
                 .zeroInterestInstallments(true)
                 .installmentTerm(4)
                 .amount(300000)
@@ -198,7 +198,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         System.out.println("Created charge: " + charge.getId());
 
         assertNotNull(charge.getId());
-        assertEquals(SourceType.InstKBank, charge.getSource().getType());
+        assertEquals(SourceType.InstallmentKbank, charge.getSource().getType());
         assertTrue(charge.isZeroInterestInstallments());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
