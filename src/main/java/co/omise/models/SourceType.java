@@ -40,13 +40,15 @@ public enum SourceType {
     @JsonProperty("points")
     Points,
     @JsonProperty("truemoney")
-    TrueMoney;
+    TrueMoney,
+    @JsonProperty("promptpay")
+    PromptPay;
 
     @Override
     public String toString() {
         String name = super.toString();
         Field[] fields = this.getClass().getDeclaredFields();
-        for(Field field : fields) {
+        for (Field field : fields) {
             if (field.getName() == name && field.isAnnotationPresent(JsonProperty.class)) {
                 return field.getAnnotation(JsonProperty.class).value();
             }
