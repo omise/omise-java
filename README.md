@@ -1,14 +1,12 @@
 # OMISE-JAVA
 
-[![Maven Central][9]][10] [![Circle CI][0]][1] [![Discourse Forum][14]][15]
-
-This library has been updated to v3.1.0.
+[![Maven Central][9]][10] [![Github Actions][0]][1] [![Discourse Forum][14]][15]
 
 `Omise-java` provides a set of Java bindings to the [Omise REST API][5].  Please contact
  [support@omise.co][7] if you have any questions regarding this
 library and the functionality it provides.
 
-# INSTALLATION
+## INSTALLATION
 
 ### Android
 
@@ -23,7 +21,7 @@ Adds to your `build.gradle` file.
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:3.1.0'
+    compile 'co.omise:omise-java:3.1.+'
 }
 ```
 
@@ -48,16 +46,16 @@ $ gradle shadowJar
 BUILD SUCCESSFUL
 
 $ ls builds/libs
-omise-java-3.0.0-all.jar
+omise-java-3.1.1-all.jar
 ```
-#MIGRATION TO v3.0.0
+
+### Migrate to version 3
 
 The alteration made in the v3.0.0 of `omise-java` are breaking changes and would require code changes 
 from your side if you have already been using this library from previous versions. We have put 
-together a guide to make this process easier by pointing the changes to you. You can find the complete
- [v3.0.0 migration guide here][16].
+together a guide to make this process easier by pointing the changes to you. You can find the complete [version 3 migration guide here][16].
 
-# USAGE
+## USAGE
 
 Obtain a set of API keys from the [Omise Dashboard][12] and create a `Client` object
 
@@ -96,12 +94,12 @@ Charge charge = client.sendRequest(request);
 System.out.println("created charge: " + charge.getId());
 ```
 
-# LICENSE
+## LICENSE
 
 [MIT license][13]
 
-[0]: https://img.shields.io/circleci/project/omise/omise-java.svg?style=flat-square
-[1]: https://circleci.com/gh/omise/omise-java/tree/master
+[0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg 
+[1]: https://github.com/omise/omise-java/actions
 [2]: https://img.shields.io/gitter/room/omise/omise-java.svg?style=flat-square
 [3]: https://gitter.im/omise/omise-java
 [4]: https://github.com/omise/omise-java/tree/v1.0
