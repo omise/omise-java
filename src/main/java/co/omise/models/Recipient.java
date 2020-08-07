@@ -28,7 +28,7 @@ public class Recipient extends Model {
     @JsonProperty("bank_account")
     private BankAccount bankAccount;
     @JsonProperty("failure_code")
-    private String failureCode;
+    private RecipientFailureCode failureCode;
     private Map<String, Object> metadata;
 
     public Recipient() {
@@ -98,11 +98,11 @@ public class Recipient extends Model {
         this.bankAccount = bankAccount;
     }
 
-    public String getFailureCode() {
-        return failureCode;
+    public RecipientFailureCode getFailureCode() {
+        return this.failureCode;
     }
 
-    public void setFailureCode(String failureCode) {
+    public void setFailureCode(RecipientFailureCode failureCode) {
         this.failureCode = failureCode;
     }
 

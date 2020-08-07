@@ -23,13 +23,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.5'
 }
 
 task javadocJar(type: Jar) {

@@ -1,9 +1,9 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.joda.time.DateTime;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class References implements Serializable {
 
@@ -17,7 +17,7 @@ public class References implements Serializable {
     private String referenceNumber2;
     private String barcode;
     @JsonProperty("expires_at")
-    private Date expiresAt;
+    private DateTime expiresAt;
 
     public String getOmiseTaxId() {
         return omiseTaxId;
@@ -51,11 +51,11 @@ public class References implements Serializable {
         this.barcode = barcode;
     }
 
-    public Date getExpiresAt() {
+    public DateTime getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(Date expiresAt) {
+    public void setExpiresAt(DateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 

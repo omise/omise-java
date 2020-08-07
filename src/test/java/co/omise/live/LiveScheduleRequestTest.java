@@ -4,7 +4,7 @@ import co.omise.Client;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.DurationFieldType;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -78,9 +78,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -126,9 +126,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -142,7 +142,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         assertNotNull(schedule);
         assertEquals(1, schedule.getEvery());
-        assertEquals(SchedulePeriod.week, schedule.getPeriod());
+        assertEquals(SchedulePeriod.Week, schedule.getPeriod());
         assertEquals(customer.getId(), schedule.getCharge().getCustomer());
     }
 
@@ -169,9 +169,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 99))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -246,9 +246,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -293,9 +293,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .charge(new ChargeScheduling.Params()
                         .customer(customer.getId())
                         .amount(2000)
@@ -341,9 +341,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -376,9 +376,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -419,9 +419,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
@@ -458,9 +458,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
 
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.week)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
-                .endDate(DateTime.now().withFieldAdded(DurationFieldType.years(), 1))
+                .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
                 .transfer(new TransferScheduling.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())

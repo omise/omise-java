@@ -30,7 +30,7 @@ public class SourceRequestTest extends RequestTest {
     @Test
     public void testCreateInstallment() throws IOException, OmiseException {
         Request<Source> request = new TestSourceRequestBuilder()
-                .type(SourceType.InstBankingBay)
+                .type(SourceType.InstallmentBay)
                 .amount(500000)
                 .currency("thb")
                 .installmentTerm(4)
@@ -40,7 +40,7 @@ public class SourceRequestTest extends RequestTest {
 
         assertRequested("POST", "/sources/installments", 200);
         assertEquals(500000L, source.getAmount());
-        assertEquals(SourceType.InstBankingBay, source.getType());
+        assertEquals(SourceType.InstallmentBay, source.getType());
         assertEquals(4, source.getInstallmentTerm());
         assertEquals("thb", source.getCurrency());
         assertEquals("redirect", source.getFlow().toString());

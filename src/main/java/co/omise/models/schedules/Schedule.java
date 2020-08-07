@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,14 +27,14 @@ public class Schedule extends Model {
     @JsonProperty("in_words")
     private String inWords;
     @JsonProperty("start_on")
-    private DateTime startDate;
+    private LocalDate startDate;
     @JsonProperty("end_on")
-    private DateTime endDate;
+    private LocalDate endDate;
     private ChargeScheduling charge;
     private TransferScheduling transfer;
     private ScopedList<Occurrence> occurrences;
     @JsonProperty("next_occurrences_on")
-    private List<String> nextOccurrencesDates;
+    private List<LocalDate> nextOccurrencesDates;
     private boolean active;
 
     public Schedule() {
@@ -80,19 +80,19 @@ public class Schedule extends Model {
         this.inWords = inWords;
     }
 
-    public DateTime getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public DateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(DateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -120,11 +120,11 @@ public class Schedule extends Model {
         this.occurrences = occurrences;
     }
 
-    public List<String> getNextOccurrencesDates() {
+    public List<LocalDate> getNextOccurrencesDates() {
         return this.nextOccurrencesDates;
     }
 
-    public void setNextOccurrencesDates(List<String> nextOccurrencesDates) {
+    public void setNextOccurrencesDates(List<LocalDate> nextOccurrencesDates) {
         this.nextOccurrencesDates = nextOccurrencesDates;
     }
 
@@ -196,9 +196,9 @@ public class Schedule extends Model {
         @JsonProperty
         private ScheduleOn.Params on;
         @JsonProperty("start_date")
-        private DateTime startDate;
+        private LocalDate startDate;
         @JsonProperty("end_date")
-        private DateTime endDate;
+        private LocalDate endDate;
         @JsonProperty
         private ChargeScheduling.Params charge;
         @JsonProperty
@@ -214,12 +214,12 @@ public class Schedule extends Model {
             return this;
         }
 
-        public CreateRequestBuilder startDate(DateTime startDate) {
+        public CreateRequestBuilder startDate(LocalDate startDate) {
             this.startDate = startDate;
             return this;
         }
 
-        public CreateRequestBuilder endDate(DateTime endDate) {
+        public CreateRequestBuilder endDate(LocalDate endDate) {
             this.endDate = endDate;
             return this;
         }

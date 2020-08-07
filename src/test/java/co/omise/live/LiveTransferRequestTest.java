@@ -119,18 +119,18 @@ public class LiveTransferRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
-    public void testLiveDestroyTransfer() throws Exception {
+    public void testLiveDeleteTransfer() throws Exception {
         Client client = getLiveClient();
         Request<Transfer> creatingTransferRequest = new Transfer.CreateRequestBuilder()
                 .amount(10000)
                 .build();
         Transfer expectedTransfer = client.sendRequest(creatingTransferRequest);
 
-        Request<Transfer> request = new Transfer.DestroyRequestBuilder(expectedTransfer.getId())
+        Request<Transfer> request = new Transfer.DeleteRequestBuilder(expectedTransfer.getId())
                 .build();
         Transfer actualTransfer = client.sendRequest(request);
 
-        System.out.println("Destroy transfer: " + actualTransfer.getId());
+        System.out.println("Delete transfer: " + actualTransfer.getId());
         assertEquals(expectedTransfer.getId(), actualTransfer.getId());
         assertTrue(actualTransfer.isDeleted());
     }
