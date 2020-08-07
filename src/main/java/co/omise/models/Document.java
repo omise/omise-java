@@ -111,9 +111,9 @@ public class Document extends Model {
                 options = new ScopedList.Options();
             }
             return new HttpUrlBuilder(Endpoint.API, "disputes", serializer())
-                    .segments(disputeId, "documents")
-                    .params(options)
-                    .build();
+                  .segments(disputeId, "documents")
+                  .params(options)
+                  .build();
         }
 
         @Override

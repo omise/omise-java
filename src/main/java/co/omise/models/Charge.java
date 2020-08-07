@@ -83,9 +83,6 @@ public class Charge extends Model {
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
 
-    public Charge() {
-    }
-
     public long getAmount() {
         return this.amount;
     }
@@ -485,6 +482,9 @@ public class Charge extends Model {
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
+        @JsonProperty("zeroInterestInstallments")
+        private boolean zeroInterestInstallments;
+
         @JsonProperty
         private long amount;
         @JsonProperty
@@ -511,8 +511,6 @@ public class Charge extends Model {
         private String returnUri;
         @JsonProperty
         private String source;
-        @JsonProperty("zero_interest_installments")
-        private boolean zeroInterestInstallments;
 
         @Override
         protected String method() {
