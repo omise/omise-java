@@ -291,7 +291,7 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 
@@ -384,7 +384,7 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 

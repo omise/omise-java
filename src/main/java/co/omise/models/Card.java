@@ -419,7 +419,7 @@ public class Card extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
     }

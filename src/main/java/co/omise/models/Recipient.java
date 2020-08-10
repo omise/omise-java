@@ -279,7 +279,7 @@ public class Recipient extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 
@@ -393,7 +393,7 @@ public class Recipient extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 

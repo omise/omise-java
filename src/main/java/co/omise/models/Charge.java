@@ -598,7 +598,7 @@ public class Charge extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 
@@ -737,7 +737,7 @@ public class Charge extends Model {
         }
 
         @Override
-        protected RequestBody payload() throws IOException  {
+        protected RequestBody payload() throws IOException {
             return serialize();
         }
 
