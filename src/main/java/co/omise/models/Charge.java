@@ -482,7 +482,7 @@ public class Charge extends Model {
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Charge> {
-        @JsonProperty("zeroInterestInstallments")
+        @JsonProperty("zero_interest_installments")
         private boolean zeroInterestInstallments;
 
         @JsonProperty
