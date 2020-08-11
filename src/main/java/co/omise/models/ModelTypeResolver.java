@@ -45,6 +45,7 @@ class ModelTypeResolver extends TypeIdResolverBase {
             types.put("payment_method", PaymentMethod.class);
             types.put("barcode", Barcode.class);
             types.put("document", Document.class);
+            types.put("webhook_delivery", WebhookDelivery.class);
         }
         return Collections.unmodifiableMap(types);
     }

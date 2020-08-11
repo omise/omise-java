@@ -28,7 +28,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
     @Ignore("only hit when test on live.")
     public void getCard_success() throws Exception {
         Request<Card> request = new Card.GetRequestBuilder(
-                CARD_ID, CUSTOMER_ID).build();
+                CUSTOMER_ID, CARD_ID).build();
         Card card = client.sendRequest(request);
 
         System.out.println("Card retrieved: " + card.getId());
@@ -42,7 +42,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
     @Ignore("only hit when test on live.")
     public void updateCard_success() throws IOException, OmiseException {
         Request<Card> request = new Card.UpdateRequestBuilder(
-                CARD_ID, CUSTOMER_ID)
+                CUSTOMER_ID, CARD_ID)
                 .name("JOHN W. DOE")
                 .expirationYear(2022)
                 .expirationMonth(11)
@@ -86,7 +86,7 @@ public class LiveCardRequestTest extends BaseLiveTest {
     @Ignore("only hit the network when need to.")
     public void deleteCard_success() throws IOException, OmiseException {
         Request<Card> request =
-                new Card.DeleteRequestBuilder(CARD_ID, CUSTOMER_ID)
+                new Card.DeleteRequestBuilder(CUSTOMER_ID, CARD_ID)
                         .build();
         Card card = client.sendRequest(request);
 
