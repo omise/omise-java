@@ -33,7 +33,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(ScheduleStatus.Running, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.Month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrencesDates().size());
+        assertEquals(11, schedule.getNextOccurrencesOn().size());
     }
 
     @Test
@@ -67,7 +67,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.Month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrencesDates().size());
+        assertEquals(11, schedule.getNextOccurrencesOn().size());
     }
 
     @Test

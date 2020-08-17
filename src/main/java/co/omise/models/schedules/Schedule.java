@@ -25,7 +25,7 @@ public class Schedule extends Model {
     private boolean active;
     private ChargeSchedule charge;
     @JsonProperty("end_on")
-    private LocalDate endDate;
+    private LocalDate endOn;
     @JsonProperty("ended_at")
     private DateTime endedAt;
     private long every;
@@ -33,12 +33,12 @@ public class Schedule extends Model {
     private String inWords;
     private String location;
     @JsonProperty("next_occurrences_on")
-    private List<String> nextOccurrencesDates;
+    private List<String> nextOccurrencesOn;
     private ScopedList<Occurrence> occurrences;
     private ScheduleOn on;
     private SchedulePeriod period;
     @JsonProperty("start_on")
-    private LocalDate startDate;
+    private LocalDate startOn;
     private ScheduleStatus status;
     private TransferSchedule transfer;
 
@@ -58,12 +58,12 @@ public class Schedule extends Model {
         this.charge = charge;
     }
 
-    public LocalDate getEndDate() {
-        return this.endDate;
+    public LocalDate getEndOn() {
+        return this.endOn;
     }
 
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setEndOn(LocalDate endOn) {
+        this.endOn = endOn;
     }
 
     public DateTime getEndedAt() {
@@ -98,12 +98,12 @@ public class Schedule extends Model {
         this.location = location;
     }
 
-    public List<String> getNextOccurrencesDates() {
-        return this.nextOccurrencesDates;
+    public List<String> getNextOccurrencesOn() {
+        return this.nextOccurrencesOn;
     }
 
-    public void setNextOccurrencesDates(List<String> nextOccurrencesDates) {
-        this.nextOccurrencesDates = nextOccurrencesDates;
+    public void setNextOccurrencesOn(List<String> nextOccurrencesOn) {
+        this.nextOccurrencesOn = nextOccurrencesOn;
     }
 
     public ScopedList<Occurrence> getOccurrences() {
@@ -130,12 +130,12 @@ public class Schedule extends Model {
         this.period = period;
     }
 
-    public LocalDate getStartDate() {
-        return this.startDate;
+    public LocalDate getStartOn() {
+        return this.startOn;
     }
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
+    public void setStartOn(LocalDate startOn) {
+        this.startOn = startOn;
     }
 
     public ScheduleStatus getStatus() {

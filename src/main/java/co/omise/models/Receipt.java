@@ -41,7 +41,7 @@ public class Receipt extends Model {
     @JsonProperty("customer_tax_id")
     private String customerTaxId;
     @JsonProperty("issued_on")
-    private LocalDate issuedDate;
+    private LocalDate issuedOn;
     private String location;
     private String number;
     private long subtotal;
@@ -149,12 +149,12 @@ public class Receipt extends Model {
         this.customerTaxId = customerTaxId;
     }
 
-    public LocalDate IssuedDate() {
-        return this.issuedDate;
+    public LocalDate IssuedOn() {
+        return this.issuedOn;
     }
 
-    public void setIssuedDate(LocalDate issuedDate) {
-        this.issuedDate = issuedDate;
+    public void setIssuedOn(LocalDate issuedOn) {
+        this.issuedOn = issuedOn;
     }
 
     public String getLocation() {

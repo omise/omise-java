@@ -67,7 +67,7 @@ public class DisputeRequestTest extends RequestTest {
 
         DateTimeFormatter formatter = Serializer.defaultSerializer().dateTimeFormatter();
         LocalDateTime closedAt = LocalDateTime.parse("2015-03-23T01:24:39Z", formatter);
-        assertEquals(closedAt, dispute.getClosedDate().toLocalDateTime());
+        assertEquals(closedAt, dispute.getClosedAt().toLocalDateTime());
     }
 
     @Test

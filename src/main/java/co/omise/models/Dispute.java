@@ -25,7 +25,7 @@ public class Dispute extends Model {
     private long amount;
     private String charge;
     @JsonProperty("closed_at")
-    private DateTime closedDate;
+    private DateTime closedAt;
     private String currency;
     private ScopedList<Document> documents;
     @JsonProperty("funding_amount")
@@ -66,12 +66,12 @@ public class Dispute extends Model {
         this.charge = charge;
     }
 
-    public DateTime getClosedDate() {
-        return this.closedDate;
+    public DateTime getClosedAt() {
+        return this.closedAt;
     }
 
-    public void setClosedDate(DateTime closedDate) {
-        this.closedDate = closedDate;
+    public void setClosedAt(DateTime closedAt) {
+        this.closedAt = closedAt;
     }
 
     public String getCurrency() {

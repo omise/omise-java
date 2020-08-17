@@ -26,10 +26,10 @@ public class Occurrence extends Model {
     private DateTime processedAt;
     private String result;
     @JsonProperty("retry_on")
-    private LocalDate retryDate;
+    private LocalDate retryOn;
     private String schedule;
     @JsonProperty("scheduled_on")
-    private LocalDate scheduleDate;
+    private LocalDate scheduledOn;
     private OccurrenceStatus status;
 
     public String getLocation() {
@@ -64,12 +64,12 @@ public class Occurrence extends Model {
         this.result = result;
     }
 
-    public LocalDate getRetryDate() {
-        return this.retryDate;
+    public LocalDate getRetryOn() {
+        return this.retryOn;
     }
 
-    public void setRetryDate(LocalDate retryDate) {
-        this.retryDate = retryDate;
+    public void setRetryOn(LocalDate retryOn) {
+        this.retryOn = retryOn;
     }
 
     public String getSchedule() {
@@ -80,12 +80,12 @@ public class Occurrence extends Model {
         this.schedule = schedule;
     }
 
-    public LocalDate getScheduleDate() {
-        return this.scheduleDate;
+    public LocalDate getScheduledOn() {
+        return this.scheduledOn;
     }
 
-    public void setScheduleDate(LocalDate scheduleDate) {
-        this.scheduleDate = scheduleDate;
+    public void setScheduledOn(LocalDate scheduledOn) {
+        this.scheduledOn = scheduledOn;
     }
 
     public OccurrenceStatus getStatus() {
