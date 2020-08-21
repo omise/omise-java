@@ -6,7 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 
 group 'co.omise'
-version '3.1.1'
+version '4.0.0'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -45,6 +45,11 @@ distributions {
 }
 
 signing {
+    def signingKey = System.getenv("PGP_SIGNING_KEY")
+    def signingPwd = System.getenv("PGP_SIGNING_PASSWORD")
+
+    useInMemoryPgpKeys(signingKey, signingPwd)
+
     sign configurations.archives
 }
 
@@ -57,14 +62,15 @@ uploadArchives {
     repositories.mavenDeployer {
         beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        if (project.properties.containsKey('ossrhUsername') && project.properties.containsKey('ossrhPassword')) {
-            repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+        def ossrhUsername = System.getenv("SONATYPE_USERNAME")
+        def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
 
-            snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
+
+        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
         }
 
         pom.project {
@@ -90,8 +96,8 @@ uploadArchives {
             developers {
                 developer {
                     id 'chakrit'
-                    name 'Chakrit Wichian'
-                    email 'chakrit@omise.co'
+                    name 'Omise'
+                    email 'support@omise.co'
                 }
             }
         }
