@@ -9,7 +9,11 @@ import com.google.common.collect.Maps;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Map;
 
 public class SerializationTest extends OmiseTest {
@@ -20,6 +24,8 @@ public class SerializationTest extends OmiseTest {
             byte[] sampleBytes = getResourceBytes(objectJsonName(testcase.getValue()));
             OmiseObject instance = serializer.deserialize(new ByteArrayInputStream(sampleBytes), testcase.getValue());
 
+            assertSerializable(instance);
+
             Map<String, Object> map = serializer.serializeToMap(instance);
             Map<String, Object> comparison = serializer.objectMapper().readValue(sampleBytes, new TypeReference<Map<String, Object>>() {
             });
@@ -29,6 +35,7 @@ public class SerializationTest extends OmiseTest {
     }
 
     private void assertMapEquals(String prefix, Map<String, Object> expectedMap, Map<String, Object> actualMap) {
+
         MapDifference<String, Object> differences = Maps.difference(expectedMap, actualMap);
         if (differences.entriesDiffering().size() == 0 && differences.entriesOnlyOnLeft().size() == 0) {
             return; // all good : )
@@ -86,5 +93,18 @@ public class SerializationTest extends OmiseTest {
             String fileName = klass.getSimpleName().replaceAll("([A-Z])", "_$1").toLowerCase().substring(1);
             return "/testdata/objects/" + fileName + "_object.json";
         }
+    }
+
+    /**
+     * Check if object is serializable
+     *
+     * @param instance
+     * @throws NotSerializableException
+     */
+    private void assertSerializable(OmiseObject instance) throws IOException, NotSerializableException {
+        OutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream stream = new ObjectOutputStream(out);
+
+        stream.writeObject(instance);
     }
 }
