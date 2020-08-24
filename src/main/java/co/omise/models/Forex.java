@@ -3,48 +3,64 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
+
+/**
+ * Forex object
+ *
+ * @see <a href="https://www.omise.co/forex-api">Forex API</a>
+ */
 public class Forex extends Model {
-    private double rate;
     private String base;
+    private String location;
     private String quote;
-
-    public Forex() {
-    }
+    private Double rate;
 
     public String getBase() {
-        return base;
+        return this.base;
     }
 
     public void setBase(String base) {
         this.base = base;
     }
 
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getQuote() {
-        return quote;
+        return this.quote;
     }
 
     public void setQuote(String quote) {
         this.quote = quote;
     }
 
-    public double getRate() {
-        return rate;
+    public Double getRate() {
+        return this.rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
-    /**
-     * The {@link RequestBuilder} class for getting the exchange rate of a particular currency.
-     */
     public static class GetRequestBuilder extends RequestBuilder<Forex> {
         private String currency;
-
         public GetRequestBuilder(String currency) {
             this.currency = currency;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
         }
 
         @Override

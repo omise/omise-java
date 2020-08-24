@@ -25,6 +25,7 @@
       "start_on": "2017-10-20",
       "end_on": "2116-10-20",
       "charge": {
+        "object": "scheduled_charge",
         "amount": 2000,
         "currency": "thb",
         "description": null,
@@ -235,7 +236,8 @@
         "currency": "thb",
         "description": null,
         "customer": "cust_test_59wuazdrsyt6064lih7",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -399,7 +401,8 @@
         "currency": "thb",
         "description": null,
         "customer": "cust_test_59wupnjgzf48bfm0uu0",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -563,7 +566,8 @@
         "currency": "thb",
         "description": "Test schedule",
         "customer": "cust_test_5d071802px8vu1uxvof",
-        "card": "card_test_5d071cqejxmlzgt1wk0"
+        "card": "card_test_5d071cqejxmlzgt1wk0",
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -631,7 +635,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d071802px8vu1uxvof",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -672,7 +677,8 @@
         "recipient": "recp_test_59cjdciys3wm0x2ehvw",
         "amount": 100000,
         "percentage_of_balance": null,
-        "currency": "thb"
+        "currency": "thb",
+        "object": "scheduled_transfer"
       },
       "occurrences": {
         "object": "list",
@@ -722,7 +728,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d085fcqmskqlbi4470",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -790,7 +797,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d085oblrecygubtool",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -858,7 +866,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d08c0racxzruddcw5o",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -895,7 +904,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d08gm3rhellm7k69rw",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",
@@ -963,7 +973,8 @@
         "currency": "thb",
         "description": "Monthly membership fee",
         "customer": "cust_test_5d08gq1yhru5he6biyp",
-        "card": null
+        "card": null,
+        "object": "scheduled_charge"
       },
       "occurrences": {
         "object": "list",

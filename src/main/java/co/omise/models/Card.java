@@ -13,110 +13,71 @@ import org.joda.time.YearMonth;
 import java.io.IOException;
 
 /**
- * Represents Omise Card object.
+ * Card object
  *
- * @see <a href="https://www.omise.co/cards-api">Cards API</a>
+ * @see <a href="https://www.omise.co/cards-api">Card API</a>
  */
 public class Card extends Model {
-    private String country;
-    private String city;
     private String bank;
-    @JsonProperty("postal_code")
-    private String postalCode;
-    private String financing;
-    @JsonProperty("first_digits")
-    private String firstDigits;
-    @JsonProperty("last_digits")
-    private String lastDigits;
     private String brand;
+    private String city;
+    private String country;
     @JsonProperty("expiration_month")
     private int expirationMonth;
     @JsonProperty("expiration_year")
     private int expirationYear;
+    private String financing;
     private String fingerprint;
+    @JsonProperty("first_digits")
+    private String firstDigits;
+    @JsonProperty("last_digits")
+    private String lastDigits;
+    private String location;
     private String name;
-    @JsonProperty("security_code_check")
-    private boolean securityCodeCheck;
-    private String street1;
-    private String street2;
-    private String state;
     @JsonProperty("phone_number")
     private String phoneNumber;
-
-    public Card() {
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
+    @JsonProperty("postal_code")
+    private String postalCode;
+    @JsonProperty("security_code_check")
+    private boolean securityCodeCheck;
+    private String state;
+    private String street1;
+    private String street2;
 
     public String getBank() {
-        return bank;
+        return this.bank;
     }
 
     public void setBank(String bank) {
         this.bank = bank;
     }
 
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public String getFinancing() {
-        return financing;
-    }
-
-    public void setFinancing(String financing) {
-        this.financing = financing;
-    }
-
-    public String getFirstDigits() {
-        return firstDigits;
-    }
-
-    public void setFirstDigits(String firstDigits) {
-        this.firstDigits = firstDigits;
-    }
-
-    public String getLastDigits() {
-        return lastDigits;
-    }
-
-    public void setLastDigits(String lastDigits) {
-        this.lastDigits = lastDigits;
-    }
-
     public String getBrand() {
-        return brand;
+        return this.brand;
     }
 
     public void setBrand(String brand) {
         this.brand = brand;
     }
 
-    @JsonIgnore
-    public YearMonth getExpiration() {
-        return new YearMonth(expirationYear, expirationMonth);
+    public String getCity() {
+        return this.city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public int getExpirationMonth() {
-        return expirationMonth;
+        return this.expirationMonth;
     }
 
     public void setExpirationMonth(int expirationMonth) {
@@ -124,35 +85,91 @@ public class Card extends Model {
     }
 
     public int getExpirationYear() {
-        return expirationYear;
+        return this.expirationYear;
     }
 
     public void setExpirationYear(int expirationYear) {
         this.expirationYear = expirationYear;
     }
 
+    public String getFinancing() {
+        return this.financing;
+    }
+
+    public void setFinancing(String financing) {
+        this.financing = financing;
+    }
+
     public String getFingerprint() {
-        return fingerprint;
+        return this.fingerprint;
     }
 
     public void setFingerprint(String fingerprint) {
         this.fingerprint = fingerprint;
     }
 
+    public String getFirstDigits() {
+        return this.firstDigits;
+    }
+
+    public void setFirstDigits(String firstDigits) {
+        this.firstDigits = firstDigits;
+    }
+
+    public String getLastDigits() {
+        return this.lastDigits;
+    }
+
+    public void setLastDigits(String lastDigits) {
+        this.lastDigits = lastDigits;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
+    public String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPostalCode() {
+        return this.postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     public boolean isSecurityCodeCheck() {
-        return securityCodeCheck;
+        return this.securityCodeCheck;
     }
 
     public void setSecurityCodeCheck(boolean securityCodeCheck) {
         this.securityCodeCheck = securityCodeCheck;
+    }
+
+    public String getState() {
+        return this.state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getStreet1() {
@@ -171,61 +188,55 @@ public class Card extends Model {
         this.street2 = street2;
     }
 
-    public String getState() {
-        return this.state;
+    @JsonIgnore
+    public YearMonth getExpiration() {
+        return new YearMonth(expirationYear, expirationMonth);
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    // Duplicated, for now. Since we don't people trying to update card numbers.
     public static class Create extends co.omise.models.Params {
         @JsonProperty
-        private String name;
-        @JsonProperty
-        private String number;
-        @JsonProperty("security_code")
-        private String securityCode;
-        @JsonProperty
         private String city;
-        @JsonProperty("postal_code")
-        private String postalCode;
+
+        @JsonProperty
+        private String country;
+
         @JsonProperty("expiration_month")
         private int expirationMonth;
+
         @JsonProperty("expiration_year")
         private int expirationYear;
 
-        public Create name(String name) {
-            this.name = name;
-            return this;
-        }
+        @JsonProperty
+        private String name;
 
-        public Create number(String number) {
-            this.number = number;
-            return this;
-        }
+        @JsonProperty
+        private String number;
 
-        public Create securityCode(String code) {
-            this.securityCode = code;
-            return this;
-        }
+        @JsonProperty("phone_number")
+        private String phoneNumber;
+
+        @JsonProperty("postal_code")
+        private String postalCode;
+
+        @JsonProperty("security_code")
+        private String securityCode;
+
+        @JsonProperty
+        private String state;
+
+        @JsonProperty
+        private String street1;
+
+        @JsonProperty
+        private String street2;
 
         public Create city(String city) {
             this.city = city;
             return this;
         }
 
-        public Create postalCode(String postalCode) {
-            this.postalCode = postalCode;
+        public Create country(String country) {
+            this.country = country;
             return this;
         }
 
@@ -239,27 +250,68 @@ public class Card extends Model {
             return this;
         }
 
+        public Create name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Create number(String number) {
+            this.number = number;
+            return this;
+        }
+
+        public Create phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public Create postalCode(String postalCode) {
+            this.postalCode = postalCode;
+            return this;
+        }
+
+        public Create securityCode(String securityCode) {
+            this.securityCode = securityCode;
+            return this;
+        }
+
+        public Create state(String state) {
+            this.state = state;
+            return this;
+        }
+
+        public Create street1(String street1) {
+            this.street1 = street1;
+            return this;
+        }
+
+        public Create street2(String street2) {
+            this.street2 = street2;
+            return this;
+        }
+
         public Create expiration(YearMonth expiration) {
             return expirationMonth(expiration.getMonthOfYear())
-                    .expirationYear(expiration.getYear());
+               .expirationYear(expiration.getYear());
         }
 
         public Create expiration(int month, int year) {
             return expirationMonth(month)
-                    .expirationYear(year);
+               .expirationYear(year);
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Card.
-     */
-    public static class GetRequestBuilder extends RequestBuilder<Card> {
-        private String cardId;
+    public static class DeleteRequestBuilder extends RequestBuilder<Card> {
         private String customerId;
-
-        public GetRequestBuilder(String cardId, String customerId) {
-            this.cardId = cardId;
+        private String cardId;
+        public DeleteRequestBuilder(String customerId, String cardId) {
             this.customerId = customerId;
+            this.cardId = cardId;
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
         }
 
         @Override
@@ -273,42 +325,47 @@ public class Card extends Model {
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for updating a particular Card.
-     */
-    public static class UpdateRequestBuilder extends RequestBuilder<Card> {
-        private String cardId;
+    public static class GetRequestBuilder extends RequestBuilder<Card> {
         private String customerId;
+        private String cardId;
+        public GetRequestBuilder(String customerId, String cardId) {
+            this.customerId = customerId;
+            this.cardId = cardId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
+        }
+    }
+
+    public static class UpdateRequestBuilder extends RequestBuilder<Card> {
+        private String customerId;
+        private String cardId;
 
         @JsonProperty
-        private String name;
-        @JsonProperty
         private String city;
-        @JsonProperty("postal_code")
-        private String postalCode;
         @JsonProperty("expiration_month")
         private int expirationMonth;
         @JsonProperty("expiration_year")
         private int expirationYear;
-
-        public UpdateRequestBuilder(String cardId, String customerId) {
-            this.cardId = cardId;
+        @JsonProperty
+        private String name;
+        @JsonProperty("postal_code")
+        private String postalCode;
+        public UpdateRequestBuilder(String customerId, String cardId) {
             this.customerId = customerId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
-        }
-
-        @Override
-        protected ResponseType<Card> type() {
-            return new ResponseType<>(Card.class);
+            this.cardId = cardId;
         }
 
         @Override
@@ -316,18 +373,18 @@ public class Card extends Model {
             return PATCH;
         }
 
-        public UpdateRequestBuilder name(String name) {
-            this.name = name;
-            return this;
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
+        }
+
+        @Override
+        protected ResponseType<Card> type() {
+            return new ResponseType<>(Card.class);
         }
 
         public UpdateRequestBuilder city(String city) {
             this.city = city;
-            return this;
-        }
-
-        public UpdateRequestBuilder postalCode(String postalCode) {
-            this.postalCode = postalCode;
             return this;
         }
 
@@ -341,55 +398,42 @@ public class Card extends Model {
             return this;
         }
 
+        public UpdateRequestBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UpdateRequestBuilder postalCode(String postalCode) {
+            this.postalCode = postalCode;
+            return this;
+        }
+
         public UpdateRequestBuilder expiration(YearMonth expiration) {
             return expirationMonth(expiration.getMonthOfYear())
-                    .expirationYear(expiration.getYear());
+               .expirationYear(expiration.getYear());
         }
 
         public UpdateRequestBuilder expiration(int month, int year) {
             return expirationMonth(month)
-                    .expirationYear(year);
+               .expirationYear(year);
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
         }
     }
 
-    /**
-     * The {@link RequestBuilder} class for deleting a particular Customer.
-     */
-    public static class DeleteRequestBuilder extends RequestBuilder<Card> {
-        private String cardId;
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
         private String customerId;
-
-        public DeleteRequestBuilder(String cardId, String customerId) {
-            this.cardId = cardId;
+        private ScopedList.Options options;
+        public ListRequestBuilder(String customerId) {
             this.customerId = customerId;
-        }
-
-        @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
-        }
-
-        @Override
-        protected ResponseType<Card> type() {
-            return new ResponseType<>(Card.class);
         }
 
         @Override
         protected String method() {
-            return DELETE;
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving all Cards that belong to a customer.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
-        private String customerId;
-
-        private ScopedList.Options options;
-
-        public ListRequestBuilder(String customerId) {
-            this.customerId = customerId;
+            return GET;
         }
 
         @Override
@@ -397,12 +441,10 @@ public class Card extends Model {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-
-            return new HttpUrlBuilder(
-                    Endpoint.API, "customers", serializer())
-                    .segments(customerId, "cards")
-                    .params(options)
-                    .build();
+            return new HttpUrlBuilder(Endpoint.API, "customers", serializer())
+                  .segments(customerId, "cards")
+                  .params(options)
+                  .build();
         }
 
         @Override

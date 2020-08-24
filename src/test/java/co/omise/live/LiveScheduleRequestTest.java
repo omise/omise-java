@@ -81,7 +81,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
@@ -129,7 +129,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
@@ -172,7 +172,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
@@ -196,7 +196,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
     @Test
     @Ignore("only hit the network when we need to.")
     public void testLiveChargeScheduleListGet() throws IOException, OmiseException {
-        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+        Request<ScopedList<Schedule>> request = new Charge.ListSchedulesRequestBuilder().build();
 
         ScopedList<Schedule> scheduleList = client.sendRequest(request);
 
@@ -214,7 +214,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .limit(3)
                 .order(Ordering.Chronological);
         Request<ScopedList<Schedule>> request =
-                new Schedule.ChargeScheduleListRequestBuilder()
+                new Charge.ListSchedulesRequestBuilder()
                         .options(options)
                         .build();
         ScopedList<Schedule> transactions = client.sendRequest(request);
@@ -249,7 +249,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
@@ -296,7 +296,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
@@ -344,7 +344,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .transfer(new TransferScheduling.Params()
+                .transfer(new TransferSchedule.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
                 )
@@ -379,7 +379,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .transfer(new TransferScheduling.Params()
+                .transfer(new TransferSchedule.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
                 )
@@ -422,7 +422,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .transfer(new TransferScheduling.Params()
+                .transfer(new TransferSchedule.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
                 )
@@ -461,7 +461,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 1))
-                .transfer(new TransferScheduling.Params()
+                .transfer(new TransferSchedule.Params()
                         .amount(2000L)
                         .recipient(recipient.getId())
                 )

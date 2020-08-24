@@ -470,7 +470,7 @@ final class Example {
     }
 
     void listChargeSchedule() throws IOException, ClientException, OmiseException {
-        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+        Request<ScopedList<Schedule>> request = new Charge.ListSchedulesRequestBuilder().build();
 
         ScopedList<Schedule> schedules = client().sendRequest(request);
         System.out.printf("total no. of charge schedules: %d", schedules.getTotal());
@@ -504,7 +504,7 @@ final class Example {
                 .on(new ScheduleOn.Params().daysOfMonth(2))
                 .startDate(LocalDate.parse("2017-04-27"))
                 .endDate(LocalDate.parse("2018-04-27"))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer("cust_test_55bb3hkywglfyyachha")
                         .amount(88800)
                         .description("Monthly membership fee"))

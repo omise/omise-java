@@ -13,6 +13,8 @@ public enum SourceType {
     Alipay,
     @JsonProperty("barcode_alipay")
     BarcodeAlipay,
+    @JsonProperty("barcode_wechat")
+    BarcodeWechat,
     @JsonProperty("bill_payment_tesco_lotus")
     BillPaymentTescoLotus,
     @JsonProperty("econtext")
@@ -39,16 +41,16 @@ public enum SourceType {
     Paynow,
     @JsonProperty("points_citi")
     PointsCiti,
-    @JsonProperty("truemoney")
-    TrueMoney,
     @JsonProperty("promptpay")
-    PromptPay;
+    PromptPay,
+    @JsonProperty("truemoney")
+    TrueMoney;
 
     @Override
     public String toString() {
         String name = super.toString();
         Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
+        for(Field field : fields) {
             if (field.getName() == name && field.isAnnotationPresent(JsonProperty.class)) {
                 return field.getAnnotation(JsonProperty.class).value();
             }

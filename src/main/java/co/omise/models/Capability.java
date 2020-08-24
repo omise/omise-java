@@ -5,34 +5,51 @@ import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
+import okhttp3.RequestBody;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
- * Represents Omise Capability object and contains its {@link RequestBuilder}
+ * Capability object
  *
  * @see <a href="https://www.omise.co/capability-api">Capability API</a>
  */
 public class Capability extends Model {
     private List<String> banks;
+    private String country;
+    private String location;
     @JsonProperty("payment_methods")
     private List<PaymentMethod> paymentMethods;
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
 
-    public Capability() {
-    }
-
     public List<String> getBanks() {
-        return banks;
+        return this.banks;
     }
 
     public void setBanks(List<String> banks) {
         this.banks = banks;
     }
 
+    public String getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     public List<PaymentMethod> getPaymentMethods() {
-        return paymentMethods;
+        return this.paymentMethods;
     }
 
     public void setPaymentMethods(List<PaymentMethod> paymentMethods) {
@@ -40,7 +57,7 @@ public class Capability extends Model {
     }
 
     public boolean isZeroInterestInstallments() {
-        return zeroInterestInstallments;
+        return this.zeroInterestInstallments;
     }
 
     public void setZeroInterestInstallments(boolean zeroInterestInstallments) {
@@ -48,6 +65,11 @@ public class Capability extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Capability> {
+
+        @Override
+        protected String method() {
+            return GET;
+        }
 
         @Override
         protected HttpUrl path() {

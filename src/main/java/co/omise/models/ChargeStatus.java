@@ -3,9 +3,16 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum ChargeStatus {
-    @JsonProperty("failed")Failed,
-    @JsonProperty("pending")Pending,
-    @JsonProperty("successful")Successful,
-    @JsonProperty("reversed")Reversed,
-    @JsonProperty("expired")Expired,
+    @JsonProperty("expired")
+    Expired,
+    @JsonProperty("failed")
+    Failed,
+    @JsonProperty("pending")
+    Pending,
+    @JsonProperty("reversed")
+    Reversed,
+    @JsonProperty("successful")
+    Successful,
+    @JsonProperty("unknown")
+    Unknown;
 }

@@ -7,106 +7,195 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 
 /**
- * Represents Omise Link object.
+ * Links object
  *
- * @see <a href="https://www.omise.co/links-api">Link API</a>
+ * @see <a href="https://www.omise.co/links-api">Links API</a>
  */
 public class Link extends Model {
     private long amount;
-    private String currency;
-    private boolean used;
-    private boolean multiple;
-    private String title;
-    private String description;
     private ScopedList<Charge> charges;
+    private String currency;
+    private String description;
+    private String location;
+    private boolean multiple;
     @JsonProperty("payment_uri")
     private String paymentUri;
-
-    public Link() {
-    }
+    private String title;
+    private boolean used;
+    @JsonProperty("used_at")
+    private DateTime usedAt;
 
     public long getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(long amount) {
         this.amount = amount;
     }
 
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    public boolean isUsed() {
-        return used;
-    }
-
-    public void setUsed(boolean used) {
-        this.used = used;
-    }
-
-    public boolean isMultiple() {
-        return multiple;
-    }
-
-    public void setMultiple(boolean multiple) {
-        this.multiple = multiple;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public ScopedList<Charge> getCharges() {
-        return charges;
+        return this.charges;
     }
 
     public void setCharges(ScopedList<Charge> charges) {
         this.charges = charges;
     }
 
+    public String getCurrency() {
+        return this.currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isMultiple() {
+        return this.multiple;
+    }
+
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
+    }
+
     public String getPaymentUri() {
-        return paymentUri;
+        return this.paymentUri;
     }
 
     public void setPaymentUri(String paymentUri) {
         this.paymentUri = paymentUri;
     }
 
-    /**
-     * The {@link RequestBuilder} class for creating a Link.
-     */
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isUsed() {
+        return this.used;
+    }
+
+    public void setUsed(boolean used) {
+        this.used = used;
+    }
+
+    public DateTime getUsedAt() {
+        return this.usedAt;
+    }
+
+    public void setUsedAt(DateTime usedAt) {
+        this.usedAt = usedAt;
+    }
+
+    public static class DeleteRequestBuilder extends RequestBuilder<Link> {
+        private String linkId;
+        public DeleteRequestBuilder(String linkId) {
+            this.linkId = linkId;
+        }
+
+        @Override
+        protected String method() {
+            return DELETE;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "links", linkId);
+        }
+
+        @Override
+        protected ResponseType<Link> type() {
+            return new ResponseType<>(Link.class);
+        }
+    }
+
+    public static class GetRequestBuilder extends RequestBuilder<Link> {
+        private String linkId;
+        public GetRequestBuilder(String linkId) {
+            this.linkId = linkId;
+        }
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            return buildUrl(Endpoint.API, "links", linkId);
+        }
+
+        @Override
+        protected ResponseType<Link> type() {
+            return new ResponseType<>(Link.class);
+        }
+    }
+
+    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
+        private ScopedList.Options options;
+
+        @Override
+        protected String method() {
+            return GET;
+        }
+
+        @Override
+        protected HttpUrl path() {
+            if (options == null) {
+                options = new ScopedList.Options();
+            }
+            return new HttpUrlBuilder(Endpoint.API, "links", serializer())
+                  .segments()
+                  .params(options)
+                  .build();
+        }
+
+        @Override
+        protected ResponseType<ScopedList<Link>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Link>>() {});
+        }
+
+        public ListRequestBuilder options(ScopedList.Options options) {
+            this.options = options;
+            return this;
+        }
+    }
+
     public static class CreateRequestBuilder extends RequestBuilder<Link> {
+
         @JsonProperty
         private long amount;
         @JsonProperty
         private String currency;
         @JsonProperty
-        private String title;
-        @JsonProperty
         private String description;
         @JsonProperty
-        private Boolean multiple;
+        private boolean multiple;
+        @JsonProperty
+        private String title;
 
         @Override
         protected String method() {
@@ -116,11 +205,6 @@ public class Link extends Model {
         @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "links");
-        }
-
-        @Override
-        protected RequestBody payload() throws IOException {
-            return serialize();
         }
 
         @Override
@@ -138,11 +222,6 @@ public class Link extends Model {
             return this;
         }
 
-        public CreateRequestBuilder title(String title) {
-            this.title = title;
-            return this;
-        }
-
         public CreateRequestBuilder description(String description) {
             this.description = description;
             return this;
@@ -152,50 +231,47 @@ public class Link extends Model {
             this.multiple = multiple;
             return this;
         }
+
+        public CreateRequestBuilder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
-    /**
-     * The {@link RequestBuilder} class for retrieving a particular Link.
-     */
-    public static class GetRequestBuilder extends RequestBuilder<Link> {
+    public static class ListChargesRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
         private String linkId;
-
-        public GetRequestBuilder(String linkId) {
+        private ScopedList.Options options;
+        public ListChargesRequestBuilder(String linkId) {
             this.linkId = linkId;
         }
 
         @Override
-        protected HttpUrl path() {
-            return buildUrl(Endpoint.API, "links", linkId);
+        protected String method() {
+            return GET;
         }
-
-        @Override
-        protected ResponseType<Link> type() {
-            return new ResponseType<>(Link.class);
-        }
-    }
-
-    /**
-     * The {@link RequestBuilder} class for retrieving all Links that belong to an account.
-     */
-    public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
-        private ScopedList.Options options;
 
         @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
             }
-
-            return buildUrl(Endpoint.API, "links", options);
+            return new HttpUrlBuilder(Endpoint.API, "links", serializer())
+                  .segments(linkId, "charges")
+                  .params(options)
+                  .build();
         }
 
         @Override
-        protected ResponseType<ScopedList<Link>> type() {
-            return new ResponseType<>(new TypeReference<ScopedList<Link>>() {});
+        protected ResponseType<ScopedList<Charge>> type() {
+            return new ResponseType<>(new TypeReference<ScopedList<Charge>>() {});
         }
 
-        public ListRequestBuilder options(ScopedList.Options options) {
+        public ListChargesRequestBuilder options(ScopedList.Options options) {
             this.options = options;
             return this;
         }

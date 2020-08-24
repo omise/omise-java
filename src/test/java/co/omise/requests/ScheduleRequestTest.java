@@ -1,5 +1,6 @@
 package co.omise.requests;
 
+import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.schedules.*;
@@ -32,7 +33,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(ScheduleStatus.Running, schedule.getStatus());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.Month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrencesDates().size());
+        assertEquals(11, schedule.getNextOccurrencesOn().size());
     }
 
     @Test
@@ -53,7 +54,7 @@ public class ScheduleRequestTest extends RequestTest {
                 .on(new ScheduleOn.Params().daysOfMonth(2))
                 .startDate(LocalDate.parse("2017-04-27"))
                 .endDate(LocalDate.parse("2018-04-27"))
-                .charge(new ChargeScheduling.Params()
+                .charge(new ChargeSchedule.Params()
                         .customer("cust_test_55bb3hkywglfyyachha")
                         .amount(88800)
                         .description("Monthly membership fee"))
@@ -66,7 +67,7 @@ public class ScheduleRequestTest extends RequestTest {
         assertEquals(SCHEDULE_ID, schedule.getId());
         assertEquals(1, schedule.getEvery());
         assertEquals(SchedulePeriod.Month, schedule.getPeriod());
-        assertEquals(11, schedule.getNextOccurrencesDates().size());
+        assertEquals(11, schedule.getNextOccurrencesOn().size());
     }
 
     @Test
@@ -83,7 +84,7 @@ public class ScheduleRequestTest extends RequestTest {
 
     @Test
     public void testChargeScheduleList() throws IOException, OmiseException {
-        Request<ScopedList<Schedule>> request = new Schedule.ChargeScheduleListRequestBuilder().build();
+        Request<ScopedList<Schedule>> request = new Charge.ListSchedulesRequestBuilder().build();
 
         ScopedList<Schedule> schedules = requester.sendRequest(request);
 
