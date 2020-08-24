@@ -2,7 +2,9 @@ package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlatformFee {
+import java.io.Serializable;
+
+public class PlatformFee implements Serializable {
     private long amount;
     private long fixed;
     private Double percentage;
