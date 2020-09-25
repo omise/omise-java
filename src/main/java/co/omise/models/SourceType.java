@@ -74,6 +74,8 @@ public enum SourceType {
                 return "installment_ktc";
             case InstKBank:
                 return "installment_kbank";
+            case InstScb:
+                return "installment_scb";
             case Paynow:
                 return "paynow";
             case PointsCiti:
