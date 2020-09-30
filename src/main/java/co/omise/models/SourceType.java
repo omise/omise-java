@@ -31,6 +31,8 @@ public enum SourceType {
     InstallmentKtc,
     @JsonProperty("installment_scb")
     InstallmentScb,
+    @JsonProperty("installment_citi")
+    InstallmentCiti,
     @JsonProperty("internet_banking_bay")
     InternetBankingBay,
     @JsonProperty("internet_banking_bbl")
