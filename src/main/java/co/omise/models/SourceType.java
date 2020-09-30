@@ -33,7 +33,7 @@ public enum SourceType {
     @JsonProperty("installment_kbank")
     InstKBank,
     @JsonProperty("installment_citi")
-    InstCiti
+    InstCiti,
     @JsonEnumDefaultValue
     Unknown,
     @JsonProperty("paynow")
