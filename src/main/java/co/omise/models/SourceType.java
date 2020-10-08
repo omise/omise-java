@@ -32,6 +32,8 @@ public enum SourceType {
     InstKtc,
     @JsonProperty("installment_kbank")
     InstKBank,
+    @JsonProperty("installment_scb")
+    InstScb,
     @JsonProperty("installment_citi")
     InstCiti,
     @JsonEnumDefaultValue
@@ -74,6 +76,10 @@ public enum SourceType {
                 return "installment_ktc";
             case InstKBank:
                 return "installment_kbank";
+            case InstScb:
+                return "installment_scb";
+            case InstCiti:
+                return "installment_citi";
             case Paynow:
                 return "paynow";
             case PointsCiti:
