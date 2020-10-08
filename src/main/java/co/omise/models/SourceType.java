@@ -34,6 +34,8 @@ public enum SourceType {
     InstKBank,
     @JsonProperty("installment_scb")
     InstScb,
+    @JsonProperty("installment_citi")
+    InstCiti,
     @JsonEnumDefaultValue
     Unknown,
     @JsonProperty("paynow")
