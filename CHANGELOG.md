@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v3.1.2
+
+* **NEW** Added `InstScb` and `InstCiti` source types.
+
 ## v3.1.1
 
 * **REMOVED** Removed certificate pinning

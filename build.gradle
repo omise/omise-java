@@ -6,7 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 
 group 'co.omise'
-version '3.1.1'
+version '3.1.2'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
