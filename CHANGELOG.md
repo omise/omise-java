@@ -1,5 +1,17 @@
 # CHANGE LOG
 
+## v4.0.2
+
+* **NEW** Added `InstallmentScb` and `InstallmentCiti` source types.
+
+## v4.0.1
+
+* **FIXED** `PlatformFee` can't be serialized.
+
+## v4.0.0
+
+* See [Migration guide](MIGRATING.md#migrating-from-v3-to-v4)
+
 ## v3.1.1
 
 * **REMOVED** Removed certificate pinning
