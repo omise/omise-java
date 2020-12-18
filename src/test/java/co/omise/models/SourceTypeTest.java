@@ -12,6 +12,7 @@ public class SourceTypeTest {
         assertEquals("internet_banking_ktb", SourceType.InternetBankingKtb.toString());
         assertEquals("internet_banking_bbl", SourceType.InternetBankingBbl.toString());
         assertEquals("internet_banking_scb", SourceType.InternetBankingScb.toString());
+          assertEquals("mobile_banking_scb", SourceType.MobileBankingScb.toString());
         assertEquals("bill_payment_tesco_lotus", SourceType.BillPaymentTescoLotus.toString());
         assertEquals("alipay", SourceType.Alipay.toString());
         assertEquals("barcode_alipay", SourceType.BarcodeAlipay.toString());
