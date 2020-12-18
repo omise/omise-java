@@ -1,5 +1,8 @@
 # CHANGE LOG
 
+#2.7.9
+* **NEW** Added `MobileBankingScb` source type (#124).
+
 #2.7.8
 **NEW** Add metadata fields to Source
 **NEW** Add metadata fields to creating a Source
