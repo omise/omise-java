@@ -12,6 +12,8 @@ public enum SourceType {
     InternetBankingScb,
     @JsonProperty("internet_banking_bbl")
     InternetBankingBbl,
+    @JsonProperty("mobile_banking_scb")
+    MobileBankingScb,
     @JsonProperty("alipay")
     Alipay,
     @JsonProperty("bill_payment_tesco_lotus")
@@ -56,6 +58,8 @@ public enum SourceType {
                 return "internet_banking_scb";
             case InternetBankingBbl:
                 return "internet_banking_bbl";
+            case MobileBankingScb:
+                return "mobile_banking_scb";
             case BillPaymentTescoLotus:
                 return "bill_payment_tesco_lotus";
             case Alipay:
