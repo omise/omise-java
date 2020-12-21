@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v3.1.3
+
+* **NEW** Added `MobileBankingScb` source type (#123).
+
 ## v3.1.2
 
 * **NEW** Added `InstScb` and `InstCiti` source types.
