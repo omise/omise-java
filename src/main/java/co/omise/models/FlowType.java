@@ -6,7 +6,9 @@ public enum FlowType {
     @JsonProperty("offline")
     Offline,
     @JsonProperty("redirect")
-    Redirect;
+    Redirect,
+    @JsonProperty("app_redirect")
+    Offsite;
 
     @Override
     public String toString() {
