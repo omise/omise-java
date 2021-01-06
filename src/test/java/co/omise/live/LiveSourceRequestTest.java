@@ -213,4 +213,24 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("THB", source.getCurrency());
         assertTrue(source.isZeroInterestInstallments());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceMobileBankingScb() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.MobileBankingScb)
+                .amount(10000)
+                .currency("thb")
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("mobile_banking_scb", source.getType().toString());
+        assertEquals("app_redirect", source.getFlow().toString());
+        assertEquals(10000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+    }
 }
