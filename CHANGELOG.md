@@ -1,4 +1,8 @@
 # CHANGE LOG
+## v4.0.4
+
+* **NEW** Added `AppRedirect` flow type (#125).
+
 ## v4.0.3
 
 * **NEW** Added `MobileBankingScb` source type (#121).
