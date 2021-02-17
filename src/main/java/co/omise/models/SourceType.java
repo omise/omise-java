@@ -22,6 +22,8 @@ public enum SourceType {
     BarcodeAlipay,
     @JsonProperty("econtext")
     Econtext,
+    @JsonProperty("fpx")
+    Fpx,
     @JsonProperty("truemoney")
     TrueMoney,
     @JsonProperty("installment_bay")
@@ -68,6 +70,8 @@ public enum SourceType {
                 return "barcode_alipay";
             case Econtext:
                 return "econtext";
+            case Fpx:
+                return "fpx";
             case TrueMoney:
                 return "truemoney";
             case InstBankingBay:

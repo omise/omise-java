@@ -20,6 +20,7 @@ public class Source extends Model {
     private FlowType flow;
     private long amount;
     private String currency;
+    private String bank;
     private String barcode;
     private References references;
     private String email;
@@ -76,6 +77,10 @@ public class Source extends Model {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public String getBank() { return this.bank; }
+
+    public void setBank(String bank) { this.bank = bank; }
 
     public String getBarcode() {
         return barcode;
@@ -176,6 +181,8 @@ public class Source extends Model {
         @JsonProperty
         private String description;
         @JsonProperty
+        private String bank;
+        @JsonProperty
         private String barcode;
         @JsonProperty("store_id")
         private String storeId;
@@ -233,6 +240,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder description(String description) {
             this.description = description;
+            return this;
+        }
+
+        public CreateRequestBuilder bank(String bank) {
+            this.bank = bank;
             return this;
         }
 

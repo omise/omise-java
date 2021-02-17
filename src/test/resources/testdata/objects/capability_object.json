@@ -42,7 +42,8 @@
         8,
         9,
         10
-      ]
+      ],
+      "banks": []
     }
   ],
   "zero_interest_installments": false
