@@ -233,4 +233,28 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals(10000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
     }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceFpx() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.Fpx)
+                .amount(10000)
+                .currency("myr")
+                .bank("cimb")
+                .email("example@omise.co")
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("fpx", source.getType().toString());
+        assertEquals("redirect", source.getFlow().toString());
+        assertEquals(10000L, source.getAmount());
+        assertEquals("MYR", source.getCurrency());
+        assertEquals("cimb", source.getBank());
+        assertEquals("example@omise.co", source.getEmail());
+    }
 }
