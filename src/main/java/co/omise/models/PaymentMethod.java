@@ -16,6 +16,7 @@ public class PaymentMethod extends Model {
     private List<String> cardBrands;
     @JsonProperty("installment_terms")
     private List<Integer> installmentTerms;
+    private List<Bank> banks;
 
     public PaymentMethod() {
     }
@@ -52,5 +53,11 @@ public class PaymentMethod extends Model {
         this.installmentTerms = installmentTerms;
     }
 
+    public List<Bank> getBanks() {
+        return this.banks;
+    }
 
+    public void setBanks(List<Bank> banks) {
+        this.banks = banks;
+    }
 }

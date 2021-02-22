@@ -52,7 +52,8 @@
         "Visa",
         "MasterCard"
       ],
-      "installment_terms": null
+      "installment_terms": null,
+      "banks": []
     },
     {
       "object": "payment_method",
@@ -67,7 +68,8 @@
         6,
         9,
         10
-      ]
+      ],
+      "banks": []
     },
     {
       "object": "payment_method",
@@ -86,7 +88,8 @@
         18,
         24,
         36
-      ]
+      ],
+      "banks": []
     },
     {
       "object": "payment_method",
@@ -100,7 +103,8 @@
         4,
         6,
         10
-      ]
+      ],
+      "banks": []
     },
     {
       "object": "payment_method",
@@ -115,7 +119,8 @@
         8,
         9,
         10
-      ]
+      ],
+      "banks": []
     },
     {
       "object": "payment_method",
@@ -133,6 +138,33 @@
         8,
         9,
         10
+      ],
+      "banks": []
+    },
+    {
+      "object": "payment_method",
+      "name": "fpx",
+      "currencies": [
+        "MYR"
+      ],
+      "card_brands": null,
+      "installment_terms": null,
+      "banks": [
+        {
+          "code": "citi",
+          "name": "Citibank",
+          "active": false
+        },
+        {
+          "code": "hongleong",
+          "name": "Hong Leong Bank",
+          "active": true
+        },
+        {
+          "code": "hsbc",
+          "name": "HSBC Bank",
+          "active": true
+        }
       ]
     }
   ],

@@ -19,5 +19,6 @@ public class SourceTypeTest {
         assertEquals("econtext", SourceType.Econtext.toString());
         assertEquals("truemoney", SourceType.TrueMoney.toString());
         assertEquals("promptpay", SourceType.PromptPay.toString());
+        assertEquals("fpx", SourceType.Fpx.toString());
     }
 }
