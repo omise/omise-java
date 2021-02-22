@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class Source extends Model {
     private long amount;
+    private String bank;
     private String barcode;
     @JsonProperty("charge_status")
     private ChargeStatus chargeStatus;
@@ -51,6 +52,10 @@ public class Source extends Model {
     public void setAmount(long amount) {
         this.amount = amount;
     }
+
+    public String getBank() { return this.bank; }
+
+    public void setBank(String bank) { this.bank = bank; }
 
     public String getBarcode() {
         return this.barcode;
@@ -193,6 +198,8 @@ public class Source extends Model {
         @JsonProperty
         private long amount;
         @JsonProperty
+        private String bank;
+        @JsonProperty
         private String barcode;
         @JsonProperty
         private String currency;
@@ -232,6 +239,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder amount(long amount) {
             this.amount = amount;
+            return this;
+        }
+
+        public CreateRequestBuilder bank(String bank) {
+            this.bank = bank;
             return this;
         }
 

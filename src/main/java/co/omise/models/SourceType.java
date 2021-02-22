@@ -19,6 +19,8 @@ public enum SourceType {
     BillPaymentTescoLotus,
     @JsonProperty("econtext")
     Econtext,
+    @JsonProperty("fpx")
+    Fpx,
     @JsonProperty("installment_bay")
     InstallmentBay,
     @JsonProperty("installment_bbl")
