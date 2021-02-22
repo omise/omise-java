@@ -1,4 +1,10 @@
 # CHANGE LOG
+## v4.0.5
+
+* **NEW** Added `FPX` source type (#127).
+* **NEW** Added `bank` field Source (#127).
+* **NEW** Added support for Capability API (#127).
+
 ## v4.0.4
 
 * **NEW** Added `AppRedirect` flow type (#125).
