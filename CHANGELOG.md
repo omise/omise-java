@@ -1,5 +1,11 @@
 # CHANGE LOG
 
+## v3.1.4
+
+* **NEW** Added `FPX` source type (#128).
+* **NEW** Added `bank` field to Source (#128).
+* **NEW** Added support for Capability API (#128).
+
 ## v3.1.3
 
 * **NEW** Added `MobileBankingScb` source type (#123).
