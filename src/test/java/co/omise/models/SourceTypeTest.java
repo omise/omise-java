@@ -20,5 +20,6 @@ public class SourceTypeTest {
         assertEquals("truemoney", SourceType.TrueMoney.toString());
         assertEquals("promptpay", SourceType.PromptPay.toString());
         assertEquals("fpx", SourceType.Fpx.toString());
+        assertEquals("rabbit_linepay", SourceType.RabbitLinepay.toString());
     }
 }
