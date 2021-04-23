@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v3.1.5
+
+* **NEW** Added `Rabbit Linepay` source type  (#132).
+
 ## v3.1.4
 
 * **NEW** Added `FPX` source type (#128).
