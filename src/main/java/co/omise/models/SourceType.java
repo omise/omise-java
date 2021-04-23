@@ -46,6 +46,8 @@ public enum SourceType {
     Paynow,
     @JsonProperty("points_citi")
     PointsCiti,
+    @JsonProperty("rabbit_linepay")
+    RabbitLinepay,
     @JsonProperty("promptpay")
     PromptPay;
 
