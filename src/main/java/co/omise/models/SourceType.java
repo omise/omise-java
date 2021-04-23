@@ -96,6 +96,8 @@ public enum SourceType {
                 return "points_citi";
             case PromptPay:
                 return "promptpay";
+            case RabbitLinepay:
+                return "rabbit_linepay";
             default:
                 return "";
         }
