@@ -44,7 +44,7 @@ public class Source extends Model {
     private SourceType type;
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
-     @JsonProperty("platform_type")
+    @JsonProperty("platform_type")
     private PlatformType platformType;
 
     public long getAmount() {
