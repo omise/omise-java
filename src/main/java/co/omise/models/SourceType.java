@@ -54,7 +54,19 @@ public enum SourceType {
     @JsonProperty("rabbit_linepay")
     RabbitLinepay,
     @JsonProperty("truemoney")
-    TrueMoney;
+    TrueMoney,
+    @JsonProperty("alipay_cn")
+    AlipayCN,
+    @JsonProperty("alipay_hk")
+    AlipayHK,
+    @JsonProperty("dana")
+    DANA,
+    @JsonProperty("gcash")
+    GCash,
+    @JsonProperty("kakaopay")
+    KakaoPay,
+    @JsonProperty("touch_n_go")
+    TouchNGo;
 
     @Override
     public String toString() {
