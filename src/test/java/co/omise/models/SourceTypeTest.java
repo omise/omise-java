@@ -21,5 +21,11 @@ public class SourceTypeTest {
         assertEquals("promptpay", SourceType.PromptPay.toString());
         assertEquals("fpx", SourceType.Fpx.toString());
         assertEquals("rabbit_linepay", SourceType.RabbitLinepay.toString());
+        assertEquals("alipay_cn", SourceType.AlipayCN.toString());
+        assertEquals("alipay_hk", SourceType.AlipayHK.toString());
+        assertEquals("dana", SourceType.DANA.toString());
+        assertEquals("gcash", SourceType.GCash.toString());
+        assertEquals("kakaopay", SourceType.KakaoPay.toString());
+        assertEquals("touch_n_go", SourceType.TouchNGo.toString());
     }
 }

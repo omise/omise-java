@@ -44,6 +44,8 @@ public class Source extends Model {
     private SourceType type;
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
+    @JsonProperty("platform_type")
+    private PlatformType platformType;
 
     public long getAmount() {
         return this.amount;
@@ -193,6 +195,14 @@ public class Source extends Model {
         this.zeroInterestInstallments = zeroInterestInstallments;
     }
 
+    public PlatformType getPlatformType() {
+        return this.platformType;
+    }
+
+    public void setPlatformType(PlatformType platformType) {
+        this.platformType = platformType;
+    }
+
     public static class CreateRequestBuilder extends RequestBuilder<Source> {
 
         @JsonProperty
@@ -221,6 +231,8 @@ public class Source extends Model {
         private SourceType type;
         @JsonProperty("zero_interest_installments")
         private boolean zeroInterestInstallments;
+        @JsonProperty("platform_type")
+        private PlatformType platformType;
 
         @Override
         protected String method() {
@@ -299,6 +311,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
             this.zeroInterestInstallments = zeroInterestInstallments;
+            return this;
+        }
+
+        public CreateRequestBuilder platformType(PlatformType platformType) {
+            this.platformType = platformType;
             return this;
         }
 
