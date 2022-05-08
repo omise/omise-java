@@ -45,4 +45,22 @@ public class SourceRequestTest extends RequestTest {
         assertEquals("thb", source.getCurrency());
         assertEquals("redirect", source.getFlow().toString());
     }
+
+    @Test
+    public void testCreateMobileBanking() throws IOException, OmiseException {
+        Request<Source> request = new TestSourceRequestBuilder()
+                .type(SourceType.MobileBankingOCBCPAO)
+                .platformType(PlatformType.iOS)
+                .amount(500000)
+                .currency("sgd")
+                .build();
+
+        Source source = getTestRequester().sendRequest(request);
+
+        assertRequested("POST", "/sources/installments", 200);
+        assertEquals(500000L, source.getAmount());
+        assertEquals(SourceType.MobileBankingOCBCPAO, source.getType());
+        assertEquals(PlatformType.iOS, source.getPlatformType());
+        assertEquals("sgd", source.getCurrency());
+    }
 }

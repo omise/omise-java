@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v4.0.8
+
+* **NEW** Added `MobileBankingOCBCPAO` source type to Source.
+
 ## v4.0.7
 
 * **NEW** Added `AlipayCN`, `AlipayHK`, `DANA`, `GCash`, `KakaoPay` and `TouchNGo` source type to Source.
