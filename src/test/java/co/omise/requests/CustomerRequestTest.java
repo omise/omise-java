@@ -54,6 +54,17 @@ public class CustomerRequestTest extends RequestTest {
     }
 
     @Test
+    public void testUpdateCardOnly() throws IOException, OmiseException {
+        Request<Customer> request = new Customer.UpdateRequestBuilder(CUSTOMER_ID)
+                .card("card123")
+                .build();
+        getTestRequester().sendRequest(request);
+
+        assertRequested("PATCH", "/customers/" + CUSTOMER_ID, 200);
+        assertRequestBody("{\"card\":\"card123\"}");
+    }
+
+    @Test
     public void testDestroy() throws IOException, OmiseException {
         Request<Customer> request = new Customer.DeleteRequestBuilder(CUSTOMER_ID).build();
         Customer customer = getTestRequester().sendRequest(request);
