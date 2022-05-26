@@ -4,6 +4,7 @@ import co.omise.Endpoint;
 import co.omise.models.schedules.Schedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
@@ -119,6 +120,7 @@ public class Customer extends Model {
         }
     }
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class UpdateRequestBuilder extends RequestBuilder<Customer> {
         private String customerId;
 

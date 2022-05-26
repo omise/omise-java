@@ -6,7 +6,10 @@ import co.omise.testutils.TestInterceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okio.Buffer;
 import org.junit.Before;
+
+import java.io.IOException;
 
 public class RequestTest extends OmiseTest {
     private TestInterceptor interceptor;
@@ -31,6 +34,19 @@ public class RequestTest extends OmiseTest {
         Response response = interceptor.lastResponse();
         assertNotNull(response);
         assertEquals(code, response.code());
+    }
+
+    protected void assertRequestBody(String expectedRequestBody) {
+        Request request = interceptor.lastRequest();
+        try {
+            final Request copy = request.newBuilder().build();
+            final Buffer buffer = new Buffer();
+            copy.body().writeTo(buffer);
+            final String actualRequestBody = buffer.readUtf8();
+            assertEquals(expectedRequestBody, actualRequestBody);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Requester getTestRequester() {
