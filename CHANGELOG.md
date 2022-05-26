@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v4.0.8
+
+* **FIXED** Fix passing null if email not specified in request (#139)
+
 ## v4.0.7
 
 * **NEW** Added `AlipayCN`, `AlipayHK`, `DANA`, `GCash`, `KakaoPay` and `TouchNGo` source type to Source.
