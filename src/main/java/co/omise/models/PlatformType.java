@@ -11,7 +11,7 @@ public enum PlatformType {
     Unknown,
     @JsonProperty("WEB")
     Web,
-    @JsonProperty("iOS")
+    @JsonProperty("IOS")
     iOS,
     @JsonProperty("ANDROID")
     Android;

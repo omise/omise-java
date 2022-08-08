@@ -9,7 +9,7 @@ public class PlatformTypeTest {
     @Test
     public void checkStringValue() {
         assertEquals("WEB", PlatformType.Web.toString());
-        assertEquals("iOS", PlatformType.iOS.toString());
+        assertEquals("IOS", PlatformType.iOS.toString());
         assertEquals("ANDROID", PlatformType.Android.toString());
     }
 }

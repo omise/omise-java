@@ -43,6 +43,14 @@ public enum SourceType {
     InternetBankingKtb,
     @JsonProperty("internet_banking_scb")
     InternetBankingScb,
+    @JsonProperty("mobile_banking_bay")
+    MobileBankingBay,
+    @JsonProperty("mobile_banking_bbl")
+    MobileBankingBbl,
+    @JsonProperty("mobile_banking_kbank")
+    MobileBankingKbank,
+    @JsonProperty("mobile_banking_ocbc_pao")
+    MobileBankingOcbcPao,
     @JsonProperty("mobile_banking_scb")
     MobileBankingScb,
     @JsonProperty("paynow")

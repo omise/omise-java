@@ -4,6 +4,7 @@ import co.omise.Client;
 import co.omise.models.OmiseException;
 import co.omise.models.Source;
 import co.omise.models.SourceType;
+import co.omise.models.PlatformType;
 import co.omise.requests.Request;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -212,6 +213,94 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals(500000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
         assertTrue(source.isZeroInterestInstallments());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceMobileBankingBay() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.MobileBankingBay)
+                .amount(10000)
+                .currency("thb")
+                .platformType(PlatformType.iOS)
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("mobile_banking_bay", source.getType().toString());
+        assertEquals("app_redirect", source.getFlow().toString());
+        assertEquals(10000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+        assertEquals("IOS", source.getPlatformType().toString());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceMobileBankingBbl() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.MobileBankingBbl)
+                .amount(25000)
+                .currency("thb")
+                .platformType(PlatformType.Android)
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("mobile_banking_bbl", source.getType().toString());
+        assertEquals("app_redirect", source.getFlow().toString());
+        assertEquals(25000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+        assertEquals("ANDROID", source.getPlatformType().toString());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceMobileBankingKbank() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.MobileBankingKbank)
+                .amount(25000)
+                .currency("thb")
+                .platformType(PlatformType.Android)
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("mobile_banking_kbank", source.getType().toString());
+        assertEquals("app_redirect", source.getFlow().toString());
+        assertEquals(25000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+        assertEquals("ANDROID", source.getPlatformType().toString());
+    }
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveSourceMobileBankingOcbcPao() throws IOException, OmiseException {
+        Request<Source> request = new Source.CreateRequestBuilder()
+                .type(SourceType.MobileBankingOcbcPao)
+                .amount(25000)
+                .currency("thb")
+                .platformType(PlatformType.iOS)
+                .build();
+
+        Source source = client.sendRequest(request);
+
+        System.out.println("created source: " + source.getId());
+
+        assertNotNull(source.getId());
+        assertEquals("mobile_banking_ocbc_pao", source.getType().toString());
+        assertEquals("app_redirect", source.getFlow().toString());
+        assertEquals(25000L, source.getAmount());
+        assertEquals("THB", source.getCurrency());
+        assertEquals("IOS", source.getPlatformType().toString());
     }
 
     @Test

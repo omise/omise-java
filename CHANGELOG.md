@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v4.1.0
+
+* **NEW** Added `Mobile Banking Bay`, `Mobile Banking BBL`, `Mobile Banking KBank` and `Mobile Banking OCBC PAO` source types (#141)
+
 ## v4.0.8
 
 * **FIXED** Fix passing null if email not specified in request (#139)
