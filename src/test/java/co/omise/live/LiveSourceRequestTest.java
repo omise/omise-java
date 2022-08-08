@@ -4,6 +4,7 @@ import co.omise.Client;
 import co.omise.models.OmiseException;
 import co.omise.models.Source;
 import co.omise.models.SourceType;
+import co.omise.models.PlatformType;
 import co.omise.requests.Request;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -221,7 +222,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingBay)
                 .amount(10000)
                 .currency("thb")
-                .platformType("IOS")
+                .platformType(PlatformType.iOS)
                 .build();
 
         Source source = client.sendRequest(request);
@@ -233,7 +234,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("app_redirect", source.getFlow().toString());
         assertEquals(10000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
-        assertEquals("IOS", source.getPlatformType());
+        assertEquals("IOS", source.getPlatformType().toString());
     }
 
     @Test
@@ -243,7 +244,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingBbl)
                 .amount(25000)
                 .currency("thb")
-                .platformType("ANDROID")
+                .platformType(PlatformType.Android)
                 .build();
 
         Source source = client.sendRequest(request);
@@ -255,7 +256,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("app_redirect", source.getFlow().toString());
         assertEquals(25000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
-        assertEquals("ANDROID", source.getPlatformType());
+        assertEquals("ANDROID", source.getPlatformType().toString());
     }
 
     @Test
@@ -265,7 +266,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingKbank)
                 .amount(25000)
                 .currency("thb")
-                .platformType("ANDROID")
+                .platformType(PlatformType.Android)
                 .build();
 
         Source source = client.sendRequest(request);
@@ -277,7 +278,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("app_redirect", source.getFlow().toString());
         assertEquals(25000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
-        assertEquals("ANDROID", source.getPlatformType());
+        assertEquals("ANDROID", source.getPlatformType().toString());
     }
 
     @Test
@@ -287,7 +288,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingOcbcPao)
                 .amount(25000)
                 .currency("thb")
-                .platformType("IOS")
+                .platformType(PlatformType.iOS)
                 .build();
 
         Source source = client.sendRequest(request);
@@ -299,7 +300,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
         assertEquals("app_redirect", source.getFlow().toString());
         assertEquals(25000L, source.getAmount());
         assertEquals("THB", source.getCurrency());
-        assertEquals("IOS", source.getPlatformType());
+        assertEquals("IOS", source.getPlatformType().toString());
     }
 
     @Test
