@@ -221,7 +221,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingBay)
                 .amount(10000)
                 .currency("thb")
-                .platform_type("IOS")
+                .platformtype("IOS")
                 .build();
 
         Source source = client.sendRequest(request);
@@ -243,7 +243,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingBbl)
                 .amount(25000)
                 .currency("thb")
-                .platform_type("ANDROID")
+                .platformtype("ANDROID")
                 .build();
 
         Source source = client.sendRequest(request);
@@ -265,7 +265,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingKbank)
                 .amount(25000)
                 .currency("thb")
-                .platform_type("ANDROID")
+                .platformtype("ANDROID")
                 .build();
 
         Source source = client.sendRequest(request);
@@ -287,7 +287,7 @@ public class LiveSourceRequestTest extends BaseLiveTest {
                 .type(SourceType.MobileBankingOcbcPao)
                 .amount(25000)
                 .currency("thb")
-                .platform_type("IOS")
+                .platformtype("IOS")
                 .build();
 
         Source source = client.sendRequest(request);
