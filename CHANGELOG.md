@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+## v4.2.0
+
+* **NEW** Added `Installment UOB` and `Installment TTB` source types (#141)
+* **REMOVED** `Installment Citi`
+
 ## v4.1.0
 
 * **NEW** Added `Mobile Banking Bay`, `Mobile Banking BBL`, `Mobile Banking KBank` and `Mobile Banking OCBC PAO` source types (#141)
