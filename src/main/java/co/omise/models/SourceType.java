@@ -55,6 +55,8 @@ public enum SourceType {
     MobileBankingOcbcPao,
     @JsonProperty("mobile_banking_scb")
     MobileBankingScb,
+    @JsonProperty("mobile_banking_ktb")
+    MobileBankingKtb,
     @JsonProperty("paynow")
     Paynow,
     @JsonProperty("points_citi")

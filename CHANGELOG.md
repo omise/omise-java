@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v4.3.0
+
+* **NEW** Added `KTB NEXT Mobile Banking` source types (#146)
+
 ## v4.2.0
 
 * **NEW** Added `Installment UOB` and `Installment TTB` source types (#141)
