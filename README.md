@@ -1,16 +1,16 @@
 # OMISE-JAVA
 
-[![Maven Central][9]][10] [![Github Actions][0]][1]
+[![Maven Central][5]][6] [![Github Actions][0]][1]
 
-`omise-java` provides a set of Java bindings to the [Omise REST API][5].  Please contact
- [support@opn.ooo][7] if you have any questions regarding this
+`omise-java` provides a set of Java bindings to the [Omise REST API][2].  Please contact
+ [support@opn.ooo][3] if you have any questions regarding this
 library and the functionality it provides.
 
 ## INSTALLATION
 
 ### Android
 
-**WARNING:** Android users should check out our [omise-android][8] repository instead.
+**WARNING:** Android users should check out our [omise-android][4] repository instead.
 
 This library requires Java 8 and up and is meant to be used with Java server
 implementations.
@@ -28,10 +28,10 @@ dependencies {
 ### Shadow JAR
 
 If you have dependency conflicts with `omise-java` jar you can try using the
-[shadowed JAR][11] version which has the JAR dependencies relocated to the
+[shadowed JAR][7] version which has the JAR dependencies relocated to the
 `co.omise.dependencies` package.
 
-You can obtain a [`shadowed jar`][11] by manually cloning the project and running the
+You can obtain a [`shadowed jar`][7] by manually cloning the project and running the
 `shadowJar` task:
 
 ```sh
@@ -56,7 +56,7 @@ omise-java-4.0.0-all.jar
 
 ## USAGE
 
-Obtain a set of API keys from the [Omise Dashboard][12] and create a `Client` object
+Obtain a set of API keys from the [Omise Dashboard][8] and create a `Client` object
 
 ```java
 Client client = new Client.Builder()
@@ -89,22 +89,23 @@ Request<Charge> request =
                             .card("card_test_4xtsoy2nbfs7ujngyyq")
                             .build();
 Charge charge = client.sendRequest(request);
-    
+
 System.out.println("created charge: " + charge.getId());
 ```
 
 ## LICENSE
 
-[MIT license][13]
+[MIT license][9]
+On February 23, 2023, we started redirecting users from search.maven.org to central.sonatype.com. Launched in September of 2022, central.sonatype.com provides the main functionality of search.maven.org with enhanced search results, including security vulnerability and software quality information.
 
-[0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg 
+
+[0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg
 [1]: https://github.com/omise/omise-java/actions
-[4]: https://github.com/omise/omise-java/tree/v1.0
-[5]: https://www.omise.co/docs
-[7]: mailto:support@opn.ooo
-[8]: https://github.com/omise/omise-android
-[9]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
-[10]: http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22co.omise%22%20AND%20a%3A%22omise-java%22
-[11]: https://github.com/johnrengelman/shadow
-[12]: https://dashboard.omise.co/test/api-keys
-[13]: https://github.com/johnrengelman/shadow
+[2]: https://www.omise.co/docs
+[3]: mailto:support@opn.ooo
+[4]: https://github.com/omise/omise-android
+[5]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
+[6]: https://central.sonatype.com/artifact/co.omise/omise-java/4.2.0/versions
+[7]: https://github.com/johnrengelman/shadow
+[8]: https://dashboard.omise.co/test/api-keys
+[9]: https://github.com/johnrengelman/shadow
