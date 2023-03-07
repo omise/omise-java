@@ -3,7 +3,7 @@
 [![Maven Central][9]][10] [![Github Actions][0]][1]
 
 `omise-java` provides a set of Java bindings to the [Omise REST API][5].  Please contact
- [support@opn.oo][7] if you have any questions regarding this
+ [support@opn.ooo][7] if you have any questions regarding this
 library and the functionality it provides.
 
 ## INSTALLATION
