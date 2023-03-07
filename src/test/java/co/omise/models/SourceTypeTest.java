@@ -33,5 +33,6 @@ public class SourceTypeTest {
         assertEquals("gcash", SourceType.GCash.toString());
         assertEquals("kakaopay", SourceType.KakaoPay.toString());
         assertEquals("touch_n_go", SourceType.TouchNGo.toString());
+        assertEquals("mobile_banking_ktb", SourceType.MobileBankingKtb.toString());
     }
 }
