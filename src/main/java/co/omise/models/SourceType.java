@@ -85,7 +85,7 @@ public enum SourceType {
         String name = super.toString();
         Field[] fields = this.getClass().getDeclaredFields();
         for(Field field : fields) {
-            if (field.getName() == name && field.isAnnotationPresent(JsonProperty.class)) {
+            if (field.getName().equals(name) && field.isAnnotationPresent(JsonProperty.class)) {
                 return field.getAnnotation(JsonProperty.class).value();
             }
         }
