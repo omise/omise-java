@@ -2,7 +2,7 @@
 
 ## v4.4.0
 
-* **NEW** Added `KTB Atome payment method` source types.
+* **NEW** Added `Atome payment method` source types (#148)
 
 ## v4.3.0
 
