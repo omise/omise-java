@@ -518,6 +518,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     }
 
     @Test
+    @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithAtome() throws IOException, OmiseException {
 
         Shipping shipping = new Shipping();
