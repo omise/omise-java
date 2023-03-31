@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v4.4.0
+
+* **NEW** Added `KTB Atome payment method` source types.
+
 ## v4.3.0
 
 * **NEW** Added `KTB NEXT Mobile Banking` source types (#146)
