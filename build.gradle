@@ -130,17 +130,17 @@ shadowJar {
 
 dependencies {
     // base
-    compile 'joda-time:joda-time:2.9.9'
+    implementation 'joda-time:joda-time:2.9.9'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.9'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.9'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.9'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.9'
 
     // networking
-    compile 'com.squareup.okhttp3:okhttp:3.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
 
     // test
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.google.guava:guava:20.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.google.guava:guava:20.0'
 
 }

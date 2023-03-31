@@ -516,4 +516,52 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
         assertEquals(createdCharge.isRefundable(), actualCharge.isRefundable());
     }
+
+    @Test
+    public void testLiveChargeWithAtome() throws IOException, OmiseException {
+
+        Shipping shipping = new Shipping();
+        shipping.country = "TH";
+        shipping.postalCode = "000000";
+        shipping.address = "Bangkok";
+        shipping.street1 = "Street";
+
+        Item item = new Item();
+        item.quantity = "1";
+        item.sku = "SKU";
+        item.name = "name";
+        item.amount = "15000";
+
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
+                .type(SourceType.Atome)
+                .amount(15000) // 150 THB
+                .currency("thb")
+                .terminalId("test_term_id")
+                .storeId("test_store_id")
+                .storeName("Omise Shop")
+                .shipping(shipping)
+                .addItem(item)
+                .phoneNumber("0000000000")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .source(source.getId())
+                        .amount(15000)
+                        .currency("thb")
+                        .returnUri("http://example.com/")
+                        .build();
+
+        Charge charge = client.sendRequest(createChargeRequest);
+
+        System.out.println("created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(15000, charge.getAmount());
+        assertEquals("THB", charge.getCurrency());
+        assertEquals(SourceType.Atome, charge.getSource().getType());
+        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
+    }
 }
