@@ -524,7 +524,6 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         Shipping shipping = new Shipping();
         shipping.country = "TH";
         shipping.postalCode = "000000";
-        shipping.address = "Bangkok";
         shipping.street1 = "Street";
 
         Item item = new Item();
