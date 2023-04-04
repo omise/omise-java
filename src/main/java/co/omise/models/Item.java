@@ -3,12 +3,14 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Item {
-    @JsonProperty("sku")
     public String sku;
-    @JsonProperty("name")
     public String name;
-    @JsonProperty("amount")
     public String amount;
-    @JsonProperty("quantity")
     public String quantity;
+    public String category;
+    public String brand;
+    @JsonProperty("item_uri")
+    public String itemUri;
+    @JsonProperty("image_uri")
+    public String imageUri;
 }
