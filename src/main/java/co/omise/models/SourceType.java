@@ -78,7 +78,9 @@ public enum SourceType {
     @JsonProperty("kakaopay")
     KakaoPay,
     @JsonProperty("touch_n_go")
-    TouchNGo;
+    TouchNGo,
+    @JsonProperty("atome")
+    Atome;
 
     @Override
     public String toString() {

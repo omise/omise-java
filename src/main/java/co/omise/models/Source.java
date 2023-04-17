@@ -9,6 +9,8 @@ import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Source object
@@ -233,6 +235,12 @@ public class Source extends Model {
         private boolean zeroInterestInstallments;
         @JsonProperty("platform_type")
         private PlatformType platformType;
+        @JsonProperty
+        private Shipping shipping;
+        @JsonProperty("phone_number")
+        private String phoneNumber;
+        @JsonProperty("items")
+        private List<Item> items;
 
         @Override
         protected String method() {
@@ -296,6 +304,24 @@ public class Source extends Model {
 
         public CreateRequestBuilder storeName(String storeName) {
             this.storeName = storeName;
+            return this;
+        }
+
+        public CreateRequestBuilder shipping(Shipping shipping) {
+            this.shipping = shipping;
+            return this;
+        }
+
+        public CreateRequestBuilder phoneNumber(String phoneNumber) {
+            this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public CreateRequestBuilder addItem(Item item) {
+            if(this.items == null) {
+                this.items = new ArrayList<Item>();
+            }
+            this.items.add(item);
             return this;
         }
 
