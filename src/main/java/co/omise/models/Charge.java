@@ -67,6 +67,8 @@ public class Charge extends Model {
     private boolean refundable;
     @JsonProperty("refunded_amount")
     private long refundedAmount;
+    @JsonProperty("transaction_fees")
+    private TransactionFee transactionFees;
     private ScopedList<Refund> refunds;
     @JsonProperty("return_uri")
     private String returnUri;
@@ -449,6 +451,14 @@ public class Charge extends Model {
 
     public void setZeroInterestInstallments(boolean zeroInterestInstallments) {
         this.zeroInterestInstallments = zeroInterestInstallments;
+    }
+
+    public TransactionFee getTransactionFees() {
+        return transactionFees;
+    }
+
+    public void setTransactionFees(TransactionFee transactionFees) {
+        this.transactionFees = transactionFees;
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
