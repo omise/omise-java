@@ -527,7 +527,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         shipping.street1 = "Street";
 
         Item item = new Item();
-        item.quantity = "1";
+        item.quantity = 1;
         item.sku = "SKU";
         item.name = "name";
         item.amount = "15000";

@@ -6,7 +6,7 @@ public class Item {
     public String sku;
     public String name;
     public String amount;
-    public String quantity;
+    public int quantity;
     public String category;
     public String brand;
     @JsonProperty("item_uri")
