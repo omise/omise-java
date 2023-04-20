@@ -42,7 +42,7 @@ public class ConfigurerTest extends OmiseTest {
                 .build());
 
         String authorization = req.header("Authorization");
-        assertEquals(authorization, Credentials.basic(PKEY, "x"));
+        assertEquals(authorization, Credentials.basic(PKEY, ""));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ConfigurerTest extends OmiseTest {
                 .build());
 
         String authorization = req.header("Authorization");
-        assertEquals(authorization, Credentials.basic(SKEY, "x"));
+        assertEquals(authorization, Credentials.basic(SKEY, ""));
     }
 
     private Request configure(Request req) {
