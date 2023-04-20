@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Item {
     public String sku;
     public String name;
-    public String amount;
+    public int amount;
     public int quantity;
     public String category;
     public String brand;
