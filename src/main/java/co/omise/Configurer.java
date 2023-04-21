@@ -37,7 +37,7 @@ public final class Configurer implements Interceptor {
         String key = endpoint.authenticationKey(config);
         Request.Builder builder = request.newBuilder()
                 .addHeader("User-Agent", config.userAgent())
-                .addHeader("Authorization", Credentials.basic(key, "x"));
+                .addHeader("Authorization", Credentials.basic(key, ""));
 
         if (apiVersion != null && !apiVersion.isEmpty()) {
             builder = builder.addHeader("Omise-Version", apiVersion);
