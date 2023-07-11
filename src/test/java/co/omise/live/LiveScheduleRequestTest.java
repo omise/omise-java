@@ -11,6 +11,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -24,7 +26,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
     }
 
     @Test
-    @Ignore("only hit the network when we need to.")
+    //@Ignore("only hit the network when we need to.")
     public void testLiveScheduleListGet() throws IOException, OmiseException {
         Request<ScopedList<Schedule>> request =
                 new Schedule.ListRequestBuilder()
@@ -63,7 +65,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .name("testLiveSchedule")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020))
+                        .expiration(7, 2023))
                 .build();
 
         Token token = client.sendRequest(tokenRequest);
@@ -75,18 +77,20 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .build();
 
         Customer customer = client.sendRequest(customerRequest);
-
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("testKey","testData");
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.Week)
+                .period(SchedulePeriod.Day)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
                 .charge(new ChargeSchedule.Params()
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
-                        .description("Monthly membership fee"))
-                .build();
+                        .description("Monthly membership fee")
+                        .metadata(metadata)
+                ).build();
 
         Schedule createdSchedule = client.sendRequest(scheduleRequest);
 

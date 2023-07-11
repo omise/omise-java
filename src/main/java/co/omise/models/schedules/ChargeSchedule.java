@@ -92,6 +92,9 @@ public class ChargeSchedule extends Model {
         @JsonProperty
         private String description;
 
+        @JsonProperty
+        private Map<String, Object> metadata;
+
         public Params amount(long amount) {
             this.amount = amount;
             return this;
@@ -114,6 +117,10 @@ public class ChargeSchedule extends Model {
 
         public Params description(String description) {
             this.description = description;
+            return this;
+        }
+        public Params metadata(Map<String, Object> metadata) {
+            this.metadata = metadata;
             return this;
         }
     }
