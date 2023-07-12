@@ -26,7 +26,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
     }
 
     @Test
-    //@Ignore("only hit the network when we need to.")
+    @Ignore("only hit the network when we need to.")
     public void testLiveScheduleListGet() throws IOException, OmiseException {
         Request<ScopedList<Schedule>> request =
                 new Schedule.ListRequestBuilder()
