@@ -65,7 +65,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .name("testLiveSchedule")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(7, 2023))
+                        .expiration(10, 2020))
                 .build();
 
         Token token = client.sendRequest(tokenRequest);
@@ -81,7 +81,7 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
         metadata.put("testKey","testData");
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
-                .period(SchedulePeriod.Day)
+                .period(SchedulePeriod.Week)
                 .on(new ScheduleOn.Params().weekdays(Weekdays.Friday))
                 .endDate(LocalDate.now().withFieldAdded(DurationFieldType.years(), 99))
                 .charge(new ChargeSchedule.Params()
