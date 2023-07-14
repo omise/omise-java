@@ -1,8 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'java-library-distribution'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
-apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'jacoco'
 apply plugin: 'org.sonarqube'
@@ -15,17 +15,17 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 buildscript {
     repositories {
-        mavenCentral()
-        jcenter()
+        maven {
+               url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+        classpath "com.github.jengelman.gradle.plugins:shadow:6.1.0"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3"
     }
@@ -43,7 +43,7 @@ task sourcesJar(type: Jar) {
 
 distributions {
     main {
-        baseName = 'omise-java'
+        distributionBaseName = 'omise-java'
     }
 }
 
@@ -60,53 +60,6 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-// REF: http://central.sonatype.org/pages/gradle.html
-uploadArchives {
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-        def ossrhUsername = System.getenv("SONATYPE_USERNAME")
-        def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
-
-        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-        }
-
-        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-        }
-
-        pom.project {
-            name 'Omise Java'
-            description 'Java bindings for the Omise API'
-            packaging 'jar'
-            artifactId 'omise-java'
-            url 'https://www.omise.co'
-
-            scm {
-                connection 'scm:git:git://git.github.com/omise/omise-java'
-                developerConnection 'scm:git:git://git.github.com/omise/omise-java'
-                url 'https://github.com/omise/omise-java'
-            }
-
-            licenses {
-                license {
-                    name 'The MIT License (MIT)'
-                    url 'https://opensource.org/licenses/MIT'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'chakrit'
-                    name 'Omise'
-                    email 'support@omise.co'
-                }
-            }
-        }
-    }
-}
-
 /**
  * {@link Package#getImplementationVersion()} on IDE will alway return `null`
  * because this method read data from `META-INF/MANIFEST.MF` that contain in `.jar`.
@@ -117,7 +70,7 @@ uploadArchives {
  */
 jar {
     manifest {
-        attributes 'Implementation-Version': version
+        attributes 'Implementation-Version': archiveVersion
     }
 }
 
@@ -151,8 +104,8 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.9'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.10'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
 
     // networking
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
