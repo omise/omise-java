@@ -22,3 +22,5 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew test
+      - name: Send test coverage
+        run: ./gradlew test jacocoTestReport sonarqube
