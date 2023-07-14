@@ -4,6 +4,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'jacoco'
 
 group 'co.omise'
 version '4.4.0'
@@ -126,6 +127,13 @@ shadowJar {
     relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
     relocate 'okio', 'co.omise.dependencies.okio'
     relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
 }
 
 dependencies {
