@@ -17,4 +17,4 @@ jobs:
           java-version: 11
       - run: chmod +x gradlew
       - run: ./gradlew test
-      - run: ./gradlew test jacocoTestReport sonarqube
+      - run: ./gradlew test jacocoTestReport sonar
