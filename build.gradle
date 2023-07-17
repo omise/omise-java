@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'java-library-distribution'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
-apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'jacoco'
 apply plugin: 'org.sonarqube'
@@ -20,14 +20,14 @@ repositories {
 buildscript {
     repositories {
         maven {
-               url "https://plugins.gradle.org/m2/"
+               url 'https://plugins.gradle.org/m2/'
         }
     }
 
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:6.1.0"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.2.1.3168"
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.2.1.3168'
     }
 }
 
@@ -48,8 +48,8 @@ distributions {
 }
 
 signing {
-    def signingKey = System.getenv("PGP_SIGNING_KEY")
-    def signingPwd = System.getenv("PGP_SIGNING_PASSWORD")
+    def signingKey = System.getenv('PGP_SIGNING_KEY')
+    def signingPwd = System.getenv('PGP_SIGNING_PASSWORD')
 
     useInMemoryPgpKeys(signingKey, signingPwd)
 
@@ -93,9 +93,9 @@ jacocoTestReport {
 
 sonarqube {
   properties {
-    property("sonar.projectKey", "omise_omise-java")
-    property("sonar.organization", "omise")
-    property("sonar.host.url", "https://sonarcloud.io")
+    property('sonar.projectKey', 'omise_omise-java')
+    property('sonar.organization', 'omise')
+    property('sonar.host.url', 'https://sonarcloud.io')
   }
 }
 
