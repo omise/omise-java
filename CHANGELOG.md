@@ -1,4 +1,7 @@
 # CHANGE LOG
+## v4.5.0
+
+* **NEW** Added `Metadata field to scheduled charge creation` source types (#153)
 
 ## v4.4.0
 
