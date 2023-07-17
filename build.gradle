@@ -91,7 +91,7 @@ jacocoTestReport {
     }
 }
 
-sonarqube {
+sonar {
   properties {
     property('sonar.projectKey', 'omise_omise-java')
     property('sonar.organization', 'omise')
