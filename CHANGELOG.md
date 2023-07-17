@@ -1,8 +1,11 @@
 # CHANGE LOG
+## v4.5.0
+
+* **NEW** Added `Metadata field to scheduled charge creation` source types (#148)
 
 ## v4.4.0
 
-* **NEW** Added `Atome payment method` source types (#148)
+* **NEW** Added `Atome payment method` source types (#153)
 
 ## v4.3.0
 
