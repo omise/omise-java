@@ -30,7 +30,7 @@ public class ScheduleRequestTest extends RequestTest {
         Schedule schedule = requester.sendRequest(request);
 
         assertRequested("GET", "/schedules/" + SCHEDULE_ID, 200);
-    // Create the map with "testKey" and "testData" to validate metadata
+       // Create the map with "testKey" and "testData" to validate metadata
         Map<String, Object> expectedMetadata = new HashMap<>();
         expectedMetadata.put("testKey", "testData");
 
