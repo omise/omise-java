@@ -20,7 +20,10 @@
     "currency":"thb",
     "description":"Monthly membership fee",
     "customer":"cust_test_55bb3hkywglfyyachha",
-    "card":"card_test_55bb3fhl3tc1wr9d51d"
+    "card":"card_test_55bb3fhl3tc1wr9d51d",
+    "metadata": {
+      "testKey": "testData"
+    }
   },
   "occurrences":{
     "object":"list",

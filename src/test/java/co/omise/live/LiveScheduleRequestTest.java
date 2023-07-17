@@ -11,6 +11,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -75,7 +77,8 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                 .build();
 
         Customer customer = client.sendRequest(customerRequest);
-
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("testKey","testData");
         Request<Schedule> scheduleRequest = new Schedule.CreateRequestBuilder()
                 .every(1)
                 .period(SchedulePeriod.Week)
@@ -85,8 +88,9 @@ public class LiveScheduleRequestTest extends BaseLiveTest {
                         .customer(customer.getId())
                         .amount(2000)
                         .currency("THB")
-                        .description("Monthly membership fee"))
-                .build();
+                        .description("Monthly membership fee")
+                        .metadata(metadata)
+                ).build();
 
         Schedule createdSchedule = client.sendRequest(scheduleRequest);
 
