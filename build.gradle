@@ -5,7 +5,10 @@ apply plugin: 'signing'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'jacoco'
-apply plugin: 'org.sonarqube'
+
+if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+  apply plugin: 'org.sonarqube'
+}
 
 group 'co.omise'
 version '4.4.0'
@@ -14,50 +17,52 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
 buildscript {
-    repositories {
-        maven {
-               url 'https://plugins.gradle.org/m2/'
-        }
+  repositories {
+    maven {
+      url 'https://plugins.gradle.org/m2/'
     }
+  }
 
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.3.0.3225'
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+    if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+      classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.3.0.3225'
     }
+  }
 }
 
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
+  classifier = 'javadoc'
+  from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+  classifier = 'sources'
+  from sourceSets.main.allSource
 }
 
 distributions {
-    main {
-        distributionBaseName = 'omise-java'
-    }
+  main {
+    distributionBaseName = 'omise-java'
+  }
 }
 
 signing {
-    def signingKey = System.getenv('PGP_SIGNING_KEY')
-    def signingPwd = System.getenv('PGP_SIGNING_PASSWORD')
+  def signingKey = System.getenv('PGP_SIGNING_KEY')
+  def signingPwd = System.getenv('PGP_SIGNING_PASSWORD')
 
-    useInMemoryPgpKeys(signingKey, signingPwd)
+  useInMemoryPgpKeys(signingKey, signingPwd)
 
-    sign configurations.archives
+  sign configurations.archives
 }
 
 artifacts {
-    archives javadocJar, sourcesJar
+  archives javadocJar, sourcesJar
 }
 
 /**
@@ -69,26 +74,25 @@ artifacts {
  * will return attributes in manifest file.
  */
 jar {
-    manifest {
-        attributes 'Implementation-Version': archiveVersion
-    }
+  manifest {
+    attributes 'Implementation-Version': archiveVersion
+  }
 }
 
 shadowJar {
-    // Include all manifest from jar to shadowJar
-    manifest {
-        inheritFrom jar.manifest
-    }
-    relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
-    relocate 'okio', 'co.omise.dependencies.okio'
-    relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
+  // Include all manifest from jar to shadowJar
+  manifest {
+    inheritFrom jar.manifest
+  }
+  relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
+  relocate 'okio', 'co.omise.dependencies.okio'
+  relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
 }
 
-
 jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
+  reports {
+    xml.enabled true
+  }
 }
 
 sonar {
@@ -100,18 +104,18 @@ sonar {
 }
 
 dependencies {
-    // base
-    implementation 'joda-time:joda-time:2.9.9'
+  // base
+  implementation 'joda-time:joda-time:2.9.9'
 
-    // persistence
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
+  // persistence
+  implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
 
-    // networking
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+  // networking
+  implementation 'com.squareup.okhttp3:okhttp:3.7.0'
 
-    // test
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.guava:guava:20.0'
+  // test
+  testImplementation 'junit:junit:4.12'
+  testImplementation 'com.google.guava:guava:20.0'
 
 }
