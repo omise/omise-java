@@ -6,7 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'jacoco'
 
-if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
   apply plugin: 'org.sonarqube'
 }
 
@@ -30,7 +30,7 @@ buildscript {
   dependencies {
     classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
-    if(JavaVersion.current() != JavaVersion.VERSION_1_8){
+    if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
       classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.3.0.3225'
     }
   }
@@ -95,11 +95,13 @@ jacocoTestReport {
   }
 }
 
-sonar {
-  properties {
-    property('sonar.projectKey', 'omise_omise-java')
-    property('sonar.organization', 'omise')
-    property('sonar.host.url', 'https://sonarcloud.io')
+if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+  sonar {
+    properties {
+      property('sonar.projectKey', 'omise_omise-java')
+      property('sonar.organization', 'omise')
+      property('sonar.host.url', 'https://sonarcloud.io')
+    }
   }
 }
 
