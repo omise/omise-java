@@ -65,6 +65,63 @@ artifacts {
   archives javadocJar, sourcesJar
 }
 
+def ossrhUsername = System.getenv("SONATYPE_USERNAME")
+def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId 'omise-java'
+      pom {
+        name = 'Omise Java'
+        description = 'Java bindings for the Omise API'
+        url = 'https://www.omise.co'
+        licenses {
+          license {
+            name = 'The MIT License (MIT)'
+            url = 'https://opensource.org/licenses/MIT'
+          }
+        }
+        developers {
+          developer {
+            id = 'chakrit'
+            name = 'Omise'
+            email = 'support@opn.ooo'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://git.github.com/omise/omise-java'
+          developerConnection = 'scm:git:git://git.github.com/omise/omise-java'
+          url = 'https://github.com/omise/omise-java'
+        }
+      }
+    }
+  }
+
+  repositories {
+    maven {
+      url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+      credentials {
+        username  = ossrhUsername
+        password = ossrhPassword
+      }
+    }
+
+    maven {
+      name = 'snapshotRepository'
+      url = 'https://oss.sonatype.org/content/repositories/snapshots'
+      credentials {
+        username  = ossrhUsername
+        password = ossrhPassword
+      }
+    }
+  }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
 /**
  * {@link Package#getImplementationVersion()} on IDE will alway return `null`
  * because this method read data from `META-INF/MANIFEST.MF` that contain in `.jar`.
