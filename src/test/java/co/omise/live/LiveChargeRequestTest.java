@@ -564,4 +564,36 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(SourceType.Atome, charge.getSource().getType());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeWithDuitNowOBW() throws IOException, OmiseException {
+
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
+                .type(SourceType.DuitNowOBW)
+                .amount(15000) // 150 MYR
+                .currency("MYR")
+                .bank("affin")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .source(source.getId())
+                        .amount(15000)
+                        .currency("MYR")
+                        .returnUri("http://example.com/")
+                        .build();
+
+        Charge charge = client.sendRequest(createChargeRequest);
+
+        System.out.println("created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(15000, charge.getAmount());
+        assertEquals("MYR", charge.getCurrency());
+        assertEquals(SourceType.DuitNowOBW, charge.getSource().getType());
+        assertEquals("affin", charge.getSource().getBank());
+        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
+    }
 }
