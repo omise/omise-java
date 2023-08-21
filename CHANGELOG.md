@@ -1,4 +1,8 @@
 # CHANGE LOG
+## v4.6.0
+
+* **NEW** Added `duitnow_obw sourceType to enable charge creation for duitnow` source types (#156)
+
 ## v4.5.0
 
 * **NEW** Added `Metadata field to scheduled charge creation` source types (#153)
