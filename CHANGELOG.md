@@ -1,7 +1,8 @@
 # CHANGE LOG
 ## v4.6.0
 
-* **NEW** Added `duitnow_obw sourceType to enable charge creation for duitnow` source types (#156)
+### Added
+- Introducing support for `duitnow_obw` source type to facilitate charge creation for `duitnow` charges. ([#156](https://github.com/omise/omise-java/pull/156))
 
 ## v4.5.0
 
