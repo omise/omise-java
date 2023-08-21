@@ -80,7 +80,9 @@ public enum SourceType {
     @JsonProperty("touch_n_go")
     TouchNGo,
     @JsonProperty("atome")
-    Atome;
+    Atome,
+    @JsonProperty("duitnow_obw")
+    DuitNowOBW;
 
     @Override
     public String toString() {
