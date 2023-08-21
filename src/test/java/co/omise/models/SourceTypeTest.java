@@ -35,5 +35,6 @@ public class SourceTypeTest {
         assertEquals("touch_n_go", SourceType.TouchNGo.toString());
         assertEquals("mobile_banking_ktb", SourceType.MobileBankingKtb.toString());
         assertEquals("atome", SourceType.Atome.toString());
+        assertEquals("duitnow_obw", SourceType.DuitNowOBW.toString());
     }
 }
