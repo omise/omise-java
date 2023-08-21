@@ -1,4 +1,9 @@
 # CHANGE LOG
+## v4.6.0
+
+### Added
+- Introducing support for `duitnow_obw` source type to facilitate charge creation for `duitnow` charges. ([#156](https://github.com/omise/omise-java/pull/156))
+
 ## v4.5.0
 
 * **NEW** Added `Metadata field to scheduled charge creation` source types (#153)
