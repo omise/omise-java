@@ -1,7 +1,6 @@
 package co.omise.models;
 
 import co.omise.Endpoint;
-import co.omise.models.schedules.ChargeSchedule;
 import co.omise.models.schedules.Schedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
@@ -84,6 +83,8 @@ public class Charge extends Model {
     private boolean voided;
     @JsonProperty("zero_interest_installments")
     private boolean zeroInterestInstallments;
+    @JsonProperty("authorization_type")
+    private AuthorizationType authorizationType;
 
     public long getAmount() {
         return this.amount;
@@ -461,6 +462,14 @@ public class Charge extends Model {
         this.transactionFees = transactionFees;
     }
 
+    public AuthorizationType getAuthorizationType() {
+        return authorizationType;
+    }
+
+    public void setAuthorizationType(AuthorizationType authorizationType) {
+        this.authorizationType = authorizationType;
+    }
+
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
         private ScopedList.Options options;
 
@@ -521,6 +530,8 @@ public class Charge extends Model {
         private String returnUri;
         @JsonProperty
         private String source;
+        @JsonProperty("authorization_type")
+        private AuthorizationType authorizationType;
 
         @Override
         protected String method() {
@@ -604,6 +615,11 @@ public class Charge extends Model {
 
         public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
             this.zeroInterestInstallments = zeroInterestInstallments;
+            return this;
+        }
+
+        public CreateRequestBuilder authorizationType(AuthorizationType authorizationType) {
+            this.authorizationType = authorizationType;
             return this;
         }
 
@@ -765,8 +781,17 @@ public class Charge extends Model {
 
     public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
         private String chargeId;
+
+        @JsonProperty("capture_amount")
+        private long captureAmount;
+
         public CaptureRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
+        }
+
+        public CaptureRequestBuilder captureAmount(long captureAmount) {
+            this.captureAmount = captureAmount;
+            return this;
         }
 
         @Override
