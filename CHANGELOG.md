@@ -2,7 +2,7 @@
 
 ## v.4.7.0
 
-* **NEW** Support partial capture (#155)
+* **NEW** Support partial capture (#158)
  
 ## v4.6.0
 
