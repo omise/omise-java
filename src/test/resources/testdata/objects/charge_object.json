@@ -5,6 +5,7 @@
   "location": "/charges/chrg_test_5086xlsx4lghk9bpb75",
   "amount": 100000,
   "currency": "thb",
+  "authorization_type": "pre_auth",
   "description": null,
   "capture": true,
   "authorized": true,
