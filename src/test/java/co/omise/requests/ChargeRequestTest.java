@@ -6,7 +6,6 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.SourceType;
-import okio.Buffer;
 import org.junit.Test;
 
 import java.io.IOException;
