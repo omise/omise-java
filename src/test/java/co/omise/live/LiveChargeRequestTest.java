@@ -287,7 +287,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
                         .name("Omise Co., Ltd. - testLiveCharge")
                         .number("4242424242424242")
                         .securityCode("123")
-                        .expiration(10, 2020))
+                        .expiration(10, 2030))
                 .build();
 
         Token token = client.sendRequest(tokenRequest);
@@ -309,6 +309,47 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
         Request<Charge> captureChargeRequest =
                 new Charge.CaptureRequestBuilder(unCapturedCharge.getId()).build();
+
+        Charge capturedCharge = client.sendRequest(captureChargeRequest);
+
+        assertNotNull(capturedCharge);
+        assertEquals(unCapturedCharge.getId(), capturedCharge.getId());
+        assertTrue(capturedCharge.isPaid());
+    }
+
+
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeSinglePartialCapture() throws IOException, OmiseException {
+        Request<Token> tokenRequest = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Omise Co., Ltd. - testLiveCharge")
+                        .number("4242424242424242")
+                        .securityCode("123")
+                        .expiration(10, 2030))
+                .build();
+
+        Token token = client.sendRequest(tokenRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(100000)
+                        .currency("thb")
+                        .description("omise-java test")
+                        .card(token.getId())
+                        .capture(false)
+                        .authorizationType(AuthorizationType.PreAuth)
+                        .build();
+        Charge unCapturedCharge = client.sendRequest(createChargeRequest);
+
+        System.out.println("created charge: " + unCapturedCharge.getId());
+
+        assertNotNull(unCapturedCharge.getId());
+        assertFalse(unCapturedCharge.isCapture());
+        assertEquals(AuthorizationType.PreAuth, unCapturedCharge.getAuthorizationType());
+
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder(unCapturedCharge.getId()).captureAmount(50000).build();
 
         Charge capturedCharge = client.sendRequest(captureChargeRequest);
 

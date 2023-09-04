@@ -808,6 +808,11 @@ public class Charge extends Model {
         protected ResponseType<Charge> type() {
             return new ResponseType<>(Charge.class);
         }
+
+        @Override
+        protected RequestBody payload() throws IOException {
+            return serialize();
+        }
     }
 
     public static class ExpireRequestBuilder extends RequestBuilder<Charge> {

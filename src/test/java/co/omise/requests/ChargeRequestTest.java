@@ -6,6 +6,7 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.SourceType;
+import okio.Buffer;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -67,7 +68,7 @@ public class ChargeRequestTest extends RequestTest {
     }
 
     @Test
-    public void testCreatePartialCapturableCharge() throws IOException, OmiseException {
+    public void testCreatePartialCaptureCharge() throws IOException, OmiseException {
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
                         .amount(100000)
@@ -80,6 +81,8 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\"}");
+        assertNotNull(charge);
     }
 
     @Test
@@ -113,11 +116,13 @@ public class ChargeRequestTest extends RequestTest {
     public void testPartialCapture() throws IOException, OmiseException {
         Request<Charge> captureChargeRequest =
                 new Charge.CaptureRequestBuilder(CHARGE_ID)
-                        .captureAmount(100_000)
+                        .captureAmount(100000)
                         .build();
+
         Charge charge = getTestRequester().sendRequest(captureChargeRequest);
 
         assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
+        assertRequestBody("{\"capture_amount\":100000}");
         assertEquals(CHARGE_ID, charge.getId());
         assertFalse(charge.isCapture());
         assertTrue(charge.isPaid());

@@ -46,6 +46,7 @@ public class RequestTest extends OmiseTest {
             assertEquals(expectedRequestBody, actualRequestBody);
         } catch (final IOException e) {
             e.printStackTrace();
+            fail("Error occurred.");
         }
     }
 
