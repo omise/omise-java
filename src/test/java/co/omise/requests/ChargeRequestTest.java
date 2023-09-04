@@ -1,5 +1,6 @@
 package co.omise.requests;
 
+import co.omise.models.AuthorizationType;
 import co.omise.models.Barcode;
 import co.omise.models.Charge;
 import co.omise.models.OmiseException;
@@ -66,6 +67,22 @@ public class ChargeRequestTest extends RequestTest {
     }
 
     @Test
+    public void testCreatePartialCapturableCharge() throws IOException, OmiseException {
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(100000)
+                        .currency("thb")
+                        .capture(false)
+                        .authorizationType(AuthorizationType.PreAuth)
+                        .returnUri("http://example.com/orders/345678/complete")
+                        .build();
+
+        Charge charge = getTestRequester().sendRequest(createChargeRequest);
+
+        assertRequested("POST", "/charges", 200);
+    }
+
+    @Test
     public void testUpdate() throws IOException, OmiseException {
         Request<Charge> updateChargeRequest =
                 new Charge.UpdateRequestBuilder(CHARGE_ID)
@@ -83,6 +100,20 @@ public class ChargeRequestTest extends RequestTest {
     public void testCapture() throws IOException, OmiseException {
         Request<Charge> captureChargeRequest =
                 new Charge.CaptureRequestBuilder(CHARGE_ID)
+                        .build();
+        Charge charge = getTestRequester().sendRequest(captureChargeRequest);
+
+        assertRequested("POST", "/charges/" + CHARGE_ID + "/capture", 200);
+        assertEquals(CHARGE_ID, charge.getId());
+        assertFalse(charge.isCapture());
+        assertTrue(charge.isPaid());
+    }
+
+    @Test
+    public void testPartialCapture() throws IOException, OmiseException {
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder(CHARGE_ID)
+                        .captureAmount(100_000)
                         .build();
         Charge charge = getTestRequester().sendRequest(captureChargeRequest);
 
