@@ -6,6 +6,8 @@
   "amount": 100000,
   "currency": "thb",
   "authorization_type": "pre_auth",
+  "authorized_amount": 10000,
+  "captured_amount": 0,
   "description": null,
   "capture": true,
   "authorized": true,
