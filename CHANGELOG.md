@@ -1,8 +1,12 @@
 # CHANGE LOG
+
+## v.4.7.0
+
+* **NEW** Support partial capture (#158)
+ 
 ## v4.6.0
 
-### Added
-- Introducing support for `duitnow_obw` source type to facilitate charge creation for `duitnow` charges. ([#156](https://github.com/omise/omise-java/pull/156))
+* **NEW** Introducing support for `duitnow_obw` source type to facilitate charge creation for `duitnow` charges. ([#156](https://github.com/omise/omise-java/pull/156))
 
 ## v4.5.0
 
