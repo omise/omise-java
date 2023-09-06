@@ -68,6 +68,16 @@ final class Example {
         System.out.printf("captured charge: %s", charge.getId());
     }
 
+    void partialCaptureCharge() throws IOException, OmiseException, ClientException {
+        Request<Charge> captureChargeRequest =
+                new Charge.CaptureRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz")
+                        .captureAmount(10000)
+                        .build();
+        Charge charge = client().sendRequest(captureChargeRequest);
+
+        System.out.printf("captured charge: %s", charge.getId());
+    }
+
     void chargeWithCard() throws IOException, OmiseException, ClientException {
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -112,6 +122,34 @@ final class Example {
                         .amount(100000) // 1,000 THB
                         .currency("thb")
                         .card(token.getId())
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest);
+
+        System.out.printf("created charge: %s", charge.getId());
+    }
+
+    void createPartialCaptureCharge() throws IOException, OmiseException, ClientException {
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Somchai Prasert")
+                        .number("4242424242424242")
+                        .expirationMonth(10)
+                        .expirationYear(2022)
+                        .city("Bangkok")
+                        .postalCode("10320")
+                        .securityCode("123"))
+                .build();
+        Token token = client().sendRequest(request);
+
+        System.out.println("created token: " + token.getId());
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(100000) // 1,000 THB
+                        .currency("thb")
+                        .card(token.getId())
+                        .authorizationType(AuthorizationType.PreAuth)
+                        .capture(false)
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
 

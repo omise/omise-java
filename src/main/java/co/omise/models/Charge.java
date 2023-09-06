@@ -85,6 +85,10 @@ public class Charge extends Model {
     private boolean zeroInterestInstallments;
     @JsonProperty("authorization_type")
     private AuthorizationType authorizationType;
+    @JsonProperty("authorized_amount")
+    private long authorizedAmount;
+    @JsonProperty("captured_amount")
+    private long capturedAmount;
 
     public long getAmount() {
         return this.amount;
@@ -468,6 +472,22 @@ public class Charge extends Model {
 
     public void setAuthorizationType(AuthorizationType authorizationType) {
         this.authorizationType = authorizationType;
+    }
+
+    public long getAuthorizedAmount() {
+        return authorizedAmount;
+    }
+
+    public void setAuthorizedAmount(long authorizedAmount) {
+        this.authorizedAmount = authorizedAmount;
+    }
+
+    public long getCapturedAmount() {
+        return capturedAmount;
+    }
+
+    public void setCapturedAmount(long capturedAmount) {
+        this.capturedAmount = capturedAmount;
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
