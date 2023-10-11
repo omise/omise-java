@@ -12,6 +12,7 @@ import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -89,6 +90,8 @@ public class Charge extends Model {
     private long authorizedAmount;
     @JsonProperty("captured_amount")
     private long capturedAmount;
+    @JsonProperty("webhook_endpoints")
+    private List<String> webhookEndpoints; 
 
     public long getAmount() {
         return this.amount;
@@ -490,6 +493,14 @@ public class Charge extends Model {
         this.capturedAmount = capturedAmount;
     }
 
+    public List<String> getWebhookEndpoints() {
+        return webhookEndpoints;
+    }
+
+    public void setWebhookEndpoints(List<String> webhookEndpoints) {
+        this.webhookEndpoints = webhookEndpoints;
+    }
+
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
         private ScopedList.Options options;
 
@@ -552,6 +563,8 @@ public class Charge extends Model {
         private String source;
         @JsonProperty("authorization_type")
         private AuthorizationType authorizationType;
+        @JsonProperty("webhook_endpoints")
+        private List<String> webhookEndpoints;
 
         @Override
         protected String method() {
@@ -640,6 +653,11 @@ public class Charge extends Model {
 
         public CreateRequestBuilder authorizationType(AuthorizationType authorizationType) {
             this.authorizationType = authorizationType;
+            return this;
+        }
+
+        public CreateRequestBuilder webhookEndpoints(List<String> webhookEndpoints) {
+            this.webhookEndpoints = webhookEndpoints;
             return this;
         }
 

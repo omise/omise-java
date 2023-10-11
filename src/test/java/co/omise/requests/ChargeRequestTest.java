@@ -9,6 +9,7 @@ import co.omise.models.SourceType;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ChargeRequestTest extends RequestTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
@@ -46,6 +47,22 @@ public class ChargeRequestTest extends RequestTest {
     }
 
     @Test
+    public void testCreateWithWebhooks() throws IOException, OmiseException {
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(100000)
+                        .currency("thb")
+                        .webhookEndpoints(Arrays.asList("https://webhook.site/123"))
+                        .build();
+
+        Charge charge = getTestRequester().sendRequest(createChargeRequest);
+
+        assertRequested("POST", "/charges", 200);
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":null,\"authorization_type\":null,\"webhook_endpoints\":[\"https://webhook.site/123\"]}");
+        assertNotNull(charge);
+    }
+
+    @Test
     public void testCreateChargeFromSource() throws IOException, OmiseException {
         Request<Charge> createChargeRequest =
                 new Charge.CreateRequestBuilder()
@@ -80,7 +97,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
-        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\"}");
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\",\"webhook_endpoints\":null}");
         assertNotNull(charge);
     }
 
