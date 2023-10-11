@@ -91,7 +91,7 @@ public class Charge extends Model {
     @JsonProperty("captured_amount")
     private long capturedAmount;
     @JsonProperty("webhook_endpoints")
-    private String[] webhookEndpoints;
+    private List<String> webhookEndpoints; 
 
     public long getAmount() {
         return this.amount;
@@ -493,11 +493,11 @@ public class Charge extends Model {
         this.capturedAmount = capturedAmount;
     }
 
-    public String[] getWebhookEndpoints() {
+    public List<String> getWebhookEndpoints() {
         return webhookEndpoints;
     }
 
-    public void setWebhookEndpoints(String[] webhookEndpoints) {
+    public void setWebhookEndpoints(List<String> webhookEndpoints) {
         this.webhookEndpoints = webhookEndpoints;
     }
 
@@ -564,7 +564,7 @@ public class Charge extends Model {
         @JsonProperty("authorization_type")
         private AuthorizationType authorizationType;
         @JsonProperty("webhook_endpoints")
-        private String[] webhookEndpoints;
+        private List<String> webhookEndpoints;
 
         @Override
         protected String method() {
@@ -657,7 +657,7 @@ public class Charge extends Model {
         }
 
         public CreateRequestBuilder webhookEndpoints(List<String> webhookEndpoints) {
-            this.webhookEndpoints = webhookEndpoints.toArray(new String[0]);
+            this.webhookEndpoints = webhookEndpoints;
             return this;
         }
 
