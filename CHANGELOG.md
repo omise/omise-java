@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v.4.8.0
+
+- **NEW** Support dynamic webhooks ([#161](https://github.com/omise/omise-java/pull/161))
+
 ## v.4.7.0
 
 * **NEW** Support partial capture (#158)
