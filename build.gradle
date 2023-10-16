@@ -1,9 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'java-library-distribution'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'jacoco'
+
+if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+  apply plugin: 'org.sonarqube'
+}
 
 group 'co.omise'
 version '4.8.0'
@@ -12,96 +17,109 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    mavenCentral()
-    jcenter()
+  mavenCentral()
 }
 
 buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
+  repositories {
+    maven {
+      url 'https://plugins.gradle.org/m2/'
     }
+  }
 
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:6.1.0'
+    classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+    if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+      classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.3.0.3225'
     }
+  }
 }
 
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
+  classifier = 'javadoc'
+  from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+  classifier = 'sources'
+  from sourceSets.main.allSource
 }
 
 distributions {
-    main {
-        baseName = 'omise-java'
-    }
+  main {
+    distributionBaseName = 'omise-java'
+  }
 }
 
 signing {
-    def signingKey = System.getenv("PGP_SIGNING_KEY")
-    def signingPwd = System.getenv("PGP_SIGNING_PASSWORD")
+  def signingKey = System.getenv('PGP_SIGNING_KEY')
+  def signingPwd = System.getenv('PGP_SIGNING_PASSWORD')
 
-    useInMemoryPgpKeys(signingKey, signingPwd)
+  useInMemoryPgpKeys(signingKey, signingPwd)
 
-    sign configurations.archives
+  sign configurations.archives
 }
 
 artifacts {
-    archives javadocJar, sourcesJar
+  archives javadocJar, sourcesJar
 }
 
-// REF: http://central.sonatype.org/pages/gradle.html
-uploadArchives {
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+def ossrhUsername = System.getenv("SONATYPE_USERNAME")
+def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
 
-        def ossrhUsername = System.getenv("SONATYPE_USERNAME")
-        def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
-
-        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId 'omise-java'
+      pom {
+        name = 'Omise Java'
+        description = 'Java bindings for the Omise API'
+        url = 'https://www.omise.co'
+        licenses {
+          license {
+            name = 'The MIT License (MIT)'
+            url = 'https://opensource.org/licenses/MIT'
+          }
         }
-
-        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
+        developers {
+          developer {
+            id = 'chakrit'
+            name = 'Omise'
+            email = 'support@opn.ooo'
+          }
         }
-
-        pom.project {
-            name 'Omise Java'
-            description 'Java bindings for the Omise API'
-            packaging 'jar'
-            artifactId 'omise-java'
-            url 'https://www.omise.co'
-
-            scm {
-                connection 'scm:git:git://git.github.com/omise/omise-java'
-                developerConnection 'scm:git:git://git.github.com/omise/omise-java'
-                url 'https://github.com/omise/omise-java'
-            }
-
-            licenses {
-                license {
-                    name 'The MIT License (MIT)'
-                    url 'https://opensource.org/licenses/MIT'
-                }
-            }
-
-            developers {
-                developer {
-                    id 'chakrit'
-                    name 'Omise'
-                    email 'support@omise.co'
-                }
-            }
+        scm {
+          connection = 'scm:git:git://git.github.com/omise/omise-java'
+          developerConnection = 'scm:git:git://git.github.com/omise/omise-java'
+          url = 'https://github.com/omise/omise-java'
         }
+      }
     }
+  }
+
+  repositories {
+    maven {
+      url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+      credentials {
+        username  = ossrhUsername
+        password = ossrhPassword
+      }
+    }
+
+    maven {
+      name = 'snapshotRepository'
+      url = 'https://oss.sonatype.org/content/repositories/snapshots'
+      credentials {
+        username  = ossrhUsername
+        password = ossrhPassword
+      }
+    }
+  }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
 
 /**
@@ -113,34 +131,50 @@ uploadArchives {
  * will return attributes in manifest file.
  */
 jar {
-    manifest {
-        attributes 'Implementation-Version': version
-    }
+  manifest {
+    attributes 'Implementation-Version': archiveVersion
+  }
 }
 
 shadowJar {
-    // Include all manifest from jar to shadowJar
-    manifest {
-        inheritFrom jar.manifest
+  // Include all manifest from jar to shadowJar
+  manifest {
+    inheritFrom jar.manifest
+  }
+  relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
+  relocate 'okio', 'co.omise.dependencies.okio'
+  relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
+  }
+}
+
+if (JavaVersion.current() != JavaVersion.VERSION_1_8) {
+  sonar {
+    properties {
+      property('sonar.projectKey', 'omise_omise-java')
+      property('sonar.organization', 'omise')
+      property('sonar.host.url', 'https://sonarcloud.io')
     }
-    relocate 'okhttp3', 'co.omise.dependencies.okhttp3'
-    relocate 'okio', 'co.omise.dependencies.okio'
-    relocate 'com.fasterxml.jackson', 'co.omise.dependencies.com.fasterxml.jackson'
+  }
 }
 
 dependencies {
-    // base
-    implementation 'joda-time:joda-time:2.9.9'
+  // base
+  implementation 'joda-time:joda-time:2.9.9'
 
-    // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.10'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
+  // persistence
+  implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
 
-    // networking
-    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
+  // networking
+  implementation 'com.squareup.okhttp3:okhttp:3.7.0'
 
-    // test
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.guava:guava:20.0'
+  // test
+  testImplementation 'junit:junit:4.12'
+  testImplementation 'com.google.guava:guava:20.0'
 
 }
