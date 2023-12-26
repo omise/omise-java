@@ -12,7 +12,7 @@ library and the functionality it provides.
 
 **WARNING:** Android users should check out our [omise-android][4] repository instead.
 
-This library requires Java 8 and up and is meant to be used with Java server
+This library requires Java 8 and higher and is meant to be used with Java server
 implementations.
 
 ### Gradle/Maven
@@ -27,7 +27,7 @@ dependencies {
 
 ### Shadow JAR
 
-If you have dependency conflicts with `omise-java` jar, you can try using the
+If you have dependency conflicts with the `omise-java` jar, you can try using the
 [shadowed JAR][7] version that has the JAR dependencies relocated to the
 `co.omise.dependencies` package.
 
@@ -56,7 +56,7 @@ omise-java-4.0.0-all.jar
 
 ## Usage
 
-Obtain a set of API keys from the [Opn Payments Dashboard][8] and create a `Client` object
+Obtain a set of API keys from the [Opn Payments Dashboard][8] and create a `Client` object:
 
 ```java
 Client client = new Client.Builder()
@@ -66,7 +66,7 @@ Client client = new Client.Builder()
 ```
 
 Access the API by creating a `Request` and sending it through the `Client`, for example to get
-current Balance;
+current Balance:
 
 ```java
 Request<Balance> request = new Balance.GetRequestBuilder().build();
@@ -75,7 +75,7 @@ Balance balance = client.sendRequest(request);
 long total = balance.getTotal();
 ```
 
-Creating a charge from a token
+Creating a charge from a token:
 
 ```java
 Client client = new Client.Builder()
