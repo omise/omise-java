@@ -1,23 +1,23 @@
-# OMISE-JAVA
+# Omise-Java
 
 [![Maven Central][5]][6] [![Github Actions][0]][1]
 
-`omise-java` provides a set of Java bindings to the [Omise REST API][2].  Please contact
+`omise-java` provides a set of Java bindings to the [Opn Payments REST API][2].  Please contact
  [support@opn.ooo][3] if you have any questions regarding this
 library and the functionality it provides.
 
-## INSTALLATION
+## Installation
 
 ### Android
 
 **WARNING:** Android users should check out our [omise-android][4] repository instead.
 
-This library requires Java 8 and up and is meant to be used with Java server
+This library requires Java 8 and higher and is meant to be used with Java server
 implementations.
 
 ### Gradle/Maven
 
-Adds to your `build.gradle` file.
+Add to your `build.gradle` file.
 
 ```gradle
 dependencies {
@@ -27,8 +27,8 @@ dependencies {
 
 ### Shadow JAR
 
-If you have dependency conflicts with `omise-java` jar you can try using the
-[shadowed JAR][7] version which has the JAR dependencies relocated to the
+If you have dependency conflicts with the `omise-java` jar, you can try using the
+[shadowed JAR][7] version that has the JAR dependencies relocated to the
 `co.omise.dependencies` package.
 
 You can obtain a [`shadowed jar`][7] by manually cloning the project and running the
@@ -49,14 +49,14 @@ $ ls builds/libs
 omise-java-4.0.0-all.jar
 ```
 
-### Migration Guide
+### Migration guide
 
 * [v4](MIGRATING.md#migrating-from-v3-to-v4)
 * [v3](MIGRATING.md#migrating-to-v3)
 
-## USAGE
+## Usage
 
-Obtain a set of API keys from the [Omise Dashboard][8] and create a `Client` object
+Obtain a set of API keys from the [Opn Payments Dashboard][8] and create a `Client` object:
 
 ```java
 Client client = new Client.Builder()
@@ -66,7 +66,7 @@ Client client = new Client.Builder()
 ```
 
 Access the API by creating a `Request` and sending it through the `Client`, for example to get
-current Balance
+current Balance:
 
 ```java
 Request<Balance> request = new Balance.GetRequestBuilder().build();
@@ -75,7 +75,7 @@ Balance balance = client.sendRequest(request);
 long total = balance.getTotal();
 ```
 
-Creating a charge from a token
+Creating a charge from a token:
 
 ```java
 Client client = new Client.Builder()
@@ -93,7 +93,7 @@ Charge charge = client.sendRequest(request);
 System.out.println("created charge: " + charge.getId());
 ```
 
-## LICENSE
+## License
 
 [MIT license][9]
 On February 23, 2023, we started redirecting users from search.maven.org to central.sonatype.com. Launched in September of 2022, central.sonatype.com provides the main functionality of search.maven.org with enhanced search results, including security vulnerability and software quality information.
@@ -101,7 +101,7 @@ On February 23, 2023, we started redirecting users from search.maven.org to cent
 
 [0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg
 [1]: https://github.com/omise/omise-java/actions
-[2]: https://www.omise.co/docs
+[2]: https://docs.opn.ooo/
 [3]: mailto:support@opn.ooo
 [4]: https://github.com/omise/omise-android
 [5]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
