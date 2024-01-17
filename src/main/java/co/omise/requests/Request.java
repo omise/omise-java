@@ -72,7 +72,13 @@ public class Request<T extends OmiseObjectBase> {
     public RequestBody getPayload() {
         return payload;
     }
-    public  String getBodyToString(){
+
+    /**
+     * Gets payload (request params).
+     *
+     * @return the payload as a readable string
+     */
+    public  String getPayloadToString(){
         try {
             final Buffer buffer = new Buffer();
             payload.writeTo(buffer);
