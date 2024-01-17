@@ -360,9 +360,6 @@ public class Source extends Model {
 
         @Override
         protected RequestBody payload() throws IOException {
-            if (type == SourceType.WechatPay && (ip == null || ip.isEmpty())) {
-                throw new IllegalArgumentException("IP address is required for WeChat Pay Source.");
-            }
             return serialize();
         }
     }
