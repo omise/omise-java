@@ -89,7 +89,8 @@ public class Source extends Model {
     public String getEmail() {
         return this.email;
     }
-    public String getIp() {
+
+        public String getIp() {
         return this.ip;
     }
 
