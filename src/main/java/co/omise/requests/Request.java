@@ -78,15 +78,10 @@ public class Request<T extends OmiseObjectBase> {
      *
      * @return the payload as a readable string
      */
-    public  String getPayloadToString(){
-        try {
-            final Buffer buffer = new Buffer();
-            payload.writeTo(buffer);
-            return buffer.readUtf8();
-        }
-        catch (final IOException e) {
-            return "Unable to process payload";
-        }
+    public String getPayloadToString() throws IOException {
+        final Buffer buffer = new Buffer();
+        payload.writeTo(buffer);
+        return buffer.readUtf8();
     }
 
     public ResponseType<T> getType() {
