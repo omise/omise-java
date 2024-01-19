@@ -84,7 +84,7 @@ public enum SourceType {
     @JsonProperty("duitnow_obw")
     DuitNowOBW,
     @JsonProperty("wechat_pay")
-    WechatPay;
+    WeChatPay;
 
     @Override
     public String toString() {

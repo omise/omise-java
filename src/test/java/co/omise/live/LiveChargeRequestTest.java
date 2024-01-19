@@ -642,7 +642,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
     public void testLiveChargeWithWechatPay() throws IOException, OmiseException {
 
         Request<Source> sourceRequest = new Source.CreateRequestBuilder()
-                .type(SourceType.WechatPay)
+                .type(SourceType.WeChatPay)
                 .amount(15000)
                 .currency("THB")
                 .ip("127.0.0.1")
@@ -666,7 +666,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(15000, charge.getAmount());
         assertEquals("THB", charge.getCurrency());
         assertEquals("127.0.0.1", charge.getSource().getIp());
-        assertEquals(SourceType.WechatPay, charge.getSource().getType());
+        assertEquals(SourceType.WeChatPay, charge.getSource().getType());
         assertEquals(FlowType.AppRedirect, charge.getSource().getFlow());
     }
 }
