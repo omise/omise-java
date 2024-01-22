@@ -25,6 +25,7 @@ public class Source extends Model {
     private ChargeStatus chargeStatus;
     private String currency;
     private String email;
+    private String ip;
     private FlowType flow;
     @JsonProperty("installment_term")
     private long installmentTerm;
@@ -89,8 +90,16 @@ public class Source extends Model {
         return this.email;
     }
 
+        public String getIp() {
+        return this.ip;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public FlowType getFlow() {
@@ -217,6 +226,8 @@ public class Source extends Model {
         private String currency;
         @JsonProperty
         private String email;
+        @JsonProperty
+        private String ip;
         @JsonProperty("installment_term")
         private long installmentTerm;
         @JsonProperty("mobile_number")
@@ -279,6 +290,11 @@ public class Source extends Model {
 
         public CreateRequestBuilder email(String email) {
             this.email = email;
+            return this;
+        }
+
+        public CreateRequestBuilder ip(String ip) {
+            this.ip = ip;
             return this;
         }
 

@@ -1,5 +1,8 @@
 package co.omise.requests;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import co.omise.models.OmiseException;
 import co.omise.models.Source;
 import co.omise.models.SourceType;
@@ -44,5 +47,41 @@ public class SourceRequestTest extends RequestTest {
         assertEquals(4, source.getInstallmentTerm());
         assertEquals("thb", source.getCurrency());
         assertEquals("redirect", source.getFlow().toString());
+    }
+
+    @Test
+    public void testWeChatPaySourceIpMustBeNullWhenEmpty() throws IOException {
+        Request<Source> request = new TestSourceRequestBuilder()
+                .type(SourceType.WeChatPay)
+                .amount(500000)
+                .currency("thb")
+                .build();
+
+        // The key must exist in the request with a value of null
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(request.getPayloadToString());
+
+        assertTrue(rootNode.has("ip"));
+        assertNull(rootNode.get("ip").textValue());
+
+    }
+
+    @Test
+    public void testWeChatPaySourceIpMustHaveValueWhenPassed() throws IOException {
+        String ip = "127.0.0.1";
+        Request<Source> request = new TestSourceRequestBuilder()
+                .type(SourceType.WeChatPay)
+                .amount(500000)
+                .ip(ip)
+                .currency("thb")
+                .build();
+
+        // The key must exist in the request with the passed value
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode rootNode = objectMapper.readTree(request.getPayloadToString());
+
+        assertTrue(rootNode.has("ip"));
+        assertEquals(rootNode.get("ip").textValue(), ip);
+
     }
 }

@@ -637,4 +637,36 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals("affin", charge.getSource().getBank());
         assertEquals(FlowType.Redirect, charge.getSource().getFlow());
     }
+    @Test
+    @Ignore("only hit the network when we need to.")
+    public void testLiveChargeWithWechatPay() throws IOException, OmiseException {
+
+        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
+                .type(SourceType.WeChatPay)
+                .amount(15000)
+                .currency("THB")
+                .ip("127.0.0.1")
+                .build();
+
+        Source source = client.sendRequest(sourceRequest);
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .source(source.getId())
+                        .amount(15000)
+                        .currency("THB")
+                        .returnUri("http://example.com/")
+                        .build();
+
+        Charge charge = client.sendRequest(createChargeRequest);
+
+        System.out.println("created charge: " + charge.getId());
+
+        assertNotNull(charge.getId());
+        assertEquals(15000, charge.getAmount());
+        assertEquals("THB", charge.getCurrency());
+        assertEquals("127.0.0.1", charge.getSource().getIp());
+        assertEquals(SourceType.WeChatPay, charge.getSource().getType());
+        assertEquals(FlowType.AppRedirect, charge.getSource().getFlow());
+    }
 }

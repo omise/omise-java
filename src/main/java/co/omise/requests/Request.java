@@ -1,9 +1,12 @@
 package co.omise.requests;
 
+import java.io.IOException;
+
 import co.omise.Client;
 import co.omise.models.OmiseObjectBase;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
+import okio.Buffer;
 
 /**
  * Request is a base class, all extending classes would act as a holder class that encapsulate the information
@@ -68,6 +71,17 @@ public class Request<T extends OmiseObjectBase> {
      */
     public RequestBody getPayload() {
         return payload;
+    }
+
+    /**
+     * Gets payload (request params).
+     *
+     * @return the payload as a readable string
+     */
+    public String getPayloadToString() throws IOException {
+        final Buffer buffer = new Buffer();
+        payload.writeTo(buffer);
+        return buffer.readUtf8();
     }
 
     public ResponseType<T> getType() {

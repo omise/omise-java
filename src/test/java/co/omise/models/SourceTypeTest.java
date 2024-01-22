@@ -36,5 +36,6 @@ public class SourceTypeTest {
         assertEquals("mobile_banking_ktb", SourceType.MobileBankingKtb.toString());
         assertEquals("atome", SourceType.Atome.toString());
         assertEquals("duitnow_obw", SourceType.DuitNowOBW.toString());
+        assertEquals("wechat_pay", SourceType.WeChatPay.toString());
     }
 }
