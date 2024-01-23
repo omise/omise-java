@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v.4.9.0
+
+- **NEW** Support wechat_pay source ([#161](https://github.com/omise/omise-java/pull/164))
+
 ## v.4.8.0
 
 - **NEW** Support dynamic webhooks ([#161](https://github.com/omise/omise-java/pull/161))
