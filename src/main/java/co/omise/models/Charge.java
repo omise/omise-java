@@ -506,6 +506,7 @@ public class Charge extends Model {
     public String getMerchantAdvice() {
         return merchantAdvice;
     }
+
     public void setMerchantAdvice(String merchantAdvice) {
         this.merchantAdvice = merchantAdvice;
     }
