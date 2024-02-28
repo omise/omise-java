@@ -25,6 +25,7 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(100000L, charge.getAmount());
         assertEquals("thb", charge.getCurrency());
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
+        assertEquals("Test advice", charge.getMerchantAdvice());
     }
 
     @Test
