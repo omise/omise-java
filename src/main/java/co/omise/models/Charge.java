@@ -91,7 +91,9 @@ public class Charge extends Model {
     @JsonProperty("captured_amount")
     private long capturedAmount;
     @JsonProperty("webhook_endpoints")
-    private List<String> webhookEndpoints; 
+    private List<String> webhookEndpoints;
+    @JsonProperty("merchant_advice")
+    private String merchantAdvice;
 
     public long getAmount() {
         return this.amount;
@@ -499,6 +501,14 @@ public class Charge extends Model {
 
     public void setWebhookEndpoints(List<String> webhookEndpoints) {
         this.webhookEndpoints = webhookEndpoints;
+    }
+
+    public String getMerchantAdvice() {
+        return merchantAdvice;
+    }
+
+    public void setMerchantAdvice(String merchantAdvice) {
+        this.merchantAdvice = merchantAdvice;
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {

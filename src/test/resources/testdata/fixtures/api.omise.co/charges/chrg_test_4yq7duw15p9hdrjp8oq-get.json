@@ -58,5 +58,6 @@
   "disputable": false,
   "capturable": false,
   "reversible": false,
-  "refundable": false
+  "refundable": false,
+  "merchant_advice": "Test advice"
 }
