@@ -1,5 +1,9 @@
 # CHANGE LOG
 
+## v.4.9.1
+
+- **NEW** Add `merchant_advice` param to charge model ([#166](https://github.com/omise/omise-java/pull/166))
+
 ## v.4.9.0
 
 - **NEW** Support wechat_pay source ([#164](https://github.com/omise/omise-java/pull/164))
