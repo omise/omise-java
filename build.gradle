@@ -141,6 +141,6 @@ dependencies {
 
     // test
     testImplementation 'junit:junit:4.12'
-    testImplementation 'com.google.guava:guava:20.0'
+    testImplementation 'com.google.guava:guava:32.0.1-jre'
 
 }
