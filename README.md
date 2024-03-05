@@ -6,6 +6,11 @@
  [support@opn.ooo][3] if you have any questions regarding this
 library and the functionality it provides.
 
+## Security Warning
+
+**Please do NOT use Omise Java library versions less than 3.1.1, as they are outdated and have security vulnerabilities.**
+
+
 ## Installation
 
 ### Android
