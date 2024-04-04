@@ -20,13 +20,13 @@ library and the functionality it provides.
 This library requires Java 8 and higher and is meant to be used with Java server
 implementations.
 
-### Gradle/Maven
+### Gradle/Kotlin/Maven
 
 Add to your `build.gradle` file.
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:4.0.+'
+    compile 'co.omise:omise-java:4.+'
 }
 ```
 
