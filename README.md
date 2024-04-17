@@ -13,6 +13,8 @@ library and the functionality it provides.
 
 ## Installation
 
+You can use your preferred method of managing dependencies in order to install the omise-java library. Below you will find some popular examples:
+
 ### Android
 
 **WARNING:** Android users should check out our [omise-android][4] repository instead.
@@ -20,14 +22,36 @@ library and the functionality it provides.
 This library requires Java 8 and higher and is meant to be used with Java server
 implementations.
 
-### Gradle/Maven
+### Gradle
 
-Add to your `build.gradle` file.
+Add the following line to your `build.gradle` file:
 
 ```gradle
 dependencies {
-    compile 'co.omise:omise-java:4.0.+'
+    compile 'co.omise:omise-java:4.+'
 }
+```
+
+### Kotlin
+
+Add the following dependency to your `build.gradle.kts` file:
+
+```kotlin
+dependencies {
+    implementation("co.omise:omise-java:4.+")
+}
+```
+
+### Maven
+
+Add the following dependency to your `pom.xml` file:
+
+```xml
+<dependency>
+    <groupId>co.omise</groupId>
+    <artifactId>omise-java</artifactId>
+    <version>4.0.0</version>
+</dependency>
 ```
 
 ### Shadow JAR
