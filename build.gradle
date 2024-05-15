@@ -1,6 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'java-library-distribution'
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: 'com.github.ben-manes.versions'
@@ -20,27 +20,30 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+        classpath "com.github.johnrengelman:shadow:8.1.1"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
     }
 }
 
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
-    classifier = 'sources'
+    archiveClassifier = 'sources'
     from sourceSets.main.allSource
 }
 
 distributions {
     main {
-        baseName = 'omise-java'
+        archivesBaseName = 'omise-java'
     }
 }
 
@@ -57,48 +60,49 @@ artifacts {
     archives javadocJar, sourcesJar
 }
 
-// REF: http://central.sonatype.org/pages/gradle.html
-uploadArchives {
-    repositories.mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+// REF: https://docs.gradle.org/current/userguide/publishing_maven.html
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'omise-java'
 
-        def ossrhUsername = System.getenv("SONATYPE_USERNAME")
-        def ossrhPassword = System.getenv("SONATYPE_PASSWORD")
+            pom {
+                name = 'Omise Java'
+                description = 'Java bindings for the Omise API'
+                packaging = 'jar'
+                url = 'https://www.omise.co'
 
-        repository(url: 'https://oss.sonatype.org/service/local/staging/deploy/maven2/') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-        }
+                scm {
+                    connection = 'scm:git:git://git.github.com/omise/omise-java'
+                    developerConnection = 'scm:git:git://git.github.com/omise/omise-java'
+                    url = 'https://github.com/omise/omise-java'
+                }
 
-        snapshotRepository(url: 'https://oss.sonatype.org/content/repositories/snapshots') {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-        }
-
-        pom.project {
-            name 'Omise Java'
-            description 'Java bindings for the Omise API'
-            packaging 'jar'
-            artifactId 'omise-java'
-            url 'https://www.omise.co'
-
-            scm {
-                connection 'scm:git:git://git.github.com/omise/omise-java'
-                developerConnection 'scm:git:git://git.github.com/omise/omise-java'
-                url 'https://github.com/omise/omise-java'
-            }
-
-            licenses {
-                license {
-                    name 'The MIT License (MIT)'
-                    url 'https://opensource.org/licenses/MIT'
+                licenses {
+                    license {
+                        name = 'The MIT License (MIT)'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'chakrit'
+                        name = 'Omise'
+                        email = 'support@omise.co'
+                    }
                 }
             }
+        }
+    }
 
-            developers {
-                developer {
-                    id 'chakrit'
-                    name 'Omise'
-                    email 'support@omise.co'
-                }
+    repositories {
+        maven {
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            credentials {
+                username = System.getenv("SONATYPE_USERNAME")
+                password = System.getenv("SONATYPE_PASSWORD")
             }
         }
     }
@@ -133,8 +137,8 @@ dependencies {
     implementation 'joda-time:joda-time:2.9.9'
 
     // persistence
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.10'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
 
     // networking
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
