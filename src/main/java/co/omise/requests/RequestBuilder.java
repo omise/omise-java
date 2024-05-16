@@ -52,9 +52,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * Abstract method that needs to be implement by all children of this class to provide API Path
      *
      * @return the url path as {@link HttpUrl}
-     * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
      */
-    protected abstract HttpUrl path() throws IOException;
+    protected abstract HttpUrl path();
 
     /**
      * Default Content type of the HTTP Request.
