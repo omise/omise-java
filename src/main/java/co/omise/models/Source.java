@@ -335,7 +335,7 @@ public class Source extends Model {
 
         public CreateRequestBuilder addItem(Item item) {
             if(this.items == null) {
-                this.items = new ArrayList<Item>();
+                this.items = new ArrayList<>();
             }
             this.items.add(item);
             return this;

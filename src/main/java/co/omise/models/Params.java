@@ -39,7 +39,7 @@ public abstract class Params {
      * @return An {@link Map} containing keys and values to adds to the URL.
      */
     public Map<String, String> query(Serializer serializer) {
-        return Collections.unmodifiableMap(new HashMap<String, String>());
+        return Collections.unmodifiableMap(new HashMap<>());
     }
 
     /**
