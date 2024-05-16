@@ -132,11 +132,11 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
     }
 
     public class HttpUrlBuilder {
-        private Endpoint endpoint;
-        private String path;
+        private final Endpoint endpoint;
+        private final String path;
         private String[] segments;
         private Params params;
-        private Serializer serializer;
+        private final Serializer serializer;
 
         public HttpUrlBuilder(Endpoint endpoint, String path, Serializer serializer) {
             this.endpoint = endpoint;

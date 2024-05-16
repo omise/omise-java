@@ -83,7 +83,7 @@ public class Transaction extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Transaction> {
-        private String transactionId;
+        private final String transactionId;
         public GetRequestBuilder(String transactionId) {
             this.transactionId = transactionId;
         }

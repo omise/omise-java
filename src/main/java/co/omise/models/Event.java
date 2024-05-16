@@ -56,7 +56,7 @@ public class Event<T extends Model> extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Event> {
-        private String eventId;
+        private final String eventId;
         public GetRequestBuilder(String eventId) {
             this.eventId = eventId;
         }

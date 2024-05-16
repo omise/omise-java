@@ -689,7 +689,7 @@ public class Charge extends Model {
     }
 
     public static class ListEventsRequestBuilder extends RequestBuilder<ScopedList<Event>> {
-        private String chargeId;
+        private final String chargeId;
         private ScopedList.Options options;
         public ListEventsRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
@@ -753,7 +753,7 @@ public class Charge extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
         public GetRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }
@@ -775,7 +775,7 @@ public class Charge extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
 
         @JsonProperty
         private String description;
@@ -828,7 +828,7 @@ public class Charge extends Model {
     }
 
     public static class CaptureRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
 
         @JsonProperty("capture_amount")
         private long captureAmount;
@@ -864,7 +864,7 @@ public class Charge extends Model {
     }
 
     public static class ExpireRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
         public ExpireRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }
@@ -886,7 +886,7 @@ public class Charge extends Model {
     }
 
     public static class MarkAsFailedRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
         public MarkAsFailedRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }
@@ -908,7 +908,7 @@ public class Charge extends Model {
     }
 
     public static class MarkAsPaidRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
         public MarkAsPaidRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }
@@ -930,7 +930,7 @@ public class Charge extends Model {
     }
 
     public static class ReverseRequestBuilder extends RequestBuilder<Charge> {
-        private String chargeId;
+        private final String chargeId;
         public ReverseRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }

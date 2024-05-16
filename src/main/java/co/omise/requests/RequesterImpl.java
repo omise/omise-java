@@ -17,8 +17,8 @@ import java.io.InputStream;
  * @see Serializer
  */
 public class RequesterImpl implements Requester {
-    private OkHttpClient httpClient;
-    private Serializer serializer;
+    private final OkHttpClient httpClient;
+    private final Serializer serializer;
 
     /**
      * Instantiates a new RequesterImpl instance.

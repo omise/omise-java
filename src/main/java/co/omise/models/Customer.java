@@ -77,7 +77,7 @@ public class Customer extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Customer> {
-        private String customerId;
+        private final String customerId;
         public DeleteRequestBuilder(String customerId) {
             this.customerId = customerId;
         }
@@ -99,7 +99,7 @@ public class Customer extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Customer> {
-        private String customerId;
+        private final String customerId;
         public GetRequestBuilder(String customerId) {
             this.customerId = customerId;
         }
@@ -122,7 +122,7 @@ public class Customer extends Model {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public static class UpdateRequestBuilder extends RequestBuilder<Customer> {
-        private String customerId;
+        private final String customerId;
 
         @JsonProperty
         private String card;
@@ -289,7 +289,7 @@ public class Customer extends Model {
     }
 
     public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String customerId;
+        private final String customerId;
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String customerId) {
             this.customerId = customerId;

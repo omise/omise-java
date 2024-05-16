@@ -302,8 +302,8 @@ public class Card extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Card> {
-        private String customerId;
-        private String cardId;
+        private final String customerId;
+        private final String cardId;
         public DeleteRequestBuilder(String customerId, String cardId) {
             this.customerId = customerId;
             this.cardId = cardId;
@@ -326,8 +326,8 @@ public class Card extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Card> {
-        private String customerId;
-        private String cardId;
+        private final String customerId;
+        private final String cardId;
         public GetRequestBuilder(String customerId, String cardId) {
             this.customerId = customerId;
             this.cardId = cardId;
@@ -350,8 +350,8 @@ public class Card extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Card> {
-        private String customerId;
-        private String cardId;
+        private final String customerId;
+        private final String cardId;
 
         @JsonProperty
         private String city;
@@ -425,7 +425,7 @@ public class Card extends Model {
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Card>> {
-        private String customerId;
+        private final String customerId;
         private ScopedList.Options options;
         public ListRequestBuilder(String customerId) {
             this.customerId = customerId;

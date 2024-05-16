@@ -368,7 +368,7 @@ public class Source extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Source> {
-        private String sourceId;
+        private final String sourceId;
         public GetRequestBuilder(String sourceId) {
             this.sourceId = sourceId;
         }

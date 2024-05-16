@@ -84,7 +84,7 @@ public class Chain extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Chain> {
-        private String chainId;
+        private final String chainId;
         public GetRequestBuilder(String chainId) {
             this.chainId = chainId;
         }
@@ -106,7 +106,7 @@ public class Chain extends Model {
     }
 
     public static class RevokeRequestBuilder extends RequestBuilder<Chain> {
-        private String chainId;
+        private final String chainId;
         public RevokeRequestBuilder(String chainId) {
             this.chainId = chainId;
         }

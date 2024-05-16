@@ -127,9 +127,9 @@ public class SerializerTest extends OmiseTest {
 
     public static final class DummyParams extends Params {
         @JsonProperty
-        private String hello;
+        private final String hello;
         @JsonProperty("what")
-        private String another;
+        private final String another;
 
         public DummyParams() {
             hello = "world";

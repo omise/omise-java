@@ -252,7 +252,7 @@ public class Receipt extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Receipt> {
-        private String receiptId;
+        private final String receiptId;
         public GetRequestBuilder(String receiptId) {
             this.receiptId = receiptId;
         }

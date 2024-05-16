@@ -164,7 +164,7 @@ public class Recipient extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public DeleteRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
         }
@@ -186,7 +186,7 @@ public class Recipient extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public GetRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
         }
@@ -208,7 +208,7 @@ public class Recipient extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
 
         @JsonProperty("bank_account")
         private BankAccount.Params bankAccount;
@@ -410,7 +410,7 @@ public class Recipient extends Model {
     }
 
     public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String recipientId;
+        private final String recipientId;
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
@@ -444,7 +444,7 @@ public class Recipient extends Model {
     }
 
     public static class VerifyRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public VerifyRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
         }

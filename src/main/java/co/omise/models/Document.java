@@ -46,8 +46,8 @@ public class Document extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Document> {
-        private String disputeId;
-        private String documentId;
+        private final String disputeId;
+        private final String documentId;
         public DeleteRequestBuilder(String disputeId, String documentId) {
             this.disputeId = disputeId;
             this.documentId = documentId;
@@ -70,8 +70,8 @@ public class Document extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Document> {
-        private String disputeId;
-        private String documentId;
+        private final String disputeId;
+        private final String documentId;
         public GetRequestBuilder(String disputeId, String documentId) {
             this.disputeId = disputeId;
             this.documentId = documentId;
@@ -94,7 +94,7 @@ public class Document extends Model {
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Document>> {
-        private String disputeId;
+        private final String disputeId;
         private ScopedList.Options options;
         public ListRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
@@ -128,7 +128,7 @@ public class Document extends Model {
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Document> {
-        private String disputeId;
+        private final String disputeId;
 
         @JsonProperty
         private String file;

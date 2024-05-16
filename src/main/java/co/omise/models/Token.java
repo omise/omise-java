@@ -85,7 +85,7 @@ public class Token extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Token> {
-        private String tokenId;
+        private final String tokenId;
         public GetRequestBuilder(String tokenId) {
             this.tokenId = tokenId;
         }

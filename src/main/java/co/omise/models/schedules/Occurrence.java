@@ -97,7 +97,7 @@ public class Occurrence extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Occurrence> {
-        private String occurrenceId;
+        private final String occurrenceId;
         public GetRequestBuilder(String occurrenceId) {
             this.occurrenceId = occurrenceId;
         }
@@ -119,7 +119,7 @@ public class Occurrence extends Model {
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
-        private String scheduleId;
+        private final String scheduleId;
         private ScopedList.Options options;
         public ListRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;

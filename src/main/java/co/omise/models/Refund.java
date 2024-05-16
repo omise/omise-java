@@ -151,7 +151,7 @@ public class Refund extends Model {
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Refund>> {
-        private String chargeId;
+        private final String chargeId;
         private ScopedList.Options options;
         public ListRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
@@ -185,7 +185,7 @@ public class Refund extends Model {
     }
 
     public static class CreateRequestBuilder extends RequestBuilder<Refund> {
-        private String chargeId;
+        private final String chargeId;
 
         @JsonProperty
         private long amount;
@@ -245,8 +245,8 @@ public class Refund extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Refund> {
-        private String chargeId;
-        private String refundId;
+        private final String chargeId;
+        private final String refundId;
         public GetRequestBuilder(String chargeId, String refundId) {
             this.chargeId = chargeId;
             this.refundId = refundId;

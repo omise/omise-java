@@ -253,7 +253,7 @@ public class Dispute extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
         public GetRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
         }
@@ -275,7 +275,7 @@ public class Dispute extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
 
         @JsonProperty
         private String message;
@@ -328,7 +328,7 @@ public class Dispute extends Model {
     }
 
     public static class CloseRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
 
         @JsonProperty
         private DisputeStatus status;
@@ -363,7 +363,7 @@ public class Dispute extends Model {
     }
 
     public static class AcceptRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
         public AcceptRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
         }
@@ -385,7 +385,7 @@ public class Dispute extends Model {
     }
 
     public static class CreateDisputeRequestBuilder extends RequestBuilder<Dispute> {
-        private String chargeId;
+        private final String chargeId;
         public CreateDisputeRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }

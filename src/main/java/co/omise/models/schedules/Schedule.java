@@ -155,7 +155,7 @@ public class Schedule extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Schedule> {
-        private String scheduleId;
+        private final String scheduleId;
         public DeleteRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;
         }
@@ -177,7 +177,7 @@ public class Schedule extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Schedule> {
-        private String scheduleId;
+        private final String scheduleId;
         public GetRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;
         }
@@ -302,7 +302,7 @@ public class Schedule extends Model {
     }
 
     public static class ListOccurrencesRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
-        private String scheduleId;
+        private final String scheduleId;
         private ScopedList.Options options;
         public ListOccurrencesRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;
@@ -336,7 +336,7 @@ public class Schedule extends Model {
     }
 
     public static class CustomerScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String customerId;
+        private final String customerId;
         private ScopedList.Options options;
         public CustomerScheduleListRequestBuilder(String customerId) {
             this.customerId = customerId;
@@ -370,7 +370,7 @@ public class Schedule extends Model {
     }
 
     public static class RecipientScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String recipientId;
+        private final String recipientId;
         private ScopedList.Options options;
         public RecipientScheduleListRequestBuilder(String recipientId) {
             this.recipientId = recipientId;

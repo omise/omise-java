@@ -53,7 +53,7 @@ public class Forex extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Forex> {
-        private String currency;
+        private final String currency;
         public GetRequestBuilder(String currency) {
             this.currency = currency;
         }

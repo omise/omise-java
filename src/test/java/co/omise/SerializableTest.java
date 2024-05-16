@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.io.*;
 
 public class SerializableTest {
-    private String filename = "file.ser";
+    private final String filename = "file.ser";
 
     private Account account;
 
