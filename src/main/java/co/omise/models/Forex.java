@@ -3,11 +3,7 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
-
-import java.io.IOException;
 
 /**
  * Forex object

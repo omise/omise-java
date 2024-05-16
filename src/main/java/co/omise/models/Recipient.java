@@ -2,7 +2,6 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.models.schedules.Schedule;
-import co.omise.models.schedules.TransferSchedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -6,10 +6,8 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
-import org.joda.time.LocalDate;
 
-import java.io.IOException;
+import org.joda.time.LocalDate;
 
 /**
  * Receipt object
