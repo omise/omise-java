@@ -9,7 +9,6 @@ import co.omise.models.SourceType;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ChargeRequestTest extends RequestTest {
