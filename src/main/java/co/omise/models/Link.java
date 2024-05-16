@@ -139,11 +139,6 @@ public class Link extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "links", linkId);
         }
@@ -156,11 +151,6 @@ public class Link extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -248,11 +238,6 @@ public class Link extends Model {
         private ScopedList.Options options;
         public ListChargesRequestBuilder(String linkId) {
             this.linkId = linkId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

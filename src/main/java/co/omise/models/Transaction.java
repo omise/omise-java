@@ -87,11 +87,6 @@ public class Transaction extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "transactions", transactionId);
         }
@@ -104,11 +99,6 @@ public class Transaction extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

@@ -165,11 +165,6 @@ public class Dispute extends Model {
     public static class ClosedRequestBuilder extends RequestBuilder<Dispute> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", "closed");
         }
@@ -183,11 +178,6 @@ public class Dispute extends Model {
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Dispute>> {
         private DisputeStatus status;
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -219,11 +209,6 @@ public class Dispute extends Model {
     public static class OpenRequestBuilder extends RequestBuilder<Dispute> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", "open");
         }
@@ -235,11 +220,6 @@ public class Dispute extends Model {
     }
 
     public static class PendingRequestBuilder extends RequestBuilder<Dispute> {
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -256,11 +236,6 @@ public class Dispute extends Model {
         private final String disputeId;
         public GetRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

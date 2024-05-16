@@ -55,11 +55,6 @@ public class Forex extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "forex", currency);
         }

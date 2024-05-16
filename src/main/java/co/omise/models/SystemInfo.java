@@ -30,11 +30,6 @@ public class SystemInfo extends Model {
     public static class GetRequestBuilder extends RequestBuilder<SystemInfo> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "");
         }

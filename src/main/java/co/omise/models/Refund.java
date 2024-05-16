@@ -124,11 +124,6 @@ public class Refund extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -155,11 +150,6 @@ public class Refund extends Model {
         private ScopedList.Options options;
         public ListRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -250,11 +240,6 @@ public class Refund extends Model {
         public GetRequestBuilder(String chargeId, String refundId) {
             this.chargeId = chargeId;
             this.refundId = refundId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

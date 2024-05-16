@@ -60,11 +60,6 @@ public class Balance extends Model {
     public static class GetRequestBuilder extends RequestBuilder<Balance> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "balance");
         }

@@ -60,11 +60,6 @@ public class Event<T extends Model> extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "events", eventId);
         }
@@ -77,11 +72,6 @@ public class Event<T extends Model> extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Event>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

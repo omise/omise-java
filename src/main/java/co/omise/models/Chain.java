@@ -54,11 +54,6 @@ public class Chain extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -84,11 +79,6 @@ public class Chain extends Model {
         private final String chainId;
         public GetRequestBuilder(String chainId) {
             this.chainId = chainId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

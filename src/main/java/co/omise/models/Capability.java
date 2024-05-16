@@ -65,11 +65,6 @@ public class Capability extends Model {
     public static class GetRequestBuilder extends RequestBuilder<Capability> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "capability");
         }

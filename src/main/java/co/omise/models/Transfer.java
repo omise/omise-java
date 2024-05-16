@@ -239,11 +239,6 @@ public class Transfer extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "transfers", transferId);
         }
@@ -309,11 +304,6 @@ public class Transfer extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -402,11 +392,6 @@ public class Transfer extends Model {
 
     public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

@@ -101,11 +101,6 @@ public class Occurrence extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "occurrences", occurrenceId);
         }
@@ -121,11 +116,6 @@ public class Occurrence extends Model {
         private ScopedList.Options options;
         public ListRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

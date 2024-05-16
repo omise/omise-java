@@ -183,11 +183,6 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "schedules", scheduleId);
         }
@@ -200,11 +195,6 @@ public class Schedule extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -309,11 +299,6 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -340,11 +325,6 @@ public class Schedule extends Model {
         private ScopedList.Options options;
         public CustomerScheduleListRequestBuilder(String customerId) {
             this.customerId = customerId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -377,11 +357,6 @@ public class Schedule extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -405,11 +380,6 @@ public class Schedule extends Model {
 
     public static class TransferScheduleListRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

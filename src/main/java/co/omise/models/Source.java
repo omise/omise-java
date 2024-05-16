@@ -374,11 +374,6 @@ public class Source extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "sources", sourceId);
         }

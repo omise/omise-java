@@ -223,11 +223,6 @@ public class Receipt extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -253,11 +248,6 @@ public class Receipt extends Model {
         private final String receiptId;
         public GetRequestBuilder(String receiptId) {
             this.receiptId = receiptId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

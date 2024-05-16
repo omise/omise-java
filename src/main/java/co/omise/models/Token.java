@@ -91,11 +91,6 @@ public class Token extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.VAULT, "tokens", tokenId);
         }

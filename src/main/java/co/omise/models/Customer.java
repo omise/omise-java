@@ -105,11 +105,6 @@ public class Customer extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "customers", customerId);
         }
@@ -197,11 +192,6 @@ public class Customer extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Customer>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -293,11 +283,6 @@ public class Customer extends Model {
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String customerId) {
             this.customerId = customerId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

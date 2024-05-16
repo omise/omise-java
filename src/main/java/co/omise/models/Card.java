@@ -334,11 +334,6 @@ public class Card extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "customers", customerId, "cards", cardId);
         }
@@ -429,11 +424,6 @@ public class Card extends Model {
         private ScopedList.Options options;
         public ListRequestBuilder(String customerId) {
             this.customerId = customerId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

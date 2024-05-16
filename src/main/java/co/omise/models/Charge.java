@@ -515,11 +515,6 @@ public class Charge extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -696,11 +691,6 @@ public class Charge extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -724,11 +714,6 @@ public class Charge extends Model {
 
     public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -756,11 +741,6 @@ public class Charge extends Model {
         private final String chargeId;
         public GetRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

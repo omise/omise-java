@@ -78,11 +78,6 @@ public class Document extends Model {
         }
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", disputeId, "documents", documentId);
         }
@@ -98,11 +93,6 @@ public class Document extends Model {
         private ScopedList.Options options;
         public ListRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
