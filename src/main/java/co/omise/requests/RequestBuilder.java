@@ -165,7 +165,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
                         continue;
                     }
 
-                    builder = builder.addPathSegment(segment);
+                    builder.addPathSegment(segment);
                 }
             }
 
@@ -173,7 +173,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
                 Map<String, String> queries = params.query(serializer);
                 if (!queries.isEmpty()) {
                     for (Map.Entry<String, String> pair : queries.entrySet()) {
-                        builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
+                        builder.addQueryParameter(pair.getKey(), pair.getValue());
                     }
                 }
             }
