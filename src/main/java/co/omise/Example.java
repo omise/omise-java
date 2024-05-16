@@ -176,7 +176,7 @@ final class Example {
                 new Charge.ReverseRequestBuilder("chrg_test_4xso2s8ivdej29pqnhz").build();
         Charge charge = client().sendRequest(reverseChargeRequest);
 
-        System.out.printf("charge reversal: %s", Boolean.toString(charge.isReversed()));
+        System.out.printf("charge reversal: %s", charge.isReversed());
     }
 
     void updateCharge() throws IOException, OmiseException, ClientException {
