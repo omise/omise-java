@@ -6,5 +6,5 @@ public enum AuthorizationType {
     @JsonProperty("pre_auth")
     PreAuth,
     @JsonProperty("final_auth")
-    FinalAuth;
+    FinalAuth
 }

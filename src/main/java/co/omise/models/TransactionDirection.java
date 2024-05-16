@@ -6,5 +6,5 @@ public enum TransactionDirection {
     @JsonProperty("credit")
     Credit,
     @JsonProperty("debit")
-    Debit;
+    Debit
 }

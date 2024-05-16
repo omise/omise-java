@@ -6,5 +6,5 @@ public enum RecipientType {
     @JsonProperty("corporation")
     Corporation,
     @JsonProperty("individual")
-    Individual;
+    Individual
 }

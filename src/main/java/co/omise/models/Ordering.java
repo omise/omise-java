@@ -6,5 +6,5 @@ public enum Ordering {
     @JsonProperty("chronological")
     Chronological,
     @JsonProperty("reverse_chronological")
-    ReverseChronological;
+    ReverseChronological
 }

@@ -34,5 +34,5 @@ public enum DisputeReasonCode {
     @JsonProperty("transaction_not_recognised")
     TransactionNotRecognised,
     @JsonProperty("unauthorized_charge")
-    UnauthorizedCharge;
+    UnauthorizedCharge
 }

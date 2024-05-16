@@ -8,5 +8,5 @@ public enum RecipientFailureCode {
     @JsonProperty("bank_not_found")
     BankNotFound,
     @JsonProperty("name_mismatch")
-    NameMismatch;
+    NameMismatch
 }
