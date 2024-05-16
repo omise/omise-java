@@ -180,7 +180,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isDisputable());
+        assertFalse(charge.isDisputable());
     }
 
     @Test
@@ -190,7 +190,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isCapturable());
+        assertFalse(charge.isCapturable());
     }
 
     @Test
@@ -200,7 +200,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isReversible());
+        assertFalse(charge.isReversible());
     }
 
     @Test
@@ -210,7 +210,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isRefundable());
+        assertFalse(charge.isRefundable());
     }
 
 }
