@@ -79,6 +79,7 @@ public class SerializationTest extends OmiseTest {
                 assertNotNull(prefix + "." + entry.getKey(), actual);
             }
 
+            assert expected != null;
             assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected.getClass(), actual.getClass());
             assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected, actual);
         }
