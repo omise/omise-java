@@ -101,7 +101,7 @@ public class SerializationTest extends OmiseTest {
      * @param instance
      * @throws NotSerializableException
      */
-    private void assertSerializable(OmiseObject instance) throws IOException, NotSerializableException {
+    private void assertSerializable(OmiseObject instance) throws IOException {
         OutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
 
