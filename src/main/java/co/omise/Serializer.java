@@ -196,7 +196,7 @@ public final class Serializer {
      * @return The string value for using as query parameters.
      */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
-        return (String) objectMapper.convertValue(value, String.class);
+        return objectMapper.convertValue(value, String.class);
     }
 
     /**
