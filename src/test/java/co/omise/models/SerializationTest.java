@@ -98,8 +98,8 @@ public class SerializationTest extends OmiseTest {
     /**
      * Check if object is serializable
      *
-     * @param instance
-     * @throws NotSerializableException
+     * @param instance The object to check for serializability.
+     * @throws IOException If an I/O error occurs during serialization.
      */
     private void assertSerializable(OmiseObject instance) throws IOException {
         OutputStream out = new ByteArrayOutputStream();
