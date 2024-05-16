@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class ChargeRequestTest extends RequestTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
@@ -53,7 +54,7 @@ public class ChargeRequestTest extends RequestTest {
                 new Charge.CreateRequestBuilder()
                         .amount(100000)
                         .currency("thb")
-                        .webhookEndpoints(Arrays.asList("https://webhook.site/123"))
+                        .webhookEndpoints(Collections.singletonList("https://webhook.site/123"))
                         .build();
 
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
