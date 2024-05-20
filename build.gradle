@@ -31,14 +31,9 @@ buildscript {
     }
 }
 
-tasks.register('javadocJar', Jar) {
-    archiveClassifier = 'javadoc'
-    from javadoc
-}
-
-tasks.register('sourcesJar', Jar) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allSource
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 distributions {
@@ -56,16 +51,21 @@ signing {
     sign configurations.archives
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
+javadoc {
+    if(JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
 }
 
 // REF: https://docs.gradle.org/current/userguide/publishing_maven.html
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            artifactId = 'omise-java'
-
+        shadow(MavenPublication) {
+            publication ->
+                project.shadow.component(publication)
+                artifactId = 'omise-java'
+                artifact sourcesJar
+                artifact javadocJar
             pom {
                 name = 'Omise Java'
                 description = 'Java bindings for the Omise API'
