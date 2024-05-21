@@ -211,7 +211,7 @@ public class Transfer extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
+        private final String transferId;
         public DeleteRequestBuilder(String transferId) {
             this.transferId = transferId;
         }
@@ -233,14 +233,9 @@ public class Transfer extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
+        private final String transferId;
         public GetRequestBuilder(String transferId) {
             this.transferId = transferId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -255,7 +250,7 @@ public class Transfer extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
+        private final String transferId;
 
         @JsonProperty
         private long amount;
@@ -309,11 +304,6 @@ public class Transfer extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transfer>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -404,11 +394,6 @@ public class Transfer extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -431,7 +416,7 @@ public class Transfer extends Model {
     }
 
     public static class MarkAsPaidRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
+        private final String transferId;
         public MarkAsPaidRequestBuilder(String transferId) {
             this.transferId = transferId;
         }
@@ -453,7 +438,7 @@ public class Transfer extends Model {
     }
 
     public static class MarkAsSentRequestBuilder extends RequestBuilder<Transfer> {
-        private String transferId;
+        private final String transferId;
         public MarkAsSentRequestBuilder(String transferId) {
             this.transferId = transferId;
         }

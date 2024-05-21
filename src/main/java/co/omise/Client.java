@@ -37,7 +37,7 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     private final OkHttpClient httpClient;
-    private Requester requester;
+    private final Requester requester;
 
     /**
      * Creates a Client that sends the specified API version string in the header to access an earlier version

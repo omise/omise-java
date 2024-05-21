@@ -68,8 +68,7 @@ public final class Serializer {
 
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_USING_DEFAULT_VALUE, true)
-                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, false); // TODO: Deprecate in vNext
+                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
     /**
@@ -197,7 +196,7 @@ public final class Serializer {
      * @return The string value for using as query parameters.
      */
     public <T extends Enum<T>> String serializeToQueryParams(T value) {
-        return (String) objectMapper.convertValue(value, String.class);
+        return objectMapper.convertValue(value, String.class);
     }
 
     /**

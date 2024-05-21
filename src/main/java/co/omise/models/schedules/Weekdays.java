@@ -16,5 +16,5 @@ public enum Weekdays {
     @JsonProperty("tuesday")
     Tuesday,
     @JsonProperty("wednesday")
-    Wednesday;
+    Wednesday
 }

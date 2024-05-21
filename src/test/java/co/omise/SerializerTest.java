@@ -27,8 +27,7 @@ public class SerializerTest extends OmiseTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         serializer().serialize(outputStream, new Dummy());
 
-        byte[] bytes = outputStream.toByteArray();
-        assertEquals(DUMMY_JSON, new String(bytes, 0, bytes.length));
+        assertEquals(DUMMY_JSON, outputStream.toString());
     }
 
     @Test
@@ -36,8 +35,7 @@ public class SerializerTest extends OmiseTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         serializer().serializeParams(outputStream, new DummyParams());
 
-        byte[] bytes = outputStream.toByteArray();
-        assertEquals(DUMMY_PARAMS_JSON, new String(bytes, 0, bytes.length));
+        assertEquals(DUMMY_PARAMS_JSON, outputStream.toString());
     }
 
     @Test
@@ -127,9 +125,9 @@ public class SerializerTest extends OmiseTest {
 
     public static final class DummyParams extends Params {
         @JsonProperty
-        private String hello;
+        private final String hello;
         @JsonProperty("what")
-        private String another;
+        private final String another;
 
         public DummyParams() {
             hello = "world";

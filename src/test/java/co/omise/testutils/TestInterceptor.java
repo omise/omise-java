@@ -17,7 +17,7 @@ public class TestInterceptor implements Interceptor {
     }
 
     @Override
-    public Response intercept(Chain chain) throws IOException {
+    public Response intercept(Chain chain) {
         Request request = chain.request();
         HttpUrl url = request.url();
         lastRequest = request;

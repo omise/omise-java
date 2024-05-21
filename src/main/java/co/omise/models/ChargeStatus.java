@@ -14,5 +14,5 @@ public enum ChargeStatus {
     @JsonProperty("successful")
     Successful,
     @JsonProperty("unknown")
-    Unknown;
+    Unknown
 }

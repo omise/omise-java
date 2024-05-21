@@ -111,7 +111,7 @@ public class Link extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Link> {
-        private String linkId;
+        private final String linkId;
         public DeleteRequestBuilder(String linkId) {
             this.linkId = linkId;
         }
@@ -133,14 +133,9 @@ public class Link extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Link> {
-        private String linkId;
+        private final String linkId;
         public GetRequestBuilder(String linkId) {
             this.linkId = linkId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -156,11 +151,6 @@ public class Link extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Link>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -244,15 +234,10 @@ public class Link extends Model {
     }
 
     public static class ListChargesRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
-        private String linkId;
+        private final String linkId;
         private ScopedList.Options options;
         public ListChargesRequestBuilder(String linkId) {
             this.linkId = linkId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

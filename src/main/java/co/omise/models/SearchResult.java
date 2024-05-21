@@ -166,7 +166,7 @@ public class SearchResult<T extends Model> extends OmiseList<T> {
      */
     public static class SearchRequestBuilder<T extends Model> extends RequestBuilder<SearchResult<T>> {
 
-        private SearchResult.Options options;
+        private final SearchResult.Options options;
 
         public SearchRequestBuilder(SearchResult.Options options) {
             this.options = options;

@@ -3,7 +3,7 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
@@ -335,7 +335,7 @@ public class Source extends Model {
 
         public CreateRequestBuilder addItem(Item item) {
             if(this.items == null) {
-                this.items = new ArrayList<Item>();
+                this.items = new ArrayList<>();
             }
             this.items.add(item);
             return this;
@@ -368,14 +368,9 @@ public class Source extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Source> {
-        private String sourceId;
+        private final String sourceId;
         public GetRequestBuilder(String sourceId) {
             this.sourceId = sourceId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

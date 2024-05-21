@@ -6,9 +6,7 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -56,14 +54,9 @@ public class Event<T extends Model> extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Event> {
-        private String eventId;
+        private final String eventId;
         public GetRequestBuilder(String eventId) {
             this.eventId = eventId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -79,11 +72,6 @@ public class Event<T extends Model> extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Event>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

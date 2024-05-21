@@ -52,9 +52,8 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
      * Abstract method that needs to be implement by all children of this class to provide API Path
      *
      * @return the url path as {@link HttpUrl}
-     * @throws IOException the I/O when {@link Serializer} is unable to correctly serialize the content of the class using Jackson
      */
-    protected abstract HttpUrl path() throws IOException;
+    protected abstract HttpUrl path();
 
     /**
      * Default Content type of the HTTP Request.
@@ -131,12 +130,12 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
         return new HttpUrlBuilder(endpoint, path, serializer).params(params).build();
     }
 
-    public class HttpUrlBuilder {
-        private Endpoint endpoint;
-        private String path;
+    public static class HttpUrlBuilder {
+        private final Endpoint endpoint;
+        private final String path;
         private String[] segments;
         private Params params;
-        private Serializer serializer;
+        private final Serializer serializer;
 
         public HttpUrlBuilder(Endpoint endpoint, String path, Serializer serializer) {
             this.endpoint = endpoint;
@@ -166,7 +165,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
                         continue;
                     }
 
-                    builder = builder.addPathSegment(segment);
+                    builder.addPathSegment(segment);
                 }
             }
 
@@ -174,7 +173,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
                 Map<String, String> queries = params.query(serializer);
                 if (!queries.isEmpty()) {
                     for (Map.Entry<String, String> pair : queries.entrySet()) {
-                        builder = builder.addQueryParameter(pair.getKey(), pair.getValue());
+                        builder.addQueryParameter(pair.getKey(), pair.getValue());
                     }
                 }
             }

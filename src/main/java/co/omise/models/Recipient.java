@@ -2,7 +2,6 @@ package co.omise.models;
 
 import co.omise.Endpoint;
 import co.omise.models.schedules.Schedule;
-import co.omise.models.schedules.TransferSchedule;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -164,7 +163,7 @@ public class Recipient extends Model {
     }
 
     public static class DeleteRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public DeleteRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
         }
@@ -186,14 +185,9 @@ public class Recipient extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public GetRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -208,7 +202,7 @@ public class Recipient extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
 
         @JsonProperty("bank_account")
         private BankAccount.Params bankAccount;
@@ -297,11 +291,6 @@ public class Recipient extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Recipient>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -410,15 +399,10 @@ public class Recipient extends Model {
     }
 
     public static class ListSchedulesRequestBuilder extends RequestBuilder<ScopedList<Schedule>> {
-        private String recipientId;
+        private final String recipientId;
         private ScopedList.Options options;
         public ListSchedulesRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -444,7 +428,7 @@ public class Recipient extends Model {
     }
 
     public static class VerifyRequestBuilder extends RequestBuilder<Recipient> {
-        private String recipientId;
+        private final String recipientId;
         public VerifyRequestBuilder(String recipientId) {
             this.recipientId = recipientId;
         }

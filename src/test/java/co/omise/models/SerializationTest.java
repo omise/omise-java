@@ -11,7 +11,6 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Map;
@@ -79,6 +78,7 @@ public class SerializationTest extends OmiseTest {
                 assertNotNull(prefix + "." + entry.getKey(), actual);
             }
 
+            assert expected != null;
             assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected.getClass(), actual.getClass());
             assertEquals(prefix + "." + entry.getKey() + " has mismatched value.", expected, actual);
         }
@@ -98,10 +98,10 @@ public class SerializationTest extends OmiseTest {
     /**
      * Check if object is serializable
      *
-     * @param instance
-     * @throws NotSerializableException
+     * @param instance The object to check for serializability.
+     * @throws IOException If an I/O error occurs during serialization.
      */
-    private void assertSerializable(OmiseObject instance) throws IOException, NotSerializableException {
+    private void assertSerializable(OmiseObject instance) throws IOException {
         OutputStream out = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(out);
 

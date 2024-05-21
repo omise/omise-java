@@ -3,7 +3,7 @@ package co.omise.requests;
 import co.omise.models.Card;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import org.junit.Test;
 
 import java.io.IOException;

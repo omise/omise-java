@@ -6,10 +6,8 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
-import org.joda.time.LocalDate;
 
-import java.io.IOException;
+import org.joda.time.LocalDate;
 
 /**
  * Receipt object
@@ -225,11 +223,6 @@ public class Receipt extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -252,14 +245,9 @@ public class Receipt extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Receipt> {
-        private String receiptId;
+        private final String receiptId;
         public GetRequestBuilder(String receiptId) {
             this.receiptId = receiptId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

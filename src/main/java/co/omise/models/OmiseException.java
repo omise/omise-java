@@ -58,6 +58,6 @@ public class OmiseException extends Exception implements OmiseObject {
 
     @Override
     public String toString() {
-        return "(" + Integer.toString(httpStatusCode) + "/" + code + ") " + message;
+        return "(" + httpStatusCode + "/" + code + ") " + message;
     }
 }

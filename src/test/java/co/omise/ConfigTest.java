@@ -20,15 +20,14 @@ public class ConfigTest extends OmiseTest {
 
     @Test
     public void testUserAgent() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("OmiseJava/");
-        builder.append(PKG_VERSION);
-        builder.append(" OmiseAPI/");
-        builder.append(API_VERSION);
-        builder.append(" Java/");
-        builder.append(JAVA_VERSION);
+        String builder = "OmiseJava/" +
+                PKG_VERSION +
+                " OmiseAPI/" +
+                API_VERSION +
+                " Java/" +
+                JAVA_VERSION;
 
-        assertEquals(builder.toString(), config().userAgent());
+        assertEquals(builder, config().userAgent());
     }
 
     static Config config() {

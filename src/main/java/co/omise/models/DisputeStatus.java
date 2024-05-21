@@ -12,5 +12,5 @@ public enum DisputeStatus {
     @JsonProperty("pending")
     Pending,
     @JsonProperty("won")
-    Won;
+    Won
 }

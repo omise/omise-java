@@ -147,11 +147,6 @@ public class Account extends Model {
     public static class GetRequestBuilder extends RequestBuilder<Account> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "account");
         }

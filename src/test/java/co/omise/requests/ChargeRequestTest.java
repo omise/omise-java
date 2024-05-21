@@ -9,7 +9,7 @@ import co.omise.models.SourceType;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class ChargeRequestTest extends RequestTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
@@ -53,7 +53,7 @@ public class ChargeRequestTest extends RequestTest {
                 new Charge.CreateRequestBuilder()
                         .amount(100000)
                         .currency("thb")
-                        .webhookEndpoints(Arrays.asList("https://webhook.site/123"))
+                        .webhookEndpoints(Collections.singletonList("https://webhook.site/123"))
                         .build();
 
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
@@ -179,7 +179,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isDisputable());
+        assertFalse(charge.isDisputable());
     }
 
     @Test
@@ -189,7 +189,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isCapturable());
+        assertFalse(charge.isCapturable());
     }
 
     @Test
@@ -199,7 +199,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isReversible());
+        assertFalse(charge.isReversible());
     }
 
     @Test
@@ -209,7 +209,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
         assertRequested("GET", "/charges/" + CHARGE_ID, 200);
-        assertEquals(false, charge.isRefundable());
+        assertFalse(charge.isRefundable());
     }
 
 }

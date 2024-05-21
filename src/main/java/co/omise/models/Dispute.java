@@ -165,11 +165,6 @@ public class Dispute extends Model {
     public static class ClosedRequestBuilder extends RequestBuilder<Dispute> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", "closed");
         }
@@ -183,11 +178,6 @@ public class Dispute extends Model {
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Dispute>> {
         private DisputeStatus status;
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {
@@ -219,11 +209,6 @@ public class Dispute extends Model {
     public static class OpenRequestBuilder extends RequestBuilder<Dispute> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", "open");
         }
@@ -237,11 +222,6 @@ public class Dispute extends Model {
     public static class PendingRequestBuilder extends RequestBuilder<Dispute> {
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             return buildUrl(Endpoint.API, "disputes", "pending");
         }
@@ -253,14 +233,9 @@ public class Dispute extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
         public GetRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -275,7 +250,7 @@ public class Dispute extends Model {
     }
 
     public static class UpdateRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
 
         @JsonProperty
         private String message;
@@ -328,7 +303,7 @@ public class Dispute extends Model {
     }
 
     public static class CloseRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
 
         @JsonProperty
         private DisputeStatus status;
@@ -363,7 +338,7 @@ public class Dispute extends Model {
     }
 
     public static class AcceptRequestBuilder extends RequestBuilder<Dispute> {
-        private String disputeId;
+        private final String disputeId;
         public AcceptRequestBuilder(String disputeId) {
             this.disputeId = disputeId;
         }
@@ -385,7 +360,7 @@ public class Dispute extends Model {
     }
 
     public static class CreateDisputeRequestBuilder extends RequestBuilder<Dispute> {
-        private String chargeId;
+        private final String chargeId;
         public CreateDisputeRequestBuilder(String chargeId) {
             this.chargeId = chargeId;
         }

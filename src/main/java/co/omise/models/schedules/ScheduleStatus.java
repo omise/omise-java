@@ -14,5 +14,5 @@ public enum ScheduleStatus {
     @JsonProperty("running")
     Running,
     @JsonProperty("suspended")
-    Suspended;
+    Suspended
 }

@@ -8,11 +8,9 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-
-import java.io.IOException;
 
 /**
  * Occurrence object
@@ -97,14 +95,9 @@ public class Occurrence extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Occurrence> {
-        private String occurrenceId;
+        private final String occurrenceId;
         public GetRequestBuilder(String occurrenceId) {
             this.occurrenceId = occurrenceId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -119,15 +112,10 @@ public class Occurrence extends Model {
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Occurrence>> {
-        private String scheduleId;
+        private final String scheduleId;
         private ScopedList.Options options;
         public ListRequestBuilder(String scheduleId) {
             this.scheduleId = scheduleId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override

@@ -6,10 +6,8 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
-import org.joda.time.DateTime;
 
-import java.io.IOException;
+import org.joda.time.DateTime;
 
 /**
  * Transaction object
@@ -83,14 +81,9 @@ public class Transaction extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Transaction> {
-        private String transactionId;
+        private final String transactionId;
         public GetRequestBuilder(String transactionId) {
             this.transactionId = transactionId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -106,11 +99,6 @@ public class Transaction extends Model {
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Transaction>> {
         private ScopedList.Options options;
-
-        @Override
-        protected String method() {
-            return GET;
-        }
 
         @Override
         protected HttpUrl path() {

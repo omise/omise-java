@@ -10,5 +10,5 @@ public enum OccurrenceStatus {
     @JsonProperty("skipped")
     Skipped,
     @JsonProperty("successful")
-    Successful;
+    Successful
 }

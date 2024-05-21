@@ -8,5 +8,5 @@ public enum SchedulePeriod {
     @JsonProperty("month")
     Month,
     @JsonProperty("week")
-    Week;
+    Week
 }

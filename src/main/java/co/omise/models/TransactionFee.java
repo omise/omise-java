@@ -1,7 +1,6 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.joda.time.DateTime;
 
 public class TransactionFee {
     @JsonProperty("fee_flat")

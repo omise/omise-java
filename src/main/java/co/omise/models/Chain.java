@@ -3,12 +3,9 @@ package co.omise.models;
 import co.omise.Endpoint;
 import co.omise.requests.RequestBuilder;
 import co.omise.requests.ResponseType;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-import okhttp3.RequestBody;
-
-import java.io.IOException;
 
 /**
  * Chain object
@@ -57,11 +54,6 @@ public class Chain extends Model {
         private ScopedList.Options options;
 
         @Override
-        protected String method() {
-            return GET;
-        }
-
-        @Override
         protected HttpUrl path() {
             if (options == null) {
                 options = new ScopedList.Options();
@@ -84,14 +76,9 @@ public class Chain extends Model {
     }
 
     public static class GetRequestBuilder extends RequestBuilder<Chain> {
-        private String chainId;
+        private final String chainId;
         public GetRequestBuilder(String chainId) {
             this.chainId = chainId;
-        }
-
-        @Override
-        protected String method() {
-            return GET;
         }
 
         @Override
@@ -106,7 +93,7 @@ public class Chain extends Model {
     }
 
     public static class RevokeRequestBuilder extends RequestBuilder<Chain> {
-        private String chainId;
+        private final String chainId;
         public RevokeRequestBuilder(String chainId) {
             this.chainId = chainId;
         }

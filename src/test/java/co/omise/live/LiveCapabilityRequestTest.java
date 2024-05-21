@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class LiveCapabilityRequest extends BaseLiveTest {
+public class LiveCapabilityRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit when test on live.")
