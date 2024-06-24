@@ -1,8 +1,7 @@
 package co.omise.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.joda.time.DateTime;
-
+import java.time.ZonedDateTime;
 import java.io.Serializable;
 
 public class References implements Serializable {
@@ -16,7 +15,7 @@ public class References implements Serializable {
     @JsonProperty("device_id")
     private String deviceId;
     @JsonProperty("expires_at")
-    private DateTime expiresAt;
+    private ZonedDateTime expiresAt;
     @JsonProperty("omise_tax_id")
     private String omiseTaxId;
     @JsonProperty("payment_code")
@@ -68,11 +67,11 @@ public class References implements Serializable {
         this.deviceId = deviceId;
     }
 
-    public DateTime getExpiresAt() {
+    public ZonedDateTime getExpiresAt() {
         return this.expiresAt;
     }
 
-    public void setExpiresAt(DateTime expiresAt) {
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 

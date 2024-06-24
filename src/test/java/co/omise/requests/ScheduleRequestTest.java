@@ -4,7 +4,7 @@ import co.omise.models.Charge;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
 import co.omise.models.schedules.*;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 

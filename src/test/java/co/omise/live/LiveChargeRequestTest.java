@@ -3,12 +3,13 @@ package co.omise.live;
 import co.omise.Client;
 import co.omise.models.*;
 import co.omise.requests.Request;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.time.ZoneId;
 
 import static junit.framework.TestCase.*;
 import static org.junit.Assert.assertFalse;
@@ -261,7 +262,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         Request<Charge> updateChargeRequest =
                 new Charge.UpdateRequestBuilder(createdCharge.getId())
                         .description("omise-java test charge")
-                        .metadata("test-date", DateTime.now().dayOfMonth().toString())
+                        .metadata("test-date", String.valueOf(ZonedDateTime.now(ZoneId.of("Z")).getDayOfMonth()))
                         .metadata("library", "omise-java")
                         .build();
 
@@ -274,7 +275,7 @@ public class LiveChargeRequestTest extends BaseLiveTest {
         assertEquals(createdCharge.getId(), updatedCharge.getId());
         assertEquals("omise-java test charge", updatedCharge.getDescription());
         assertEquals(updatedCharge.getMetadata().get("library"), "omise-java");
-        assertEquals(updatedCharge.getMetadata().get("test-date"), DateTime.now().dayOfMonth().toString());
+        assertEquals(updatedCharge.getMetadata().get("test-date"), String.valueOf(ZonedDateTime.now(ZoneId.of("Z")).getDayOfMonth()));
         assertEquals(2000, updatedCharge.getAmount());
         assertEquals("USD", updatedCharge.getCurrency());
     }

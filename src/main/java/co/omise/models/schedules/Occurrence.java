@@ -9,8 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  * Occurrence object
@@ -21,7 +21,7 @@ public class Occurrence extends Model {
     private String location;
     private String message;
     @JsonProperty("processed_at")
-    private DateTime processedAt;
+    private ZonedDateTime processedAt;
     private String result;
     @JsonProperty("retry_on")
     private LocalDate retryOn;
@@ -46,11 +46,11 @@ public class Occurrence extends Model {
         this.message = message;
     }
 
-    public DateTime getProcessedAt() {
+    public ZonedDateTime getProcessedAt() {
         return this.processedAt;
     }
 
-    public void setProcessedAt(DateTime processedAt) {
+    public void setProcessedAt(ZonedDateTime processedAt) {
         this.processedAt = processedAt;
     }
 

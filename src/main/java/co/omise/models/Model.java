@@ -3,7 +3,7 @@ package co.omise.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.CUSTOM,
@@ -17,7 +17,7 @@ public abstract class Model extends OmiseObjectBase {
     @JsonProperty("livemode")
     private boolean liveMode;
     @JsonProperty("created_at")
-    private DateTime created;
+    private ZonedDateTime created;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private boolean deleted;
 
@@ -40,11 +40,11 @@ public abstract class Model extends OmiseObjectBase {
         this.liveMode = liveMode;
     }
 
-    public DateTime getCreated() {
+    public ZonedDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(DateTime created) {
+    public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
 

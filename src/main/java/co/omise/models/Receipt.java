@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 /**
  * Receipt object

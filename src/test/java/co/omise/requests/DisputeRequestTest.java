@@ -6,8 +6,8 @@ import co.omise.models.DisputeStatus;
 import co.omise.models.DisputeReasonCode;
 import co.omise.models.OmiseException;
 import co.omise.models.ScopedList;
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import java.io.IOException;

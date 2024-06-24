@@ -6,8 +6,7 @@ import co.omise.requests.ResponseType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
-
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 /**
  * Transaction object
@@ -22,7 +21,7 @@ public class Transaction extends Model {
     private String location;
     private String origin;
     @JsonProperty("transferable_at")
-    private DateTime transferableAt;
+    private ZonedDateTime transferableAt;
 
     public long getAmount() {
         return this.amount;
@@ -72,11 +71,11 @@ public class Transaction extends Model {
         this.origin = origin;
     }
 
-    public DateTime getTransferableAt() {
+    public ZonedDateTime getTransferableAt() {
         return this.transferableAt;
     }
 
-    public void setTransferableAt(DateTime transferableAt) {
+    public void setTransferableAt(ZonedDateTime transferableAt) {
         this.transferableAt = transferableAt;
     }
 

@@ -133,12 +133,10 @@ shadowJar {
 }
 
 dependencies {
-    // base
-    implementation 'joda-time:joda-time:2.9.9'
-
     // persistence
     implementation 'com.fasterxml.jackson.core:jackson-core:2.9.10'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.9.10'
+    // Java 8 data/time serializer
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.10'
 
     // networking
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'

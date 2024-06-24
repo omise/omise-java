@@ -4,8 +4,8 @@ import co.omise.Endpoint;
 import co.omise.models.Card;
 import co.omise.models.OmiseException;
 import co.omise.models.Token;
-import org.joda.time.Period;
-import org.joda.time.YearMonth;
+
+import java.time.YearMonth;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class TokenRequestTest extends RequestTest {
                 .card(new Card.Create()
                         .name("JOHN DOE")
                         .number("4242424242424242")
-                        .expiration(YearMonth.now().withPeriodAdded(Period.years(1), 1))
+                        .expiration(YearMonth.now().plusYears(1))
                         .securityCode("123")
                         .city("Bangkok")
                         .postalCode("10240"))

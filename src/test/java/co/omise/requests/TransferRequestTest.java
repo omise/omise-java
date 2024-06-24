@@ -93,9 +93,8 @@ public class TransferRequestTest extends RequestTest {
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
-
-        assertEquals("2015", transfer.getSentAt().year().getAsText());
-        assertEquals("10", transfer.getSentAt().hourOfDay().getAsText());
+        assertEquals(2015, transfer.getSentAt().getYear());
+        assertEquals(10, transfer.getSentAt().getHour());
     }
 
     @Test
@@ -104,8 +103,7 @@ public class TransferRequestTest extends RequestTest {
                 .build();
         Transfer transfer = getTestRequester().sendRequest(request);
         assertRequested("GET", "/transfers/" + TRANSFER_ID, 200);
-
-        assertEquals("2015", transfer.getPaidAt().year().getAsText());
-        assertEquals("10", transfer.getPaidAt().hourOfDay().getAsText());
+        assertEquals(2015, transfer.getPaidAt().getYear());
+        assertEquals(10, transfer.getPaidAt().getHour());
     }
 }

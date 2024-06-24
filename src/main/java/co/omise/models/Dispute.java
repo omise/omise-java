@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ public class Dispute extends Model {
     private long amount;
     private String charge;
     @JsonProperty("closed_at")
-    private DateTime closedAt;
+    private ZonedDateTime closedAt;
     private String currency;
     private ScopedList<Document> documents;
     @JsonProperty("funding_amount")
@@ -66,11 +66,11 @@ public class Dispute extends Model {
         this.charge = charge;
     }
 
-    public DateTime getClosedAt() {
+    public ZonedDateTime getClosedAt() {
         return this.closedAt;
     }
 
-    public void setClosedAt(DateTime closedAt) {
+    public void setClosedAt(ZonedDateTime closedAt) {
         this.closedAt = closedAt;
     }
 

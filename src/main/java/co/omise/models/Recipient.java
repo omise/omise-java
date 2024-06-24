@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-
+import java.time.ZonedDateTime;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
  */
 public class Recipient extends Model {
     @JsonProperty("activated_at")
-    private DateTime activatedAt;
+    private ZonedDateTime activatedAt;
     private boolean active;
     @JsonProperty("bank_account")
     private BankAccount bankAccount;
@@ -40,13 +39,13 @@ public class Recipient extends Model {
     private RecipientType type;
     private boolean verified;
     @JsonProperty("verified_at")
-    private DateTime verifiedAt;
+    private ZonedDateTime verifiedAt;
 
-    public DateTime getActivatedAt() {
+    public ZonedDateTime getActivatedAt() {
         return this.activatedAt;
     }
 
-    public void setActivatedAt(DateTime activatedAt) {
+    public void setActivatedAt(ZonedDateTime activatedAt) {
         this.activatedAt = activatedAt;
     }
 
@@ -154,11 +153,11 @@ public class Recipient extends Model {
         this.verified = verified;
     }
 
-    public DateTime getVerifiedAt() {
+    public ZonedDateTime getVerifiedAt() {
         return this.verifiedAt;
     }
 
-    public void setVerifiedAt(DateTime verifiedAt) {
+    public void setVerifiedAt(ZonedDateTime verifiedAt) {
         this.verifiedAt = verifiedAt;
     }
 
