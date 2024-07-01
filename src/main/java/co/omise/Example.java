@@ -3,7 +3,7 @@ package co.omise;
 import co.omise.models.*;
 import co.omise.models.schedules.*;
 import co.omise.requests.Request;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 import java.io.IOException;
 

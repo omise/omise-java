@@ -10,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ public class Schedule extends Model {
     @JsonProperty("end_on")
     private LocalDate endOn;
     @JsonProperty("ended_at")
-    private DateTime endedAt;
+    private ZonedDateTime endedAt;
     private long every;
     @JsonProperty("in_words")
     private String inWords;
@@ -66,11 +66,11 @@ public class Schedule extends Model {
         this.endOn = endOn;
     }
 
-    public DateTime getEndedAt() {
+    public ZonedDateTime getEndedAt() {
         return this.endedAt;
     }
 
-    public void setEndedAt(DateTime endedAt) {
+    public void setEndedAt(ZonedDateTime endedAt) {
         this.endedAt = endedAt;
     }
 

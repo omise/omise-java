@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-
+import java.time.ZonedDateTime;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -39,13 +38,13 @@ public class Transfer extends Model {
     private long net;
     private boolean paid;
     @JsonProperty("paid_at")
-    private DateTime paidAt;
+    private ZonedDateTime paidAt;
     private String recipient;
     private String schedule;
     private boolean sendable;
     private boolean sent;
     @JsonProperty("sent_at")
-    private DateTime sentAt;
+    private ZonedDateTime sentAt;
     @JsonProperty("total_fee")
     private long totalFee;
     private List<Transaction> transactions;
@@ -146,11 +145,11 @@ public class Transfer extends Model {
         this.paid = paid;
     }
 
-    public DateTime getPaidAt() {
+    public ZonedDateTime getPaidAt() {
         return this.paidAt;
     }
 
-    public void setPaidAt(DateTime paidAt) {
+    public void setPaidAt(ZonedDateTime paidAt) {
         this.paidAt = paidAt;
     }
 
@@ -186,11 +185,11 @@ public class Transfer extends Model {
         this.sent = sent;
     }
 
-    public DateTime getSentAt() {
+    public ZonedDateTime getSentAt() {
         return this.sentAt;
     }
 
-    public void setSentAt(DateTime sentAt) {
+    public void setSentAt(ZonedDateTime sentAt) {
         this.sentAt = sentAt;
     }
 

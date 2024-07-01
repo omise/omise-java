@@ -8,8 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
-
+import java.time.ZonedDateTime;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -37,9 +36,9 @@ public class Charge extends Model {
     private Dispute dispute;
     private boolean expired;
     @JsonProperty("expired_at")
-    private DateTime expiredAt;
+    private ZonedDateTime expiredAt;
     @JsonProperty("expires_at")
-    private DateTime expiresAt;
+    private ZonedDateTime expiresAt;
     @JsonProperty("failure_code")
     private String failureCode;
     @JsonProperty("failure_message")
@@ -61,7 +60,7 @@ public class Charge extends Model {
     private long net;
     private boolean paid;
     @JsonProperty("paid_at")
-    private DateTime paidAt;
+    private ZonedDateTime paidAt;
     @JsonProperty("platform_fee")
     private PlatformFee platformFee;
     private boolean refundable;
@@ -74,7 +73,7 @@ public class Charge extends Model {
     private String returnUri;
     private boolean reversed;
     @JsonProperty("reversed_at")
-    private DateTime reversedAt;
+    private ZonedDateTime reversedAt;
     private boolean reversible;
     private String schedule;
     private Source source;
@@ -207,19 +206,19 @@ public class Charge extends Model {
         this.expired = expired;
     }
 
-    public DateTime getExpiredAt() {
+    public ZonedDateTime getExpiredAt() {
         return this.expiredAt;
     }
 
-    public void setExpiredAt(DateTime expiredAt) {
+    public void setExpiredAt(ZonedDateTime expiredAt) {
         this.expiredAt = expiredAt;
     }
 
-    public DateTime getExpiresAt() {
+    public ZonedDateTime getExpiresAt() {
         return this.expiresAt;
     }
 
-    public void setExpiresAt(DateTime expiresAt) {
+    public void setExpiresAt(ZonedDateTime expiresAt) {
         this.expiresAt = expiresAt;
     }
 
@@ -335,11 +334,11 @@ public class Charge extends Model {
         this.paid = paid;
     }
 
-    public DateTime getPaidAt() {
+    public ZonedDateTime getPaidAt() {
         return this.paidAt;
     }
 
-    public void setPaidAt(DateTime paidAt) {
+    public void setPaidAt(ZonedDateTime paidAt) {
         this.paidAt = paidAt;
     }
 
@@ -391,11 +390,11 @@ public class Charge extends Model {
         this.reversed = reversed;
     }
 
-    public DateTime getReversedAt() {
+    public ZonedDateTime getReversedAt() {
         return this.reversedAt;
     }
 
-    public void setReversedAt(DateTime reversedAt) {
+    public void setReversedAt(ZonedDateTime reversedAt) {
         this.reversedAt = reversedAt;
     }
 
@@ -553,7 +552,7 @@ public class Charge extends Model {
         @JsonProperty
         private String description;
         @JsonProperty("expires_at")
-        private DateTime expiresAt;
+        private ZonedDateTime expiresAt;
         @JsonProperty
         private String ip;
         @JsonProperty
@@ -616,7 +615,7 @@ public class Charge extends Model {
             return this;
         }
 
-        public CreateRequestBuilder expiresAt(DateTime expiresAt) {
+        public CreateRequestBuilder expiresAt(ZonedDateTime expiresAt) {
             this.expiresAt = expiresAt;
             return this;
         }

@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import okhttp3.HttpUrl;
 import okhttp3.RequestBody;
-import org.joda.time.DateTime;
+import java.time.ZonedDateTime;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class Link extends Model {
     private String title;
     private boolean used;
     @JsonProperty("used_at")
-    private DateTime usedAt;
+    private ZonedDateTime usedAt;
 
     public long getAmount() {
         return this.amount;
@@ -102,11 +102,11 @@ public class Link extends Model {
         this.used = used;
     }
 
-    public DateTime getUsedAt() {
+    public ZonedDateTime getUsedAt() {
         return this.usedAt;
     }
 
-    public void setUsedAt(DateTime usedAt) {
+    public void setUsedAt(ZonedDateTime usedAt) {
         this.usedAt = usedAt;
     }
 
