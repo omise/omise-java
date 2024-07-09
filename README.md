@@ -2,14 +2,17 @@
 
 [![Maven Central][5]][6] [![Github Actions][0]][1]
 
-`omise-java` provides a set of Java bindings to the [Opn Payments REST API][2].  Please contact
- [support@opn.ooo][3] if you have any questions regarding this
+`omise-java` provides a set of Java bindings to the [Opn Payments REST API][2]. Please contact
+[support@opn.ooo][3] if you have any questions regarding this
 library and the functionality it provides.
 
 ## Security Warning
 
 **Please do NOT use Omise Java library versions less than 3.1.1, as they are outdated and have security vulnerabilities.**
 
+## BREAKING CHANGE
+
+As of version `v5.0.0`, `joda-time` has been deprecated in favor of java-time so you might see a different format for the string output of date parameters and some functions might not be available anymore. For more reference view this PR([#173](https://github.com/omise/omise-java/pull/173))
 
 ## Installation
 
@@ -80,8 +83,8 @@ omise-java-4.0.0-all.jar
 
 ### Migration guide
 
-* [v4](MIGRATING.md#migrating-from-v3-to-v4)
-* [v3](MIGRATING.md#migrating-to-v3)
+- [v4](MIGRATING.md#migrating-from-v3-to-v4)
+- [v3](MIGRATING.md#migrating-to-v3)
 
 ## Usage
 
@@ -126,7 +129,6 @@ System.out.println("created charge: " + charge.getId());
 
 [MIT license][9]
 On February 23, 2023, we started redirecting users from search.maven.org to central.sonatype.com. Launched in September of 2022, central.sonatype.com provides the main functionality of search.maven.org with enhanced search results, including security vulnerability and software quality information.
-
 
 [0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg
 [1]: https://github.com/omise/omise-java/actions
