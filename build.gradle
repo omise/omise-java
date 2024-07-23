@@ -5,6 +5,7 @@ apply plugin: 'signing'
 apply plugin: 'io.github.goooler.shadow'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'jacoco'
+apply plugin: 'org.sonarqube'
 
 group 'co.omise'
 version '5.0.0'
@@ -29,6 +30,7 @@ buildscript {
     dependencies {
         classpath "io.github.goooler.shadow:shadow-gradle-plugin:8.1.8"
         classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.1.0.4882")
     }
 }
 
@@ -168,4 +170,15 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.google.guava:guava:32.0.1-jre'
 
+}
+
+sonar {
+    properties {
+        property 'sonar.host.url', 'https://sonarcloud.io'
+        property 'sonar.organization', 'omise'
+        property 'sonar.projectName', 'omise-java'
+        property 'sonar.projectKey', 'omise_omise-java'
+        property 'sonar.coverage.jacoco.xmlReportPaths', "${project.buildDir}/reports/jacoco/jacocoTestReport/jacocoTestReport.xml"
+        property 'sonar.junit.reportPaths', "${project.buildDir}/test-results/testProductionDebugUnitTest"
+    }
 }
