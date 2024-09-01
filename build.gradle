@@ -29,7 +29,7 @@ buildscript {
 
     dependencies {
         classpath "io.github.goooler.shadow:shadow-gradle-plugin:8.1.8"
-        classpath 'com.github.ben-manes:gradle-versions-plugin:0.15.0'
+        classpath 'com.github.ben-manes:gradle-versions-plugin:0.42.0'
         classpath("org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.1.0.4882")
     }
 }

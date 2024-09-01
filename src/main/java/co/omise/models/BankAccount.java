@@ -18,6 +18,8 @@ public class BankAccount extends Model {
     private String name;
     @JsonProperty("type")
     private String accountType;
+    @JsonProperty("account_number")
+    private String accountNumber;
 
     public String getBankCode() {
         return this.bankCode;
@@ -65,6 +67,14 @@ public class BankAccount extends Model {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public static class Params extends co.omise.models.Params {

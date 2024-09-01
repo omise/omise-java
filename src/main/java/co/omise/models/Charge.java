@@ -569,6 +569,14 @@ public class Charge extends Model {
         private AuthorizationType authorizationType;
         @JsonProperty("webhook_endpoints")
         private List<String> webhookEndpoints;
+        @JsonProperty("first_charge")
+        private String firstCharge;
+        @JsonProperty("linked_account")
+        private String linkedAccount;
+        @JsonProperty("recurring_reason")
+        private String recurringReason;
+        @JsonProperty("transaction_indicator")
+        private String transactionIndicator;
 
         @Override
         protected String method() {
@@ -662,6 +670,26 @@ public class Charge extends Model {
 
         public CreateRequestBuilder webhookEndpoints(List<String> webhookEndpoints) {
             this.webhookEndpoints = webhookEndpoints;
+            return this;
+        }
+
+        public CreateRequestBuilder firstCharge(String firstCharge) {
+            this.firstCharge = firstCharge;
+            return this;
+        }
+
+        public CreateRequestBuilder linkedAccount(String linkedAccount) {
+            this.linkedAccount = linkedAccount;
+            return this;
+        }
+
+        public CreateRequestBuilder recurringReason(String recurringReason) {
+            this.recurringReason = recurringReason;
+            return this;
+        }
+
+        public CreateRequestBuilder transactionIndicator(String transactionIndicator) {
+            this.transactionIndicator = transactionIndicator;
             return this;
         }
 

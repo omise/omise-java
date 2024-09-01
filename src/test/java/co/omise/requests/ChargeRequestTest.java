@@ -59,7 +59,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
-        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":null,\"authorization_type\":null,\"webhook_endpoints\":[\"https://webhook.site/123\"]}");
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":null,\"authorization_type\":null,\"webhook_endpoints\":[\"https://webhook.site/123\"],\"first_charge\":null,\"linked_account\":null,\"recurring_reason\":null,\"transaction_indicator\":null}");
         assertNotNull(charge);
     }
 
@@ -98,7 +98,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
-        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\",\"webhook_endpoints\":null}");
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\",\"webhook_endpoints\":null,\"first_charge\":null,\"linked_account\":null,\"recurring_reason\":null,\"transaction_indicator\":null}");
         assertNotNull(charge);
     }
 

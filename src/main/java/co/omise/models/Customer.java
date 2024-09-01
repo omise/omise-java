@@ -129,6 +129,8 @@ public class Customer extends Model {
         private String email;
         @JsonProperty
         private Map<String, Object> metadata;
+        @JsonProperty("linked_account")
+        private String linkedAccount;
         public UpdateRequestBuilder(String customerId) {
             this.customerId = customerId;
         }
@@ -170,6 +172,11 @@ public class Customer extends Model {
 
         public UpdateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
+            return this;
+        }
+
+        public UpdateRequestBuilder linkedAccount(String linkedAccount) {
+            this.linkedAccount = linkedAccount;
             return this;
         }
 
@@ -225,6 +232,8 @@ public class Customer extends Model {
         private String email;
         @JsonProperty
         private Map<String, Object> metadata;
+        @JsonProperty("linked_account")
+        private String linkedAccount;
 
         @Override
         protected String method() {
@@ -258,6 +267,11 @@ public class Customer extends Model {
 
         public CreateRequestBuilder metadata(Map<String, Object> metadata) {
             this.metadata = metadata;
+            return this;
+        }
+
+        public CreateRequestBuilder linkedAccount(String linkedAccount) {
+            this.linkedAccount = linkedAccount;
             return this;
         }
 
