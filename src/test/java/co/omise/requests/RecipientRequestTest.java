@@ -24,6 +24,7 @@ public class RecipientRequestTest extends RequestTest {
         assertEquals(RECIPIENT_ID, recipient.getId());
         assertEquals("john.doe@example.com", recipient.getEmail());
         assertEquals("6789", recipient.getBankAccount().getLastDigits());
+        assertEquals("1111", recipient.getBankAccount().getAccountNumber());
         assertEquals("Default recipient", recipient.getDescription());
     }
 
