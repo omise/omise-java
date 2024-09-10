@@ -26,13 +26,13 @@ Represents the java version that needs to be installed on your local in order to
 
 Represents the Java version required to compile the SDK after you clone the SDK's repo or fork it.
 
-| Library Version | Support                 | Supported Omise API Version | Java Runtime Version(s) Supported | Minimum Java Version Required for Compilation | Compilation Tested On | Notes                                                                                  |
-| --------------- | ----------------------- | --------------------------- | --------------------------------- | --------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| 1.x             | End of Life (EOL)       | 2014-07-27                  | Java 5 >=                         | Java 7                                        | N/A                   | Initial release with basic features. No longer maintained.                             |
-| 2.x             | End of Life (EOL)       | 2017-11-02                  | Java 6 >=                         | Java 8                                        | N/A                   | Ground-up rewrite onto Java7 to be more robust and maintainable. No longer maintained. |
-| 3.x             | End of Life (EOL)       | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | Used latest API version (`2019-05-29`). No longer maintained.                          |
-| 4.x             | Long Term Support (LTS) | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | v4 migration. Check [guide][10]                                                        |
-| 5.x             | Active                  | 2019-05-29                  | Java 8 >=                         | Java 11                                       | Java 21               | Update gradle to 8.7 and JDK to 21 and replace deprecated joda time.                   |
+| Library Version | Support           | Supported Omise API Version | Java Runtime Version(s) Supported | Minimum Java Version Required for Compilation | Compilation Tested On | Notes                                                                                  |
+| --------------- | ----------------- | --------------------------- | --------------------------------- | --------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------- |
+| 1.x             | End of Life (EOL) | 2014-07-27                  | Java 5 >=                         | Java 7                                        | N/A                   | Initial release with basic features. No longer maintained.                             |
+| 2.x             | End of Life (EOL) | 2017-11-02                  | Java 6 >=                         | Java 8                                        | N/A                   | Ground-up rewrite onto Java7 to be more robust and maintainable. No longer maintained. |
+| 3.x             | End of Life (EOL) | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | Used latest API version (`2019-05-29`). No longer maintained.                          |
+| 4.x             | End of Life (EOL) | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | v4 migration. Check [guide][10]                                                        |
+| 5.x             | Active            | 2019-05-29                  | Java 8 >=                         | Java 11                                       | Java 21               | Update gradle to 8.7 and JDK to 21 and replace deprecated joda time.                   |
 
 ## Installation
 
