@@ -230,6 +230,9 @@ public class Card extends Model {
         @JsonProperty
         private String street2;
 
+        @JsonProperty
+        private String email;
+
         public Create city(String city) {
             this.city = city;
             return this;
@@ -287,6 +290,11 @@ public class Card extends Model {
 
         public Create street2(String street2) {
             this.street2 = street2;
+            return this;
+        }
+
+        public Create email(String email) {
+            this.email = email;
             return this;
         }
 

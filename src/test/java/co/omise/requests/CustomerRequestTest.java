@@ -15,11 +15,14 @@ public class CustomerRequestTest extends RequestTest {
         Request<Customer> request = new Customer.CreateRequestBuilder()
                 .email("john.doe@example.com")
                 .description("John Doe (id: 30)")
+                .linkedAccount("acc_id")
                 .build();
 
         Customer customer = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/customers", 200);
+        assertRequestBody("{\"card\":null,\"description\":\"John Doe (id: 30)\",\"email\":\"john.doe@example.com\",\"metadata\":null,\"linked_account\":\"acc_id\"}");
+
 
         assertEquals("customer", customer.getObject());
         assertEquals(CUSTOMER_ID, customer.getId());
@@ -44,10 +47,12 @@ public class CustomerRequestTest extends RequestTest {
     public void testUpdate() throws IOException, OmiseException {
         Request<Customer> request = new Customer.UpdateRequestBuilder(CUSTOMER_ID)
                 .email("john.doe.the.second@example.com")
+                .linkedAccount("acc_id")
                 .build();
         Customer customer = getTestRequester().sendRequest(request);
 
         assertRequested("PATCH", "/customers/" + CUSTOMER_ID, 200);
+        assertRequestBody("{\"email\":\"john.doe.the.second@example.com\",\"linked_account\":\"acc_id\"}");
 
         assertEquals(CUSTOMER_ID, customer.getId());
         assertEquals("john.doe.the.second@example.com", customer.getEmail());

@@ -252,7 +252,11 @@ public class Source extends Model {
         private String phoneNumber;
         @JsonProperty("items")
         private List<Item> items;
-
+        @JsonProperty
+        private Shipping billing;
+        @JsonProperty("promotion_code")
+        private String promotionCode;
+    
         @Override
         protected String method() {
             return POST;
@@ -358,6 +362,16 @@ public class Source extends Model {
 
         public CreateRequestBuilder platformType(PlatformType platformType) {
             this.platformType = platformType;
+            return this;
+        }
+
+        public CreateRequestBuilder billing(Shipping billing) {
+            this.billing = billing;
+            return this;
+        }
+
+        public CreateRequestBuilder promotionCode(String promotionCode) {
+            this.promotionCode = promotionCode;
             return this;
         }
 

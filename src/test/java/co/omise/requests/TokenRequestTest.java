@@ -35,13 +35,16 @@ public class TokenRequestTest extends RequestTest {
                         .expiration(YearMonth.now().plusYears(1))
                         .securityCode("123")
                         .city("Bangkok")
-                        .postalCode("10240"))
+                        .postalCode("10240")
+                        .email("email@opn.ooo")
+                        )
                 .build();
 
         Token token = getTestRequester().sendRequest(request);
 
         assertRequested("POST", "/tokens", 200);
         assertVaultRequest();
+        assertRequestBody("{\"card\":{\"city\":\"Bangkok\",\"country\":null,\"name\":\"JOHN DOE\",\"number\":\"4242424242424242\",\"state\":null,\"street1\":null,\"street2\":null,\"email\":\"email@opn.ooo\",\"expiration_month\":9,\"expiration_year\":2025,\"phone_number\":null,\"postal_code\":\"10240\",\"security_code\":\"123\"}}");
 
         assertEquals(TOKEN_ID, token.getId());
         assertFalse(token.isLiveMode());

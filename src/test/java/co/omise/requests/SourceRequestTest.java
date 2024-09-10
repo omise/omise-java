@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.omise.models.OmiseException;
+import co.omise.models.Shipping;
 import co.omise.models.Source;
 import co.omise.models.SourceType;
 import co.omise.testutils.TestSourceRequestBuilder;
@@ -15,13 +16,22 @@ public class SourceRequestTest extends RequestTest {
 
     @Test
     public void testCreate() throws IOException, OmiseException {
+
+        Shipping shipping = new Shipping();
+        shipping.country = "TH";
+        shipping.postalCode = "000000";
+        shipping.street1 = "Street";
+
         Request<Source> request = new Source.CreateRequestBuilder()
                 .amount(100000)
                 .currency("thb")
                 .type(SourceType.Alipay)
+                .billing(shipping)
+                .promotionCode("code")
                 .build();
 
         Source source = getTestRequester().sendRequest(request);
+        assertRequestBody("{\"amount\":100000,\"bank\":null,\"barcode\":null,\"currency\":\"thb\",\"email\":null,\"ip\":null,\"name\":null,\"type\":\"alipay\",\"shipping\":null,\"billing\":{\"street1\":\"Street\",\"street2\":null,\"city\":null,\"state\":null,\"country\":\"TH\",\"postal_code\":\"000000\"},\"installment_term\":0,\"mobile_number\":null,\"store_id\":null,\"store_name\":null,\"terminal_id\":null,\"zero_interest_installments\":false,\"platform_type\":null,\"phone_number\":null,\"items\":null,\"promotion_code\":\"code\"}");
 
         assertRequested("POST", "/sources", 200);
         assertEquals(100000L, source.getAmount());
