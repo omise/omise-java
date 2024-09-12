@@ -18,21 +18,23 @@ As of version `v5.0.0`, `joda-time` has been deprecated in favor of java-time so
 
 Although you can use omise-java with other Java versions, we have validated the following versions in our CI pipeline to ensure compatibility and stability.
 
-### Java Runtime Version(s) Supported
+### JRE Supported
 
 Represents the java version that needs to be installed on your local in order to be able to run the precompiled java byte code inside your project. i.e Installing the SDK in your project from maven and running it in your custom project.
 
-### Minimum Java Version Required for Compilation
+### Java Version (Compilation)
 
 Represents the Java version required to compile the SDK after you clone the SDK's repo or fork it.
 
-| Library Version | Support           | Supported Omise API Version | Java Runtime Version(s) Supported | Minimum Java Version Required for Compilation | Compilation Tested On | Notes                                                                                  |
-| --------------- | ----------------- | --------------------------- | --------------------------------- | --------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------- |
-| 1.x             | End of Life (EOL) | 2014-07-27                  | Java 5 >=                         | Java 7                                        | N/A                   | Initial release with basic features. No longer maintained.                             |
-| 2.x             | End of Life (EOL) | 2017-11-02                  | Java 6 >=                         | Java 8                                        | N/A                   | Ground-up rewrite onto Java7 to be more robust and maintainable. No longer maintained. |
-| 3.x             | End of Life (EOL) | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | Used latest API version (`2019-05-29`). No longer maintained.                          |
-| 4.x             | End of Life (EOL) | 2019-05-29                  | Java 8 >=                         | Java 8                                        | Java 8                | v4 migration. Check [guide][10]                                                        |
-| 5.x             | Active            | 2019-05-29                  | Java 8 >=                         | Java 11                                       | Java 21               | Update gradle to 8.7 and JDK to 21 and replace deprecated joda time.                   |
+| Library Version | Support           | Supported Omise API Version | JRE Supported | Java Version (Compilation) | Compilation Tested | Notes                                                                                  |
+| --------------- | ----------------- | --------------------------- | ------------- | -------------------------- | ------------------ | -------------------------------------------------------------------------------------- |
+| 1.x             | End of Life (EOL) | 2014-07-27                  | >= 5          | >= 7                       | N/A                | Initial release with basic features. No longer maintained.                             |
+| 2.x             | End of Life (EOL) | 2017-11-02                  | >= 6          | >= 8                       | N/A                | Ground-up rewrite onto Java7 to be more robust and maintainable. No longer maintained. |
+| 3.x             | End of Life (EOL) | 2019-05-29                  | >= 8          | >= 8                       | Java 8             | Used latest API version (`2019-05-29`). No longer maintained.                          |
+| 4.x             | Maintenance Mode  | 2019-05-29                  | >= 8          | >= 8                       | Java 8             | v4 migration. Check [guide][10]                                                        |
+| 5.x             | Active            | 2019-05-29                  | >= 8          | >= 11                      | Java 21            | Update gradle to 8.7 and JDK to 21 and replace deprecated joda time.                   |
+
+<sup><b>\*Maintenance mode includes only bug fixes and security updates.</b></sup>
 
 ## Installation
 
