@@ -58,6 +58,6 @@ public abstract class Params {
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream(4096);
         serializer.serializeParams(stream, this);
-        return RequestBody.create(JSON_MEDIA_TYPE, stream.toByteArray());
+        return RequestBody.Companion.create(stream.toByteArray(), JSON_MEDIA_TYPE);
     }
 }

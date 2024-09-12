@@ -1,5 +1,7 @@
 package co.omise;
 
+import org.jetbrains.annotations.NotNull;
+
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -46,6 +48,7 @@ public final class Configurer implements Interceptor {
         return builder.build();
     }
 
+    @NotNull
     @Override
     public Response intercept(Chain chain) throws IOException {
         return chain.proceed(configure(config, chain.request()));
