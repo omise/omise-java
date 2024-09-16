@@ -14,6 +14,28 @@ library and the functionality it provides.
 
 As of version `v5.0.0`, `joda-time` has been deprecated in favor of java-time so you might see a different format for the string output of date parameters and some functions might not be available anymore. For more reference view this PR([#173](https://github.com/omise/omise-java/pull/173))
 
+# Versioning and Compatibility
+
+Although you can use omise-java with other Java versions, we have validated the following versions in our CI pipeline to ensure compatibility and stability.
+
+### JRE Supported
+
+Represents the Java version you must install on your local system to run the precompiled Java byte code inside your project. i.e., install the SDK from Maven for your project and run it on your custom project.
+
+### Java Version (Compilation)
+
+Represents the Java version required to compile the SDK after you clone the SDK's repo or fork it.
+
+| Library Version | Support           | Supported Omise API Version | JRE Supported | Java Version (Compilation) | Compilation Tested | Notes                                                                                  |
+| --------------- | ----------------- | --------------------------- | ------------- | -------------------------- | ------------------ | -------------------------------------------------------------------------------------- |
+| 1.x             | End of Life (EOL) | 2014-07-27                  | >= 5          | >= 7                       | N/A                | Initial release with basic features. No longer maintained.                             |
+| 2.x             | End of Life (EOL) | 2017-11-02                  | >= 6          | >= 8                       | N/A                | Ground-up rewrite onto Java7 to be more robust and maintainable. No longer maintained. |
+| 3.x             | End of Life (EOL) | 2019-05-29                  | >= 8          | >= 8                       | Java 8             | Used latest API version (`2019-05-29`). No longer maintained.                          |
+| 4.x             | Maintenance Mode  | 2019-05-29                  | >= 8          | >= 8                       | Java 8             | v4 migration. Check [guide][10]                                                        |
+| 5.x             | Active            | 2019-05-29                  | >= 8          | >= 11                      | Java 21            | Update gradle to 8.7 and JDK to 21 and replace deprecated joda time.                   |
+
+<sup><b>\*Maintenance mode includes only bug fixes and security updates.</b></sup>
+
 ## Installation
 
 You can use your preferred method of managing dependencies in order to install the omise-java library. Below you will find some popular examples:
@@ -140,3 +162,4 @@ On February 23, 2023, we started redirecting users from search.maven.org to cent
 [7]: https://github.com/johnrengelman/shadow
 [8]: https://dashboard.omise.co/test/api-keys
 [9]: https://github.com/johnrengelman/shadow
+[10]: https://github.com/omise/omise-java/blob/master/MIGRATING.md#migrating-from-v3-to-v4
