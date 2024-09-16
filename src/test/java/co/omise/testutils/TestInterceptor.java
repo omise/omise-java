@@ -1,5 +1,7 @@
 package co.omise.testutils;
 
+import org.jetbrains.annotations.NotNull;
+
 import co.omise.OmiseTest;
 import okhttp3.*;
 
@@ -16,6 +18,7 @@ public class TestInterceptor implements Interceptor {
         this.test = test;
     }
 
+    @NotNull
     @Override
     public Response intercept(Chain chain) {
         Request request = chain.request();
@@ -32,10 +35,12 @@ public class TestInterceptor implements Interceptor {
         Response.Builder builder = new Response.Builder()
                 .request(request)
                 .protocol(Protocol.HTTP_1_1)
+                // Message is not optional anymore and this is only for testing
+                .message("")
                 .code(code);
 
         if (responseData != null) {
-            builder = builder.body(ResponseBody.create(jsonMediaType, responseData));
+            builder = builder.body(ResponseBody.Companion.create(responseData, jsonMediaType));
         }
 
         return lastResponse = builder.build();

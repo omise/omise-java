@@ -91,7 +91,7 @@ public abstract class RequestBuilder<T extends OmiseObjectBase> {
     protected RequestBody serialize() throws IOException {
         ByteArrayOutputStream stream = new ByteArrayOutputStream(4096);
         serializer().serializeRequestBuilder(stream, this);
-        return RequestBody.create(JSON_MEDIA_TYPE, stream.toByteArray());
+        return RequestBody.Companion.create(stream.toByteArray(), JSON_MEDIA_TYPE);
     }
 
     /**
