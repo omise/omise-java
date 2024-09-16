@@ -20,7 +20,7 @@ Although you can use omise-java with other Java versions, we have validated the 
 
 ### JRE Supported
 
-Represents the java version that needs to be installed on your local in order to be able to run the precompiled java byte code inside your project. i.e Installing the SDK in your project from maven and running it in your custom project.
+Represents the Java version you must install on your local system to run the precompiled Java byte code inside your project. i.e., install the SDK from Maven for your project and run it on your custom project.
 
 ### Java Version (Compilation)
 
