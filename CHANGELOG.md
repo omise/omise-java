@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+## v.5.1.0
+
+- **NEW** Add missing request params in request models ([#178](https://github.com/omise/omise-java/pull/178))
+- **UPDATE** Update okhttp ([#180](https://github.com/omise/omise-java/pull/180))
+
 ## v.5.0.0
 
 - **UPDATE** Update guava test dependency ([#168](https://github.com/omise/omise-java/pull/168))
