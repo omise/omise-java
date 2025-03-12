@@ -95,6 +95,8 @@ public class Charge extends Model {
     private String merchantAdvice;
     @JsonProperty("merchant_advice_code")
     private String merchantAdviceCode;
+    @JsonProperty("missing_3ds_fields")
+    private List<String> missing3DSFields;
 
     public long getAmount() {
         return this.amount;
@@ -514,6 +516,12 @@ public class Charge extends Model {
 
     public String getMerchantAdviceCode() {
         return merchantAdviceCode;
+    }
+
+    public List<String> getMissing3DSFields() { return missing3DSFields; }
+
+    public void setMissing3DSFields(List<String> missing3DSFields) {
+        this.missing3DSFields = missing3DSFields;
     }
 
     public void setMerchantAdviceCode(String merchantAdviceCode) {
