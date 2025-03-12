@@ -93,6 +93,8 @@ public class Charge extends Model {
     private List<String> webhookEndpoints;
     @JsonProperty("merchant_advice")
     private String merchantAdvice;
+    @JsonProperty("merchant_advice_code")
+    private String merchantAdviceCode;
 
     public long getAmount() {
         return this.amount;
@@ -237,6 +239,10 @@ public class Charge extends Model {
     public void setFailureMessage(String failureMessage) {
         this.failureMessage = failureMessage;
     }
+
+    public String getMerchantAdviceCode() { return merchantAdviceCode; }
+
+    public void setMerchantAdviceCode(String merchantAdviceCode) { this.merchantAdviceCode = merchantAdviceCode; }
 
     public long getFee() {
         return this.fee;
