@@ -60,5 +60,6 @@
   "reversible": false,
   "refundable": false,
   "merchant_advice": "Test advice",
-  "merchant_advice_code": "Test advice code"
+  "merchant_advice_code": "Test advice code",
+  "missing_3ds_fields": ["email"]
 }
