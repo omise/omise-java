@@ -26,6 +26,8 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals("thb", charge.getCurrency());
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
         assertEquals("Test advice", charge.getMerchantAdvice());
+        assertEquals("Test advice code", charge.getMerchantAdviceCode());
+        assertEquals(Collections.singletonList("email"), charge.getMissing3DSFields());
     }
 
     @Test

@@ -93,6 +93,10 @@ public class Charge extends Model {
     private List<String> webhookEndpoints;
     @JsonProperty("merchant_advice")
     private String merchantAdvice;
+    @JsonProperty("merchant_advice_code")
+    private String merchantAdviceCode;
+    @JsonProperty("missing_3ds_fields")
+    private List<String> missing3DSFields;
 
     public long getAmount() {
         return this.amount;
@@ -237,6 +241,10 @@ public class Charge extends Model {
     public void setFailureMessage(String failureMessage) {
         this.failureMessage = failureMessage;
     }
+
+    public String getMerchantAdviceCode() { return merchantAdviceCode; }
+
+    public void setMerchantAdviceCode(String merchantAdviceCode) { this.merchantAdviceCode = merchantAdviceCode; }
 
     public long getFee() {
         return this.fee;
@@ -508,6 +516,12 @@ public class Charge extends Model {
 
     public void setMerchantAdvice(String merchantAdvice) {
         this.merchantAdvice = merchantAdvice;
+    }
+
+    public List<String> getMissing3DSFields() { return missing3DSFields; }
+
+    public void setMissing3DSFields(List<String> missing3DSFields) {
+        this.missing3DSFields = missing3DSFields;
     }
 
     public static class ListRequestBuilder extends RequestBuilder<ScopedList<Charge>> {
