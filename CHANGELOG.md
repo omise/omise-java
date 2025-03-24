@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+## v.5.2.0
+
+- **NEW** Omise Rebranding ([#186](https://github.com/omise/omise-java/pull/186))
+- **NEW** Support merchant_advice_code & missing3DSFields in Charge model ([#185](https://github.com/omise/omise-java/pull/185))
+
 ## v.5.1.0
 
 - **NEW** Add missing request params in request models ([#178](https://github.com/omise/omise-java/pull/178))
