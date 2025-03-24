@@ -2,8 +2,8 @@
 
 [![Maven Central][5]][6] [![Github Actions][0]][1]
 
-`omise-java` provides a set of Java bindings to the [Opn Payments REST API][2]. Please contact
-[support@opn.ooo][3] if you have any questions regarding this
+`omise-java` provides a set of Java bindings to the [Omise REST API][2]. Please contact
+[support@omise.co][3] if you have any questions regarding this
 library and the functionality it provides.
 
 ## Security Warning
@@ -110,7 +110,7 @@ omise-java-4.0.0-all.jar
 
 ## Usage
 
-Obtain a set of API keys from the [Opn Payments Dashboard][8] and create a `Client` object:
+Obtain a set of API keys from the [Omise Dashboard][8] and create a `Client` object:
 
 ```java
 Client client = new Client.Builder()
@@ -154,8 +154,8 @@ On February 23, 2023, we started redirecting users from search.maven.org to cent
 
 [0]: https://github.com/omise/omise-java/workflows/Java%20CI%20with%20Gradle/badge.svg
 [1]: https://github.com/omise/omise-java/actions
-[2]: https://docs.opn.ooo/
-[3]: mailto:support@opn.ooo
+[2]: https://docs.omise.co/
+[3]: mailto:support@omise.co
 [4]: https://github.com/omise/omise-android
 [5]: https://img.shields.io/maven-central/v/co.omise/omise-java.svg?style=flat-square
 [6]: https://central.sonatype.com/artifact/co.omise/omise-java/4.2.0/versions

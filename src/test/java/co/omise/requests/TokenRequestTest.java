@@ -36,7 +36,7 @@ public class TokenRequestTest extends RequestTest {
                         .securityCode("123")
                         .city("Bangkok")
                         .postalCode("10240")
-                        .email("email@opn.ooo")
+                        .email("email@omise.co")
                         )
                 .build();
 
@@ -44,7 +44,7 @@ public class TokenRequestTest extends RequestTest {
 
         assertRequested("POST", "/tokens", 200);
         assertVaultRequest();
-        assertRequestBody("{\"card\":{\"city\":\"Bangkok\",\"country\":null,\"name\":\"JOHN DOE\",\"number\":\"4242424242424242\",\"state\":null,\"street1\":null,\"street2\":null,\"email\":\"email@opn.ooo\",\"expiration_month\":3,\"expiration_year\":2026,\"phone_number\":null,\"postal_code\":\"10240\",\"security_code\":\"123\"}}");
+        assertRequestBody("{\"card\":{\"city\":\"Bangkok\",\"country\":null,\"name\":\"JOHN DOE\",\"number\":\"4242424242424242\",\"state\":null,\"street1\":null,\"street2\":null,\"email\":\"email@omise.co\",\"expiration_month\":3,\"expiration_year\":2026,\"phone_number\":null,\"postal_code\":\"10240\",\"security_code\":\"123\"}}");
 
         assertEquals(TOKEN_ID, token.getId());
         assertFalse(token.isLiveMode());
