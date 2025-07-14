@@ -32,7 +32,7 @@ public class TokenRequestTest extends RequestTest {
                 .card(new Card.Create()
                         .name("JOHN DOE")
                         .number("4242424242424242")
-                        .expiration(YearMonth.now().plusYears(1))
+                        .expiration(YearMonth.of(2026, 3))
                         .securityCode("123")
                         .city("Bangkok")
                         .postalCode("10240")
