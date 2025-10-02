@@ -8,6 +8,8 @@
   "description": "Charge for order 3947 (XXL)",
   "capture": true,
   "authorized": true,
+  "authentication": "PASSKEY",
+  "authenticated_by": "PASSKEY",
   "captured": true,
   "transaction": "trxn_test_4yq7duwb9jts1vxgqua",
   "refunded_amount": 10000,

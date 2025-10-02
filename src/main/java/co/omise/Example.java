@@ -9,6 +9,7 @@ import java.io.IOException;
 
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
+    private static final String OMISE_PKEY = "pkey_test_123";
 
     void retrieveAccount() throws IOException, OmiseException, ClientException {
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
@@ -88,6 +89,40 @@ final class Example {
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
         System.out.printf("created charge: %s", charge.getId());
+    }
+
+    void chargeWithAuthentication(AuthenticationType authenticationType)
+            throws IOException, OmiseException, ClientException {
+        Request<Token> request = new Token.CreateRequestBuilder()
+                .card(new Card.Create()
+                        .name("Somchai Prasert")
+                        .number("5185600630000142")
+                        .expirationMonth(10)
+                        .expirationYear(2030)
+                        .city("Bangkok")
+                        .email("demo@example.co")
+                        .phoneNumber("09434343444")
+                        .postalCode("10320")
+                        .securityCode("123"))
+                .build();
+        Token token = client().sendRequest(request);
+        System.out.println("created token: " + token.getId());
+
+        Request<Charge> createChargeRequest =
+                new Charge.CreateRequestBuilder()
+                        .amount(100000) // 1,000 THB
+                        .currency("thb")
+                        .card(token.getId())
+                        .authentication(authenticationType)
+                        .returnUri("https://example.com/orders/345678/complete")
+                        .build();
+        Charge charge = client().sendRequest(createChargeRequest);
+
+        System.out.printf(
+                "created charge with %s authentication: %s and auth url: %s ",
+                authenticationType.name(),
+                charge.getId(),
+                charge.getAuthorizeUri());
     }
 
     void chargeWithCustomer() throws IOException, OmiseException, ClientException {
@@ -599,6 +634,7 @@ final class Example {
 
     private Client client() throws ClientException {
         return new Client.Builder()
+                .publicKey(OMISE_PKEY)
                 .secretKey(OMISE_SKEY)
                 .build();
     }
