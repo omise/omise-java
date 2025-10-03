@@ -14,8 +14,8 @@ import java.util.Collections;
 
 public class ChargeRequestTest extends RequestTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
-    private final String THREE_DS_CHARGE_ID = "chrg_test_3dsu8b8xyl0d3s";
-    private final String NO_AUTH_CHARGE_ID = "chrg_test_noauth";
+    private final String threeDsChargeId = "chrg_test_3dsu8b8xyl0d3s";
+    private final String noAuthChargeId = "chrg_test_noauth";
 
     @Test
     public void testGet() throws IOException, OmiseException {
@@ -30,30 +30,30 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
         assertEquals("Test advice", charge.getMerchantAdvice());
         assertEquals("Test advice code", charge.getMerchantAdviceCode());
-        assertEquals(AuthenticationType.Passkey, charge.getAuthentication());
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
         assertEquals("PASSKEY", charge.getAuthenticatedBy());
         assertEquals(Collections.singletonList("email"), charge.getMissing3DSFields());
     }
 
     @Test
     public void testGetThreeDSCharge() throws IOException, OmiseException {
-        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(THREE_DS_CHARGE_ID).build();
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(threeDsChargeId).build();
 
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
-        assertRequested("GET", "/charges/" + THREE_DS_CHARGE_ID, 200);
-        assertEquals(AuthenticationType.ThreeDS, charge.getAuthentication());
+        assertRequested("GET", "/charges/" + threeDsChargeId, 200);
+        assertEquals(AuthenticationType.THREE_DS, charge.getAuthentication());
         assertEquals("3DS", charge.getAuthenticatedBy());
     }
 
     @Test
     public void testGetChargeWithoutAuthenticatedBy() throws IOException, OmiseException {
-        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(NO_AUTH_CHARGE_ID).build();
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(noAuthChargeId).build();
 
         Charge charge = getTestRequester().sendRequest(getChargeRequest);
 
-        assertRequested("GET", "/charges/" + NO_AUTH_CHARGE_ID, 200);
-        assertEquals(AuthenticationType.Passkey, charge.getAuthentication());
+        assertRequested("GET", "/charges/" + noAuthChargeId, 200);
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
         assertNull(charge.getAuthenticatedBy());
     }
 
@@ -74,7 +74,7 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(100000L, charge.getAmount());
         assertEquals("thb", charge.getCurrency());
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
-        assertEquals(AuthenticationType.Passkey, charge.getAuthentication());
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
         assertEquals("PASSKEY", charge.getAuthenticatedBy());
     }
 
@@ -122,7 +122,7 @@ public class ChargeRequestTest extends RequestTest {
                         .amount(100000)
                         .currency("thb")
                         .capture(false)
-                        .authentication(AuthenticationType.Passkey)
+                        .authentication(AuthenticationType.PASSKEY)
                         .authorizationType(AuthorizationType.PreAuth)
                         .returnUri("http://example.com/orders/345678/complete")
                         .firstCharge(CHARGE_ID)

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum AuthenticationType {
     @JsonProperty("3DS")
-    ThreeDS,
+    THREE_DS,
     @JsonProperty("PASSKEY")
-    Passkey
+    PASSKEY
 }

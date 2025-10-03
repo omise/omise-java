@@ -38,7 +38,7 @@ public class ExampleTest {
             example.captureCharge();
             example.partialCaptureCharge();
             example.chargeWithCard();
-            example.chargeWithAuthentication(AuthenticationType.ThreeDS);
+            example.chargeWithAuthentication(AuthenticationType.THREE_DS);
             example.chargeWithCustomer();
             example.chargeWithToken();
             example.createPartialCaptureCharge();
