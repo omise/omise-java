@@ -24,6 +24,10 @@ public class Charge extends Model {
     @JsonProperty("authorize_uri")
     private String authorizeUri;
     private boolean authorized;
+    @JsonProperty("authentication")
+    private AuthenticationType authentication;
+    @JsonProperty("authenticated_by")
+    private String authenticatedBy;
     private String branch;
     private boolean capturable;
     private boolean capture;
@@ -120,6 +124,22 @@ public class Charge extends Model {
 
     public void setAuthorized(boolean authorized) {
         this.authorized = authorized;
+    }
+
+    public AuthenticationType getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(AuthenticationType authentication) {
+        this.authentication = authentication;
+    }
+
+    public String getAuthenticatedBy() {
+        return authenticatedBy;
+    }
+
+    public void setAuthenticatedBy(String authenticatedBy) {
+        this.authenticatedBy = authenticatedBy;
     }
 
     public String getBranch() {
@@ -579,6 +599,8 @@ public class Charge extends Model {
         private String returnUri;
         @JsonProperty
         private String source;
+        @JsonProperty("authentication")
+        private AuthenticationType authentication;
         @JsonProperty("authorization_type")
         private AuthorizationType authorizationType;
         @JsonProperty("webhook_endpoints")
@@ -674,6 +696,11 @@ public class Charge extends Model {
 
         public CreateRequestBuilder zeroInterestInstallments(boolean zeroInterestInstallments) {
             this.zeroInterestInstallments = zeroInterestInstallments;
+            return this;
+        }
+
+        public CreateRequestBuilder authentication(AuthenticationType authentication) {
+            this.authentication = authentication;
             return this;
         }
 

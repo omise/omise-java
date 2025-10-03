@@ -11,6 +11,8 @@
   "description": null,
   "capture": true,
   "authorized": true,
+  "authentication": "PASSKEY",
+  "authenticated_by": "PASSKEY",
   "paid": true,
   "transaction": "trxn_test_5086xltqqbv4qpmu0ri",
   "refunded_amount": 0,

@@ -9,6 +9,8 @@
   "status": "successful",
   "capture": true,
   "authorized": true,
+  "authentication": "PASSKEY",
+  "authenticated_by": "PASSKEY",
   "transaction": "trxn_test_4yq7duwb9jts1vxgqua",
   "paid": true,
   "refunded_amount": 0,

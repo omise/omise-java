@@ -1,5 +1,6 @@
 package co.omise.requests;
 
+import co.omise.models.AuthenticationType;
 import co.omise.models.AuthorizationType;
 import co.omise.models.Barcode;
 import co.omise.models.Charge;
@@ -13,6 +14,8 @@ import java.util.Collections;
 
 public class ChargeRequestTest extends RequestTest {
     private final String CHARGE_ID = "chrg_test_4yq7duw15p9hdrjp8oq";
+    private final String threeDsChargeId = "chrg_test_3dsu8b8xyl0d3s";
+    private final String noAuthChargeId = "chrg_test_noauth";
 
     @Test
     public void testGet() throws IOException, OmiseException {
@@ -27,7 +30,31 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
         assertEquals("Test advice", charge.getMerchantAdvice());
         assertEquals("Test advice code", charge.getMerchantAdviceCode());
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
+        assertEquals("PASSKEY", charge.getAuthenticatedBy());
         assertEquals(Collections.singletonList("email"), charge.getMissing3DSFields());
+    }
+
+    @Test
+    public void testGetThreeDSCharge() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(threeDsChargeId).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + threeDsChargeId, 200);
+        assertEquals(AuthenticationType.THREE_DS, charge.getAuthentication());
+        assertEquals("3DS", charge.getAuthenticatedBy());
+    }
+
+    @Test
+    public void testGetChargeWithoutAuthenticatedBy() throws IOException, OmiseException {
+        Request<Charge> getChargeRequest = new Charge.GetRequestBuilder(noAuthChargeId).build();
+
+        Charge charge = getTestRequester().sendRequest(getChargeRequest);
+
+        assertRequested("GET", "/charges/" + noAuthChargeId, 200);
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
+        assertNull(charge.getAuthenticatedBy());
     }
 
     @Test
@@ -47,6 +74,8 @@ public class ChargeRequestTest extends RequestTest {
         assertEquals(100000L, charge.getAmount());
         assertEquals("thb", charge.getCurrency());
         assertEquals("trxn_test_4yq7duwb9jts1vxgqua", charge.getTransaction());
+        assertEquals(AuthenticationType.PASSKEY, charge.getAuthentication());
+        assertEquals("PASSKEY", charge.getAuthenticatedBy());
     }
 
     @Test
@@ -61,7 +90,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
-        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":null,\"authorization_type\":null,\"webhook_endpoints\":[\"https://webhook.site/123\"],\"first_charge\":null,\"linked_account\":null,\"recurring_reason\":null,\"transaction_indicator\":null}");
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":null,\"authentication\":null,\"authorization_type\":null,\"webhook_endpoints\":[\"https://webhook.site/123\"],\"first_charge\":null,\"linked_account\":null,\"recurring_reason\":null,\"transaction_indicator\":null}");
         assertNotNull(charge);
     }
 
@@ -93,6 +122,7 @@ public class ChargeRequestTest extends RequestTest {
                         .amount(100000)
                         .currency("thb")
                         .capture(false)
+                        .authentication(AuthenticationType.PASSKEY)
                         .authorizationType(AuthorizationType.PreAuth)
                         .returnUri("http://example.com/orders/345678/complete")
                         .firstCharge(CHARGE_ID)
@@ -104,7 +134,7 @@ public class ChargeRequestTest extends RequestTest {
         Charge charge = getTestRequester().sendRequest(createChargeRequest);
 
         assertRequested("POST", "/charges", 200);
-        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authorization_type\":\"pre_auth\",\"webhook_endpoints\":null,\"first_charge\":\"chrg_test_4yq7duw15p9hdrjp8oq\",\"linked_account\":\"acc_id\",\"recurring_reason\":\"reason\",\"transaction_indicator\":\"trans_id\"}");
+        assertRequestBody("{\"amount\":100000,\"capture\":false,\"card\":null,\"currency\":\"thb\",\"customer\":null,\"description\":null,\"ip\":null,\"metadata\":null,\"reference\":null,\"source\":null,\"zero_interest_installments\":false,\"expires_at\":null,\"platform_fee\":null,\"return_uri\":\"http://example.com/orders/345678/complete\",\"authentication\":\"PASSKEY\",\"authorization_type\":\"pre_auth\",\"webhook_endpoints\":null,\"first_charge\":\"chrg_test_4yq7duw15p9hdrjp8oq\",\"linked_account\":\"acc_id\",\"recurring_reason\":\"reason\",\"transaction_indicator\":\"trans_id\"}");
         assertNotNull(charge);
     }
 
