@@ -14,6 +14,7 @@ final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
     private static final String OMISE_PKEY = "pkey_test_123";
     private static final String CREATED_TOKEN_LOG_PREFIX = "created token: ";
+    private static final String CREATED_CHARGE_LOG_TEMPLATE = "created charge: %s";
     private final Client testClient;
 
     private static void logInfo(String template, Object... args) {
@@ -109,7 +110,7 @@ final class Example {
                         .card("card_test_4xtsoy2nbfs7ujngyyq")
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
-        logInfo("created charge: %s", charge.getId());
+        logInfo(CREATED_CHARGE_LOG_TEMPLATE, charge.getId());
     }
 
     void chargeWithAuthentication(AuthenticationType authenticationType)
@@ -155,7 +156,7 @@ final class Example {
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
 
-        logInfo("created charge: %s", charge.getId());
+        logInfo(CREATED_CHARGE_LOG_TEMPLATE, charge.getId());
     }
 
     void chargeWithToken() throws IOException, OmiseException, ClientException {
@@ -181,7 +182,7 @@ final class Example {
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
 
-        logInfo("created charge: %s", charge.getId());
+        logInfo(CREATED_CHARGE_LOG_TEMPLATE, charge.getId());
     }
 
     void createPartialCaptureCharge() throws IOException, OmiseException, ClientException {
@@ -209,7 +210,7 @@ final class Example {
                         .build();
         Charge charge = client().sendRequest(createChargeRequest);
 
-        logInfo("created charge: %s", charge.getId());
+        logInfo(CREATED_CHARGE_LOG_TEMPLATE, charge.getId());
     }
 
     void listCharges() throws IOException, OmiseException, ClientException {
