@@ -142,7 +142,7 @@ final class Example {
 
         logInfo(
                 "created charge with %s authentication: %s and auth url: %s ",
-                authenticationType.name(),
+                authenticationType.getWireValue(),
                 charge.getId(),
                 charge.getAuthorizeUri());
     }
