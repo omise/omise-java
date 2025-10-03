@@ -10,6 +10,15 @@ import java.io.IOException;
 final class Example {
     private static final String OMISE_SKEY = "skey_test_123";
     private static final String OMISE_PKEY = "pkey_test_123";
+    private final Client testClient;
+
+    Example() {
+        this(null);
+    }
+
+    Example(Client testClient) {
+        this.testClient = testClient;
+    }
 
     void retrieveAccount() throws IOException, OmiseException, ClientException {
         Request<Account> getAccountRequest = new Account.GetRequestBuilder().build();
@@ -633,6 +642,10 @@ final class Example {
     }
 
     private Client client() throws ClientException {
+        if (testClient != null) {
+            return testClient;
+        }
+
         return new Client.Builder()
                 .publicKey(OMISE_PKEY)
                 .secretKey(OMISE_SKEY)
