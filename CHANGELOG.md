@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+## v.5.3.0
+
+- **NEW** Support passkey authentication in charge flows ([#189](https://github.com/omise/omise-java/pull/189))
+- **UPDATE** Adjust publish pipeline for Maven Central ([#188](https://github.com/omise/omise-java/pull/188))
+
 ## v.5.2.0
 
 - **NEW** Omise Rebranding ([#186](https://github.com/omise/omise-java/pull/186))
