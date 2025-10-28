@@ -110,7 +110,7 @@ public class ChargeRequestTest extends RequestTest {
 
         assertEquals(CHARGE_ID, charge.getId());
         assertEquals("src_test_5929c3tjts3omoi7ti2", charge.getSource().getId());
-        assertEquals(SourceType.InternetBankingScb, charge.getSource().getType());
+        assertEquals(SourceType.BillPaymentTescoLotus, charge.getSource().getType());
         assertEquals(Barcode.class, charge.getSource().getScannableCode().getClass());
         assertEquals(100000L, charge.getAmount());
     }

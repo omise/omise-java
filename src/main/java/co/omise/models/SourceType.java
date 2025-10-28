@@ -37,14 +37,6 @@ public enum SourceType {
     InstallmentUob,
     @JsonProperty("installment_ttb")
     InstallmentTtb,
-    @JsonProperty("internet_banking_bay")
-    InternetBankingBay,
-    @JsonProperty("internet_banking_bbl")
-    InternetBankingBbl,
-    @JsonProperty("internet_banking_ktb")
-    InternetBankingKtb,
-    @JsonProperty("internet_banking_scb")
-    InternetBankingScb,
     @JsonProperty("mobile_banking_bay")
     MobileBankingBay,
     @JsonProperty("mobile_banking_bbl")
