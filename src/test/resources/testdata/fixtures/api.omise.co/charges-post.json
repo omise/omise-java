@@ -75,8 +75,8 @@
         "created_at": "2020-03-30T05:01:03Z"
       }
     },
-    "type": "bill_payment_tesco_lotus",
-    "flow": "offline",
+    "type": "mobile_banking_scb",
+    "flow": "app_redirect",
     "amount": 100000,
     "currency": "thb"
   }
