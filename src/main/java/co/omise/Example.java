@@ -142,7 +142,7 @@ final class Example {
 
         logInfo(
                 "created charge with %s authentication: %s and auth url: %s ",
-                authenticationType.getWireValue(),
+                charge.getAuthenticatedBy(),
                 charge.getId(),
                 charge.getAuthorizeUri());
     }
@@ -516,7 +516,7 @@ final class Example {
 
     void createSource() throws IOException, OmiseException, ClientException {
         Request<Source> request = new Source.CreateRequestBuilder()
-                .type(SourceType.InternetBankingBay)
+                .type(SourceType.MobileBankingKbank)
                 .amount(100000) // 1,000 THB
                 .currency("thb")
                 .terminalId("test_term_id")

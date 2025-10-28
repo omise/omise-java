@@ -86,36 +86,6 @@ public class LiveChargeRequestTest extends BaseLiveTest {
 
     @Test
     @Ignore("only hit the network when we need to.")
-    public void testLiveChargeWithInternetBanking() throws IOException, OmiseException {
-        Request<Source> sourceRequest = new Source.CreateRequestBuilder()
-                .type(SourceType.InternetBankingBay)
-                .amount(10000)
-                .currency("thb")
-                .build();
-
-        Source source = client.sendRequest(sourceRequest);
-
-        Request<Charge> createChargeRequest =
-                new Charge.CreateRequestBuilder()
-                        .source(source.getId())
-                        .amount(10000)
-                        .currency("thb")
-                        .returnUri("http://example.com/orders/345678/complete")
-                        .build();
-
-        Charge charge = client.sendRequest(createChargeRequest);
-
-        System.out.println("created charge: " + charge.getId());
-
-        assertNotNull(charge.getId());
-        assertEquals(10000, charge.getAmount());
-        assertEquals("THB", charge.getCurrency());
-        assertEquals(SourceType.InternetBankingBay, charge.getSource().getType());
-        assertEquals(FlowType.Redirect, charge.getSource().getFlow());
-    }
-
-    @Test
-    @Ignore("only hit the network when we need to.")
     public void testLiveChargeWithBillPaymentTescoLotus() throws IOException, OmiseException {
         Request<Source> sourceRequest = new Source.CreateRequestBuilder()
                 .type(SourceType.BillPaymentTescoLotus)
