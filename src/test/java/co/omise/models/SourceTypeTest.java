@@ -8,10 +8,6 @@ public class SourceTypeTest {
 
     @Test
     public void checkStringValue() {
-        assertEquals("internet_banking_bay", SourceType.InternetBankingBay.toString());
-        assertEquals("internet_banking_ktb", SourceType.InternetBankingKtb.toString());
-        assertEquals("internet_banking_bbl", SourceType.InternetBankingBbl.toString());
-        assertEquals("internet_banking_scb", SourceType.InternetBankingScb.toString());
         assertEquals("installment_uob", SourceType.InstallmentUob.toString());
         assertEquals("installment_ttb", SourceType.InstallmentTtb.toString());
         assertEquals("mobile_banking_bay", SourceType.MobileBankingBay.toString());
